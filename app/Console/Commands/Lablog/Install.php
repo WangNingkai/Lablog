@@ -42,7 +42,7 @@ class Install extends Command
          */
         $username = $this->ask('请输入数据库账号', 'root');
         $password = $this->ask('请输入数据库密码', false);
-        $database = $this->ask('请输入数据库名', 'la_blog');
+        $database = $this->ask('请输入数据库名', 'lablog');
         // ask 不允许为空  此处是为了兼容一些数据库密码为空的情况
         $password = $password ? $password : '';
         $envExample = file_get_contents(base_path('.env.example'));
