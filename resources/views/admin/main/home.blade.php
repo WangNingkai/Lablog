@@ -35,7 +35,7 @@
                             <a class="alert-link" href="">{{ Auth::user()->name }}</a>.</p>
 
                         <p>登陆时间 ：{{Auth::user()->last_login_at}}</p>
-                        <p>登陆地点 ：{{Auth::user()->last_login_ip}}</p>
+                        <p>登陆地点 ：{{ip_to_city(Auth::user()->last_login_ip)}}</p>
                     </div>
                 </div>
             </div>

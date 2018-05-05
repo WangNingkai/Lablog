@@ -110,8 +110,7 @@
                     <div class="col-sm-10">
                         <p class="form-control-static text-danger">{{$errors->first('content')}}</p>
                         <div id="editormd_id">
-                            <textarea name="content"
-                                      style="display:none;">{{old('content')?old('content'):$article->content}}</textarea>
+                            <textarea name="content" style="display:none;">{{old('content')?old('content'):$article->content}}</textarea>
                         </div>
                     </div>
                 </div>

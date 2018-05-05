@@ -89,8 +89,9 @@ class ArticleController extends Controller
         $tag_ids = $data['tag_ids'];
         unset($data['tag_ids']);
         // 把markdown转html
-        $data['html'] = $data['editormd_id-html-code'];
-        unset($data['editormd_id-html-code']);
+        // $data['html'] = $data['editormd_id-html-code'];
+        // unset($data['editormd_id-html-code']);
+        $data['html'] = markdown_to_html($data['content']);
         $articleTagModel->addTagIds($id, $tag_ids);
         // 编辑文章
         $this->article->updateData(['id' => $id], $data);
