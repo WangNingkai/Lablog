@@ -23,7 +23,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-                // 分配前台通用的数据
+        // 分配前台通用的数据
         view()->composer('*', function ($view) {
             $category_list = Cache::remember('app:category_list', 10080, function () {
                 // 获取分类导航
