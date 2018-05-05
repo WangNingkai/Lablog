@@ -6,30 +6,20 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Artisan;
 use App\Models\Article;
+use App\Models\Message;
 
-/* TODO:
- * 权限的使用
- * 用户管理功能
- */
 
 class DashboardController extends Controller
 {
     // 控制台首页
     public function home()
     {
-        // TODO:前台显示
-        // 文章数
-        $articleNum = Article::count();
-        // 登陆数
-        // $loginNum = 0;
-        // 评论数
-        // $commentNum = 0;
-        // 留言数
-        // $messageNum = 0;
+        $newMessageCount = Message::where(['status'=>0])->count();
+
         // 最新文章
         $newArticles = Article::orderBy('created_at', 'desc')->limit('3')->get();
         // dd(blank($newArticles));
-        return view('admin.main.home', compact('articleNum', 'loginNum', 'commentNum', 'messageNum', 'newArticles'));
+        return view('admin.main.home', compact( 'newArticles','newMessageCount'));
     }
 
     /**
@@ -40,6 +30,7 @@ class DashboardController extends Controller
     public function clear()
     {
         Artisan::call('cache:clear');
+        Artisan::call('view:clear');
         show_message('缓存清理成功');
         return redirect()->back();
     }

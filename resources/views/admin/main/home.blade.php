@@ -37,6 +37,10 @@
                         <p>登陆时间 ：{{Auth::user()->last_login_at}}</p>
                         <p>登陆地点 ：{{ip_to_city(Auth::user()->last_login_ip)}}</p>
                     </div>
+                    <div class="alert alert-danger alert-dismissable">
+                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                        <p>您有新留言，<a href="{{route('message-manage')}}">点击查看</a></p>
+                    </div>
                 </div>
             </div>
         </div>
