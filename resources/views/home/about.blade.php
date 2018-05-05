@@ -18,7 +18,7 @@
                             <hr/>
                         </div>
                         <div class="content markdown-body editormd-html-preview" style="padding:0;">
-                            {!! makdown_to_html($config['site_about']) !!}
+                            {!! markdown_to_html($config['site_about']) !!}
                         </div>
                     </div>
                 </div>
