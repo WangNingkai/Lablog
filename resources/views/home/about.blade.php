@@ -2,6 +2,9 @@
 @section('title', $config['site_name'])
 @section('keywords', $config['site_keywords'])
 @section('description', $config['site_description'])
+@section('css')
+{!! editor_css() !!}
+@stop
 @section('content')
     <div class="col-sm-8">
         <div class="ibox">
