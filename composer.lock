@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "73f786cad2c56aa5373103a7a8b92474",
+    "content-hash": "1eeeaecc4f83d8c84322161677748ca4",
     "packages": [
         {
             "name": "caouecs/laravel-lang",
@@ -16,9 +16,15 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/caouecs/Laravel-lang/9d618e137c4fd4a8e4556a69ab884aa0c413417c.zip",
+                "url": "https://api.github.com/repos/caouecs/Laravel-lang/zipball/9d618e137c4fd4a8e4556a69ab884aa0c413417c",
                 "reference": "9d618e137c4fd4a8e4556a69ab884aa0c413417c",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^2.10"
@@ -58,9 +64,15 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/dnoegel/php-xdg-base-dir/265b8593498b997dc2d31e75b89f053b5cc9621a.zip",
+                "url": "https://api.github.com/repos/dnoegel/php-xdg-base-dir/zipball/265b8593498b997dc2d31e75b89f053b5cc9621a",
                 "reference": "265b8593498b997dc2d31e75b89f053b5cc9621a",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": ">=5.3.2"
@@ -91,9 +103,15 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/doctrine/inflector/5527a48b7313d15261292c149e55e26eae771b0a.zip",
+                "url": "https://api.github.com/repos/doctrine/inflector/zipball/5527a48b7313d15261292c149e55e26eae771b0a",
                 "reference": "5527a48b7313d15261292c149e55e26eae771b0a",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": "^7.1"
@@ -158,9 +176,15 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/doctrine/lexer/83893c552fd2045dd78aef794c31e694c37c0b8c.zip",
+                "url": "https://api.github.com/repos/doctrine/lexer/zipball/83893c552fd2045dd78aef794c31e694c37c0b8c",
                 "reference": "83893c552fd2045dd78aef794c31e694c37c0b8c",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": ">=5.3.2"
@@ -203,51 +227,6 @@
             "time": "2014-09-09T13:34:57+00:00"
         },
         {
-            "name": "douyasi/laravel-editor-md",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/douyasi/laravel-editor-md.git",
-                "reference": "05a6d58da123427894271152a157ebe4daf7ca36"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://files.phpcomposer.com/files/douyasi/laravel-editor-md/05a6d58da123427894271152a157ebe4daf7ca36.zip",
-                "reference": "05a6d58da123427894271152a157ebe4daf7ca36",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.5.9"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Douyasi\\Editor\\": "src/"
-                },
-                "files": [
-                    "src/helpers.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "raoyc",
-                    "email": "raoyc2009@gmail.com"
-                }
-            ],
-            "description": "editor.md for laravel",
-            "keywords": [
-                "douyasi",
-                "editor.md",
-                "laravel",
-                "markdown"
-            ],
-            "time": "2017-04-26T04:01:27+00:00"
-        },
-        {
             "name": "dragonmantank/cron-expression",
             "version": "v2.1.0",
             "source": {
@@ -257,9 +236,15 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/dragonmantank/cron-expression/3f00985deec8df53d4cc1e5c33619bda1ee309a5.zip",
+                "url": "https://api.github.com/repos/dragonmantank/cron-expression/zipball/3f00985deec8df53d4cc1e5c33619bda1ee309a5",
                 "reference": "3f00985deec8df53d4cc1e5c33619bda1ee309a5",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": ">=7.0.0"
@@ -306,9 +291,15 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/egulias/EmailValidator/8790f594151ca6a2010c6218e09d96df67173ad3.zip",
+                "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/8790f594151ca6a2010c6218e09d96df67173ad3",
                 "reference": "8790f594151ca6a2010c6218e09d96df67173ad3",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "doctrine/lexer": "^1.0.1",
@@ -363,9 +354,15 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/erusev/parsedown/92e9c27ba0e74b8b028b111d1b6f956a15c01fc1.zip",
+                "url": "https://api.github.com/repos/erusev/parsedown/zipball/92e9c27ba0e74b8b028b111d1b6f956a15c01fc1",
                 "reference": "92e9c27ba0e74b8b028b111d1b6f956a15c01fc1",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "ext-mbstring": "*",
@@ -409,9 +406,15 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/fideloper/TrustedProxy/cf8a0ca4b85659b9557e206c90110a6a4dba980a.zip",
+                "url": "https://api.github.com/repos/fideloper/TrustedProxy/zipball/cf8a0ca4b85659b9557e206c90110a6a4dba980a",
                 "reference": "cf8a0ca4b85659b9557e206c90110a6a4dba980a",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "illuminate/contracts": "~5.0",
@@ -463,9 +466,15 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/JakubOnderka/PHP-Console-Color/e0b393dacf7703fc36a4efc3df1435485197e6c1.zip",
+                "url": "https://api.github.com/repos/JakubOnderka/PHP-Console-Color/zipball/e0b393dacf7703fc36a4efc3df1435485197e6c1",
                 "reference": "e0b393dacf7703fc36a4efc3df1435485197e6c1",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": ">=5.3.2"
@@ -506,9 +515,15 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/JakubOnderka/PHP-Console-Highlighter/7daa75df45242c8d5b75a22c00a201e7954e4fb5.zip",
+                "url": "https://api.github.com/repos/JakubOnderka/PHP-Console-Highlighter/zipball/7daa75df45242c8d5b75a22c00a201e7954e4fb5",
                 "reference": "7daa75df45242c8d5b75a22c00a201e7954e4fb5",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "jakub-onderka/php-console-color": "~0.1",
@@ -550,9 +565,15 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/SegmentFault/HyperDown/2fad8f9c61a984c9ba61616d8f09aa37054c7563.zip",
+                "url": "https://api.github.com/repos/SegmentFault/HyperDown/zipball/2fad8f9c61a984c9ba61616d8f09aa37054c7563",
                 "reference": "2fad8f9c61a984c9ba61616d8f09aa37054c7563",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": ">=5.4.0"
@@ -578,17 +599,23 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.6.19",
+            "version": "v5.6.20",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "4e480de7fe51c52573a95b25ebf85f5c7f5d2087"
+                "reference": "3c11e7acc6ad14dd86e2f9e4bf3230010c3e611c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/laravel/framework/4e480de7fe51c52573a95b25ebf85f5c7f5d2087.zip",
-                "reference": "4e480de7fe51c52573a95b25ebf85f5c7f5d2087",
-                "shasum": ""
+                "url": "https://api.github.com/repos/laravel/framework/zipball/3c11e7acc6ad14dd86e2f9e4bf3230010c3e611c",
+                "reference": "3c11e7acc6ad14dd86e2f9e4bf3230010c3e611c",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "doctrine/inflector": "~1.1",
@@ -713,7 +740,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2018-04-30T17:43:38+00:00"
+            "time": "2018-05-02T15:22:18+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -725,9 +752,15 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/laravel/tinker/b22fe905fcefdffae76b011e27c7ac09e07e052b.zip",
+                "url": "https://api.github.com/repos/laravel/tinker/zipball/b22fe905fcefdffae76b011e27c7ac09e07e052b",
                 "reference": "b22fe905fcefdffae76b011e27c7ac09e07e052b",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "illuminate/console": "~5.1",
@@ -788,9 +821,15 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/thephpleague/flysystem/168dbe519737221dc87d17385cde33073881fd02.zip",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/168dbe519737221dc87d17385cde33073881fd02",
                 "reference": "168dbe519737221dc87d17385cde33073881fd02",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": ">=5.5.9"
@@ -872,9 +911,15 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/Seldaek/monolog/fd8c787753b3a2ad11bc60c063cff1358a32a3b4.zip",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/fd8c787753b3a2ad11bc60c063cff1358a32a3b4",
                 "reference": "fd8c787753b3a2ad11bc60c063cff1358a32a3b4",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": ">=5.3.0",
@@ -950,9 +995,15 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/briannesbitt/Carbon/cbcf13da0b531767e39eb86e9687f5deba9857b4.zip",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/cbcf13da0b531767e39eb86e9687f5deba9857b4",
                 "reference": "cbcf13da0b531767e39eb86e9687f5deba9857b4",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": ">=5.3.9",
@@ -1003,9 +1054,15 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/nikic/PHP-Parser/e4a54fa90a5cd8e8dd3fb4099942681731c5cdd3.zip",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/e4a54fa90a5cd8e8dd3fb4099942681731c5cdd3",
                 "reference": "e4a54fa90a5cd8e8dd3fb4099942681731c5cdd3",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "ext-tokenizer": "*",
@@ -1054,9 +1111,15 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/overtrue/laravel-lang/c49d5f86c2ab2302c06e10d7ebd66a1ac73e0bab.zip",
+                "url": "https://api.github.com/repos/overtrue/laravel-lang/zipball/c49d5f86c2ab2302c06e10d7ebd66a1ac73e0bab",
                 "reference": "c49d5f86c2ab2302c06e10d7ebd66a1ac73e0bab",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "caouecs/laravel-lang": "~3.0"
@@ -1105,9 +1168,15 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/paragonie/random_compat/258c89a6b97de7dfaf5b8c7607d0478e236b04fb.zip",
+                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/258c89a6b97de7dfaf5b8c7607d0478e236b04fb",
                 "reference": "258c89a6b97de7dfaf5b8c7607d0478e236b04fb",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": ">=5.2.0"
@@ -1153,9 +1222,15 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/php-fig/container/b7ce3b176482dbbc1245ebf52b181af44c2cf55f.zip",
+                "url": "https://api.github.com/repos/php-fig/container/zipball/b7ce3b176482dbbc1245ebf52b181af44c2cf55f",
                 "reference": "b7ce3b176482dbbc1245ebf52b181af44c2cf55f",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": ">=5.3.0"
@@ -1202,9 +1277,15 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/php-fig/log/4ebe3a8bf773a19edfe0a84b6585ba3d401b724d.zip",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/4ebe3a8bf773a19edfe0a84b6585ba3d401b724d",
                 "reference": "4ebe3a8bf773a19edfe0a84b6585ba3d401b724d",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": ">=5.3.0"
@@ -1249,9 +1330,15 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/php-fig/simple-cache/408d5eafb83c57f6365a3ca330ff23aa4a5fa39b.zip",
+                "url": "https://api.github.com/repos/php-fig/simple-cache/zipball/408d5eafb83c57f6365a3ca330ff23aa4a5fa39b",
                 "reference": "408d5eafb83c57f6365a3ca330ff23aa4a5fa39b",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": ">=5.3.0"
@@ -1297,9 +1384,15 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/bobthecow/psysh/79c280013cf0b30fa23f3ba8bd3649218075adf4.zip",
+                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/79c280013cf0b30fa23f3ba8bd3649218075adf4",
                 "reference": "79c280013cf0b30fa23f3ba8bd3649218075adf4",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "dnoegel/php-xdg-base-dir": "0.1",
@@ -1369,9 +1462,15 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/ramsey/uuid/44abcdad877d9a46685a3a4d221e3b2c4b87cb76.zip",
+                "url": "https://api.github.com/repos/ramsey/uuid/zipball/44abcdad877d9a46685a3a4d221e3b2c4b87cb76",
                 "reference": "44abcdad877d9a46685a3a4d221e3b2c4b87cb76",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "paragonie/random_compat": "^1.0|^2.0",
@@ -1449,9 +1548,15 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/swiftmailer/swiftmailer/412333372fb6c8ffb65496a2bbd7321af75733fc.zip",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/412333372fb6c8ffb65496a2bbd7321af75733fc",
                 "reference": "412333372fb6c8ffb65496a2bbd7321af75733fc",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "egulias/email-validator": "~2.0",
@@ -1504,9 +1609,15 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/symfony/console/3e820bc2c520a87ca209ad8fa961c97f42e0b4ae.zip",
+                "url": "https://api.github.com/repos/symfony/console/zipball/3e820bc2c520a87ca209ad8fa961c97f42e0b4ae",
                 "reference": "3e820bc2c520a87ca209ad8fa961c97f42e0b4ae",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": "^7.1.3",
@@ -1572,9 +1683,15 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/symfony/css-selector/03f965583147957f1ecbad7ea1c9d6fd5e525ec2.zip",
+                "url": "https://api.github.com/repos/symfony/css-selector/zipball/03f965583147957f1ecbad7ea1c9d6fd5e525ec2",
                 "reference": "03f965583147957f1ecbad7ea1c9d6fd5e525ec2",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": "^7.1.3"
@@ -1625,9 +1742,15 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/symfony/debug/e1d57cdb357e5b10f5fdacbb0b86689c0a435e6e.zip",
+                "url": "https://api.github.com/repos/symfony/debug/zipball/e1d57cdb357e5b10f5fdacbb0b86689c0a435e6e",
                 "reference": "e1d57cdb357e5b10f5fdacbb0b86689c0a435e6e",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": "^7.1.3",
@@ -1681,9 +1804,15 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/symfony/event-dispatcher/63353a71073faf08f62caab4e6889b06a787f07b.zip",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/63353a71073faf08f62caab4e6889b06a787f07b",
                 "reference": "63353a71073faf08f62caab4e6889b06a787f07b",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": "^7.1.3"
@@ -1744,9 +1873,15 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/symfony/finder/ca27c02b7a3fef4828c998c2ff9ba7aae1641c49.zip",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/ca27c02b7a3fef4828c998c2ff9ba7aae1641c49",
                 "reference": "ca27c02b7a3fef4828c998c2ff9ba7aae1641c49",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": "^7.1.3"
@@ -1793,9 +1928,15 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/symfony/http-foundation/014487772c22d893168e5d628a13e882009fea29.zip",
+                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/014487772c22d893168e5d628a13e882009fea29",
                 "reference": "014487772c22d893168e5d628a13e882009fea29",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": "^7.1.3",
@@ -1846,9 +1987,15 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/symfony/http-kernel/8333264b6de323ea27a08627d5396aa564fb9c25.zip",
+                "url": "https://api.github.com/repos/symfony/http-kernel/zipball/8333264b6de323ea27a08627d5396aa564fb9c25",
                 "reference": "8333264b6de323ea27a08627d5396aa564fb9c25",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": "^7.1.3",
@@ -1932,9 +2079,15 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/symfony/polyfill-mbstring/3296adf6a6454a050679cde90f95350ad604b171.zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/3296adf6a6454a050679cde90f95350ad604b171",
                 "reference": "3296adf6a6454a050679cde90f95350ad604b171",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": ">=5.3.3"
@@ -1991,9 +2144,15 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/symfony/polyfill-php72/a4576e282d782ad82397f3e4ec1df8e0f0cafb46.zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-php72/zipball/a4576e282d782ad82397f3e4ec1df8e0f0cafb46",
                 "reference": "a4576e282d782ad82397f3e4ec1df8e0f0cafb46",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": ">=5.3.3"
@@ -2046,9 +2205,15 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/symfony/process/d7dc1ee5dfe9f732cb1bba7310f5b99f2b7a6d25.zip",
+                "url": "https://api.github.com/repos/symfony/process/zipball/d7dc1ee5dfe9f732cb1bba7310f5b99f2b7a6d25",
                 "reference": "d7dc1ee5dfe9f732cb1bba7310f5b99f2b7a6d25",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": "^7.1.3"
@@ -2095,9 +2260,15 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/symfony/routing/1dfbfdf060bbc80da8dedc062050052e694cd027.zip",
+                "url": "https://api.github.com/repos/symfony/routing/zipball/1dfbfdf060bbc80da8dedc062050052e694cd027",
                 "reference": "1dfbfdf060bbc80da8dedc062050052e694cd027",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": "^7.1.3"
@@ -2173,9 +2344,15 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/symfony/translation/ad3abf08eb3450491d8d76513100ef58194cd13e.zip",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/ad3abf08eb3450491d8d76513100ef58194cd13e",
                 "reference": "ad3abf08eb3450491d8d76513100ef58194cd13e",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": "^7.1.3",
@@ -2241,9 +2418,15 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/symfony/var-dumper/3c34cf3f4bbac9e003d9325225e9ef1a49180a18.zip",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/3c34cf3f4bbac9e003d9325225e9ef1a49180a18",
                 "reference": "3c34cf3f4bbac9e003d9325225e9ef1a49180a18",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": "^7.1.3",
@@ -2310,9 +2493,15 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/tijsverkoyen/CssToInlineStyles/0ed4a2ea4e0902dac0489e6436ebcd5bbcae9757.zip",
+                "url": "https://api.github.com/repos/tijsverkoyen/CssToInlineStyles/zipball/0ed4a2ea4e0902dac0489e6436ebcd5bbcae9757",
                 "reference": "0ed4a2ea4e0902dac0489e6436ebcd5bbcae9757",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": "^5.5 || ^7.0",
@@ -2357,9 +2546,15 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/vlucas/phpdotenv/3cc116adbe4b11be5ec557bf1d24dc5e3a21d18c.zip",
+                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/3cc116adbe4b11be5ec557bf1d24dc5e3a21d18c",
                 "reference": "3cc116adbe4b11be5ec557bf1d24dc5e3a21d18c",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": ">=5.3.9"
@@ -2396,6 +2591,57 @@
                 "environment"
             ],
             "time": "2016-09-01T10:05:43+00:00"
+        },
+        {
+            "name": "wangningkai/laravel-editor-md",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/WangNingkai/laravel-editor-md.git",
+                "reference": "4596777744d6507f6c316c88639fc83075ea08ba"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/WangNingkai/laravel-editor-md/zipball/4596777744d6507f6c316c88639fc83075ea08ba",
+                "reference": "4596777744d6507f6c316c88639fc83075ea08ba",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "WangNingkai\\Editor\\": "src/"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "WangNingkai",
+                    "email": "ningkai.wang@live.com"
+                }
+            ],
+            "description": "editor.md for laravel",
+            "keywords": [
+                "editor.md",
+                "laravel",
+                "markdown",
+                "wangningkai"
+            ],
+            "time": "2018-05-05T06:30:59+00:00"
         }
     ],
     "packages-dev": [
@@ -4143,7 +4389,6 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "douyasi/laravel-editor-md": 20,
         "joyqi/hyper-down": 20
     },
     "prefer-stable": true,

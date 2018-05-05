@@ -165,7 +165,7 @@ return [
          * 第三方
          */
         Overtrue\LaravelLang\TranslationServiceProvider::class,
-        Douyasi\Editor\EditorServiceProvider::class,
+        WangNingkai\Editor\EditorServiceProvider::class,
 
     ],
 
