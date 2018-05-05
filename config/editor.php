@@ -15,7 +15,7 @@ return [
     'flowChart' => 'false',  //流程图
     'tex' => 'false',  //开启科学公式TeX语言支持，默认关闭
     'imageUpload' => 'true',  //图片上传支持
-    'saveHTMLToTextarea' => 'true',  //保存 HTML 到 Textarea
+    'saveHTMLToTextarea' => 'false',  //保存 HTML 到 Textarea
     'codeFold' => 'true',  //代码折叠
     'sequenceDiagram' => 'false',  //开启时序/序列图支持，默认关闭
     'example' => 'false' //是否开启示范路由
