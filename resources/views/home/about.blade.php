@@ -3,7 +3,7 @@
 @section('keywords', $config['site_keywords'])
 @section('description', $config['site_description'])
 @section('css')
-{!! editor_css() !!}
+    <link rel="stylesheet" href="asset('vendor/editor.md/css/editormd.preview.min.css')" />
 @stop
 @section('content')
     <div class="col-sm-8">

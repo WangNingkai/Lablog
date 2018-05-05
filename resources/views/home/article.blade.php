@@ -5,7 +5,7 @@
 @section('css')
     <link rel="stylesheet" href="{{ asset('tpl/plugins/share/css/share.min.css') }}">
     <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/atom-one-dark.min.css" rel="stylesheet">
-    {!! editor_css() !!}
+    <link rel="stylesheet" href="asset('vendor/editor.md/css/editormd.preview.min.css')" />
 @stop
 @section('content')
     <div class="col-sm-8">
