@@ -313,3 +313,32 @@ if ( !function_exists('upload') ) {
 		return $data;
 	}
 }
+if (!function_exists('baidu_push')) {
+    /**
+     * 百度推广推送
+     *
+     * @param int $id
+     * @return bool
+     */
+    function baidu_push($id)
+    {
+        $urls=[];
+        $urls[]=route('article',$article->id);
+        $api=env('BAIDU_PUSH_API');
+        $ch=curl_init();
+        $options=array(
+            CURLOPT_URL=>$api,
+            CURLOPT_POST=>true,
+            CURLOPT_RETURNTRANSFER=>true,
+            CURLOPT_POSTFIELDS=>implode("\n", $urls),
+            CURLOPT_HTTPHEADER=>array('Content-Type: text/plain'),
+        );
+        curl_setopt_array($ch, $options);
+        $result=curl_exec($ch);
+        $msg=json_decode($result, true);
+        if ($msg['code']==500) {
+            curl_exec($ch);
+        }
+        curl_close($ch);
+    }
+}

@@ -31,6 +31,7 @@ class Article extends Base
         $result = $this
             ->create($data)
             ->id;
+        baidu_push($result);
         if ($result) {
             show_message('添加成功');
             // 给文章添加标签
