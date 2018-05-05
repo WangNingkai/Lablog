@@ -2,9 +2,6 @@
 @section('title', $config['site_name'])
 @section('keywords', $config['site_keywords'])
 @section('description', $config['site_description'])
-@section('css')
-    <link rel="stylesheet" href="asset('vendor/editor.md/css/editormd.preview.min.css')" />
-@stop
 @section('content')
     <div class="col-sm-8">
         <div class="ibox">
@@ -17,7 +14,7 @@
                             </h1>
                             <hr/>
                         </div>
-                        <div class="content markdown-body editormd-html-preview" style="padding:0;">
+                        <div class="content" style="padding:0;">
                             {!! markdown_to_html($config['site_about']) !!}
                         </div>
                     </div>
