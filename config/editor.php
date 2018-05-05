@@ -18,5 +18,5 @@ return [
     'saveHTMLToTextarea' => 'true',  //保存 HTML 到 Textarea
     'codeFold' => 'true',  //代码折叠
     'sequenceDiagram' => 'false',  //开启时序/序列图支持，默认关闭
-    'example' => 'true' //是否开启示范路由
+    'example' => 'false' //是否开启示范路由
 ];
