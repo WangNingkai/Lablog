@@ -208,7 +208,7 @@ if (!function_exists('makdown_to_html')) {
      * @param string $content
      * @return array
      */
-    function makdown_to_html($markdown)
+    function markdown_to_html($markdown)
     {
         preg_match_all('/&lt;iframe.*iframe&gt;/', $markdown, $iframe);
         // 如果有iframe 则先替换为临时字符串
