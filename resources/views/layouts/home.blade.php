@@ -199,7 +199,7 @@
         <!--页脚  -->
         <div class="footer">
             <div class="pull-right">
-                {{$config['site_icp_num']}}
+                <a href="http://www.miit.gov.cn/">{{$config['site_icp_num']}}</a>
             </div>
             <div>
                 &copy; {{ date('Y') }} {{ config('app.name') }}. All rights reserved.
