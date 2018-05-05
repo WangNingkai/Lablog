@@ -155,8 +155,7 @@
                                 </div>
                                 <div class="panel-body">
                                     @foreach( $link_list as $l_list)
-                                        <span class="simple_tag"><a href="{{$l_list->url}}"
-                                                                    target="_blank">{{$l_list->name}}</a></span>
+                                        <span class="simple_tag"><a href="{{$l_list->url}}" target="_blank">{{$l_list->name}}</a></span>
                                     @endforeach
                                 </div>
                             </div>

@@ -10,11 +10,15 @@
             </div>
         @else
             <div class="article-list">
-                {{--  <div class="ibox">
+                <div class="ibox">
                     <div class="ibox-content page-heading">
                         <h2>{{$category->name}}</h2>
+                        <p>子栏目:</p>
+                        <p>@foreach($childCategoryList as $childCategory)
+                        <span class="simple_tag"><a href="{{route('category',$childCategory->id)}}" target="_blank">{{$childCategory->name}}</a></span>
+                        @endforeach</p>
                     </div>
-                </div>  --}}
+                </div>
                 @foreach($articles as $article)
                     <div class="ibox">
                         <div class="ibox-content">
@@ -57,7 +61,6 @@
                         </div>
                     </div>
                 @endforeach
-
             </div>
         @endif
     </div>

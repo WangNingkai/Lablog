@@ -74,8 +74,9 @@ class HomeController extends Controller
     public function category($id)
     {
         $category = Category::findOrFail($id);
+        $childCategoryList=Category::where(['pid'=>$id])->get();
         $articles = $this->articleModel->getHomeList(['articles.category_id' => $id, 'articles.status' => 1]);
-        return view('home.category', compact('articles', 'category'));
+        return view('home.category', compact('articles', 'category','childCategoryList'));
     }
 
     /**
