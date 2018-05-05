@@ -39,7 +39,7 @@
                     </div>
                     <div class="alert alert-danger alert-dismissable">
                         <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-                        <p>您有新留言，<a href="{{route('message-manage')}}">点击查看</a></p>
+                        <p>您有新留言，<a href="{{route('message_manage')}}">点击查看</a></p>
                     </div>
                 </div>
             </div>
