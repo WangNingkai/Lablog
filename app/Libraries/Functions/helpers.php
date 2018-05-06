@@ -334,17 +334,17 @@ if (!function_exists('baidu_push')) {
         $urls[]=route('article',$id);
         $api=env('BAIDU_PUSH_API');
         $ch=curl_init();
-        $options=array(
+        $options=[
             CURLOPT_URL=>$api,
             CURLOPT_POST=>true,
             CURLOPT_RETURNTRANSFER=>true,
             CURLOPT_POSTFIELDS=>implode("\n", $urls),
-            CURLOPT_HTTPHEADER=>array('Content-Type: text/plain'),
-        );
+            CURLOPT_HTTPHEADER=>['Content-Type: text/plain'],
+        ];
         curl_setopt_array($ch, $options);
         $result=curl_exec($ch);
         $msg=json_decode($result, true);
-        if ($msg['code']==500) {
+        if ($msg['error']) {
             curl_exec($ch);
         }
         curl_close($ch);
