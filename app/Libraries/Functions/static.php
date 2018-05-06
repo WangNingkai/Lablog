@@ -127,4 +127,41 @@ if (!function_exists('scrooll_js')) {
         ';
     }
 }
+if (!function_exists('highlight_css')) {
+
+    function highlight_css()
+    {
+        return '<!--highlight_css-->
+<link href="https//cdn.bootcss.com/highlight.js/9.12.0/styles/atom-one-dark.min.css" rel="stylesheet">
+        ';
+    }
+}
+if (!function_exists('highlight_js')) {
+
+    function highlight_js()
+    {
+        return '<!--highlight_js-->
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script>
+        ';
+    }
+}
+if (!function_exists('social_css')) {
+
+    function social_css()
+    {
+        return '<!--social-share-->
+<link href="https://cdn.bootcss.com/social-share.js/1.0.16/css/share.min.css" rel="stylesheet">
+        ';
+    }
+}
+if (!function_exists('social_js')) {
+
+    function social_js()
+    {
+        return '<!--social-share-->
+<script src="https://cdn.bootcss.com/social-share.js/1.0.16/js/jquery.share.min.js"></script>
+        ';
+    }
+}
 
