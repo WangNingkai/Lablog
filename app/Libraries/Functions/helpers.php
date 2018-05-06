@@ -331,7 +331,7 @@ if (!function_exists('baidu_push')) {
     function baidu_push($id)
     {
         $urls=[];
-        $urls[]=route('article',$article->id);
+        $urls[]=route('article',$id);
         $api=env('BAIDU_PUSH_API');
         $ch=curl_init();
         $options=array(
