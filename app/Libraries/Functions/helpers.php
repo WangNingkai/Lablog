@@ -344,7 +344,7 @@ if (!function_exists('baidu_push')) {
         curl_setopt_array($ch, $options);
         $result=curl_exec($ch);
         $msg=json_decode($result, true);
-        if ($msg['error']) {
+        if (array_key_exists('error',$msg)) {
             curl_exec($ch);
         }
         curl_close($ch);
