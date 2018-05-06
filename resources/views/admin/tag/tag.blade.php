@@ -1,7 +1,7 @@
 @extends('layouts.admin') @section('title','标签管理') @section('css')
     <link href="{{asset('tpl/plugins/iCheck/custom.css')}}" rel="stylesheet">
     <!-- <link href="{{asset('tpl/plugins/dataTables/dataTables.bootstrap.min.css')}}" rel="stylesheet"> -->
-    <link href="https://cdn.bootcss.com/datatables/1.10.16/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    {!! datatables_css() !!}
     <style>
         .editTag :hover,
         .delTag :hover {
@@ -154,16 +154,9 @@
         </div>
     </div>
 @stop @section('js')
-    <!-- <script src="{{asset('tpl/plugins/dataTables/jquery.dataTables.min.js')}}"></script> -->
-    <script src="https://cdn.bootcss.com/datatables/1.10.16/js/jquery.dataTables.min.js"></script>
-    <!-- <script src="{{asset('tpl/plugins/dataTables/dataTables.bootstrap.min.js')}}"></script> -->
-    <script src="https://cdn.bootcss.com/datatables/1.10.16/js/dataTables.bootstrap.min.js"></script>
-    <!-- <script src="{{asset('tpl/plugins/iCheck/icheck.min.js')}}"></script> -->
-    <script src="https://cdn.bootcss.com/iCheck/1.0.2/icheck.min.js"></script>
-    <!-- <script src="{{asset('tpl/plugins/jquery-validate/jquery.validate.min.js')}}"></script> -->
-    <script src="https://cdn.bootcss.com/jquery-validate/1.17.0/jquery.validate.min.js"></script>
-    <!-- <script src="{{asset('tpl/plugins/jquery-validate/messages_zh.min.js')}}"></script> -->
-    <script src="https://cdn.bootcss.com/jquery-validate/1.17.0/localization/messages_zh.min.js"></script>
+    {!! datatables_js() !!}
+    {!! icheck_js() !!}
+    {!! validate_js() !!}
     <script src="{{asset('js/admin.js')}}"></script>
     <script src="{{asset('js/validator.js')}}"></script>
     <script>
