@@ -291,7 +291,7 @@
 {!! jquery_js() !!}
 {!! bootstrap_js() !!}
 <script src="{{asset('tpl/plugins/metisMenu/jquery.metisMenu.js')}}"></script>
-{!! scroll_js() !!}
+{!! scrooll_js() !!}
 <script src="{{asset('tpl/plugins/layer/layer.min.js')}}"></script>
 <script src="{{asset('tpl/js/hplus.min.js')}}"></script>
 <script src="{{asset('tpl/js/contabs.min.js')}}"></script>
