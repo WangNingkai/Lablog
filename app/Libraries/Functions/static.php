@@ -80,11 +80,11 @@ if (!function_exists('ickeck_css')) {
         ';
     }
 }
-if (!function_exists('ickeck_js')) {
+if (!function_exists('icheck_js')) {
 
-    function ickeck_js()
+    function icheck_js()
     {
-        return '<!--ickeck_js-->
+        return '<!--icheck_js-->
 <script src="https://cdn.bootcss.com/iCheck/1.0.2/icheck.min.js"></script>
         ';
     }
