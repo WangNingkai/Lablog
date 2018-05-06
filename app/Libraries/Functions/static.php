@@ -132,7 +132,7 @@ if (!function_exists('highlight_css')) {
     function highlight_css()
     {
         return '<!--highlight_css-->
-<link href="https//cdn.bootcss.com/highlight.js/9.12.0/styles/atom-one-dark.min.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/highlight.js/9.12.0/styles/atom-one-dark.min.css" rel="stylesheet">
         ';
     }
 }
