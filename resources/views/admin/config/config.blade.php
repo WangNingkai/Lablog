@@ -172,7 +172,8 @@
     </div>
 @stop @section('js')
 
-    <script src="{{asset('tpl/plugins/iCheck/icheck.min.js')}}"></script>
+        <!-- <script src="{{asset('tpl/plugins/iCheck/icheck.min.js')}}"></script> -->
+    <script src="https://cdn.bootcss.com/iCheck/1.0.2/icheck.min.js"></script>
     <script>
         $(function () {
             $(".i-checks").iCheck({

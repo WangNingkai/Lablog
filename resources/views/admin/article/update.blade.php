@@ -1,7 +1,6 @@
 @extends('layouts.admin')
 @section('title','编辑文章')
 @section('css')
-    <link href="{{asset('tpl/plugins/sweetalert2/sweetalert2.min.css')}}" rel="stylesheet">
     <link href="{{asset('tpl/plugins/iCheck/custom.css')}}" rel="stylesheet"> {!! editor_css() !!}
     <script>
         var createArticleUrl = "{{url('article/create')}}";
@@ -141,10 +140,12 @@
 
 @stop
 @section('js')
-    <script src="{{asset('tpl/plugins/sweetalert2/sweetalert2.min.js')}}"></script>
-    <script src="{{asset('tpl/plugins/iCheck/icheck.min.js')}}"></script>
-    <script src="{{asset('tpl/plugins/jquery-validate/jquery.validate.min.js')}}"></script>
-    <script src="{{asset('tpl/plugins/jquery-validate/messages_zh.min.js')}}"></script>
+    <!-- <script src="{{asset('tpl/plugins/iCheck/icheck.min.js')}}"></script> -->
+    <script src="https://cdn.bootcss.com/iCheck/1.0.2/icheck.min.js"></script>
+    <!-- <script src="{{asset('tpl/plugins/jquery-validate/jquery.validate.min.js')}}"></script> -->
+    <script src="https://cdn.bootcss.com/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+    <!-- <script src="{{asset('tpl/plugins/jquery-validate/messages_zh.min.js')}}"></script> -->
+    <script src="https://cdn.bootcss.com/jquery-validate/1.17.0/localization/messages_zh.min.js"></script>
     {!! editor_js() !!}
     {!! editor_config('editormd_id') !!}
     <script src="{{asset('js/admin.js')}}"></script>

@@ -103,9 +103,12 @@
         </div>
     </div>
 @stop @section('js')
-    <script src="{{asset('tpl/plugins/iCheck/icheck.min.js')}}"></script>
-    <script src="{{asset('tpl/plugins/jquery-validate/jquery.validate.min.js')}}"></script>
-    <script src="{{asset('tpl/plugins/jquery-validate/messages_zh.min.js')}}"></script>
+    <!-- <script src="{{asset('tpl/plugins/iCheck/icheck.min.js')}}"></script> -->
+    <script src="https://cdn.bootcss.com/iCheck/1.0.2/icheck.min.js"></script>
+    <!-- <script src="{{asset('tpl/plugins/jquery-validate/jquery.validate.min.js')}}"></script> -->
+    <script src="https://cdn.bootcss.com/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+    <!-- <script src="{{asset('tpl/plugins/jquery-validate/messages_zh.min.js')}}"></script> -->
+    <script src="https://cdn.bootcss.com/jquery-validate/1.17.0/localization/messages_zh.min.js"></script>
     <script src="{{asset('js/admin.js')}}"></script>
     <script src="{{asset('js/validator.js')}}"></script>
     <script>

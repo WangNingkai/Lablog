@@ -3,7 +3,8 @@
 @section('keywords', $article->keywords)
 @section('description', $article->description)
 @section('css')
-    <link rel="stylesheet" href="{{ asset('tpl/plugins/share/css/share.min.css') }}">
+    <!-- <link rel="stylesheet" href="{{ asset('tpl/plugins/share/css/share.min.css') }}"> -->
+    <link href="https://cdn.bootcss.com/social-share.js/1.0.16/css/share.min.css" rel="stylesheet">
     <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/atom-one-dark.min.css" rel="stylesheet">
 @stop
 @section('content')
@@ -73,7 +74,8 @@
     </div>
 @stop
 @section('js')
-    <script src="{{ asset('tpl/plugins/share/js/jquery.share.min.js') }}"></script>
+    <!-- <script src="{{ asset('tpl/plugins/share/js/jquery.share.min.js') }}"></script> -->
+    <script src="https://cdn.bootcss.com/social-share.js/1.0.16/js/jquery.share.min.js"></script>
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
     <script>
         $(function () {
