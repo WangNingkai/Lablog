@@ -200,9 +200,9 @@
         <div class="footer">
             <div class="pull-right">
                 <a href="http://www.miit.gov.cn/">{{$config['site_icp_num']}}</a>
-                || &copy; {{ date('Y') }} {{ config('app.name') }}. All rights reserved.
             </div>
             <div>
+                &copy; {{ date('Y') }} {{ config('app.name') }}. |
                 <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
             </div>
         </div>
