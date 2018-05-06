@@ -187,3 +187,12 @@ if (!function_exists('baidu_push_js')) {
     }
 }
 
+if (!function_exists('busuanzi_js')) {
+
+    function busuanzi_js()
+    {
+        return '<!--busuanzi_js-->
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        ';
+    }
+}
