@@ -192,20 +192,28 @@ if (!function_exists('ip_to_city')) {
      */
     function ip_to_city($ip)
     {
-        $url = "http://ip.taobao.com/service/getIpInfo.php?ip=" . $ip;
-        $ip = json_decode(file_get_contents($url));
-        if ((string)$ip->code == '1') {
+
+        $res = @file_get_contents('http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js&ip=' . $ip);
+        if(empty($res)){ return false; }
+        $jsonMatches = [];
+        preg_match('#\{.+?\}#', $res, $jsonMatches);
+        if(!isset($jsonMatches[0])){ return false; }
+        $json = json_decode($jsonMatches[0], true);
+        if(isset($json['ret']) && $json['ret'] == 1){
+            $json['ip'] = $ip;
+            unset($json['ret']);
+        }else{
             return false;
         }
-        $data = (array)$ip->data;
-        return $data['country'] . '.' . $data['region'];
+        return $json['country'] . '.' . $json['city'];
+
     }
 }
 if (!function_exists('makdown_to_html')) {
     /**
      * markdown 转 html
      *
-     * @param string $content
+     * @param string $markdown
      * @return array
      */
     function markdown_to_html($markdown)
