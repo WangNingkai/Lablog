@@ -27,14 +27,14 @@ Route::group(['namespace' => 'Auth'], function () {
 // 前台
 Route::group(['namespace' => 'Home', 'middleware' => ['status']], function () {
     Route::get('/', 'HomeController@index')->name('home');
-    Route::get('about.html', 'HomeController@about')->name('about');
-    Route::get('article/{id}.html', 'HomeController@article')->name('article');
-    Route::get('category/{id}.html', 'HomeController@category')->name('category');
-    Route::get('tag/{id}.html', 'HomeController@tag')->name('tag');
-    Route::get('archive.html', 'HomeController@archive')->name('archive');
-    Route::get('message.html','HomeController@message')->name('message');
+    Route::get('about', 'HomeController@about')->name('about');
+    Route::get('article/{id}', 'HomeController@article')->name('article');
+    Route::get('category/{id}', 'HomeController@category')->name('category');
+    Route::get('tag/{id}', 'HomeController@tag')->name('tag');
+    Route::get('archive', 'HomeController@archive')->name('archive');
+    Route::get('message','HomeController@message')->name('message');
     Route::post('message_store','HomeController@message_store')->name('message_store');
-    Route::get('search.html', 'HomeController@search')->name('search');
+    Route::get('search', 'HomeController@search')->name('search');
 });
 // 后台
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['auth:web']], function () {
