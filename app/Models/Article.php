@@ -27,7 +27,6 @@ class Article extends Base
         $data['html'] = markdown_to_html($data['content']);
         $tag_ids = $data['tag_ids'];
         unset($data['tag_ids']);
-
         //添加数据
         $result = parent::storeData($data);
         baidu_push($result);

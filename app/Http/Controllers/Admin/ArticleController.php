@@ -161,13 +161,13 @@ class ArticleController extends Controller
         $data = $request->only('aid');
         $arr = explode(',', $data['aid']);
         if (!$this->article->whereIn('id', $arr)->forceDelete()) {
-            show_message('删除失败', false);
+            show_message('彻底删除失败', false);
             return redirect()->back();
         }
         // 删除对应标签记录
         $articleTagModel = new ArticleTag;
         $articleTagModel->whereIn('article_id', $arr)->forceDelete();
-        show_message('删除成功');
+        show_message('彻底删除成功');
         // 更新缓存
         Cache::forget('app:tag_list');
         return redirect()->back();

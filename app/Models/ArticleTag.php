@@ -16,7 +16,7 @@ class ArticleTag extends Base
         $map = [
             'article_id' => $article_id
         ];
-        $this->forceDeleteData($map);
+        $this->where($map)->forceDelete();
         // 使用模型Insert方法插入数据
         $data = [];
         foreach ($tag_ids as $v) {
