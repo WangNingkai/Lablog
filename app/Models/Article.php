@@ -23,6 +23,7 @@ class Article extends Base
         }
 
         // markdown转html
+        unset($data['editormd_id-html-code']);
         $data['html'] = markdown_to_html($data['content']);
         $tag_ids = $data['tag_ids'];
         unset($data['tag_ids']);

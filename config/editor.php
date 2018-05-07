@@ -20,6 +20,6 @@ return [
     'sequenceDiagram' => 'false',  //开启时序/序列图支持，默认关闭
     'addTextWater' => true, //开启文字图片水印 !!bool类型
     'textWaterColor' => '#0B94C1', //文字图片水印颜色
-    'textWaterContent' => 'lablog', //文字图片水印内容
+    'textWaterContent' => 'DesignedByLablog', //文字图片水印内容
     'example' => false //是否开启示范路由 !!bool类型
 ];
