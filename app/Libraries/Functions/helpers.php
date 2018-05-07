@@ -332,15 +332,16 @@ if ( !function_exists('add_text_water') ) {
      */
     function add_text_water($file, $text, $color = '#0B94C1') {
         $image = Image::make($file);
-        $image->text($text, $image->width()-20, $image->height()-30, function($font) use($color) {
-            $font->file(public_path('fonts/tahei.ttf'));
-            $font->size(15);
-            $font->color($color);
-            $font->align('right');
-            $font->valign('bottom');
+        return tap($image,function($image){
+            $image->text($text, $image->width()-20, $image->height()-30, function($font) use($color) {
+                $font->file(public_path('fonts/tahei.ttf'));
+                $font->size(15);
+                $font->color($color);
+                $font->align('right');
+                $font->valign('bottom');
+            });
+            $image->save($file);
         });
-        $image->save($file);
-        return $image;
     }
 }
 if (!function_exists('baidu_push')) {
