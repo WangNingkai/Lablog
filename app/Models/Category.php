@@ -40,7 +40,7 @@ class Category extends Base
         // 获取分类下的文章数
         $articleCount = Article::whereIn('category_id', $categoryIdArray)->count();
         // 如果分类下存在文章；则需要下删除文章
-        if ($articleCount !== 0) {
+        if (0 !==$articleCount) {
             show_message('请先删除所选分类下的文章', false);
             return false;
         }

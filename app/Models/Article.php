@@ -28,9 +28,7 @@ class Article extends Base
         unset($data['tag_ids']);
 
         //添加数据
-        $result = $this
-            ->create($data)
-            ->id;
+        $result = parent::storeData($data);
         baidu_push($result);
         if ($result) {
             show_message('添加成功');

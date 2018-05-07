@@ -83,6 +83,28 @@ class Base extends Model
         }
     }
 
+        /**
+     * 彻底删除
+     *
+     * @param $map
+     *
+     * @return bool
+     */
+    public function forceDeleteData($map)
+    {
+        // 彻底删除
+        $result=$this
+            ->whereMap($map)
+            ->forceDelete();
+        if ($result) {
+            show_message('彻底删除成功');
+            return $result;
+        }else{
+            show_message('彻底删除失败', false);
+            return false;
+        }
+    }
+
     /**
      * 恢复数据
      *

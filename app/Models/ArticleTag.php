@@ -16,15 +16,16 @@ class ArticleTag extends Base
         $map = [
             'article_id' => $article_id
         ];
-        $this->whereMap($map)->forceDelete();
-        // 循环插入
+        $this->forceDeleteData($map);
+        // 使用模型Insert方法插入数据
+        $data = [];
         foreach ($tag_ids as $v) {
-            $data = [
+            $data[] = [
                 'article_id' => $article_id,
                 'tag_id' => $v
             ];
-            $this->storeData($data);
         }
+        $this->insert($data);
     }
 
     /**

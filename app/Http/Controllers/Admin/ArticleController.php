@@ -167,6 +167,8 @@ class ArticleController extends Controller
         $articleTagModel = new ArticleTag;
         $articleTagModel->whereIn('article_id', $arr)->forceDelete();
         show_message('删除成功');
+        // 更新缓存
+        Cache::forget('app:tag_list');
         return redirect()->back();
     }
 }
