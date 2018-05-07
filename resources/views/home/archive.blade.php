@@ -23,16 +23,20 @@
                                         <h3>{{$archive_t->time}}（共{{$archive_t->posts}}篇）</h3>
                                         <ul class="list-group no-padding">
                                             @foreach($archive_t->articles as $article)
-                                                <li class="list-group-item"><a class="btn-link"
-                                                                               href="{{route('article',$article->id)}}">{{$article->title}}</a>
+                                                <li class="list-group-item">
+                                                    <a class="btn-link" href="{{route('article',$article->id)}}">{{$article->title}}</a>
                                                 </li>
                                             @endforeach
                                         </ul>
                                     </div>
                                 </div>
                             @endforeach
+
                         </div>
                     </div>
+                </div>
+                <div class="text-center" >
+                    {{ $archive->links() }}
                 </div>
             </div>
         </div>

@@ -96,7 +96,12 @@ class HomeController extends Controller
     public function archive()
     {
 
-        $archive = DB::select("select DATE_FORMAT(created_at, '%Y-%m') as time, count(*) as posts from articles where deleted_at is null AND status=1 group by DATE_FORMAT(created_at, '%Y-%m') order by DATE_FORMAT(created_at, '%Y-%m') DESC");
+        $archive=$this->articleModel
+            ->select(DB::raw('DATE_FORMAT(created_at, \'%Y-%m\') as time, count(*) as posts'))
+            ->where('status',1)
+            ->groupBy('time')
+            ->orderBy('time','DESC')
+            ->simplePaginate(5);
         // $archive
         foreach ($archive as $v) {
             $start = date('Y-m-d', strtotime($v->time));
