@@ -2797,16 +2797,16 @@
         },
         {
             "name": "wangningkai/laravel-editor-md",
-            "version": "1.0.4",
+            "version": "1.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/WangNingkai/laravel-editor-md.git",
-                "reference": "aa2702bee320855db48cfc1cfa174e979987ce82"
+                "reference": "20fe16227a4b55b7a228e3cba9f5e37ccb41b740"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/WangNingkai/laravel-editor-md/zipball/aa2702bee320855db48cfc1cfa174e979987ce82",
-                "reference": "aa2702bee320855db48cfc1cfa174e979987ce82",
+                "url": "https://api.github.com/repos/WangNingkai/laravel-editor-md/zipball/20fe16227a4b55b7a228e3cba9f5e37ccb41b740",
+                "reference": "20fe16227a4b55b7a228e3cba9f5e37ccb41b740",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -2845,7 +2845,7 @@
                 "markdown",
                 "wangningkai"
             ],
-            "time": "2018-05-07T04:01:47+00:00"
+            "time": "2018-05-07T05:55:54+00:00"
         }
     ],
     "packages-dev": [
