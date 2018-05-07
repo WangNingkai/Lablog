@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Session;
 use App\Libraries\Extensions\Tree;
 use Illuminate\Support\Facades\Mail;
 use HyperDown\Parser;
+use Intervention\Image\Facades\Image;
 
 if (!function_exists('transform_time')) {
     /**
@@ -209,7 +210,7 @@ if (!function_exists('ip_to_city')) {
 
     }
 }
-if (!function_exists('makdown_to_html')) {
+if (!function_exists('markdown_to_html')) {
     /**
      * markdown 转 html
      *
@@ -244,7 +245,6 @@ if (!function_exists('makdown_to_html')) {
         return $html;
     }
 }
-
 if (!function_exists('send_email')) {
     /**
      * 发送邮件函数
@@ -320,6 +320,28 @@ if ( !function_exists('upload') ) {
 		$data = ['status_code' => 200, 'message' => '上传成功', 'data' => ['old_name' => $oldName, 'new_name' => $newName, 'path' => trim($path, '.')]];
 		return $data;
 	}
+}
+if ( !function_exists('add_text_water') ) {
+    /**
+     * 给图片添加文字水印
+     *
+     * @param $file
+     * @param $text
+     * @param string $color
+     * @return mixed
+     */
+    function add_text_water($file, $text, $color = '#0B94C1') {
+        $image = Image::make($file);
+        $image->text($text, $image->width()-20, $image->height()-30, function($font) use($color) {
+            $font->file(public_path('fonts/tahei.ttf'));
+            $font->size(15);
+            $font->color($color);
+            $font->align('right');
+            $font->valign('bottom');
+        });
+        $image->save($file);
+        return $image;
+    }
 }
 if (!function_exists('baidu_push')) {
     /**
