@@ -40,7 +40,7 @@ class Link extends Base
      * @param  string $value
      * @return string
      */
-    public function setFirstNameAttribute($value)
+    public function setUrlAttribute($value)
     {
         // 如果没有http 则补上http
         if (strpos($value, 'http') === false) {
@@ -48,6 +48,6 @@ class Link extends Base
         }
         // 删除右侧的/
         $value = rtrim($value, '/');
-        $this->attributes['first_name'] = strtolower($value);
+        $this->attributes['url'] = strtolower($value);
     }
 }
