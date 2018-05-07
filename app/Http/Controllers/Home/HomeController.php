@@ -30,7 +30,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-       $articles = $this->articleModel->getHomeList(['articles.status' => 1]);
+        $articles = $this->articleModel->getHomeList(['articles.status' => 1]);
         return view('home.index', compact('articles'));
     }
 

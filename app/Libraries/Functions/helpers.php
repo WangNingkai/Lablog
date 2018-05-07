@@ -321,29 +321,6 @@ if ( !function_exists('upload') ) {
 		return $data;
 	}
 }
-if ( !function_exists('add_text_water') ) {
-    /**
-     * 给图片添加文字水印
-     *
-     * @param $file
-     * @param $text
-     * @param string $color
-     * @return mixed
-     */
-    function add_text_water($file, $text, $color = '#0B94C1') {
-        $image = Image::make($file);
-        return tap($image,function($image){
-            $image->text($text, $image->width()-20, $image->height()-30, function($font) use($color) {
-                $font->file(public_path('fonts/tahei.ttf'));
-                $font->size(15);
-                $font->color($color);
-                $font->align('right');
-                $font->valign('bottom');
-            });
-            $image->save($file);
-        });
-    }
-}
 if (!function_exists('baidu_push')) {
     /**
      * 百度推广推送
