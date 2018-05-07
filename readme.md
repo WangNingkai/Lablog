@@ -1,6 +1,6 @@
 
 ## 链接
-- 博客：[https://ningkai.wang](https://ningkai.wang)
+- 博客：[https://imwnk.cn](https://imwnk.cn)
 - gitee：[https://github.com/wangningkai/Lablog](https://github.com/wangningkai/Lablog)
 - 码云：[https://gitee.com/wangningkai/Lablog](https://gitee.com/wangningkai/Lablog)
 
