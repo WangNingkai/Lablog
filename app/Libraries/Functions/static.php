@@ -4,7 +4,7 @@ if (!function_exists('bootstrap_css')) {
 
     function bootstrap_css()
     {
-        return '<!--editor.md css-->
+        return '<!--bootstrap_css-->
 <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">';
     }
 }
