@@ -18,7 +18,7 @@ class ResetPasswordNotification extends Notification
      */
     public function __construct()
     {
-        //
+         $this->token = $token;
     }
 
     /**
@@ -41,10 +41,12 @@ class ResetPasswordNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
+                    ->subject('密码重置')
+                    ->salutation('您好')
                     ->line('由于您发送了密码重置的请求，我们为您发送了此邮件。')
-                    ->line('You are receiving this email because we received a password reset request for your account')
+                    // ->line('You are receiving this email because we received a password reset request for your account')
                     ->action('Reset Password', url(config('app.url').route('password.reset', $this->token, false)))
-                    ->line('如果您未进行密码重置，请忽略此邮件。')
+                    // ->line('如果您未进行密码重置，请忽略此邮件。')
                     ->line('If you did not request a password reset, no further action is required.');
     }
 
