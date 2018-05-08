@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d173edd305622b7b1f0cb40cb9ad477a",
+    "content-hash": "ef3cea6c248b90221056b25fc4e7d61b",
     "packages": [
         {
             "name": "caouecs/laravel-lang",
@@ -2797,16 +2797,16 @@
         },
         {
             "name": "wangningkai/laravel-editor-md",
-            "version": "1.0.7",
+            "version": "1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/WangNingkai/laravel-editor-md.git",
-                "reference": "20fe16227a4b55b7a228e3cba9f5e37ccb41b740"
+                "reference": "dfddb6b359ae84550e3c8b7bae64c1bbced60035"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/WangNingkai/laravel-editor-md/zipball/20fe16227a4b55b7a228e3cba9f5e37ccb41b740",
-                "reference": "20fe16227a4b55b7a228e3cba9f5e37ccb41b740",
+                "url": "https://api.github.com/repos/WangNingkai/laravel-editor-md/zipball/dfddb6b359ae84550e3c8b7bae64c1bbced60035",
+                "reference": "dfddb6b359ae84550e3c8b7bae64c1bbced60035",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -2845,7 +2845,7 @@
                 "markdown",
                 "wangningkai"
             ],
-            "time": "2018-05-07T05:55:54+00:00"
+            "time": "2018-05-07T16:37:12+00:00"
         }
     ],
     "packages-dev": [
