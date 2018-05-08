@@ -12,6 +12,13 @@ class ResetPasswordNotification extends Notification
     use Queueable;
 
     /**
+     * The password reset token.
+     *
+     * @var string
+     */
+    public $token;
+
+    /**
      * Create a new notification instance.
      *
      * @return void
