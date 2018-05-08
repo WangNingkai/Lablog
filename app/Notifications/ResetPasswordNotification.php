@@ -49,12 +49,13 @@ class ResetPasswordNotification extends Notification
     {
         return (new MailMessage)
                     ->subject('密码重置')
-                    ->salutation('您好')
+                    ->greeting('您好！')
+                    ->salutation('谢谢！')
                     ->line('由于您发送了密码重置的请求，我们为您发送了此邮件。')
                     // ->line('You are receiving this email because we received a password reset request for your account')
                     ->action('Reset Password', url(config('app.url').route('password.reset', $this->token, false)))
-                    // ->line('如果您未进行密码重置，请忽略此邮件。')
-                    ->line('If you did not request a password reset, no further action is required.');
+                    ->line('如果您未进行密码重置，请忽略此邮件。');
+                    // ->line('If you did not request a password reset, no further action is required.');
     }
 
     /**
