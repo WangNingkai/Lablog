@@ -6,6 +6,7 @@ use App\Libraries\Extensions\Tree;
 use Illuminate\Support\Facades\Mail;
 use HyperDown\Parser;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Redis;
 
 if (!function_exists('transform_time')) {
     /**
@@ -320,6 +321,35 @@ if ( !function_exists('upload') ) {
 		$data = ['status_code' => 200, 'message' => '上传成功', 'data' => ['old_name' => $oldName, 'new_name' => $newName, 'path' => trim($path, '.')]];
 		return $data;
 	}
+}
+if (! function_exists('redis')) {
+    /**
+     * redis的便捷操作方法
+     *
+     * @param $key
+     * @param null $value
+     * @param null $expire
+     * @return bool|string
+     */
+    function redis($key = null, $value = null, $expire = null)
+    {
+        if (is_null($key)) {
+            return app('redis');
+        }
+
+        if (is_null($value)) {
+            $content = Redis::get($key);
+            if (is_null($content)) {
+                return null;
+            }
+            return is_null($content) ? null : unserialize($content);
+        }
+
+        Redis::set($key, serialize($value));
+        if (! is_null($expire)) {
+            Redis::expire($key, $expire);
+        }
+    }
 }
 if (!function_exists('baidu_push')) {
     /**
