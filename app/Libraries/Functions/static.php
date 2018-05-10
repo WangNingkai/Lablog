@@ -142,7 +142,6 @@ if (!function_exists('highlight_js')) {
     {
         return '<!--highlight_js-->
 <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
-    <script>
         ';
     }
 }
