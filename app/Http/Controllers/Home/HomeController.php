@@ -131,6 +131,7 @@ class HomeController extends Controller
     public function message_store(Store $request,Message $message)
     {
         $message->storeData($request->all());
+        $config=Cache::get('app:config')->toArray();
         Mail::to($config['site_mailto_admin'])->send(new SendReminder());
         // 更新缓存
         Cache::forget('app:message_list');
