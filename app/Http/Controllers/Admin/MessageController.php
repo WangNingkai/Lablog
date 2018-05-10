@@ -71,7 +71,8 @@ class MessageController extends Controller
     {
         $this->message->replyData($request->id,$request->reply);
         // 更新缓存
-        Mail::to($request->email)->send(new SendReply());
+        $emailto=$this->message->where('id',$request->id)->pluck('email');
+        Mail::to( $emailto)->send(new SendReply());
         Cache::forget('app:message_list');
         return redirect()->route('message_manage');
     }
