@@ -134,8 +134,7 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">回复</label>
                             <div class="col-sm-10">
-                                <input type="text" name="reply" id="replay" class="form-control"
-                                       placeholder="在此输入回复内容">
+                                <input type="text" name="reply" id="replay" class="form-control" placeholder="在此输入回复内容">
                             </div>
                         </div>
                     </div>
