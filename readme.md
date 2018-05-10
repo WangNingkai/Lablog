@@ -8,11 +8,33 @@
 这个项目是把 [TP5Blog](https://gitee.com/wangningkai/TP5blog) 用 laravel 框架重构后的产物；
 
 ## 安装使用
-或者：
+
 ```bash
-git clone https://gitee.com/wangningkai/Lablog.git lablog && cd lablog && cp .env.example .env && composer install -vvv && php artisan key:generate && php artisan lablog:install && php artisan lablog:migrate
+git clone -b master https://gitee.com/wangningkai/Lablog.git tmp 
+mv tmp/.git . 
+rm -rf tmp 
+git reset --hard 
+cp .env.example .env 
+composer install -vvv 
+php artisan key:generate
+php artisan lablog:install
+php artisan lablog:migrate 
+chmod -R 755 storage/
+chown -R www:www *
+
 # 或者
-git clone https://github.com/wangningkai/Lablog.git lablog && cd lablog && cp .env.example .env && composer install -vvv && php artisan key:generate && php artisan lablog:install && php artisan lablog:migrate
+
+git clone -b master https://github.com/wangningkai/Lablog.git tmp 
+mv tmp/.git . 
+rm -rf tmp 
+git reset --hard 
+cp .env.example .env 
+composer install -vvv 
+php artisan key:generate
+php artisan lablog:install
+php artisan lablog:migrate 
+chmod -R 755 storage/
+chown -R www:www *
 ```
 
 ## 注意事项
