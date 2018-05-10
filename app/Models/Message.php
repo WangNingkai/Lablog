@@ -66,7 +66,7 @@ class Message extends Base
             show_message('非法数据！', false);
             return false;
         }
-        $result=$model->forceFill(['reply'=>$reply])->save();;
+        $result=$model->forceFill(['reply'=>$reply,'status'=>1])->save();;
         if ($result) {
             show_message('操作成功');
             return $result;
