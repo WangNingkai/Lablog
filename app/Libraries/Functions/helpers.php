@@ -269,12 +269,7 @@ if (!function_exists('send_email')) {
                 $message->to($email, $name)->subject($subject);
             }
         });
-        if (count(Mail::failures()) > 0) {
-            $data = ['status_code' => 500, 'message' => '邮件发送失败'];
-        } else {
-            $data = ['status_code' => 200, 'message' => '邮件发送成功'];
-        }
-        return $data;
+        return (count(Mail::failures()) > 0)?['status_code' => 500, 'message' => '邮件发送失败']:['status_code' => 200, 'message' => '邮件发送成功'];
     }
 }
 if ( !function_exists('upload') ) {
@@ -314,12 +309,10 @@ if ( !function_exists('upload') ) {
 		$newName = uniqid() . '.' . $file->getClientOriginalExtension();
 		//上传失败
 		if (!$file->move($path, $newName)) {
-			$data = ['status_code' => 500, 'message' => '保存文件失败'];
-			return $data;
+			return ['status_code' => 500, 'message' => '保存文件失败'];
 		}
 		//上传成功
-		$data = ['status_code' => 200, 'message' => '上传成功', 'data' => ['old_name' => $oldName, 'new_name' => $newName, 'path' => trim($path, '.')]];
-		return $data;
+		return ['status_code' => 200, 'message' => '上传成功', 'data' => ['old_name' => $oldName, 'new_name' => $newName, 'path' => trim($path, '.')]];
 	}
 }
 if (! function_exists('redis')) {

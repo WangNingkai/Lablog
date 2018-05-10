@@ -14,6 +14,8 @@ use App\Models\Message;
 use Auth;
 use Cache;
 use DB;
+use Mail;
+use App\Mail\SendReminder;
 
 
 class HomeController extends Controller
@@ -129,6 +131,7 @@ class HomeController extends Controller
     public function message_store(Store $request,Message $message)
     {
         $message->storeData($request->all());
+        Mail::to($config['site_mailto_admin'])->send(new SendReminder());
         // 更新缓存
         Cache::forget('app:message_list');
         return redirect()->route('message');

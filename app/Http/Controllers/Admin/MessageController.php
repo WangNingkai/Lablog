@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Message;
 use Cache;
+use Mail;
+use App\Mail\SendReply;
 
 class MessageController extends Controller
 {
@@ -69,6 +71,7 @@ class MessageController extends Controller
     {
         $this->message->replyData($request->id,$request->reply);
         // 更新缓存
+        Mail::to($request->email)->send(new SendReply());
         Cache::forget('app:message_list');
         return redirect()->route('message_manage');
     }

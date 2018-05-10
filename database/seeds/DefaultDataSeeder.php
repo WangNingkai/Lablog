@@ -138,6 +138,14 @@ class DefaultDataSeeder extends Seeder
                 'updated_at' => '2017-10-25 12:12:00',
 
             ],
+            14 => [
+                'id' => 15,
+                'name' => 'site_mailto_admin',
+                'value' => 'admin@admin.com',
+                'created_at' => '2017-10-25 12:12:00',
+                'updated_at' => '2017-10-25 12:12:00',
+
+            ],
         ]);
         \DB::table('tags')->delete();
         \DB::table('tags')->insert([

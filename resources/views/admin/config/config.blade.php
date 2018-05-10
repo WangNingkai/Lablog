@@ -114,13 +114,23 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">网站管理邮箱地址：</label>
+                    <label class="col-sm-2 control-label">网站邮箱投稿地址：</label>
                     <div class="col-sm-5">
                         <input type="text" class="form-control" name="site_admin_mail"
                                value="{{ $config['site_admin_mail'] }}">
                     </div>
                     <div class="col-sm-5">
                         <p class="form-control-static text-danger">{{$errors->first('site_admin_mail')}}</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">网站管理邮箱：</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" name="site_mailto_admin"
+                               value="{{ $config['site_mailto_admin'] }}">
+                    </div>
+                    <div class="col-sm-5">
+                        <p class="form-control-static text-danger">{{$errors->first('site_mailto_admin')}}</p>
                     </div>
                 </div>
                 <div class="form-group">
