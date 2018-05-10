@@ -10,9 +10,17 @@
 ## 安装使用
 或者：
 ```bash
-git clone https://gitee.com/wangningkai/Lablog.git lablog && cd lablog && cp .env.example .env && composer install -vvv && php artisan lablog:install && php artisan lablog:migrate
+git clone https://gitee.com/wangningkai/Lablog.git lablog && cd lablog && cp .env.example .env && composer install -vvv && php artisan key:generate && php artisan lablog:install && php artisan lablog:migrate
 # 或者
-git clone https://github.com/wangningkai/Lablog.git lablog && cd lablog && cp .env.example .env && composer install -vvv && php artisan lablog:install && php artisan lablog:migrate
+git clone https://github.com/wangningkai/Lablog.git lablog && cd lablog && cp .env.example .env && composer install -vvv && php artisan key:generate && php artisan lablog:install && php artisan lablog:migrate
+```
 
+## 注意事项
 
+因部分扩展要求需要安装相应php扩展
+
+**FileInfo扩展**
+**Imagick扩展**
+**GD库扩展** 
+**Redis扩展** 
 
