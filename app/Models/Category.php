@@ -7,14 +7,21 @@ class Category extends Base
 {
     protected $fillable = ['name', 'flag', 'pid', 'keywords', 'description', 'sort'];
 
-    public function getNameByPid($pid)
-    {
-        if (0 === $pid) {
-            return '主栏目';
+    /**
+     * 递归获取树形索引
+     * @return array 角色数组
+     */
+    public function getTreeIndex($id = 0, $deep = 0) {
+        static $tempArr = [];
+        $data = $this->where('pid', $id)->orderBy('sort', 'asc')->get();
+        foreach ($data as $k => $v) {
+            $v->deep = $deep;
+            $v->name = str_repeat("&nbsp;&nbsp;", $v->deep * 2) . '|--' . $v->name;
+            $tempArr[] = $v;
+            $this->getTreeIndex($v->id, $deep + 1);
         }
-        return $data = $this->where('id', $pid)->pluck('name')->first();
+        return $tempArr;
     }
-
     /**
      * 删除数据
      *

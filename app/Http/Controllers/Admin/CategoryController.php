@@ -28,13 +28,12 @@ class CategoryController extends Controller
      */
     public function manage()
     {
-        $categories = $this->category->orderBy('created_at', 'desc')->get();
+        // $categories = $this->category->orderBy('sort', 'desc')->get();
+        $categories=$this->category->getTreeIndex();
         foreach ($categories as $category) {
             // 文章数量统计
             $articleCount = Article::where('category_id', $category->id)->count();
             $category->article_count = $articleCount;
-            $category->p_name = $this->category->getNameByPid($category->pid);
-
         }
         return view('admin.category.manage', compact('categories'));
     }

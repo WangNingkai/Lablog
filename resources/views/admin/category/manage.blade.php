@@ -39,7 +39,6 @@
         <tr>
             <th></th>
             <th>栏目名</th>
-            <th>父级栏目</th>
             <th>文章数</th>
             <th>排序权重</th>
             <th>操作</th>
@@ -51,8 +50,7 @@
                 <td>
                     <input type="checkbox" value="{{$category->id}}" name="cid">
                 </td>
-                <td>{{$category->name}}</td>
-                <td>{{$category->p_name}}</td>
+                <td>{!! $category->name !!}</td>
                 <td>{{$category->article_count}}</td>
                 <td>{{$category->sort}}</td>
                 <td>
@@ -71,7 +69,6 @@
         <tr>
             <th></th>
             <th>栏目名</th>
-            <th>父级栏目</th>
             <th>文章数</th>
             <th>排序权重</th>
             <th>操作</th>
@@ -100,7 +97,7 @@
                 },
                 "columns": [{
                     "orderable": false
-                }, null, null, null, null, {
+                }, null, null,  null, {
                     "orderable": false
                 },],
             });
