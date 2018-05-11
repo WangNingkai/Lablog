@@ -28,6 +28,6 @@ class SendReminder extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.reminder');
+        return $this->subject('Lablog评论提醒')->markdown('emails.reminder');
     }
 }

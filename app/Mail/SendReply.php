@@ -28,6 +28,6 @@ class SendReply extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.reply');
+        return $this->subject('Lablog回复提醒')->markdown('emails.reply');
     }
 }
