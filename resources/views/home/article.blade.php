@@ -77,7 +77,9 @@
     {!! highlight_js() !!}
 <script>
     $(function () {
-        hljs.initHighlightingOnLoad();
+        $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+        });
         // 新页面跳转
         $('.content a').attr('target', '_blank');
         $(".content img").addClass('img-responsive');
