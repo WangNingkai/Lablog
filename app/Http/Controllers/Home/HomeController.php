@@ -104,7 +104,6 @@ class HomeController extends Controller
             ->groupBy('time')
             ->orderBy('time','DESC')
             ->simplePaginate(5);
-        // $archive
         foreach ($archive as $v) {
             $start = date('Y-m-d', strtotime($v->time));
             $end = date('Y-m-d', strtotime('+1 Month', strtotime($v->time)));
