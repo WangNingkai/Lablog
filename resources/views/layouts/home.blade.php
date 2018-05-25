@@ -17,7 +17,6 @@
     <link href="{{asset('tpl/css/style.min.css')}}" rel="stylesheet">
     {!! sweetalert2_css() !!}
     <link href="{{asset('tpl/custome/css/home.custome.css')}}" rel="stylesheet">
-    {!! scrollTop_css() !!}
     @yield('css')
 </head>
 
@@ -213,8 +212,8 @@
 {!! bootstrap_js() !!}
 {!! pace_js() !!}
 {!! sweetalert2_js() !!}
-<!-- <script left="87%" bottom="6%" text="返回顶部" src="{{asset('tpl/js/returnTop.js')}}"></script> -->
-{!! scrollTop_js() !!}
+<script left="87%" bottom="6%" text="返回顶部" src="{{asset('tpl/js/returnTop.js')}}"></script>
+
 @if(Session::has('alertMessage'))
     <script>
         $(function () {
