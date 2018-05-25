@@ -227,7 +227,6 @@
         });
     </script>
 @endif
-{!! baidu_push_js() !!}
 {!! busuanzi_js() !!}
 @yield('js')
 </body>

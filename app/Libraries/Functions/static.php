@@ -163,28 +163,6 @@ if (!function_exists('social_js')) {
         ';
     }
 }
-if (!function_exists('baidu_push_js')) {
-
-    function baidu_push_js()
-    {
-        return '<!--baidu_push_js-->
-<script>
-(function(){
-    var bp = document.createElement(\'script\');
-    var curProtocol = window.location.protocol.split(\':\')[0];
-    if (curProtocol === \'https\') {
-        bp.src = \'https://zz.bdstatic.com/linksubmit/push.js\';
-    }
-    else {
-        bp.src = \'http://push.zhanzhang.baidu.com/push.js\';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
-        ';
-    }
-}
 
 if (!function_exists('busuanzi_js')) {
 
@@ -201,7 +179,7 @@ if (!function_exists('scrollTop_css')) {
     function scrollTop_css()
     {
         return '<!--scrollTop_css-->
-<link href="https://cdn.bootcss.com/material-scrolltop/1.0.1/material-scrolltop.min.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/material-scrolltop/1.0.1/material-scrolltop.css" rel="stylesheet">
         ';
     }
 }
@@ -211,7 +189,7 @@ if (!function_exists('scrollTop_js')) {
     {
         return '<!--scrollTop_js-->
 <button class="material-scrolltop" type="button"></button>
-<script src="https://cdn.bootcss.com/material-scrolltop/1.0.1/material-scrolltop.min.js"></script>
+<script src="https://cdn.bootcss.com/material-scrolltop/1.0.1/material-scrolltop.js"></script>
  <script>
     $(\'body\').materialScrollTop({   // Scroll to the top of <body> element ...
     padding: 100,               // ... and add padding 100px
