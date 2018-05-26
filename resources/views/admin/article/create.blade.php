@@ -116,11 +116,11 @@
                     <label class="col-sm-2 control-label">发布</label>
                     <div class="col-sm-5">
                         <label class="radio-inline i-checks">
-                            <input type="radio" value="1" name="status" value="1"
+                            <input type="radio" value="1" name="status"
                                    @if(old( 'status', 0)==1 ) checked="checked" @endif> &nbsp; 是
                         </label>
                         <label class="radio-inline i-checks">
-                            <input type="radio" value="1" name="status" value="1"
+                            <input type="radio" value="0" name="status"
                                    @if(old( 'status', 0)==0 ) checked="checked" @endif> &nbsp; 否
                         </label>
                     </div>
