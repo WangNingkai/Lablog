@@ -101,7 +101,7 @@ class ArticleController extends Controller
         $this->article->updateData(['id' => $id], $data);
         // 更新缓存
         Cache::forget('app:article_list');
-        return redirect()->back();
+        return redirect()->route('article_manage');
     }
 
     /**
