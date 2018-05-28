@@ -28,7 +28,7 @@
                             </a>
                             <div class="small m-b-xs">
                                 <strong>{{$article->author}}</strong>&nbsp;&nbsp;<span class="text-muted"><i
-                                        class="fa fa-clock-o"></i>&nbsp;最后更新于&nbsp;{{transform_time($article->updated_at)}}</span>
+                                        class="fa fa-clock-o"></i>&nbsp;最后更新于&nbsp;{{transform_time($article->created_at)}}</span>
                             </div>
                             <p>
                                 {{$article->description}}
