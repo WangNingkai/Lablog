@@ -1,5 +1,5 @@
 @extends('layouts.home')
-@section('title', '留言板')
+@section('title', $config['site_name'].'留言板')
 @section('content')
     <div class="col-sm-8">
         <div class="ibox">

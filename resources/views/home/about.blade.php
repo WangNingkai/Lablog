@@ -1,5 +1,5 @@
 @extends('layouts.home')
-@section('title', $config['site_name'])
+@section('title', $config['site_name'].'关于本站')
 @section('keywords', $config['site_keywords'])
 @section('description', $config['site_description'])
 @section('content')
