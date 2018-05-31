@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'LABLOG') }} 主页</title>
+    <title>主页</title>
     @section('css')
         {!! bootstrap_css() !!}
         {!! fontawesome_css() !!}
@@ -28,7 +28,7 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-content text-center p-md">
                     <h2>
-                        <span class="text-navy">W.NK博客后台管理</span>
+                        <span class="text-navy">{{ config('app.name', 'LABLOG') }}博客后台管理</span>
                     </h2>
                     <div class="alert alert-success alert-dismissable">
                         <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
