@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>主页</title>
+    <title>{{ config('app.name', 'LABLOG') }} 主页</title>
     @section('css')
         {!! bootstrap_css() !!}
         {!! fontawesome_css() !!}

@@ -31,7 +31,7 @@
                             class="navbar-toggle collapsed" type="button">
                         <i class="fa fa-reorder"></i>
                     </button>
-                    <a href="{{route('home')}}" class="navbar-brand">{{ config('app.name', 'NK') }}</a>
+                    <a href="{{route('home')}}" class="navbar-brand">{{ config('app.name', 'LABLOG') }}</a>
                 </div>
                 <div class="navbar-collapse collapse" id="navbar">
                     <ul class="nav navbar-nav">
@@ -73,8 +73,8 @@
         <div class="wrapper wrapper-content main-content">
             <div class="row">
                 <!--内容  -->
-            @yield('content')
-            <!--侧边内容  -->
+                @yield('content')
+                <!--/内容  -->
                 <!--侧边栏  -->
                 <div class="col-sm-4 sider-info">
                     <!--个人信息  -->
@@ -192,7 +192,7 @@
                         </div>
                     </div>
                 </div>
-                <!--侧边栏  -->
+                <!--/侧边栏  -->
             </div>
         </div>
         <!--页脚  -->

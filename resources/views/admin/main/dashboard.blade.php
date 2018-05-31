@@ -8,7 +8,7 @@
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>控制台</title>
+    <title>{{ config('app.name', 'LABLOG') }} 控制台</title>
 
     <meta name="keywords" content="">
     <meta name="description" content="">
