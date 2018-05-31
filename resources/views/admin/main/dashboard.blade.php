@@ -296,6 +296,32 @@
 <script src="{{asset('tpl/js/hplus.min.js')}}"></script>
 <script src="{{asset('tpl/js/contabs.min.js')}}"></script>
 {!! pace_js() !!}
+<script>
+    $(function () {
+        var maxTime = 600; // seconds
+        var time = maxTime;
+        $('body').on('keydown mousemove', function (e) {
+            time = maxTime; // reset
+        });
+        var intervalId = setInterval(function () {
+            time--;
+            if (time <= 0) {
+                swal({
+                    title: "登录超时",
+                    text: "登录超时 (600 秒未活动)，请重新登录。",
+                    type: "warning",
+                    timer: 3000
+                }).then(function () {
+                    $("#logout-form").submit();
+                }, function (dismiss) {
+                    if (dismiss === "timer") {
+                        $("#logout-form").submit();
+                    }
+                });
+            }
+        }, 1000);
+    });
+</script>
 </body>
 
 </html>
