@@ -25,7 +25,7 @@ Route::group(['namespace' => 'Auth'], function () {
 });
 
 // 前台
-Route::group(['namespace' => 'Home', 'middleware' => ['check.status','check.timeout']], function () {
+Route::group(['namespace' => 'Home', 'middleware' => ['check.status']], function () {
     Route::get('/', 'HomeController@index')->name('home');
     Route::get('about', 'HomeController@about')->name('about');
     Route::get('article/{id}', 'HomeController@article')->name('article');
@@ -37,7 +37,7 @@ Route::group(['namespace' => 'Home', 'middleware' => ['check.status','check.time
     Route::get('search', 'HomeController@search')->name('search');
 });
 // 后台
-Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['auth:web']], function () {
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['auth:web','check.timeout']], function () {
     // 控制台
     Route::view('/', 'admin.main.dashboard')->name('dashboard');
     Route::get('home', 'DashboardController@home')->name('admin_home');
