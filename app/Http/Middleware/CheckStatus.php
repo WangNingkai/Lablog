@@ -18,8 +18,7 @@ class CheckStatus
     public function handle($request, Closure $next)
     {
         $status = Config::where('name', 'site_status')->pluck('value')->first();
-
-        // dd($status);
+        // 判断是否关站
         if ($status == 0) {
             return redirect()->route('close');
         }

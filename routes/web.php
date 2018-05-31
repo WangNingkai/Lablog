@@ -25,7 +25,7 @@ Route::group(['namespace' => 'Auth'], function () {
 });
 
 // 前台
-Route::group(['namespace' => 'Home', 'middleware' => ['status']], function () {
+Route::group(['namespace' => 'Home', 'middleware' => ['check.status','check.timeout']], function () {
     Route::get('/', 'HomeController@index')->name('home');
     Route::get('about', 'HomeController@about')->name('about');
     Route::get('article/{id}', 'HomeController@article')->name('article');
