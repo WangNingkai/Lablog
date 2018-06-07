@@ -6,8 +6,8 @@ use Closure;
 
 class CheckTimeout
 {
-    // 超时时间10分钟
-    protected $timeout = 600;
+    // 超时时间30分钟
+    protected $timeout = 1800;
 
     /**
      * Handle an incoming request.
