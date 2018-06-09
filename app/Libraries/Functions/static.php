@@ -150,7 +150,7 @@ if (!function_exists('social_css')) {
     function social_css()
     {
         return '<!--social-share-->
-<link href="https://cdn.bootcss.com/social-share.js/1.0.16/css/share.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css" rel="stylesheet">
         ';
     }
 }
@@ -159,7 +159,7 @@ if (!function_exists('social_js')) {
     function social_js()
     {
         return '<!--social-share-->
-<script src="https://cdn.bootcss.com/social-share.js/1.0.16/js/jquery.share.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
         ';
     }
 }
