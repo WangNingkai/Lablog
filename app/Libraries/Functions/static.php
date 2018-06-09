@@ -67,7 +67,7 @@ if (!function_exists('fontawesome_css')) {
     function fontawesome_css()
     {
         return '<!--fontawesome_css-->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">" rel="stylesheet">
         ';
     }
 }
@@ -150,7 +150,7 @@ if (!function_exists('social_css')) {
     function social_css()
     {
         return '<!--social-share-->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/social-share.js/1.0.16/css/share.min.css" rel="stylesheet">
         ';
     }
 }
@@ -159,7 +159,7 @@ if (!function_exists('social_js')) {
     function social_js()
     {
         return '<!--social-share-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+<script src="https://cdn.bootcss.com/social-share.js/1.0.16/js/social-share.min.js"></script>
         ';
     }
 }
