@@ -87,7 +87,6 @@
         // 新页面跳转
         $('.content a').attr('target', '_blank');
         $(".content img").addClass('img-responsive');
-        $('.social-share').share();
     });
 </script>
 @if(env('CAHNGYAN_APPID'))
