@@ -5,7 +5,7 @@ if (!function_exists('bootstrap_css')) {
     function bootstrap_css()
     {
         return '<!--bootstrap_css-->
-<link href="https://lib.baomitu.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">';
+<link href="https://lib.baomitu.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">';
     }
 }
 if (!function_exists('bootstrap_js')) {
@@ -13,7 +13,7 @@ if (!function_exists('bootstrap_js')) {
     function bootstrap_js()
     {
         return '<!--bootstrap_js-->
-<script src="https://lib.baomitu.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://lib.baomitu.com/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
         ';
     }
 }
@@ -40,7 +40,7 @@ if (!function_exists('sweetalert2_css')) {
     function sweetalert2_css()
     {
         return '<!--sweetalert2_css-->
-<link href="https://lib.baomitu.com/limonte-sweetalert2/7.19.1/sweetalert2.min.css" rel="stylesheet">
+<link href="https://lib.baomitu.com/limonte-sweetalert2/7.21.1/sweetalert2.min.css" rel="stylesheet">
         ';
     }
 }
@@ -49,7 +49,7 @@ if (!function_exists('sweetalert2_js')) {
     function sweetalert2_js()
     {
         return '<!--sweetalert2_js-->
-<script src="https://lib.baomitu.com/limonte-sweetalert2/7.19.1/sweetalert2.min.js"></script>
+<script src="https://lib.baomitu.com/limonte-sweetalert2/7.21.1/sweetalert2.min.js"></script>
         ';
     }
 }
