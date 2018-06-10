@@ -15,7 +15,7 @@ class CreateArticlesTable extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->increments('id')->comment('文章表主键');
-            $table->boolean('category_id')->default(0)->comment('分类id');
+            $table->unsignedInteger('category_id')->default(0)->comment('分类id');
             $table->char('title', 100)->default('')->comment('标题');
             $table->string('author', 15)->default('')->comment('作者');
             $table->mediumText('content', 16777215)->comment('markdown文章内容');
