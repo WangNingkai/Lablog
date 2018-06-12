@@ -201,7 +201,7 @@ if (!function_exists('ip_to_city')) {
             return false;
         }
         $data = (array)$ip->data;
-        return $data['county'].$data['city'];
+        return $data['country'].$data['city'];
     }
 }
 if (!function_exists('markdown_to_html')) {
