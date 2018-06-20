@@ -297,40 +297,6 @@
 <script src="{{asset('tpl/js/contabs.min.js')}}"></script>
 {!! pace_js() !!}
 {!! sweetalert2_js() !!}
-<script>
-    var lastTime = new Date().getTime();
-    var currentTime = new Date().getTime();
-    var timeOut = 10 * 60 * 1000; //设置超时时间： 10分
-
-    $(function(){
-        /* 鼠标移动事件 */
-        $(document).mouseover(function(){
-            lastTime = new Date().getTime(); //更新操作时间
-
-        });
-    });
-
-    function checkTime(){
-        currentTime = new Date().getTime(); //更新当前时间
-        if(currentTime - lastTime > timeOut){ //判断是否超时
-            swal({
-            title: "登录超时",
-            text: "登录超时 (600 秒未活动)，请重新登录。",
-            type: "warning",
-            timer: 3000
-            }).then(function () {
-                $("#logout-form").submit();
-            }, function (dismiss) {
-                if (dismiss === "timer") {
-                    $("#logout-form").submit();
-                }
-            });
-        }
-    }
-
-    /* 定时器  间隔1秒检测是否长时间未操作页面  */
-    window.setInterval(checkTime, 1000);
-</script>
 </body>
 
 </html>
