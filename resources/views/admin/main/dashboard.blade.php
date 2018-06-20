@@ -10,9 +10,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>控制台</title>
 
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-
     <!--[if lt IE 9]>
     <meta http-equiv="refresh" content="0;ie.html"/>
     <![endif]-->
