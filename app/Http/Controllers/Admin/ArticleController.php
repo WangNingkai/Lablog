@@ -134,7 +134,11 @@ class ArticleController extends Controller
      */
     public function trash()
     {
-        $articles = $this->article->onlyTrashed()->orderBy('deleted_at', 'desc')->get();
+        $articles = $this->article
+        ->select('id', 'title', 'deleted_at')
+        ->orderBy('deleted_at', 'desc')
+        ->onlyTrashed()
+        ->get();
         return view('admin.article.trash', compact('articles'));
     }
 
