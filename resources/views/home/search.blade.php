@@ -44,6 +44,7 @@
                             </p>
                         </div>
                     @endforeach
+                    {{$articles->links()}}
                 @endif
             </div>
         </div>

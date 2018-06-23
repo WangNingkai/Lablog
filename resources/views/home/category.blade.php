@@ -60,6 +60,7 @@
                         </div>
                     </div>
                 @endforeach
+                {{$articles->links()}}
             </div>
         @endif
     </div>
