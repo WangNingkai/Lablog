@@ -28,7 +28,6 @@ class CategoryController extends Controller
      */
     public function manage()
     {
-        // $categories = $this->category->orderBy('sort', 'desc')->get();
         $categories=$this->category->getTreeIndex();
         foreach ($categories as $category) {
             // 文章数量统计
@@ -45,7 +44,10 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $levelOne = $this->category->select('id', 'name')->where('pid', 0)->get();
+        $levelOne = $this->category
+            ->select('id', 'name')
+            ->where('pid', 0)
+            ->get();
 
         return view('admin.category.create', compact('levelOne'));
     }

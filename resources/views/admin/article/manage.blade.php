@@ -55,7 +55,7 @@
                     <input type="checkbox" value="{{$article->id}}" name="aid">
                 </td>
                 <td>{{$article->title}}</td>
-                <td>{{$article->category_name}}</td>
+                <td>{{$article->category->name}}</td>
                 <td>{{$article->click}}</td>
                 <td>
                     @if($article->status==1)

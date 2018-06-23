@@ -32,7 +32,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $articles = $this->articleModel->getHomeList(['articles.status' => 1]);
+        $articles = $this->articleModel
+            ->select('id', 'category_id', 'title', 'author', 'description','click', 'created_at')
+            ->where('status', 1)
+            ->orderBy('created_at', 'desc')
+            ->with(['category', 'tags'])
+            ->simplePaginate(10);
         return view('home.index', compact('articles'));
     }
 
@@ -41,9 +46,9 @@ class HomeController extends Controller
      */
     public function article($id, Request $request)
     {
-        $article = $this->articleModel->getDataById($id);
+        $article = $this->articleModel->with(['category', 'tags'])->find($id);
         if(0===$article->status | !is_null($article->deleted_at)){
-            abort(404);
+            return abort(404);
         }
         // 同一个用户访问同一篇文章每天只增加1个访问量  使用 ip+id 作为 key 判别
         $ipAndId = 'articleRequestList' . $request->ip() . ':' . $id;
@@ -77,7 +82,11 @@ class HomeController extends Controller
     {
         $category = Category::findOrFail($id);
         $childCategoryList=Category::where(['pid'=>$id])->get();
-        $articles = $this->articleModel->getHomeList(['articles.category_id' => $id, 'articles.status' => 1]);
+        $articles = $this->articleModel
+            ->select('id', 'category_id', 'title', 'author', 'description','click', 'created_at')
+            ->where(['status'=>1,'category_id'=>$id])
+            ->with(['category', 'tags'])
+            ->simplePaginate(10);
         return view('home.category', compact('articles', 'category','childCategoryList'));
     }
 
@@ -88,7 +97,12 @@ class HomeController extends Controller
     {
         $tag = Tag::findOrFail($id);
         $ids = ArticleTag::where('tag_id', $id)->pluck('article_id')->toArray();
-        $articles = $this->articleModel->getHomeList(['articles.id' => ['in', $ids], 'articles.status' => 1]);
+        $articles = $this->articleModel
+            ->select('id', 'category_id', 'title', 'author', 'description','click', 'created_at')
+            ->where('status',1)
+            ->whereIn('id', $ids)
+            ->with(['category', 'tags'])
+            ->simplePaginate(10);
         return view('home.tag', compact('articles', 'tag'));
     }
 
@@ -103,7 +117,7 @@ class HomeController extends Controller
             ->where('status',1)
             ->groupBy('time')
             ->orderBy('time','DESC')
-            ->simplePaginate(5);
+            ->simplePaginate(3);
         foreach ($archive as $v) {
             $start = date('Y-m-d', strtotime($v->time));
             $end = date('Y-m-d', strtotime('+1 Month', strtotime($v->time)));
@@ -156,8 +170,12 @@ class HomeController extends Controller
             'title' => ['like', '%' . $keyword . '%'],
             'status' => 1
         ];
-        $articles = $this->articleModel->getHomeList($map);
-        $count = $articles->count();
+        $articles = $this->articleModel
+            ->select('id', 'category_id', 'title', 'author', 'description','click', 'created_at')
+            ->whereMap($map)
+            ->with(['category', 'tags'])
+            ->simplePaginate(10);
+        $count = $this->articleModel->whereMap($map)->count();
         $articles->count = $count;
         return view('home.search', compact('articles'));
     }

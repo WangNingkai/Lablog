@@ -4,6 +4,7 @@ namespace App\Models;
 
 class ArticleTag extends Base
 {
+
     /**
      * 为文章批量插入标签
      *
@@ -17,9 +18,9 @@ class ArticleTag extends Base
             'article_id' => $article_id
         ];
         $this->where($map)->forceDelete();
-        // 使用模型Insert方法插入数据
+        // 组合批量插入的数据
         $data = [];
-        foreach ($tag_ids as $v) {
+        foreach ($tag_ids as $k => $v) {
             $data[] = [
                 'article_id' => $article_id,
                 'tag_id' => $v

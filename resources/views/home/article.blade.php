@@ -13,9 +13,9 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="pull-right">
-                            @foreach($article->tag as $tag)
-                                <a href="{{route('tag',$tag->tag_id)}}"
-                                   class="  btn @if(($tag->tag_id)%2==0)btn-white @else btn-info @endif  btn-xs tag"><i
+                            @foreach($article->tags as $tag)
+                                <a href="{{route('tag',$tag->id)}}"
+                                   class="  btn @if(($tag->id)%2==0)btn-white @else btn-info @endif  btn-xs tag"><i
                                         class="fa fa-tag"></i>&nbsp;{{$tag->name}}</a>
                             @endforeach
                         </div>

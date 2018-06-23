@@ -10,6 +10,16 @@ class Tag extends Base
     protected $fillable = ['name', 'flag'];
 
     /**
+     * 关联文章表
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function articles()
+    {
+        return $this->belongsToMany(Article::class, 'article_tags');
+    }
+
+    /**
      * 删除数据
      *
      * @param array $map

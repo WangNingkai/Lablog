@@ -18,7 +18,6 @@ class DashboardController extends Controller
 
         // 最新文章
         $newArticles = Article::orderBy('created_at', 'desc')->limit('3')->get();
-        // dd(blank($newArticles));
         return view('admin.main.home', compact( 'newArticles','newMessageCount'));
     }
 

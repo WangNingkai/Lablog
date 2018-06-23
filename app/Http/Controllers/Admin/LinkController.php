@@ -55,7 +55,7 @@ class LinkController extends Controller
     public function edit($id = null)
     {
         if (is_null($id)) {
-            abort(404, '对不起，找不到相关页面');
+            return abort(404, '对不起，找不到相关页面');
         }
         if (!$response = $this->link->find($id)) {
             return ajax_return(404, ['alert' => '未找到相关数据']);

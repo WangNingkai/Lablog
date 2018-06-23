@@ -8,6 +8,38 @@ class Article extends Base
 {
     use SoftDeletes;
 
+
+    /**
+     * 过滤描述中的换行。
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getDescriptionAttribute($value)
+    {
+        return str_replace(["\r", "\n", "\r\n"], '', $value);
+    }
+
+    /**
+     * 关联文章表
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    /**
+     * 关联标签表
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'article_tags');
+    }
+
     /**
      * 添加文章
      *
@@ -41,65 +73,4 @@ class Article extends Base
         }
     }
 
-    /**
-     * 后台文章列表
-     *
-     * @return mixed
-     */
-    public function getAdminList()
-    {
-        $data = $this
-            ->select('articles.*', 'c.name as category_name')
-            ->join('categories as c', 'articles.category_id', 'c.id')
-            ->orderBy('created_at', 'desc')
-            // ->withTrashed()
-            ->get();
-        return $data;
-    }
-
-    /**
-     * 获取前台文章列表
-     *
-     * @return mixed
-     */
-    public function getHomeList($map = [])
-    {
-        // 获取文章分页
-        $data = $this
-            ->whereMap($map)
-            ->select('articles.id', 'articles.title', 'articles.author', 'articles.keywords', 'articles.description', 'articles.category_id', 'articles.created_at', 'articles.updated_at', 'articles.click', 'c.name as category_name')
-            ->join('categories as c', 'articles.category_id', 'c.id')
-            ->orderBy('articles.created_at', 'desc')
-            ->simplePaginate(6);
-        // 提取文章id组成一个数组
-        $dataArray = $data->toArray();
-        $article_id = array_column($dataArray['data'], 'id');
-        // 传递文章id数组获取标签数据
-        $articleTagModel = new ArticleTag;
-        $tag = $articleTagModel->getTagNameByArticleIds($article_id);
-        foreach ($data as $k => $v) {
-            $data[$k]->tag = isset($tag[$v->id]) ? $tag[$v->id] : [];
-        }
-        return $data;
-    }
-
-    /**
-     * 通过文章id获取数据
-     *
-     * @param $id
-     * @return mixed
-     */
-    public function getDataById($id)
-    {
-        $data = $this->select('articles.*', 'c.name as category_name')
-            ->join('categories as c', 'articles.category_id', 'c.id')
-            ->where('articles.id', $id)
-            ->withTrashed()
-            ->first();
-        $articleTag = new ArticleTag;
-        $tag = $articleTag->getTagNameByArticleIds([$id]);
-        // 处理标签可能为空的情况
-        $data['tag'] = empty($tag) ? [] : current($tag);
-        return $data;
-    }
 }

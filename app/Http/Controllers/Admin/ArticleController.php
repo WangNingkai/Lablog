@@ -28,7 +28,11 @@ class ArticleController extends Controller
      */
     public function manage()
     {
-        $articles = $this->article->getAdminList();
+        $articles = $this->article
+            ->select('id', 'category_id', 'title','status','click', 'created_at')
+            ->with('category')
+            ->orderBy('created_at', 'desc')
+            ->get();
         return view('admin.article.manage', compact('articles'));
     }
 

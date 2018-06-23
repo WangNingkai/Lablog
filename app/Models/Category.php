@@ -8,6 +8,14 @@ class Category extends Base
     protected $fillable = ['name', 'flag', 'pid', 'keywords', 'description', 'sort'];
 
     /**
+     * 一对多关联文章
+     */
+    public function articles()
+    {
+        return $this->hasMany(Article::class);
+    }
+
+    /**
      * 递归获取树形索引
      * @return array 角色数组
      */
