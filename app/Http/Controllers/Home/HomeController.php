@@ -85,6 +85,7 @@ class HomeController extends Controller
         $articles = $this->articleModel
             ->select('id', 'category_id', 'title', 'author', 'description','click', 'created_at')
             ->where(['status'=>1,'category_id'=>$id])
+            ->orderBy('created_at', 'desc')
             ->with(['category', 'tags'])
             ->simplePaginate(10);
         return view('home.category', compact('articles', 'category','childCategoryList'));
@@ -101,6 +102,7 @@ class HomeController extends Controller
             ->select('id', 'category_id', 'title', 'author', 'description','click', 'created_at')
             ->where('status',1)
             ->whereIn('id', $ids)
+            ->orderBy('created_at', 'desc')
             ->with(['category', 'tags'])
             ->simplePaginate(10);
         return view('home.tag', compact('articles', 'tag'));
@@ -116,7 +118,7 @@ class HomeController extends Controller
             ->select(DB::raw('DATE_FORMAT(created_at, \'%Y-%m\') as time, count(*) as posts'))
             ->where('status',1)
             ->groupBy('time')
-            ->orderBy('time','DESC')
+            ->orderBy('time','desc')
             ->simplePaginate(3);
         foreach ($archive as $v) {
             $start = date('Y-m-d', strtotime($v->time));
@@ -125,7 +127,7 @@ class HomeController extends Controller
                 ->select('id', 'title')
                 ->where('status', 1)
                 ->whereBetween('created_at', [$start, $end])
-                ->orderBy('created_at','DESC')
+                ->orderBy('created_at','desc')
                 ->get();
             $v->articles = $articles;
         }
@@ -173,6 +175,7 @@ class HomeController extends Controller
         $articles = $this->articleModel
             ->select('id', 'category_id', 'title', 'author', 'description','click', 'created_at')
             ->whereMap($map)
+            ->orderBy('created_at', 'desc')
             ->with(['category', 'tags'])
             ->simplePaginate(10);
         $count = $this->articleModel->whereMap($map)->count();
