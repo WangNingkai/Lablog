@@ -7,7 +7,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Carbon\Carbon;
 use App\Events\OperationEvent;
-use Agent;
+use Jenssegers\Agent\Agent;
 use Request;
 use Auth;
 

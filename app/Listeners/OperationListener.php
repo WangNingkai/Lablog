@@ -5,8 +5,8 @@ namespace App\Listeners;
 use App\Events\OperationEvent;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Jenssegers\Agent\Agent;
 use Ip;
-use Agent;
 use DB;
 
 class OperationListener
