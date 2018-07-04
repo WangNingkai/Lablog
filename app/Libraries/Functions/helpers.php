@@ -43,7 +43,7 @@ if (!function_exists('get_ua')) {
             // 桌面设备
             $ua_info['device_type'] = 'desktop';
         }
-        return $us_info;
+        return $ua_info;
     }
 }
 if (!function_exists('transform_time')) {
