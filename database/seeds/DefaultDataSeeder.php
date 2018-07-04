@@ -146,6 +146,22 @@ class DefaultDataSeeder extends Seeder
                 'updated_at' => '2017-10-25 12:12:00',
 
             ],
+            15 => [
+                'id' => 16,
+                'name' => 'site_110beian_num',
+                'value' => '苏公安12345678',
+                'created_at' => '2017-10-25 12:12:00',
+                'updated_at' => '2017-10-25 12:12:00',
+
+            ],
+            16 => [
+                'id' => 17,
+                'name' => 'site_110beian_link',
+                'value' => 'http://',
+                'created_at' => '2017-10-25 12:12:00',
+                'updated_at' => '2017-10-25 12:12:00',
+
+            ],
         ]);
         \DB::table('tags')->delete();
         \DB::table('tags')->insert([
