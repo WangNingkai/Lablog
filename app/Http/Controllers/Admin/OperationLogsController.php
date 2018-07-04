@@ -19,7 +19,7 @@ class OperationLogsController extends Controller
     {
         // 日志
         $operation_logs = $this->operation_logs
-            ->select('id', 'operater', 'operation','ip','address','device','browser','platform','language','device_type')
+            ->select('id', 'operater', 'operation','operation_time','ip','address','device','browser','platform','language','device_type')
             ->orderBy('operation_time','desc')
             ->get();
         return view('admin.operation_logs.manage', compact('operation_logs'));
@@ -38,8 +38,6 @@ class OperationLogsController extends Controller
             'id' => ['in', $arr]
         ];
         $this->operation_logs->destroyData($map);
-        // 更新缓存
-        Cache::forget('app:operation_logs_list');
         return redirect()->back();
     }
 }
