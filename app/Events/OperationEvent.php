@@ -10,7 +10,6 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use App\Models\User;
-use Jenssegers\Agent\Agent;
 use Ip;
 
 
@@ -22,7 +21,7 @@ class OperationEvent
     /**
      * @var User 用户模型
      */
-    protected $user;
+    protected $operater;
 
     /**
      *
@@ -30,11 +29,6 @@ class OperationEvent
      */
     protected $operation;
 
-
-    /**
-     * @var Agent Agent对象
-     */
-    protected $agent;
 
     /**
      * @var string IP地址
@@ -52,11 +46,10 @@ class OperationEvent
      *
      * @return void
      */
-    public function __construct($operater,$operation, $agent, $ip, $timestamp)
+    public function __construct($operater,$operation,$ip,$timestamp)
     {
             $this->operater = $operater;
             $this->operation = $operation;
-            $this->agent = $agent;
             $this->ip = $ip;
             $this->timestamp = $timestamp;
     }
@@ -73,11 +66,6 @@ class OperationEvent
         return $this->operation;
     }
 
-    // 获取Agent信息
-    public function getAgent()
-    {
-        return $this->agent;
-    }
 
     // 获取IP
     public function getIp()
