@@ -57,6 +57,7 @@ class ArticleController extends Controller
     public function store(Store $request)
     {
         $this->article->storeData($request->all());
+        operation_event(auth()->user()->name,'添加文章');
         // 更新缓存
         Cache::forget('app:article_list');
         return redirect()->route('article_manage');
@@ -103,6 +104,7 @@ class ArticleController extends Controller
         $articleTagModel->addTagIds($id, $tag_ids);
         // 编辑文章
         $this->article->updateData(['id' => $id], $data);
+        operation_event(auth()->user()->name,'编辑文章');
         // 更新缓存
         Cache::forget('app:article_list');
         return redirect()->route('article_manage');
@@ -122,6 +124,7 @@ class ArticleController extends Controller
             'id' => ['in', $arr]
         ];
         $this->article->destroyData($map);
+        operation_event(auth()->user()->name,'软删除文章');
         // 更新缓存
         Cache::forget('app:article_list');
         return redirect()->back();
@@ -157,6 +160,7 @@ class ArticleController extends Controller
             return redirect()->back();
         }
         show_message('恢复成功');
+        operation_event(auth()->user()->name,'恢复软删除文章');
         // 更新缓存
         Cache::forget('app:article_list');
         return redirect()->back();
@@ -180,6 +184,7 @@ class ArticleController extends Controller
         // 删除对应标签记录
         $articleTagModel = new ArticleTag;
         $articleTagModel->whereIn('article_id', $arr)->forceDelete();
+        operation_event(auth()->user()->name,'完全删除文章');
         show_message('彻底删除成功');
         // 更新缓存
         Cache::forget('app:tag_list');

@@ -105,6 +105,26 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="col-sm-2 control-label">公安网站备案号：</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" name="site_110beian_num"
+                               value="{{ $config['site_110beian_num'] }}">
+                    </div>
+                    <div class="col-sm-5">
+                        <p class="form-control-static text-danger">{{$errors->first('site_110beian_num')}}</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">公安网站备案链接：</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" name="site_110beian_link"
+                               value="{{ $config['site_110beian_link'] }}">
+                    </div>
+                    <div class="col-sm-5">
+                        <p class="form-control-static text-danger">{{$errors->first('site_110beian_link')}}</p>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="col-sm-2 control-label">网站管理员名称：</label>
                     <div class="col-sm-5">
                         <input type="text" class="form-control" name="site_admin" value="{{ $config['site_admin'] }}">

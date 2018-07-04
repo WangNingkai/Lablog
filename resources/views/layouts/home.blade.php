@@ -198,9 +198,10 @@
         <!--页脚  -->
         <div class="footer">
             <div class="pull-right">
-                <a href="http://www.miit.gov.cn/">{{$config['site_icp_num']}}</a>
+                <a target="_blank" href="{{$config['site_110beian_link']}}" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="https://share.imwnk.cn/Images/2018/07/04/beian.png" style="float:left;"/><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">{{$config['site_110beian_num']}}</p></a>
+                <a target="_blank" href="http://www.miit.gov.cn/" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;" ><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">| {{$config['site_icp_num']}}</p></a>
             </div>
-            <div>
+            <div class="sider-info">
                 &copy; {{ date('Y') }} {{ config('app.name') }}. |
                 <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
             </div>

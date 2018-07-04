@@ -34,6 +34,7 @@ class ProfileController extends Controller
             $admin->password = bcrypt($request->get('password'));
             $admin->save();
             show_message('成功修改密码');
+            operation_event(auth()->user()->name,'修改密码');
             return redirect()->back();
         }
         show_message('修改密码失败', false);
@@ -55,6 +56,7 @@ class ProfileController extends Controller
             'email' => $data['email'],
         ]);
         show_message('成功修改信息');
+        operation_event(auth()->user()->name,'修改个人信息');
         return redirect()->back();
     }
 }

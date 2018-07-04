@@ -7,6 +7,57 @@ use Illuminate\Support\Facades\Mail;
 use HyperDown\Parser;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Redis;
+use Jenssegers\Agent\Agent;
+use App\Events\OperationEvent;
+
+if (!function_exists('get_ua')) {
+    /**
+     * 获取客户端UA
+     *
+     * @param $time
+     * @return bool|string
+     */
+    function get_ua()
+    {
+        $agent=new Agent;
+        $ua_info['device'] = $agent->device() ? $agent->device() : 'desktop';
+        $browser = $agent->browser();
+        //浏览器
+        $ua_info['browser'] = $browser . ' ' . $agent->version($browser);
+        $platform = $agent->platform();
+        //操作系统
+        $ua_info['platform'] = $platform . ' ' . $agent->version($platform);
+        //语言
+        $ua_info['language'] = implode(',', $agent->languages());
+        //设备类型
+        if ($agent->isTablet()) {
+            // 平板
+            $ua_info['device_type'] = 'tablet';
+        } else if ($agent->isMobile()) {
+            // 便捷设备
+            $ua_info['device_type'] = 'mobile';
+        } else if ($agent->isRobot()) {
+            // 爬虫机器人
+            $ua_info['device_type'] = 'robot';
+            $ua_info['device'] = $agent->robot(); //机器人名称
+        } else {
+            // 桌面设备
+            $ua_info['device_type'] = 'desktop';
+        }
+        return $ua_info;
+    }
+}
+if (!function_exists('operation_event')) {
+    /**
+     * 操作日志事件
+     *
+     * @param $time
+     * @return bool|string
+     */
+    function operation_event($operater,$operation){
+        event(new OperationEvent($operater,$operation,request()->getClientIp(), time()));
+    }
+}
 
 if (!function_exists('transform_time')) {
     /**

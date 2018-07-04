@@ -102,6 +102,11 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
         Route::post('reply', 'MessageController@reply')->name('message_reply');
         Route::post('destroy', 'MessageController@destroy')->name('message_destroy');
     });
+    // 操作日志
+    Route::group(['prefix' => 'operation_logs'], function () {
+        Route::get('manage', 'OperationLogsController@manage')->name('operation_logs_manage');
+        Route::post('destroy', 'OperationLogsController@destroy')->name('operation_logs_destroy');
+    });
 });
 // 关站判断
 Route::get('close', function () {

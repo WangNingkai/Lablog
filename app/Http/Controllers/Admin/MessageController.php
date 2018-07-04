@@ -58,6 +58,7 @@ class MessageController extends Controller
             'id' => ['in', $arr]
         ];
         $this->message->checkData($map);
+        operation_event(auth()->user()->name,'审核留言');
         return redirect()->route('message_manage');
     }
 
@@ -72,6 +73,7 @@ class MessageController extends Controller
         $this->message->replyData($request->id,$request->reply);
         // 更新缓存
         $emailto=$this->message->where('id',$request->id)->pluck('email');
+        operation_event(auth()->user()->name,'回复留言');
         Mail::to( $emailto)->send(new SendReply());
         Cache::forget('app:message_list');
         return redirect()->route('message_manage');
@@ -90,6 +92,7 @@ class MessageController extends Controller
             'id' => ['in', $arr]
         ];
         $this->message->destroyData($map);
+        operation_event(auth()->user()->name,'删除留言');
         // 更新缓存
         Cache::forget('app:message_list');
         return redirect()->back();

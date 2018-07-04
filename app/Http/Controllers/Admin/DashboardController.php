@@ -31,6 +31,7 @@ class DashboardController extends Controller
         Artisan::call('cache:clear');
         Artisan::call('view:clear');
         show_message('缓存清理成功');
+        operation_event(auth()->user()->name,'缓存清理');
         return redirect()->back();
     }
 }
