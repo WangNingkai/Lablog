@@ -54,7 +54,7 @@
                 <td>{{$operation_log->operation}}</td>
                 <td>{{$operation_log->ip}}</td>
                 <td>{{$operation_log->address}}</td>
-                <td>{{$operation_log->device $operation_log->browser $operation_log->platform $operation_log->device_type $operation_log->language}}</td>
+                <td>{{$operation_log->device.$operation_log->browser.$operation_log->platform .$operation_log->device_type.$operation_log->language}}</td>
                 <td>{{$operation_log->operation_time}}</td>
                 <td>
                     <a class="text-danger delOperationLogs">
