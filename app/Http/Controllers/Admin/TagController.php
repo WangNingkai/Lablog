@@ -44,6 +44,7 @@ class TagController extends Controller
     public function store(Store $request)
     {
         $this->tag->storeData($request->all());
+        operation_event(auth()->user()->name,'添加标签');
         // 更新缓存
         Cache::forget('app:tag_list');
         return redirect()->back();
@@ -76,6 +77,7 @@ class TagController extends Controller
     {
         $id = $request->id;
         $this->tag->updateData(['id' => $id], $request->except('_token'));
+        operation_event(auth()->user()->name,'编辑标签');
         // 更新缓存
         Cache::forget('app:tag_list');
         return redirect()->back();
@@ -94,6 +96,7 @@ class TagController extends Controller
             'id' => ['in', $arr]
         ];
         $this->tag->destroyData($map);
+        operation_event(auth()->user()->name,'删除标签');
         // 更新缓存
         Cache::forget('app:tag_list');
         return redirect()->back();

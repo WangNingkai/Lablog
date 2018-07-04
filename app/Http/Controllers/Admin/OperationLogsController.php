@@ -38,6 +38,7 @@ class OperationLogsController extends Controller
             'id' => ['in', $arr]
         ];
         $this->operation_logs->destroyData($map);
+        operation_event(auth()->user()->name,'删除日志');
         return redirect()->back();
     }
 }
