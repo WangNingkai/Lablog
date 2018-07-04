@@ -48,8 +48,9 @@ class OperationListener
         $operation_info['address'] = implode(' ', $addresses);
 
         // 提取agent信息
+
         //设备名称
-        $operation_info['device'] = $agent->device();
+        $operation_info['device'] = $agent->device() ? $agent->device() : 'desktop';
         $browser = $agent->browser();
         //浏览器
         $operation_info['browser'] = $browser . ' ' . $agent->version($browser);
