@@ -19,7 +19,7 @@ class OperationLogsController extends Controller
     {
         // 日志
         $operation_logs = $this->operation_logs
-            ->select('id', 'operater', 'ip','address','device','browser','platform','language','device_type')
+            ->select('id', 'operater', 'operation','ip','address','device','browser','platform','language','device_type')
             ->orderBy('operation_time','desc')
             ->get();
         return view('admin.operation_logs.manage', compact('operation_logs'));
