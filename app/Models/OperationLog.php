@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class OperationLog extends BaseModel
+class OperationLog extends Base
 {
     //
 }

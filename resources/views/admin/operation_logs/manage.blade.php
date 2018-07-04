@@ -55,7 +55,7 @@
                 <td>{{$operation_logs->ip}}</td>
                 <td>{{$operation_logs->address}}</td>
                 <td>{{$operation_logs->device/$operation_logs->broswer/$operation_logs->plantform/$operation_logs->device_type/$operation_logs->language}}</td>
-                <td>{{$operation_logs->operation_time}}</td>
+                <td>{{date('Y-m-d H:i:s',$operation_logs->operation_time)}}</td>
                 <td>
                     <a class="text-danger delOperationLogs">
                         <i class="fa fa-trash"></i>删除
