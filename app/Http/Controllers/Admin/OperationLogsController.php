@@ -22,7 +22,7 @@ class OperationLogsController extends Controller
             ->select('id', 'operater', 'ip','address','device','browser','platform','language','device_type')
             ->orderBy('operation_time','desc')
             ->get();
-        return view('admin.opertion_logs.manage', compact('operation_logs'));
+        return view('admin.operation_logs.manage', compact('operation_logs'));
     }
 
     /**
