@@ -44,18 +44,18 @@
         </tr>
         </thead>
         <tbody>
-        @foreach ($operation_logss as $operation_logs)
+        @foreach ($operation_logs as $operation_log)
             <tr>
                 <td>
-                    <input type="checkbox" value="{{$operation_logs->id}}" name="opid">
+                    <input type="checkbox" value="{{$operation_log->id}}" name="opid">
                 </td>
-                <td>{{$operation_logs->id}}</td>
-                <td>{{$operation_logs->operater}}</td>
-                <td>{{$operation_logs->operation}}</td>
-                <td>{{$operation_logs->ip}}</td>
-                <td>{{$operation_logs->address}}</td>
-                <td>{{$operation_logs->device/$operation_logs->browser/$operation_logs->platform/$operation_logs->device_type/$operation_logs->language}}</td>
-                <td>{{date('Y-m-d H:i:s',$operation_logs->operation_time)}}</td>
+                <td>{{$operation_log->id}}</td>
+                <td>{{$operation_log->operater}}</td>
+                <td>{{$operation_log->operation}}</td>
+                <td>{{$operation_log->ip}}</td>
+                <td>{{$operation_log->address}}</td>
+                <td>{{$operation_log->device/$operation_log->browser/$operation_log->platform/$operation_log->device_type/$operation_log->language}}</td>
+                <td>{{date('Y-m-d H:i:s',$operation_log->operation_time)}}</td>
                 <td>
                     <a class="text-danger delOperationLogs">
                         <i class="fa fa-trash"></i>删除
