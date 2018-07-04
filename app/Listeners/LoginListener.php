@@ -38,7 +38,7 @@ class LoginListener
         $user->save();
 
         // 写入操作日志
-        event(new OperationEvent($event->user->name(),'管理员登录', new Agent(), Request::getClientIp(), time()));
+        event(new OperationEvent(Auth::user()->name,'管理员登录', new Agent(), Request::getClientIp(), time()));
 
     }
 }
