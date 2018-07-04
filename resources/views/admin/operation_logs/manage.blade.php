@@ -100,7 +100,7 @@
                 },
                 "columns": [{
                     "orderable": false
-                }, null, null, null, {
+                }, null, null,null,null, null,null, null, {
                     "orderable": false
                 },],
             });
