@@ -8,6 +8,7 @@ use HyperDown\Parser;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Redis;
 use Jenssegers\Agent\Agent;
+use App\Events\OperationEvent;
 
 if (!function_exists('get_ua')) {
     /**
