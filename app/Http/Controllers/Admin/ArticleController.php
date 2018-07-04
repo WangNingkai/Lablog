@@ -57,6 +57,7 @@ class ArticleController extends Controller
     public function store(Store $request)
     {
         $this->article->storeData($request->all());
+        operation_event(auth()->user()->name,'添加文章'.$request->title);
         // 更新缓存
         Cache::forget('app:article_list');
         return redirect()->route('article_manage');
@@ -103,6 +104,7 @@ class ArticleController extends Controller
         $articleTagModel->addTagIds($id, $tag_ids);
         // 编辑文章
         $this->article->updateData(['id' => $id], $data);
+        operation_event(auth()->user()->name,'编辑文章'.$request->title);
         // 更新缓存
         Cache::forget('app:article_list');
         return redirect()->route('article_manage');

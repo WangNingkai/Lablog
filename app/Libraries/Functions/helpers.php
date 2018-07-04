@@ -46,6 +46,18 @@ if (!function_exists('get_ua')) {
         return $ua_info;
     }
 }
+if (!function_exists('operation_event')) {
+    /**
+     * 操作日志事件
+     *
+     * @param $time
+     * @return bool|string
+     */
+    function operation_event($operater,$operation){
+        event(new OperationEvent($operater,$operation,request()->getClientIp(), time()));
+    }
+}
+
 if (!function_exists('transform_time')) {
     /**
      * 转换日期或者时间戳为距离现在的时间
