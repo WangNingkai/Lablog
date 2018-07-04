@@ -8,15 +8,38 @@ use App\Models\OperationLog;
 
 class OperationLogsController extends Controller
 {
-    protected $operationLogs;
+    protected $operation_logs;
 
-    public function __construct(OperationLog $operationLogs)
+    public function __construct(OperationLog $operation_logs)
     {
-        $this->operationLogs = $operationLogs;
+        $this->operation_logs = $operation_logs;
     }
 
     public function manage()
     {
+        // 日志
+        $operation_logs = $this->operation_logs
+            ->select('id', 'operater', 'ip','address','device','broswer','plantform','language','device_type')
+            ->orderBy('operation_time','desc')
+            ->get();
+        return view('admin.opertion_logs.manage', compact('operation_logs'));
+    }
 
+    /**
+     * 日志删除.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Request $request)
+    {
+        $data = $request->only('opid');
+        $arr = explode(',', $data['opid']);
+        $map = [
+            'id' => ['in', $arr]
+        ];
+        $this->operation_logs->destroyData($map);
+        // 更新缓存
+        Cache::forget('app:operation_logs_list');
+        return redirect()->back();
     }
 }

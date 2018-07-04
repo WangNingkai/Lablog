@@ -128,6 +128,12 @@
                         </li>
                     </ul>
                 </li>
+                <li>
+                    <a class="J_menuItem" href="{{route('operation_logs_manage')}}">
+                        <i class="fa fa fa-cog"></i>
+                        <span class="nav-label">操作日志</span>
+                    </a>
+                </li>
             </ul>
         </div>
     </nav>

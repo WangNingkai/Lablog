@@ -1,4 +1,6 @@
-@extends('layouts.admin') @section('title','标签管理') @section('css')
+@extends('layouts.admin')
+@section('title','标签管理')
+@section('css')
     <link href="{{asset('tpl/plugins/iCheck/custom.css')}}" rel="stylesheet">
     <!-- <link href="{{asset('tpl/plugins/dataTables/dataTables.bootstrap.min.css')}}" rel="stylesheet"> -->
     {!! datatables_css() !!}
@@ -14,7 +16,8 @@
         var destroyTagUrl = "{{route('tag_destroy')}}"
 
     </script>
-@stop @section('page-heading')
+@stop
+@section('page-heading')
     <div class="col-sm-4">
         <h2>标签管理</h2>
         <ol class="breadcrumb">
@@ -33,7 +36,8 @@
             <a href="{{route('article_manage')}}" class="btn btn-primary">文章管理</a>
         </div>
     </div>
-@stop @section('content')
+@stop
+@section('content')
     <table class="table tagTable table-striped table-hover table-condensed">
         <thead>
         <tr>
@@ -153,7 +157,8 @@
             </div>
         </div>
     </div>
-@stop @section('js')
+@stop
+@section('js')
     {!! datatables_js() !!}
     {!! icheck_js() !!}
     {!! validate_js() !!}
