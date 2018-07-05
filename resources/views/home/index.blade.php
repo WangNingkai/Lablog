@@ -43,9 +43,8 @@
                     </div>
                     <div class="hr-line-dashed"></div>
                     <div class="row">
-                        <div class="col-md-2 col-md-offset-4 pull-right">
-                            <a href="{{route('article',$article->id)}}" class="btn btn-primary tag"><i
-                                    class="fa fa-eye"></i> 阅读全文</a>
+                        <div class="pull-right">
+                            <a href="{{route('article',$article->id)}}" class="btn btn-primary tag"><i class="fa fa-eye"></i> 阅读全文</a>
                         </div>
                     </div>
                 </div>
