@@ -202,8 +202,7 @@
                 <a target="_blank" href="http://www.miit.gov.cn/" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;" ><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">| {{$config['site_icp_num']}}</p></a>
             </div>
             <div class="sider-info">
-                &copy; {{ date('Y') }} {{ config('app.name') }}. |
-                <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+                &copy; {{ date('Y') }} {{ config('app.name') }}.
             </div>
         </div>
         <!--页脚  -->
@@ -223,11 +222,9 @@
             @else
             swal("操作失败", "{{Session::get('alertMessage')}}", "error")
             @endif
-
         });
     </script>
 @endif
-{!! busuanzi_js() !!}
 @yield('js')
 </body>
 
