@@ -178,19 +178,6 @@
                             </div>
                         </div>
                     </div>
-                    <!--站点推广  -->
-                    <!-- <div class="row">
-                        <div class="col-sm-12">
-                            <div class="panel panel-primary">
-                                <div class="panel-heading">
-                                    <i class="fa fa-search"></i>&nbsp;&nbsp;推广链接
-                                </div>
-                                <div class="panel-body">
-                                    <a href="https://www.upyun.com/"><img class="img-responsive" src="{{asset('img/upy_logo.png')}}" alt="又拍云"></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
                 </div>
                 <!--/侧边栏  -->
             </div>

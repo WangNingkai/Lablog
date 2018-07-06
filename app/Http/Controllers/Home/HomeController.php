@@ -37,7 +37,7 @@ class HomeController extends Controller
             ->where('status', 1)
             ->orderBy('created_at', 'desc')
             ->with(['category', 'tags'])
-            ->simplePaginate(10);
+            ->simplePaginate(6);
         return view('home.home', compact('articles'));
         // return view('layouts.frontend', compact('articles'));
     }

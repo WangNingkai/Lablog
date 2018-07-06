@@ -19,7 +19,7 @@
     @foreach($articles as $article)
         <div class="box box-solid">
             <div class="box-body">
-                <a href="{{route('article',$article->id)}}" class="">
+                <a href="{{route('article',$article->id)}}" class="title-link">
                     <h3>
                         {{$article->title}}
                     </h3>
@@ -44,15 +44,14 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="divider"></div>
+                <div class="hr-line-dashed"></div>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="pull-right">
-                            <a href="{{route('article',$article->id)}}" class="btn btn-primary tag"><i class="fa fa-eye"></i> 阅读全文</a>
+                            <a href="{{route('article',$article->id)}}" class="btn btn-default tag"><i class="fa fa-eye"></i> 阅读全文</a>
                         </div>
                     </div>
-
-                </div> -->
+                </div>
             </div>
         </div>
     @endforeach
