@@ -45,10 +45,10 @@ class AppServiceProvider extends ServiceProvider
                     ->get();
             });
             $article_list = Cache::remember('app:article_list', 10080, function () {
-                // 获取置顶文章
+                // 获取热门文章
                 return Article::select('id', 'title')
                     ->orderBy('click', 'desc')
-                    ->limit(5)
+                    ->limit(8)
                     ->get();
             });
             $message_list=Cache::remember('app:message_list', 10080, function () {
