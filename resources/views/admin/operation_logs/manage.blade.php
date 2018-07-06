@@ -41,6 +41,7 @@
             <th>地址</th>
             <th>UA</th>
             <th>时间</th>
+            <th>操作</th>
         </tr>
         </thead>
         <tbody>
@@ -74,6 +75,7 @@
             <th>地址</th>
             <th>UA</th>
             <th>时间</th>
+            <th>操作</th>
         </tr>
         </tfoot>
     </table>
@@ -100,7 +102,7 @@
                 },
                 "columns": [{
                     "orderable": false
-                }, null, null,null,null, null,null, null, {
+                },null, null,null,null,null,null,null, {
                     "orderable": false
                 },],
             });
