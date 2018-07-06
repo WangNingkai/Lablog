@@ -39,8 +39,8 @@
                                 <li><strong>本文链接：</strong> {{route('article',$article->id)}}
                                 </li>
                                 <li><strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a
-                                        href="https://creativecommons.org/licenses/by-nc-sa/3.0/"
-                                        rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+                                        href="https://creativecommons.org/licenses/by-nc/4.0/"
+                                        rel="external nofollow" target="_blank">CC BY-NC 4.0</a> 许可协议。转载请注明出处！
                                 </li>
                             </ul>
                         </div>
