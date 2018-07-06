@@ -38,7 +38,8 @@ class HomeController extends Controller
             ->orderBy('created_at', 'desc')
             ->with(['category', 'tags'])
             ->simplePaginate(10);
-        return view('home.index', compact('articles'));
+        return view('home.home', compact('articles'));
+        // return view('layouts.frontend', compact('articles'));
     }
 
     /**
