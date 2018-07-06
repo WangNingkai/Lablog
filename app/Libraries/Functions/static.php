@@ -173,6 +173,15 @@ if (!function_exists('busuanzi_js')) {
         ';
     }
 }
+if (!function_exists('canvas_nest_js')) {
+
+    function canvas_nest_js()
+    {
+        return '<!--canvas_nest_js-->
+<script count="60" src="https://lib.baomitu.com/canvas-nest.js/2.0.1/canvas-nest.js" ></script>
+        ';
+    }
+}
 
 
 

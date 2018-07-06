@@ -46,6 +46,14 @@
     display: inline-block
 }
 
+.box>.articleContent {
+    padding: 15px 50px 20px 50px
+}
+
+.prev-next {
+    margin: .5em
+}
+
 @media screen and (max-width:768px) {
     .sider-info {
         display: none
