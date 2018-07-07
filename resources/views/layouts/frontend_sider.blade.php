@@ -56,7 +56,7 @@
                         <li class="list-group-item">
                             <i class="fa fa-hand-o-right"></i>
                             <a href="{{route('article',$article->id)}}"
-                                class="">{{$article->title}}</a>
+                                class="title-link">{{$article->title}}</a>
                         </li>
                     @endforeach
                 </ul>
@@ -75,7 +75,7 @@
             <div class="box-body">
                 @foreach($tag_list as $t_list)
                 <a href="{{route('tag',$t_list->id)}}" @switch(($t_list->id)%5) @case(0)class="tag btn btn-flat btn-xs bg-black" @break @case(1)class="tag btn btn-flat btn-xs bg-olive" @break @case(2)class="tag
-                    btn btn-flat btn-xs bg-navy" @break @case(3)class="tag btn btn-flat btn-xs bg-purple" @break @default class="tag btn btn-flat btn-xs
+                    btn btn-flat btn-xs bg-blue" @break @case(3)class="tag btn btn-flat btn-xs bg-purple" @break @default class="tag btn btn-flat btn-xs
                     bg-maroon" @endswitch>{{$t_list->name}}
                 </a>
                 @endforeach
@@ -94,7 +94,7 @@
             <div class="box-body">
                 @foreach( $link_list as $l_list)
                 <!-- <span class="simple_tag"> -->
-                    <a href="{{$l_list->url}}" class="tag btn btn-flat btn-sm bg-navy" target="_blank">{{$l_list->name}}</a>
+                    <a href="{{$l_list->url}}" class="tag btn btn-flat btn-sm bg-gray" target="_blank">{{$l_list->name}}</a>
                 <!-- </span> -->
                 @endforeach
             </div>

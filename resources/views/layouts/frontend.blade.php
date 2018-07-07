@@ -39,7 +39,6 @@
 
 <body class="hold-transition skin-black layout-top-nav">
     <div class="wrapper">
-
         <header class="main-header">
             <nav class="navbar navbar-static-top">
                 <div class="container">
@@ -53,9 +52,9 @@
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse " id="navbar-collapse">
-                        <form class="navbar-form navbar-left" role="search">
+                        <form class="navbar-form navbar-left" role="search" action="{{route('search')}}" method="get">
                             <div class="form-group">
-                                <input type="text" class="form-control" id="navbar-search-input" placeholder="搜索">
+                                <input type="text" class="form-control" id="navbar-search-input" name="keyword" placeholder="搜索">
                             </div>
                         </form>
 
@@ -157,7 +156,6 @@
     @endif
     @yield('js')
     <!-- AdminLTE for demo purposes -->
-    <!-- <script src="../../dist/js/demo.js"></script> -->
 </body>
 
 </html>

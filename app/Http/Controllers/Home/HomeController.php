@@ -178,7 +178,7 @@ class HomeController extends Controller
             ->whereMap($map)
             ->orderBy('created_at', 'desc')
             ->with(['category', 'tags'])
-            ->simplePaginate(10);
+            ->simplePaginate(8);
         $count = $this->articleModel->whereMap($map)->count();
         $articles->count = $count;
         return view('home.search', compact('articles'));

@@ -11,7 +11,7 @@
     <div class="col-md-8">
         <div class="box box-solid">
             <!-- /.box-header -->
-            <div class="box-body articleContent">
+            <div class="box-body">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="pull-left">
@@ -19,14 +19,13 @@
                         </div>
                         <div class="pull-right">
                             @foreach($article->tags as $tag)
-                                <a href="{{route('tag',$tag->id)}}"
-                                    class="btn bg-black btn-flat btn-sm tag" target="_blank"><i class="fa fa-tag"></i>&nbsp;{{$tag->name}}</a>
+                                <a href="{{route('tag',$tag->id)}}" @switch(($tag->id)%5) @case(0)class="tag btn btn-flat btn-xs bg-black" @break @case(1)class="tag btn btn-flat btn-xs bg-olive" @break @case(2)class="tag btn btn-flat btn-xs bg-blue" @break @case(3)class="tag btn btn-flat btn-xs bg-purple" @break @default class="tag btn btn-flat btn-xs bg-maroon" @endswitch target="_blank"><i class="fa fa-tag"></i>&nbsp;{{$tag->name}}</a>
                             @endforeach
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-12">
+                    <div class="col-md-12">
                         <div class="text-center article-title">
                             <h2>
                                 {{$article->title}}
@@ -37,7 +36,7 @@
                         </div>
                         <div class="social-share text-center"
                                 data-disabled="google,twitter, facebook, diandian,linkedin,douban"></div>
-                        <div>
+                        <div class="copyright_div">
                             <ul class="copyright">
                                 <li><strong>本文作者：</strong>{{$article->author}}</li>
                                 <li><strong>本文链接：</strong> {{route('article',$article->id)}}

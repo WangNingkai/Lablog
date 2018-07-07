@@ -1,44 +1,48 @@
-@extends('layouts.home')
+@extends('layouts.frontend')
 @section('title', '文章归档')
 @section('keywords', $config['site_keywords'])
 @section('description', $config['site_description'])
 @section('content')
-    <div class="col-sm-8">
-        <div class="ibox">
-            <div class="ibox-content">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="text-center article-title">
-                            <h1>
-                                文章归档
-                            </h1>
-                            <hr/>
-                        </div>
-                        <div id="vertical-timeline" class="vertical-container dark-timeline ">
-                            @foreach($archive as $archive_t)
-                                <div class="vertical-timeline-block">
-                                    <div class="vertical-timeline-icon navy-bg">
-                                        <i class="fa fa-flag"></i></div>
-                                    <div class="vertical-timeline-content">
-                                        <h3>{{$archive_t->time}}（共{{$archive_t->posts}}篇）</h3>
-                                        <ul class="list-group no-padding">
-                                            @foreach($archive_t->articles as $article)
-                                                <li class="list-group-item">
-                                                    <a class="btn-link" href="{{route('article',$article->id)}}">{{$article->title}}</a>
-                                                </li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                </div>
-                            @endforeach
+<div class="row">
+    <div class="col-md-8">
+        <ul class="timeline">
+            @foreach($archive as $archive_t)
+                <li class="time-label">
+                    <span class="bg-black">
+                        {{$archive_t->time}}（共{{$archive_t->posts}}篇）
+                    </span>
+                </li>
 
+                    <li>
+                        <i class="fa fa-flag bg-blue"></i>
+
+                        <div class="timeline-item">
+                            <span class="time">
+                                <i class="fa fa-clock-o"></i> {{$archive_t->time}}</span>
+
+                            <h3 class="timeline-header">{{$archive_t->time}} 共{{$archive_t->posts}}篇文章</h3>
+
+                            <div class="timeline-body">
+                                <ul class="list-group list-group-unbordered">
+                                    @foreach($archive_t->articles as $article)
+                                        <li class="list-group-item">
+                                            <a href="{{route('article',$article->id)}}" class="title-link"><i class="fa fa-circle-o"></i>&nbsp;{{$article->title}}</a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            <div class="timeline-footer">
+                                <!-- <a class="btn btn-primary btn-xs">阅读更多</a>
+                                <a class="btn btn-danger btn-xs">删除</a> -->
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="text-center" >
-                    {{ $archive->links() }}
-                </div>
+                    </li>
+                @endforeach
+            <div class="text-center" >
+                {{ $archive->links() }}
             </div>
-        </div>
+        </ul>
     </div>
+    @include('layouts.frontend_sider')
+</div>
 @stop

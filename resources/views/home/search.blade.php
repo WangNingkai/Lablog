@@ -1,54 +1,63 @@
-@extends('layouts.home')
+@extends('layouts.frontend')
 @section('title', '搜索')
 @section('keywords', $config['site_keywords'])
 @section('description', $config['site_description'])
 @section('content')
-    <div class="col-sm-8">
-        <div class="ibox">
-            <div class="ibox-content">
-                @if(blank($articles))
-                    <div class="alert alert-danger alert-dismissable text-center">
-                        <h2>Ops,未找到相关文章</h2>
-                    </div>
-                @else
-                    @if(blank(request()->input('keyword')))
-                        <h2>
-                            <span class="text-danger">请输入条件进行查询</span>
-                        </h2>
-                    @else
-                        <h2>
-                            为您找到相关结果约{{$articles->count}}个： <span class="text-navy">“{{request()->input('keyword')}}
-                                ”</span>
-                        </h2>
-                    @endif
-
-                    <div class="search-form">
-                        <form action="{{route('search')}}" method="get">
-                            <div class="input-group">
-                                <input type="text" placeholder="{{request()->input('keyword')}}" name="keyword"
-                                       class="form-control input-lg">
-                                <div class="input-group-btn">
-                                    <button class="btn btn-lg btn-primary" type="submit">搜索</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    @foreach($articles as $article)
-                        <div class="hr-line-dashed"></div>
-                        <div class="search-result">
-                            <h3><a href="{{route('article',$article->id)}}">{{$article->title}}</a></h3>
-                            <a href="{{route('article',$article->id)}}"
-                               class="search-link">{{route('article',$article->id)}}</a>
-                            <p>
-                                {{$article->description}}
-                            </p>
-                        </div>
-                    @endforeach
-                    {{$articles->appends(['keyword' => request()->input('keyword')])->links()}}
-                @endif
+<div class="row">
+    <div class="col-md-8">
+        @if(blank($articles))
+            <div class="callout callout-danger">
+                <h4>Oops！</h4>
+                <p>未找到相关文章</p>
             </div>
+        @else
+        <div class="box box-solid">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        @if(blank(request()->input('keyword')))
+                            <h3>
+                                <span class="text-red">请输入条件进行查询</span>
+                            </h3>
+                        @else
+                            <h3>
+                                为您找到相关结果约{{$articles->count}}个： <span class="text-blue">“{{request()->input('keyword')}}
+                                    ”</span>
+                            </h3>
+                        @endif
+                        <div class="search-form">
+                            <form action="{{route('search')}}" method="get">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="{{request()->input('keyword')}}" name="keyword">
+                                    <div class="input-group-btn">
+                                        <button type="submit" class="btn btn-flat bg-black">搜索</button>
+                                    </div>
+                                    <!-- /btn-group -->
+                                </div>
+                            </form>
+                        </div>
+                        @foreach($articles as $article)
+                            <div class="hr-line-dashed"></div>
+                            <div class="search-result">
+                                <h3><a href="{{route('article',$article->id)}}" class="title-link">{{$article->title}}</a></h3>
+                                <a href="{{route('article',$article->id)}}"
+                                class="search-link">{{route('article',$article->id)}}</a>
+                                <p>
+                                    {{$article->description}}
+                                </p>
+                            </div>
+                        @endforeach
+                        {{$articles->appends(['keyword' => request()->input('keyword')])->links()}}
+                    </div>
+                </div>
+
+            </div>
+          <!-- /.box-body -->
         </div>
+        @endif
     </div>
+    @include('layouts.frontend_sider')
+</div>
 @stop
 @section('js')
 

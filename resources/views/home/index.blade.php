@@ -35,7 +35,7 @@
                         <div class="col-md-6">
                             <h5>标签：</h5>
                             @foreach($article->tags as $tag)
-                                <a href="{{route('tag',$tag->id)}}" class="btn btn-default btn-xs tag"><i class="fa fa-tag"></i>&nbsp;{{$tag->name}}</a>
+                                <a href="{{route('tag',$tag->id)}}" @switch(($tag->id)%5) @case(0)class="tag btn btn-flat btn-xs bg-black" @break @case(1)class="tag btn btn-flat btn-xs bg-olive" @break @case(2)class="tag btn btn-flat btn-xs bg-blue" @break @case(3)class="tag btn btn-flat btn-xs bg-purple" @break @default class="tag btn btn-flat btn-xs bg-maroon" @endswitch><i class="fa fa-tag"></i>&nbsp;{{$tag->name}}</a>
                             @endforeach
                         </div>
                         <div class="col-md-6">
@@ -49,7 +49,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="pull-right">
-                                <a href="{{route('article',$article->id)}}" class="btn btn-default tag"><i class="fa fa-eye"></i> 阅读全文</a>
+                                <a href="{{route('article',$article->id)}}" class="btn btn-flat bg-black tag"><i class="fa fa-eye"></i> 阅读全文</a>
                             </div>
                         </div>
                     </div>
