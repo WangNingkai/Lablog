@@ -59,7 +59,7 @@
                         </form>
 
                         <ul class="nav navbar-nav">
-                            <li class="active">
+                            <li class="">
                                 <a href="{{ route('home')}}">首页
                                     <span class="sr-only">（当前）</span>
                                 </a>
