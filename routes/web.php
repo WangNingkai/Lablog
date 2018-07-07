@@ -13,7 +13,7 @@ use App\Models\Config;
 |
 */
 
-// 前后台登陆
+// 后台登陆
 Route::group(['namespace' => 'Auth'], function () {
     Route::get('login', 'LoginController@showLoginForm')->name('login');
     Route::post('login', 'LoginController@login');

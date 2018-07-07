@@ -43,6 +43,6 @@
             </div>
         </ul>
     </div>
-    @include('layouts.frontend_sider')
+    @include('layouts.frontend-sider')
 </div>
 @stop
