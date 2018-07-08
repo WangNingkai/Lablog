@@ -26,7 +26,7 @@ class CheckTimeout
             $cookie = cookie('intend', $isLoggedIn ? url()->current() : 'admin');
             $email = $request->user()->email;
             auth()->logout();
-            return route('login')->withInput(['email' => $email])->withCookie($cookie);
+            return redirect()->route('login')->withInput(['email' => $email])->withCookie($cookie);
         }
         $isLoggedIn ? app('session')->put('lastActivityTime', time()) : app('session')->forget('lastActivityTime');
         return $next($request);

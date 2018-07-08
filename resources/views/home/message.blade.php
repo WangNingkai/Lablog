@@ -30,7 +30,7 @@
                             @isset($message->reply)
                                 <div class="post reply-post">
                                     <div class="user-block">
-                                        <img class="img-circle img-bordered-sm" src="{{asset('tpl/img/admin_avatar.png')}}" alt="站长">
+                                        <img class="img-circle img-bordered-sm" src="{{ $config['site_admin_avatar'] }}" alt="{{ $config['site_admin'] }}">
                                         <span class="username">
                                             <a href="#">站长回复</a>
                                         </span>

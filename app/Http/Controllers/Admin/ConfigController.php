@@ -51,7 +51,7 @@ class ConfigController extends Controller
      *
      * @return  \Illuminate\Http\Response
      */
-    public function editAbout()
+    public function manageAbout()
     {
         $content = Config::where('name', 'site_about')->pluck('value', 'name')->first();
         return view('admin.config.about', compact('content'));

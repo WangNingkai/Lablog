@@ -9,6 +9,7 @@ use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Redis;
 use Jenssegers\Agent\Agent;
 use App\Events\OperationEvent;
+use WangNingkai\Translation\BaiduTranslation;
 
 if (!function_exists('get_ua')) {
     /**
@@ -415,5 +416,22 @@ if (!function_exists('baidu_push')) {
             curl_exec($ch);
         }
         curl_close($ch);
+    }
+}
+if(!function_exists('baidu_trans')){
+
+    /**
+     * 百度翻译API
+     *
+     * @param string $query 语言
+     * @param string $from 源语言
+     * @param string $to   目标语言
+     * @return void
+     */
+    function baidu_trans($query,$from='auto',$to='en'){
+        $app_id=env('BAIDU_APP_ID');
+        $secrect_key=env('BAIDU_SECRECT_KEY');
+        $translation = new BaiduTranslation($app_id,$secrect_key);
+        return $translation->translate($query,$from,$to);
     }
 }

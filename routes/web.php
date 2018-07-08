@@ -39,8 +39,8 @@ Route::group(['namespace' => 'Home', 'middleware' => ['check.status']], function
 // 后台
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['auth:web','check.timeout']], function () {
     // 控制台
-    Route::view('/', 'admin.main.dashboard')->name('dashboard');
-    Route::get('home', 'DashboardController@home')->name('admin_home');
+    // Route::view('/', 'admin.index')->name('dashboard');
+    Route::get('/', 'DashboardController@home')->name('dashboard_home');
     Route::get('clear', 'DashboardController@clear')->name('cache_clear');
     // 配置
     Route::group(['prefix' => 'config'], function () {
@@ -49,7 +49,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
     });
     // 关于
     Route::group(['prefix' => 'about'], function () {
-        Route::get('edit', 'ConfigController@editAbout')->name('about_edit');
+        Route::get('manage', 'ConfigController@manageAbout')->name('about_manage');
         Route::post('update', 'ConfigController@updateAbout')->name('about_update');
     });
     // 个人资料
