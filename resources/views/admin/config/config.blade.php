@@ -134,13 +134,22 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">网站邮箱投稿地址：</label>
+                    <label class="col-sm-2 control-label">网站管理员头像：</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" name="site_admin_mail"
-                               value="{{ $config['site_admin_mail'] }}">
+                        <input type="text" class="form-control" name="site_admin_avatar" value="{{ $config['site_admin_avatar'] }}">
                     </div>
                     <div class="col-sm-5">
-                        <p class="form-control-static text-danger">{{$errors->first('site_admin_mail')}}</p>
+                        <p class="form-control-static text-danger">{{$errors->first('site_admin_avatar')}}</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">网站管理个人介绍：</label>
+                    <div class="col-sm-5">
+                        {{--<input type="text" class="form-control" name="site_admin_info" value="{{ $config['site_admin_info'] }}">--}}
+                        <textarea name="site_admin_info" class="form-control">{{ $config['site_admin_info'] }}</textarea>
+                    </div>
+                    <div class="col-sm-5">
+                        <p class="form-control-static text-danger">{{$errors->first('site_admin_info')}}</p>
                     </div>
                 </div>
                 <div class="form-group">
@@ -151,6 +160,16 @@
                     </div>
                     <div class="col-sm-5">
                         <p class="form-control-static text-danger">{{$errors->first('site_mailto_admin')}}</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">网站邮箱投稿地址：</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" name="site_admin_mail"
+                               value="{{ $config['site_admin_mail'] }}">
+                    </div>
+                    <div class="col-sm-5">
+                        <p class="form-control-static text-danger">{{$errors->first('site_admin_mail')}}</p>
                     </div>
                 </div>
                 <div class="form-group">
@@ -171,16 +190,6 @@
                     </div>
                     <div class="col-sm-5">
                         <p class="form-control-static text-danger">{{$errors->first('site_admin_github')}}</p>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">网站管理个人介绍：</label>
-                    <div class="col-sm-5">
-                        {{--<input type="text" class="form-control" name="site_admin_info" value="{{ $config['site_admin_info'] }}">--}}
-                        <textarea name="site_admin_info" class="form-control">{{ $config['site_admin_info'] }}</textarea>
-                    </div>
-                    <div class="col-sm-5">
-                        <p class="form-control-static text-danger">{{$errors->first('site_admin_info')}}</p>
                     </div>
                 </div>
                 <div class="form-group">
