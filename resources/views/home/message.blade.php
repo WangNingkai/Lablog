@@ -19,13 +19,13 @@
                             <div class="user-block">
                                 <img class="img-circle img-bordered-sm" src="{{asset('tpl/img/user_avatar.png')}}" alt="{{$message->nickname}}">
                                 <span class="username">
-                                <a href="#">{{$message->nickname}}</a>
+                                <a href="#">{{ $message->nickname }}</a>
                                 </span>
-                                <span class="description">{{$message->created_at}}</span>
+                                <span class="description">{{ $message->created_at }}</span>
                             </div>
                             <!-- /.user-block -->
                             <p>
-                                {{$message->content}}
+                                {{ $message->content }}
                             </p>
                             @isset($message->reply)
                                 <div class="post reply-post">
@@ -34,11 +34,11 @@
                                         <span class="username">
                                             <a href="#">站长回复</a>
                                         </span>
-                                        <span class="description">{{$message->updated_at}}</span>
+                                        <span class="description">{{ $message->updated_at }}</span>
                                     </div>
                                     <!-- /.user-block -->
                                     <p>
-                                        {{$message->reply}}
+                                        {{ $message->reply }}
                                     </p>
                                 </div>
                             @endisset
