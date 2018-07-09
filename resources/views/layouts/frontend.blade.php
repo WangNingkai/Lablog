@@ -141,7 +141,6 @@
     <!-- AdminLTE App -->
     <script src="{{asset('adminlte/dist/js/adminlte.min.js')}}"></script>
     <!-- OTHER JS SCRIPTS -->
-    {!! canvas_nest_js() !!}
     {!! sweetalert2_js() !!}
     {!! pace_js() !!}
     <script left="87%" bottom="6%" text="返回顶部" src="{{asset('js/x-return-top.min.js')}}"></script>
