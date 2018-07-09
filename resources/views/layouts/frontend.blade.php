@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="{{asset('adminlte/dist/css/skins/_all-skins.min.css')}}">
     <link href="{{asset('css/frontend.custome.css')}}" rel="stylesheet">
     {!! sweetalert2_css() !!}
+    {!! pace_css() !!}
     @yield('css')
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -142,7 +143,8 @@
     <!-- OTHER JS SCRIPTS -->
     {!! canvas_nest_js() !!}
     {!! sweetalert2_js() !!}
-    <script left="87%" bottom="6%" text="返回顶部" src="{{asset('tpl/js/returnTop.js')}}"></script>
+    {!! pace_js() !!}
+    <script left="87%" bottom="6%" text="返回顶部" src="{{asset('js/x-return-top.min.js')}}"></script>
     @if(Session::has('alertMessage'))
         <script>
             $(function () {

@@ -26,6 +26,15 @@ if (!function_exists('jquery_js')) {
         ';
     }
 }
+if (!function_exists('pace_css')) {
+
+    function pace_css()
+    {
+        return '<!--pace_css-->
+<link href="https://lib.baomitu.com/pace/1.0.2/themes/black/pace-theme-flash.min.css" rel="stylesheet">
+        ';
+    }
+}
 if (!function_exists('pace_js')) {
 
     function pace_js()
