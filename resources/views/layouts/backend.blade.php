@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="{{asset('adminlte/dist/css/AdminLTE.min.css')}}">
     <link rel="stylesheet" href="{{asset('adminlte/dist/css/skins/skin-blue.min.css')}}">
     <!-- OTHER stylesheet -->
+    {!! pace_css('white') !!}
     <!-- SweetAlert2  -->
     {!! sweetalert2_css() !!}
     @yield('css')
@@ -67,15 +68,17 @@
                                 <p>
                                     {{ Auth::user()->name }}
                                 </p>
+                                <p class="text-center">{{ $config['site_admin_info'] }}</p>
                             </li>
                             <!-- Menu Body -->
                             <li class="user-body">
-
+                                <p>登陆时间 ：{{Auth::user()->last_login_at}}</p>
+                                <p>登陆地点 ：{{ip_to_city(Auth::user()->last_login_ip)}}</p>
                             </li>
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="#" class="btn btn-default btn-flat">资料</a>
+                                    <a href="{{ route('profile_manage') }}" class="btn btn-default btn-flat">资料</a>
                                 </div>
                                 <div class="pull-right">
                                     <a href="{{ route('logout') }}" class="btn btn-default btn-flat" onclick="event.preventDefault();
@@ -193,6 +196,8 @@
 <!-- AdminLTE App -->
 <script src="{{asset('adminlte/dist/js/adminlte.min.js')}}"></script>
 <!-- OTHER JS SCRIPTS -->
+<script left="90%" bottom="5%" text="返回顶部" src="{{asset('js/x-return-top.min.js')}}"></script>
+{!! pace_js() !!}
 <!-- SweetAlert2  -->
 {!! sweetalert2_js() !!}
 @if(Session::has('alertMessage'))

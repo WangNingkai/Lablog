@@ -1,5 +1,5 @@
 @extends('layouts.backend')
-@section('title','控制台')
+@section('title','控制台 - 首页')
 @section('content')
     <div class="content-wrapper">
         <section class="content-header">
@@ -14,8 +14,6 @@
             <div class="callout callout-success">
                 <h4>您好{{ Auth::user()->name }}，欢迎访问LABLOG</h4>
                 <p>在这里您可以尽情的书写你的创意</p>
-                <p>登陆时间 ：{{Auth::user()->last_login_at}}</p>
-                <p>登陆地点 ：{{ip_to_city(Auth::user()->last_login_ip)}}</p>
             </div>
             <!-- Small boxes (Stat box) -->
             <div class="row">

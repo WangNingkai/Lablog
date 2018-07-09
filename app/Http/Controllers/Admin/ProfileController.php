@@ -19,7 +19,7 @@ class ProfileController extends Controller
     public function manage()
     {
         $admin = Auth::user();
-        return view('admin.profile.manage', compact('admin'));
+        return view('admin.profile', compact('admin'));
     }
 
     /**
@@ -37,7 +37,7 @@ class ProfileController extends Controller
             operation_event(auth()->user()->name,'修改密码');
             return redirect()->back();
         }
-        show_message('修改密码失败', false);
+        show_message('原密码错误，修改密码失败', false);
         return redirect()->back();
     }
 

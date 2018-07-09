@@ -1,5 +1,5 @@
 @extends('layouts.backend')
-@section('title','控制台')
+@section('title','控制台 - 关于页面')
 @section('css')
     {!! editor_css() !!}
 @stop
@@ -21,7 +21,7 @@
                     <div class="col-md-12">
                         <div class="box box-solid">
                             <div class="box-body">
-                                <button type="submit" class="btn btn-default btn-flat bg-blue"><i class="fa fa-check"></i>&nbsp;提交</button>
+                                <button type="submit" class="btn btn-primary btn-flat"><i class="fa fa-check"></i>&nbsp;提交</button>
                             </div>
                         </div>
                     </div>
@@ -29,7 +29,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class=" form-group">
-                           <span class="help-block"><strong>{{ $errors->first('content') }}</strong></span>
+                           <span class="help-block text-red"><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('content') }}</strong></span>
                             <div id="editormd_id">
                                 <textarea name="content" style="display:none;">{{$content}}</textarea>
                             </div>
