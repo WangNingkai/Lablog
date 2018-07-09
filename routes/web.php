@@ -39,7 +39,9 @@ Route::group(['namespace' => 'Home', 'middleware' => ['check.status']], function
 // 后台
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['auth:web','check.timeout']], function () {
     // 控制台
-    // Route::view('/', 'admin.index')->name('dashboard');
+    Route::get('/', function(){
+        return redirect()->route('dashboard_home');
+    });
     Route::get('home', 'DashboardController@home')->name('dashboard_home');
     Route::get('clear', 'DashboardController@clear')->name('cache_clear');
     // 配置
