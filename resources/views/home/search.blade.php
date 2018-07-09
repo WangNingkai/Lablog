@@ -3,7 +3,6 @@
 @section('keywords', $config['site_keywords'])
 @section('description', $config['site_description'])
 @section('content')
-<div class="row">
     <div class="col-md-8">
         @if(blank($articles))
             <div class="callout callout-danger">
@@ -56,8 +55,6 @@
         </div>
         @endif
     </div>
-    @include('layouts.frontend-sider')
-</div>
 @stop
 @section('js')
 

@@ -3,7 +3,6 @@
 @section('keywords', $config['site_keywords'])
 @section('description', $config['site_description'])
 @section('content')
-<div class="row">
     <div class="col-md-8">
         <div class="box box-default">
             <div class="box-header with-border">
@@ -58,7 +57,4 @@
         @endforeach
         {{$articles->links()}}
     </div>
-    @include('layouts.frontend-sider')
-</div>
-
 @stop

@@ -3,7 +3,6 @@
 @section('keywords', $config['site_keywords'])
 @section('description', $config['site_description'])
 @section('content')
-<div class="row">
     <div class="col-md-8">
         <ul class="timeline">
             @foreach($archive as $archive_t)
@@ -43,6 +42,4 @@
             </div>
         </ul>
     </div>
-    @include('layouts.frontend-sider')
-</div>
 @stop

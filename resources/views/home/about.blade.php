@@ -3,7 +3,6 @@
 @section('keywords', $config['site_keywords'])
 @section('description', $config['site_description'])
 @section('content')
-<div class="row">
     <div class="col-md-8">
         <div class="box box-default">
             <!-- /.box-header -->
@@ -30,8 +29,6 @@
             <!-- /.box-body -->
         </div>
     </div>
-    @include('layouts.frontend-sider')
-</div>
 @stop
 @section('js')
     <script>

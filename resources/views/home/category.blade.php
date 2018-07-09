@@ -3,7 +3,6 @@
 @section('keywords', $category->keywords)
 @section('description', $category->description)
 @section('content')
-<div class="row">
     <div class="col-md-8">
         @if(blank($articles))
             <div class="callout callout-danger">
@@ -62,6 +61,4 @@
         {{$articles->links()}}
         @endif
     </div>
-    @include('layouts.frontend-sider')
-</div>
 @stop

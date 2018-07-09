@@ -1,7 +1,6 @@
 @extends('layouts.frontend')
 @section('title', '留言板')
 @section('content')
-<div class="row">
     <div class="col-md-8">
         <div class="box box-solid">
             <div class="box-body">
@@ -72,7 +71,5 @@
             </div>
         </div>
     </div>
-    @include('layouts.frontend-sider')
-</div>
 @stop
 
