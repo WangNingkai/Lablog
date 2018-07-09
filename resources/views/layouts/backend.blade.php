@@ -51,6 +51,9 @@
             </a>
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
+                    <li>
+                        <a href="{{ route('home') }}" target="_blank"><i class="fa fa-home"></i>&nbsp;查看首页</a>
+                    </li>
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="{{ $config['site_admin_avatar'] }}" class="user-image" alt="{{ $config['site_admin'] }}">
@@ -121,17 +124,17 @@
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="header">菜单</li>
                 <!-- Optionally, you can add icons to the links -->
-                <li class="active"><a href="{{ route('dashboard_home') }}"><i class="fa fa-home"></i> <span>首页</span></a></li>
-                <li class=""><a href="{{ route('article_create') }}"><i class="fa fa-pencil-square-o"></i> <span>新建文章</span></a></li>
+                <li class="{{ set_active('admin/home') }}"><a href="{{ route('dashboard_home') }}"><i class="fa fa-home"></i> <span>首页</span></a></li>
+                <li class="{{ set_active('article/create') }}"><a href="{{ route('article_create') }}"><i class="fa fa-pencil-square-o"></i> <span>新建文章</span></a></li>
                 <!-- <li><a href="#"><i class="fa fa-cog"></i> <span></span></a></li> -->
-                <li class="treeview">
+                <li class="treeview {{ set_active('admin/config') }} {{ set_active('admin/about') }}">
                     <a href="#">
                         <i class="fa fa-star"></i> <span>我的站点</span>
                         <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{ route('config_manage') }}"><i class="fa fa-cog"></i> 站点设置</a></li>
-                        <li><a href="{{ route('about_manage') }}"><i class="fa fa-address-card"></i> 关于页面</a></li>
+                        <li class="{{ set_active('admin/config/manage') }}" ><a href="{{ route('config_manage') }}"><i class="fa fa-cog"></i> 站点设置</a></li>
+                        <li class="{{ set_active('admin/about/manage') }}"><a href="{{ route('about_manage') }}"><i class="fa fa-address-card"></i> 关于页面</a></li>
                     </ul>
                 </li>
                 <li class="treeview">

@@ -20,11 +20,11 @@ class DashboardController extends Controller
         $allTagsCount=Tag::count();
         $allCategoriesCount=Category::count();
         $allMessagesCount = Message::count();
-        // 未读留言
-        $newMessagesCount = Message::where(['status'=>0])->count();
-        // 最新文章
+        // 最新未读留言
+        $newMessages = Message::where(['status'=>0])->orderBy('created_at', 'desc')->limit(5)->get();
+        // 最新发布文章
         $newArticles = Article::orderBy('created_at', 'desc')->limit('6')->get();
-        $assign=compact('allArticlesCount','allTagsCount','allCategoriesCount','allMessagesCount','newMessagesCount','newArticles');
+        $assign=compact('allArticlesCount','allTagsCount','allCategoriesCount','allMessagesCount','newMessages','newArticles');
         return view('admin.index', $assign);
     }
 

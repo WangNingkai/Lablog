@@ -1,18 +1,10 @@
 @extends('layouts.backend')
 @section('title','控制台')
 @section('content')
-    <!-- 主内容区. 包括页面 -->
     <div class="content-wrapper">
-        <!-- Content Header (页眉) -->
         <section class="content-header">
             <h1>首页<small>LABLOG</small></h1>
-            <!-- <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> 层级</a></li>
-                <li class="active">这里</li>
-            </ol> -->
         </section>
-
-        <!-- 主内容区 -->
         <section class="content container-fluid">
             @if (session('status'))
                 <div class="callout callout-success">
@@ -28,7 +20,7 @@
             <!-- Small boxes (Stat box) -->
             <div class="row">
                 <div class="col-lg-3 col-xs-6">
-                    <!-- small box -->
+
                     <div class="small-box bg-aqua">
                         <div class="inner">
                             <h3>{{ $allArticlesCount }}</h3>
@@ -43,9 +35,9 @@
                         </a>
                     </div>
                 </div>
-                <!-- ./col -->
+
                 <div class="col-lg-3 col-xs-6">
-                    <!-- small box -->
+
                     <div class="small-box bg-green">
                         <div class="inner">
                             <h3>{{ $allCategoriesCount }}</h3>
@@ -60,9 +52,9 @@
                         </a>
                     </div>
                 </div>
-                <!-- ./col -->
+
                 <div class="col-lg-3 col-xs-6">
-                    <!-- small box -->
+
                     <div class="small-box bg-yellow">
                         <div class="inner">
                             <h3>{{ $allTagsCount }}</h3>
@@ -77,9 +69,9 @@
                         </a>
                     </div>
                 </div>
-                <!-- ./col -->
+
                 <div class="col-lg-3 col-xs-6">
-                    <!-- small box -->
+
                     <div class="small-box bg-red">
                         <div class="inner">
                             <h3>{{ $allMessagesCount }}</h3>
@@ -94,11 +86,11 @@
                         </a>
                     </div>
                 </div>
-                <!-- ./col -->
+
             </div>
             <div class="row">
                 <div class="col-lg-6">
-                    <!-- TO DO List -->
+
                     <div class="box box-primary">
                         <div class="box-header">
                             <i class="ion ion-clipboard"></i>
@@ -119,23 +111,40 @@
                                 @endforeach
                             </ul>
                         </div>
-                        <!-- /.box-body -->
                         <div class="box-footer clearfix no-border">
                             <a href="" class="btn btn-default pull-right">
                                 <i class="fa fa-plus"></i> 添加文章</a>
                         </div>
                     </div>
-                    <!-- /.box -->
                 </div>
                 <div class="col-lg-6">
+                    <div class="box box-success">
+                        <div class="box-header">
+                            <i class="fa fa-comments-o"></i>
+                            <h3 class="box-title">最新留言</h3>
+                        </div>
+                        <div class="box-body chat" id="chat-box">
+                            @foreach($newMessages as $message)
+                            <div class="item">
+                                <img src="{{asset('tpl/img/user_avatar.png')}}" alt="{{$message->nickname}}" class="online">
 
+                                <p class="message">
+                                    <a href="#" class="name">
+                                        <small class="text-muted pull-right">
+                                            <i class="fa fa-clock-o"></i> {{$message->created_at}}</small>
+                                        {{$message->nickname}}
+                                    </a>
+                                    {{$message->content}}
+                                </p>
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
-        <!-- /.content -->
     </div>
-    <!-- /.content-wrapper -->
-@endsection
+@stop
 @section('js')
 
-@endsection
+@stop

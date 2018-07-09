@@ -1,5 +1,5 @@
 @extends('layouts.frontend')
-@section('title', $config['site_name'])
+@section('title', $config['site_title'])
 @section('keywords', $config['site_keywords'])
 @section('description', $config['site_description'])
 @section('content')

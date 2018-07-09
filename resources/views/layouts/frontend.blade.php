@@ -45,7 +45,7 @@
                 <div class="container">
                     <div class="navbar-header">
                         <a href="{{route('home')}}" class="navbar-brand">
-                            <b>{{ config('app.name', 'LABLOG') }}</b></a>
+                            <b>{{ $config['site_name'] }}</b></a>
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
                             <i class="fa fa-bars"></i>
                         </button>

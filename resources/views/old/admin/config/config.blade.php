@@ -125,7 +125,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">网站管理员名称：</label>
+                    <label class="col-sm-2 control-label">站长名称：</label>
                     <div class="col-sm-5">
                         <input type="text" class="form-control" name="site_admin" value="{{ $config['site_admin'] }}">
                     </div>
@@ -134,7 +134,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">网站管理员头像：</label>
+                    <label class="col-sm-2 control-label">站长头像：</label>
                     <div class="col-sm-5">
                         <input type="text" class="form-control" name="site_admin_avatar" value="{{ $config['site_admin_avatar'] }}">
                     </div>
@@ -143,7 +143,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">网站管理个人介绍：</label>
+                    <label class="col-sm-2 control-label">站长个人介绍：</label>
                     <div class="col-sm-5">
                         {{--<input type="text" class="form-control" name="site_admin_info" value="{{ $config['site_admin_info'] }}">--}}
                         <textarea name="site_admin_info" class="form-control">{{ $config['site_admin_info'] }}</textarea>
@@ -153,7 +153,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">网站管理邮箱：</label>
+                    <label class="col-sm-2 control-label">站长邮箱：</label>
                     <div class="col-sm-5">
                         <input type="text" class="form-control" name="site_mailto_admin"
                                value="{{ $config['site_mailto_admin'] }}">
@@ -163,7 +163,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">网站邮箱投稿地址：</label>
+                    <label class="col-sm-2 control-label">站长邮箱投稿地址：</label>
                     <div class="col-sm-5">
                         <input type="text" class="form-control" name="site_admin_mail"
                                value="{{ $config['site_admin_mail'] }}">
@@ -173,7 +173,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">网站管理微博地址：</label>
+                    <label class="col-sm-2 control-label">微博地址：</label>
                     <div class="col-sm-5">
                         <input type="text" class="form-control" name="site_admin_weibo"
                                value="{{ $config['site_admin_weibo'] }}">
@@ -183,7 +183,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">网站管理GitHub地址：</label>
+                    <label class="col-sm-2 control-label">GitHub地址：</label>
                     <div class="col-sm-5">
                         <input type="text" class="form-control" name="site_admin_github"
                                value="{{ $config['site_admin_github'] }}">

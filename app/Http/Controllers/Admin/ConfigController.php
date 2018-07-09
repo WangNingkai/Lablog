@@ -19,7 +19,7 @@ class ConfigController extends Controller
      */
     public function manage()
     {
-        return view('admin.config.config');
+        return view('admin.config');
     }
 
     /**
@@ -54,7 +54,7 @@ class ConfigController extends Controller
     public function manageAbout()
     {
         $content = Config::where('name', 'site_about')->pluck('value', 'name')->first();
-        return view('admin.config.about', compact('content'));
+        return view('admin.config-about', compact('content'));
     }
 
     /**
