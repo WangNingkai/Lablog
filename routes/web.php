@@ -63,10 +63,10 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
     // 标签
     Route::group(['prefix' => 'tag'], function () {
         Route::get('manage', 'TagController@manage')->name('tag_manage');
-        Route::post('create', 'TagController@store')->name('tag_create');
+        Route::post('store', 'TagController@store')->name('tag_store');
         Route::get('edit/{id?}', 'TagController@edit')->name('tag_edit');
         Route::post('update', 'TagController@update')->name('tag_update');
-        Route::post('destroy', 'TagController@destroy')->name('tag_destroy');
+        Route::post('destroy/', 'TagController@destroy')->name('tag_destroy');
     });
     // 栏目
     Route::group(['prefix' => 'category'], function () {

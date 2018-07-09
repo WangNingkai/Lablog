@@ -27,12 +27,12 @@ class TagController extends Controller
      */
     public function manage()
     {
-        $tags = $this->tag->orderBy('id', 'desc')->get();
+        $tags = $this->tag->orderBy('id', 'desc')->simplePaginate(8);
         foreach ($tags as $tag) {
             $articleCount = ArticleTag::where('tag_id', $tag->id)->count();
             $tag->article_count = $articleCount;
         }
-        return view('admin.tag.tag', compact('tags'));
+        return view('admin.tag', compact('tags'));
     }
 
     /**
