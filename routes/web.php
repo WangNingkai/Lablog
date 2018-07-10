@@ -66,15 +66,15 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
         Route::post('store', 'TagController@store')->name('tag_store');
         Route::get('edit/{id?}', 'TagController@edit')->name('tag_edit');
         Route::post('update', 'TagController@update')->name('tag_update');
-        Route::post('destroy/', 'TagController@destroy')->name('tag_destroy');
+        Route::post('destroy', 'TagController@destroy')->name('tag_destroy');
     });
     // 栏目
     Route::group(['prefix' => 'category'], function () {
         Route::get('manage', 'CategoryController@manage')->name('category_manage');
-        Route::get('add', 'CategoryController@create')->name('category_add');
-        Route::post('create', 'CategoryController@store')->name('category_create');
-        Route::get('edit/{id}', 'CategoryController@edit')->name('category_edit');
-        Route::post('update/{id}', 'CategoryController@update')->name('category_update');
+        Route::get('create', 'CategoryController@create')->name('category_create');
+        Route::post('store', 'CategoryController@store')->name('category_store');
+        Route::get('edit/{id?}', 'CategoryController@edit')->name('category_edit');
+        Route::post('update/{id?}', 'CategoryController@update')->name('category_update');
         Route::post('destroy', 'CategoryController@destroy')->name('category_destroy');
     });
     // 文章

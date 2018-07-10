@@ -147,7 +147,7 @@
                     </a>
                     <ul class="treeview-menu">
                         <li class="{{ set_active('admin/tag/manage') }}"><a href="{{ route('tag_manage') }}"><i class="fa fa-tags"></i> 标签管理</a></li>
-                        <li class="{{ set_active('admin/category/manage') }}"><a href="{{ route('category_manage') }}"><i class="fa fa-bars"></i> 栏目管理</a></li>
+                        <li class="{{ set_active('admin/category') }}"><a href="{{ route('category_manage') }}"><i class="fa fa-bars"></i> 栏目管理</a></li>
                         <li class="{{ set_active('admin/article/manage') }}"><a href="{{ route('article_manage') }}"><i class="fa fa-file"></i> 文章管理</a></li>
                         <li class="{{ set_active('admin/article/trash') }}"><a href="{{ route('article_trash') }}"><i class="fa fa-trash"></i> 文章回收站</a></li>
                     </ul>

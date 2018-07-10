@@ -1,7 +1,7 @@
 @extends('layouts.backend')
 @section('title','控制台 - 站点设置')
 @section('css')
-{!! ickeck_css() !!}
+{!! icheck_css() !!}
 @stop
 @section('content')
     <div class="content-wrapper">
@@ -28,7 +28,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="box box-primary">
+                        <div class="box box-default">
                             <div class="box-header with-border">
                                 <h3 class="box-title">常规设置</h3>
                             </div>
@@ -72,7 +72,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="box box-primary">
+                        <div class="box box-default">
                             <div class="box-header with-border">
                                 <h3 class="box-title">SEO设置</h3>
                             </div>
@@ -102,7 +102,7 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="box box-primary">
+                        <div class="box box-default">
                             <div class="box-header with-border">
                                 <h3 class="box-title">站长设置</h3>
                             </div>
@@ -165,7 +165,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="box box-primary">
+                        <div class="box box-default">
                             <div class="box-header with-border">
                                 <h3 class="box-title">备案设置</h3>
                             </div>
@@ -204,8 +204,8 @@
 <script>
     $(function () {
         $(".i-checks").iCheck({
-            checkboxClass: "icheckbox_square-green",
-            radioClass: "iradio_square-green",
+            checkboxClass: "icheckbox_square-blue",
+            radioClass: "iradio_square-blue",
         });
     });
 </script>

@@ -34,23 +34,27 @@ class CategoryController extends Controller
             $articleCount = Article::where('category_id', $category->id)->count();
             $category->article_count = $articleCount;
         }
-        return view('admin.category.manage', compact('categories'));
-    }
-
-    /**
-     * 创建文章栏目.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
         $levelOne = $this->category
             ->select('id', 'name')
             ->where('pid', 0)
             ->get();
-
-        return view('admin.category.create', compact('levelOne'));
+        return view('admin.category', compact('categories','levelOne'));
     }
+
+    // /**
+    //  * 创建文章栏目.
+    //  *
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function create()
+    // {
+    //     $levelOne = $this->category
+    //         ->select('id', 'name')
+    //         ->where('pid', 0)
+    //         ->get();
+
+    //     return view('admin.category.create', compact('levelOne'));
+    // }
 
     /**
      * 存储文章栏目.
@@ -75,13 +79,19 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
+        $categories=$this->category->getTreeIndex();
+        foreach ($categories as $category) {
+            // 文章数量统计
+            $articleCount = Article::where('category_id', $category->id)->count();
+            $category->article_count = $articleCount;
+        }
         $category = $this->category->find($id);
         $map = [
             'pid' => 0,
             'id' => ['<>', $id]
         ];
         $levelOne = $this->category->select('id', 'name')->whereMap($map)->get();
-        return view('admin.category.update', compact('category', 'levelOne'));
+        return view('admin.category-edit', compact('categories','category', 'levelOne'));
     }
 
     /**

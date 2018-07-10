@@ -24,8 +24,8 @@ class Update extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:tags,name,' . $this->id,
-            'flag' => 'required|unique:tags,flag,' . $this->id,
+            'edit_name' => 'required|unique:tags,name,' . $this->id,
+            'edit_flag' => 'unique:tags,flag,' . $this->id,
         ];
     }
 
@@ -37,8 +37,8 @@ class Update extends FormRequest
     public function attributes()
     {
         return [
-            'name' => '标签名',
-            'flag' => '标识',
+            'edit_name' => '标签名',
+            'edit_flag' => '标识',
         ];
     }
 }

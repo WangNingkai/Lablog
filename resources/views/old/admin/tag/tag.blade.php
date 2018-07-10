@@ -14,7 +14,6 @@
         var manageTagUrl = "{{route('tag_manage')}}"
         var editTagUrl = "{{route('tag_edit')}}"
         var destroyTagUrl = "{{route('tag_destroy')}}"
-
     </script>
 @stop
 @section('page-heading')

@@ -76,7 +76,9 @@ class TagController extends Controller
     public function update(Update $request)
     {
         $id = $request->id;
-        $this->tag->updateData(['id' => $id], $request->except('_token'));
+        $name=$request->edit_name;
+        $flag=$request->edit_flag;
+        $this->tag->updateData(['id' => $id], ['name'=>$name,'flag'=>$flag]);
         operation_event(auth()->user()->name,'编辑标签');
         // 更新缓存
         Cache::forget('app:tag_list');

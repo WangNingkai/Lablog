@@ -80,11 +80,11 @@ if (!function_exists('fontawesome_css')) {
         ';
     }
 }
-if (!function_exists('ickeck_css')) {
+if (!function_exists('icheck_css')) {
 
-    function ickeck_css()
+    function icheck_css()
     {
-        return '<!--ickeck_css-->
+        return '<!--icheck_css-->
 <link href="https://lib.baomitu.com/iCheck/1.0.2/skins/all.css" rel="stylesheet">
         ';
     }
