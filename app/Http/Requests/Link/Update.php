@@ -24,8 +24,8 @@ class Update extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|unique:links,name,' . $this->id,
-            'url' => 'required|url|unique:links,url,' . $this->id,
+            'edit_name' => 'required|string|unique:links,name,' . $this->id,
+            'edit_url' => 'required|url|unique:links,url,' . $this->id,
         ];
     }
 
@@ -37,8 +37,8 @@ class Update extends FormRequest
     public function attributes()
     {
         return [
-            'name' => '友链名称',
-            'url' => '链接地址',
+            'edit_name' => '友链名称',
+            'edit_url' => '链接地址',
 
         ];
     }

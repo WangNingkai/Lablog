@@ -25,8 +25,8 @@ class MessageController extends Controller
      */
     public function manage()
     {
-        $messages=$this->message->orderBy('created_at','DESC')->get();
-        return view('admin.message.manage',compact('messages'));
+        $messages=$this->message->orderBy('created_at','DESC')->paginate(10);
+        return view('admin.message',compact('messages'));
     }
 
     /**

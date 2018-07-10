@@ -21,8 +21,8 @@ class OperationLogsController extends Controller
         $operation_logs = $this->operation_logs
             ->select('id', 'operater', 'operation','operation_time','ip','address','device','browser','platform','language','device_type')
             ->orderBy('operation_time','desc')
-            ->get();
-        return view('admin.operation_logs.manage', compact('operation_logs'));
+            ->paginate(10);
+        return view('admin.operation-logs', compact('operation_logs'));
     }
 
     /**

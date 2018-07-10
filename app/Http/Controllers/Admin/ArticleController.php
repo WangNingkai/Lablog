@@ -32,8 +32,8 @@ class ArticleController extends Controller
             ->select('id', 'category_id', 'title','status','click', 'created_at')
             ->with('category')
             ->orderBy('created_at', 'desc')
-            ->get();
-        return view('admin.article.manage', compact('articles'));
+            ->paginate(10);
+        return view('admin.article', compact('articles'));
     }
 
     /**
@@ -45,7 +45,7 @@ class ArticleController extends Controller
     {
         $category = get_select(Category::all()->toArray());
         $tag = Tag::all();
-        return view('admin.article.create', compact('category', 'tag'));
+        return view('admin.article-create', compact('category', 'tag'));
     }
 
     /**
@@ -76,7 +76,7 @@ class ArticleController extends Controller
         $category_all = Category::all();
         $category = get_select($category_all->toArray(), $article->category_id);
         $tag = Tag::all();
-        return view('admin.article.update', compact('article', 'category', 'tag'));
+        return view('admin.article-edit', compact('article', 'category', 'tag'));
     }
 
     /**
@@ -116,7 +116,7 @@ class ArticleController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function delete(Request $request)
     {
         $data = $request->only('aid');
         $arr = explode(',', $data['aid']);
@@ -141,8 +141,8 @@ class ArticleController extends Controller
         ->select('id', 'title', 'deleted_at')
         ->orderBy('deleted_at', 'desc')
         ->onlyTrashed()
-        ->get();
-        return view('admin.article.trash', compact('articles'));
+        ->paginate(10);
+        return view('admin.trash', compact('articles'));
     }
 
     /**
@@ -173,7 +173,7 @@ class ArticleController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function forceDelete(Request $request)
+    public function destroy(Request $request)
     {
         $data = $request->only('aid');
         $arr = explode(',', $data['aid']);

@@ -28,8 +28,8 @@ class LinkController extends Controller
      */
     public function manage()
     {
-        $links = $this->link->orderBy(DB::raw('sort is null,sort'))->get();
-        return view('admin.link.link', compact('links'));
+        $links = $this->link->orderBy(DB::raw('sort is null,sort'))->paginate(10);
+        return view('admin.link', compact('links'));
     }
 
     /**
@@ -73,7 +73,10 @@ class LinkController extends Controller
     public function update(Update $request)
     {
         $id = $request->id;
-        $result = $this->link->updateData(['id' => $id], $request->except('_token'));
+        $name=$request->edit_name;
+        $url=$request->edit_url;
+        $sort=$request->edit_sort;
+        $result = $this->link->updateData(['id' => $id], ['name'=>$name,'url'=>$url,'sort'=>$sort,]);
         operation_event(auth()->user()->name,'编辑标签');
         // 更新缓存
         Cache::forget('app:link_list');

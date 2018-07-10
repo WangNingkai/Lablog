@@ -22,7 +22,6 @@ class CreateCategoriesTable extends Migration
             $table->string('description')->default('')->nullable()->comment('描述');
             $table->boolean('sort')->default(0)->comment('排序');
             $table->timestamps();
-
         });
     }
 

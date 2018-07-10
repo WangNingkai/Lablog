@@ -21,6 +21,7 @@
                     <div class="box">
                         <div class="box-header with-border">
                             <h3 class="box-title">全部标签</h3>
+                            <span>共{{ $tags->total() }}个</span>
                         </div>
                         <div class="box-body">
                             <table class="table table-responsive">
@@ -64,7 +65,7 @@
                                 <a href="javascript:void(0)" class="btn btn-primary btn-flat" onclick="selectReverse('tid')">反选</a>
                                 <a href="javascript:void(0)" class="btn btn-danger btn-flat" id="delSelectedTag">删除选定</a>
                             </div>
-                            {{ $tags->links('vendor.pagination.simple-adminlte') }}
+                            {{ $tags->links('vendor.pagination.adminlte') }}
                         </div>
                     </div>
                 </div>
@@ -78,23 +79,23 @@
                             </div>
                             <div class="box-body">
                                 <input type="hidden" name="id" id="editId">
-                                <div class="form-group">
+                                <div class="form-group {{$errors->has('edit_name')?'has-error':''}}">
                                     <label for="editName">标签名：</label>
-                                    <input type="name" class="form-control" name="edit_name" id="editName" placeholder="请输入标签名" value="{{ old('edit_name')?old('edit_name'):'' }}">
+                                    <input type="text" class="form-control" name="edit_name" id="editName" placeholder="请输入标签名" value="{{ old('edit_name')?old('edit_name'):'' }}">
                                     @if ($errors->has('edit_name'))
-                                        <span class="help-block text-red"><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('edit_name') }}</strong></span>
+                                        <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('edit_name') }}</strong></span>
                                     @endif
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group {{$errors->has('edit_flag')?'has-error':''}}">
                                     <label for="flag">标识：</label>
-                                    <input type="text" class="form-control" name="edit_flag" id="editFlag" placeholder="请输入标签标识" value="{{ old('edit_flag')?old('edit_flag'):'' }}">
+                                    <input type="editFlag" class="form-control" name="edit_flag" id="editFlag" placeholder="请输入标签标识" value="{{ old('edit_flag')?old('edit_flag'):'' }}">
                                     @if ($errors->has('edit_flag'))
-                                        <span class="help-block text-red"><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('edit_flag') }}</strong></span>
+                                        <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('edit_flag') }}</strong></span>
                                     @endif
                                 </div>
                             </div>
                             <div class="box-footer">
-                                <button type="submit" class="btn btn-primary btn-flat">提交</button>
+                                <button type="submit" class="btn btn-success btn-flat">提交</button>
                             </div>
                         </div>
                     </form>
@@ -105,23 +106,23 @@
                                 <h3 class="box-title">新建标签</h3>
                             </div>
                             <div class="box-body">
-                                <div class="form-group">
+                                <div class="form-group {{$errors->has('name')?'has-error':''}}">
                                     <label for="name">标签名：</label>
-                                    <input type="name" class="form-control" name="name" id="name" placeholder="请输入标签名"  value="{{old('name')}}">
+                                    <input type="text" class="form-control" name="name" id="name" placeholder="请输入标签名"  value="{{old('name')}}">
                                     @if ($errors->has('name'))
-                                        <span class="help-block text-red"><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('name') }}</strong></span>
+                                        <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('name') }}</strong></span>
                                     @endif
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group {{$errors->has('flag')?'has-error':''}}">
                                     <label for="flag">标识：</label>
                                     <input type="text" class="form-control" name="flag" id="flag" placeholder="请输入标签标识"  value="{{old('flag')}}">
                                     @if ($errors->has('flag'))
-                                        <span class="help-block text-red"><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('flag') }}</strong></span>
+                                        <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('flag') }}</strong></span>
                                     @endif
                                 </div>
                             </div>
                             <div class="box-footer">
-                                <button type="submit" class="btn btn-primary btn-flat">提交</button>
+                                <button type="submit" class="btn btn-success btn-flat">提交</button>
                             </div>
                         </div>
                     </form>

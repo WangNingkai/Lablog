@@ -21,16 +21,16 @@
                     <div class="col-md-12">
                         <div class="box box-solid">
                             <div class="box-body">
-                                <button type="submit" class="btn btn-primary btn-flat"><i class="fa fa-check"></i>&nbsp;提交</button>
+                                <button type="submit" class="btn btn-success btn-flat"><i class="fa fa-check"></i>&nbsp;提交</button>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <div class=" form-group">
-                            @if ($errors->has('site_name'))
-                                <span class="help-block text-red"><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('content') }}</strong></span>
+                        <div class=" form-group {{$errors->has('content')?'has-error':''}}">
+                            @if ($errors->has('content'))
+                                <span class="help-block"><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('content') }}</strong></span>
                             @endif
                             <div id="editormd_id">
                                 <textarea name="content" style="display:none;">{{$content}}</textarea>

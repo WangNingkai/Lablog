@@ -80,23 +80,24 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
     // 文章
     Route::group(['prefix' => 'article'], function () {
         Route::get('manage', 'ArticleController@manage')->name('article_manage');
-        Route::get('add', 'ArticleController@create')->name('article_add');
-        Route::post('create', 'ArticleController@store')->name('article_create');
+        Route::get('create', 'ArticleController@create')->name('article_create');
+        Route::post('store', 'ArticleController@store')->name('article_store');
         Route::get('edit/{id}', 'ArticleController@edit')->name('article_edit');
         Route::post('update/{id}', 'ArticleController@update')->name('article_update');
-        Route::post('delete', 'ArticleController@destroy')->name('article_delete');
+        Route::post('delete', 'ArticleController@delete')->name('article_delete');
         Route::get('trash', 'ArticleController@trash')->name('article_trash');
         Route::post('restore', 'ArticleController@restore')->name('article_restore');
-        Route::post('destroy', 'ArticleController@forceDelete')->name('article_destroy');
+        Route::post('destroy', 'ArticleController@destroy')->name('article_destroy');
     });
     // 友链
     Route::group(['prefix' => 'link'], function () {
         Route::get('manage', 'LinkController@manage')->name('link_manage');
-        Route::post('create', 'LinkController@store')->name('link_create');
+        Route::post('store', 'LinkController@store')->name('link_store');
         Route::get('edit/{id?}', 'LinkController@edit')->name('link_edit');
         Route::post('update', 'LinkController@update')->name('link_update');
         Route::post('destroy', 'LinkController@destroy')->name('link_destroy');
     });
+    // 留言
     Route::group(['prefix' => 'message'], function () {
         Route::get('manage', 'MessageController@manage')->name('message_manage');
         Route::get('show/{id?}', 'MessageController@show')->name('message_show');

@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Base extends Model
 {
+    const STATUS_ENABLE =1;
+
+    const STATUS_DISENABLE =0;
     /**
      * 禁止被批量赋值的字段
      *

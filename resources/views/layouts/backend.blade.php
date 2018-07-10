@@ -128,7 +128,7 @@
                 <li class="header">菜单</li>
                 <!-- Optionally, you can add icons to the links -->
                 <li class="{{ set_active('admin/home') }}"><a href="{{ route('dashboard_home') }}"><i class="fa fa-home"></i> <span>首页</span></a></li>
-                <li class="{{ set_active('article/create') }}"><a href="{{ route('article_create') }}"><i class="fa fa-pencil-square-o"></i> <span>新建文章</span></a></li>
+                <li class="{{ set_active('admin/article/create') }}"><a href="{{ route('article_create') }}"><i class="fa fa-pencil-square-o"></i> <span>新建文章</span></a></li>
                 <!-- <li><a href="#"><i class="fa fa-cog"></i> <span></span></a></li> -->
                 <li class="treeview {{ set_active('admin/config') }} {{ set_active('admin/about') }}">
                     <a href="#">
@@ -152,18 +152,18 @@
                         <li class="{{ set_active('admin/article/trash') }}"><a href="{{ route('article_trash') }}"><i class="fa fa-trash"></i> 文章回收站</a></li>
                     </ul>
                 </li>
-                <li class="treeview">
+                <li class="treeview {{ set_active('admin/link') }} {{ set_active('admin/message') }}">
                     <a href="#">
                         <i class="fa fa-cogs"></i> <span>其他模块</span>
                         <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{ route('link_manage') }}"><i class="fa fa-link"></i>
+                        <li class="{{ set_active('admin/link/manage') }}"><a href="{{ route('link_manage') }}"><i class="fa fa-link"></i>
                         我的友链</a></li>
-                        <li><a href="{{ route('message_manage') }}"><i class="fa fa-comments"></i> 我的留言</a></li>
+                        <li class="{{ set_active('admin/message/manage') }}"><a href="{{ route('message_manage') }}"><i class="fa fa-comments"></i> 我的留言</a></li>
                     </ul>
                 </li>
-                <li><a href="{{ route('operation_logs_manage') }}"><i class="fa fa-history"></i> <span>操作日志</span></a></li>
+                <li class="{{ set_active('admin/operation_logs/manage') }}"><a href="{{ route('operation_logs_manage') }}"><i class="fa fa-history"></i> <span>操作日志</span></a></li>
             </ul>
             <!-- /.sidebar-menu -->
         </section>

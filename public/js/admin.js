@@ -125,8 +125,12 @@ $(function () {
             cancelButtonColor: "#d33",
             confirmButtonText: "确定",
             cancelButtonText: "取消"
-        }).then(function () {
-            $("#deleteForm").submit()
+        }).then((result) => {
+            if (result.value) {
+                $("#deleteForm").submit();
+            } else if (result.dismiss === swal.DismissReason.cancel) {
+                swal('已取消', ':)', 'error');
+            }
         })
     });
     $("#delSelectedArticle").on("click", function () {
@@ -145,8 +149,12 @@ $(function () {
                 cancelButtonColor: "#d33",
                 confirmButtonText: "确定",
                 cancelButtonText: "取消"
-            }).then(function () {
-                $("#deleteForm").submit()
+            }).then((result) => {
+                if (result.value) {
+                    $("#deleteForm").submit();
+                } else if (result.dismiss === swal.DismissReason.cancel) {
+                    swal('已取消', ':)', 'error');
+                }
             })
         } else {
             return false
@@ -164,8 +172,12 @@ $(function () {
             cancelButtonColor: "#d33",
             confirmButtonText: "确定",
             cancelButtonText: "取消"
-        }).then(function () {
-            $("#restoreForm").submit()
+        }).then((result) => {
+            if (result.value) {
+                $("#restoreForm").submit();
+            } else if (result.dismiss === swal.DismissReason.cancel) {
+                swal('已取消', ':)', 'error');
+            }
         })
     });
     $("#restoreSelectedArticle").on("click", function () {
@@ -184,8 +196,12 @@ $(function () {
                 cancelButtonColor: "#d33",
                 confirmButtonText: "确定",
                 cancelButtonText: "取消"
-            }).then(function () {
-                $("#restoreForm").submit()
+            }).then((result) => {
+                if (result.value) {
+                    $("#restoreForm").submit();
+                } else if (result.dismiss === swal.DismissReason.cancel) {
+                    swal('已取消', ':)', 'error');
+                }
             })
         } else {
             return false
@@ -203,8 +219,12 @@ $(function () {
             cancelButtonColor: "#d33",
             confirmButtonText: "确定",
             cancelButtonText: "取消"
-        }).then(function () {
-            $("#destroyForm").submit()
+        }).then((result) => {
+            if (result.value) {
+                $("#detroyForm").submit();
+            } else if (result.dismiss === swal.DismissReason.cancel) {
+                swal('已取消', ':)', 'error');
+            }
         })
     });
     $("#destroySelectedArticle").on("click", function () {
@@ -223,14 +243,19 @@ $(function () {
                 cancelButtonColor: "#d33",
                 confirmButtonText: "确定",
                 cancelButtonText: "取消"
-            }).then(function () {
-                $("#destroyForm").submit()
+            }).then((result) => {
+                if (result.value) {
+                    $("#detroyForm").submit();
+                } else if (result.dismiss === swal.DismissReason.cancel) {
+                    swal('已取消', ':)', 'error');
+                }
             })
         } else {
             return false
         }
     });
     $(".editLink").on("click", function () {
+        $('#editLinkForm').removeAttr('style');
         lid = $(this).parent().siblings().eq(0).find("input[name=lid]").val();
         $.ajax({
             type: "GET",
@@ -241,10 +266,9 @@ $(function () {
                 $("#editName").val(response["name"]);
                 $("#editUrl").val(response["url"]);
                 $("#editSort").val(response["sort"]);
-                $("#editLinkModal").modal("show")
             },
             error: function (response) {
-                swal(response["message"]["alert"], "", "error")
+                swal(response.responseJSON.message.alert, "", "error")
             }
         });
         return false
@@ -261,8 +285,12 @@ $(function () {
             cancelButtonColor: "#d33",
             confirmButtonText: "确定",
             cancelButtonText: "取消"
-        }).then(function () {
-            $("#deleteForm").submit()
+        }).then((result) => {
+            if (result.value) {
+                $("#deleteForm").submit();
+            } else if (result.dismiss === swal.DismissReason.cancel) {
+                swal('已取消', ':)', 'error');
+            }
         })
     });
     $("#delSelectedLink").on("click", function () {
@@ -281,8 +309,12 @@ $(function () {
                 cancelButtonColor: "#d33",
                 confirmButtonText: "确定",
                 cancelButtonText: "取消"
-            }).then(function () {
-                $("#deleteForm").submit()
+            }).then((result) => {
+                if (result.value) {
+                    $("#deleteForm").submit();
+                } else if (result.dismiss === swal.DismissReason.cancel) {
+                    swal('已取消', ':)', 'error');
+                }
             })
         } else {
             return false
@@ -329,8 +361,12 @@ $(function () {
                 cancelButtonColor: "#d33",
                 confirmButtonText: "确定",
                 cancelButtonText: "取消"
-            }).then(function () {
-                $("#checkForm").submit()
+            }).then((result) => {
+                if (result.value) {
+                    $("#checkForm").submit();
+                } else if (result.dismiss === swal.DismissReason.cancel) {
+                    swal('已取消', ':)', 'error');
+                }
             })
         } else {
             return false
@@ -348,8 +384,12 @@ $(function () {
             cancelButtonColor: "#d33",
             confirmButtonText: "确定",
             cancelButtonText: "取消"
-        }).then(function () {
-            $("#deleteForm").submit()
+        }).then((result) => {
+            if (result.value) {
+                $("#deleteForm").submit();
+            } else if (result.dismiss === swal.DismissReason.cancel) {
+                swal('已取消', ':)', 'error');
+            }
         })
     });
     $("#delSelectedMessage").on("click", function () {
@@ -368,8 +408,12 @@ $(function () {
                 cancelButtonColor: "#d33",
                 confirmButtonText: "确定",
                 cancelButtonText: "取消"
-            }).then(function () {
-                $("#deleteForm").submit()
+            }).then((result) => {
+                if (result.value) {
+                    $("#deleteForm").submit();
+                } else if (result.dismiss === swal.DismissReason.cancel) {
+                    swal('已取消', ':)', 'error');
+                }
             })
         } else {
             return false
@@ -387,8 +431,12 @@ $(function () {
             cancelButtonColor: "#d33",
             confirmButtonText: "确定",
             cancelButtonText: "取消"
-        }).then(function () {
-            $("#deleteForm").submit()
+        }).then((result) => {
+            if (result.value) {
+                $("#deleteForm").submit();
+            } else if (result.dismiss === swal.DismissReason.cancel) {
+                swal('已取消', ':)', 'error');
+            }
         })
     });
     $("#delSelectedOperationLogs").on("click", function () {
@@ -408,8 +456,12 @@ $(function () {
                 cancelButtonColor: "#d33",
                 confirmButtonText: "确定",
                 cancelButtonText: "取消"
-            }).then(function () {
-                $("#deleteForm").submit()
+            }).then((result) => {
+                if (result.value) {
+                    $("#deleteForm").submit();
+                } else if (result.dismiss === swal.DismissReason.cancel) {
+                    swal('已取消', ':)', 'error');
+                }
             })
         } else {
             return false

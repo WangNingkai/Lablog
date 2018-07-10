@@ -1,5 +1,5 @@
 @if ($paginator->hasPages())
-    <ul class="pagination pagination-sm no-margin pull-right">
+    <ul class="pagination pagination-sm no-margin pull-right"  role="navigation">
         {{-- Previous Page Link --}}
         @if ($paginator->onFirstPage())
             <li class="disabled" aria-disabled="true"><span>@lang('pagination.previous')</span></li>

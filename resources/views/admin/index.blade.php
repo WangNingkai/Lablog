@@ -95,28 +95,27 @@
                             <h3 class="box-title">最新文章</h3>
                         </div>
                         <div class="box-body">
-                            <ul class="todo-list">
-                                @foreach($newArticles as $article)
-                                    <li>
-                                        <span class="text"><a href="{{route('article_edit',$article->id)}}">{{$article->title}}</a></span>
-                                        <small class="label label-info">
-                                            <i class="fa fa-clock-o"></i> {{transform_time($article->updated_at)}}</small>
-                                        <div class="tools">
-                                            <i class="fa fa-edit"></i>
-                                            <i class="fa fa-trash-o"></i>
-                                        </div>
-                                    </li>
+                            <table class="table table-responsive">
+                                <tr>
+                                    <th>#</th>
+                                    <th>标题</th>
+                                    <th>时间</th>
+                                </tr>
+                                @foreach ($newArticles as $article)
+                                <tr>
+                                    <td>{{$article->id}}.</td>
+                                    <td><a class="text-balck"href="{{route('article_edit',$article->id)}}">{{$article->title}}</a></td>
+                                    <td>
+                                        {{$article->created_at}}
+                                    </td>
+                                </tr>
                                 @endforeach
-                            </ul>
-                        </div>
-                        <div class="box-footer clearfix no-border">
-                            <a href="" class="btn btn-default pull-right">
-                                <i class="fa fa-plus"></i> 添加文章</a>
+                            </table>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <div class="box box-success">
+                    <div class="box box-default">
                         <div class="box-header">
                             <i class="fa fa-comments-o"></i>
                             <h3 class="box-title">最新留言</h3>
@@ -125,7 +124,6 @@
                             @foreach($newMessages as $message)
                             <div class="item">
                                 <img src="{{asset('tpl/img/user_avatar.png')}}" alt="{{$message->nickname}}" class="online">
-
                                 <p class="message">
                                     <a href="#" class="name">
                                         <small class="text-muted pull-right">
@@ -144,5 +142,5 @@
     </div>
 @stop
 @section('js')
-
+<script src="{{ asset('js/admin.js') }}"></script>
 @stop

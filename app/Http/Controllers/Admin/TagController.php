@@ -27,7 +27,7 @@ class TagController extends Controller
      */
     public function manage()
     {
-        $tags = $this->tag->orderBy('id', 'desc')->simplePaginate(8);
+        $tags = $this->tag->orderBy('id', 'desc')->paginate(10);
         foreach ($tags as $tag) {
             $articleCount = ArticleTag::where('tag_id', $tag->id)->count();
             $tag->article_count = $articleCount;

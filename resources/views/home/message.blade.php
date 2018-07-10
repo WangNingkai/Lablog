@@ -50,7 +50,7 @@
                                 {{ csrf_field() }}
                                 <div class="row">
                                     <div class="col-xs-12 form-group">
-                                        <textarea class="form-control" rows="3" cols="4" name="content" placeholder="请输入留言"></textarea>
+                                        <textarea class="form-control" style="resize: none;" rows="3" cols="4" name="content" placeholder="请输入留言"></textarea>
                                     </div>
                                 </div>
                                 <div class="row">

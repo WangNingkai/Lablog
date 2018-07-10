@@ -37,7 +37,7 @@
                   action="{{ route('article_create') }}">
                 {{ csrf_field() }}
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">标题</label>
+                    <label class="col-sm-2 control-label">标题：</label>
                     <div class="col-sm-5">
                         <input type="text" name="title" class="form-control" placeholder="在此输入文章标题"
                                value="{{ old('title') }}">
@@ -47,7 +47,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">栏目</label>
+                    <label class="col-sm-2 control-label">栏目：</label>
                     <div class="col-sm-5">
                         <select class="form-control m-b" name="category_id">
                             <option value="">请选择栏目</option>
@@ -59,7 +59,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">标签</label>
+                    <label class="col-sm-2 control-label">标签：</label>
                     <div class="col-sm-5">
                         @foreach( $tag as $tag_v)
                             <label class="checkbox-inline i-checks">

@@ -73,14 +73,14 @@
                                 <h3 class="box-title">新建栏目</h3>
                             </div>
                             <div class="box-body">
-                                <div class="form-group">
+                                <div class="form-group {{$errors->has('name')?'has-error':''}}">
                                     <label for="name">栏目名：</label>
-                                    <input type="name" class="form-control" name="name" id="name" placeholder="请输入栏目名称"  value="{{old('name')}}">
+                                    <input type="text" class="form-control" name="name" id="name" placeholder="请输入栏目名称"  value="{{old('name')}}">
                                     @if ($errors->has('name'))
-                                        <span class="help-block text-red"><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('name') }}</strong></span>
+                                        <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('name') }}</strong></span>
                                     @endif
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group {{$errors->has('pid')?'has-error':''}}">
                                     <label for="pid">父级栏目</label>
                                     <select class="form-control" name="pid" id="pid">
                                         <option value="">请选择栏目</option>
@@ -90,41 +90,41 @@
                                         @endforeach
                                     </select>
                                     @if ($errors->has('pid'))
-                                        <span class="help-block text-red"><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('pid') }}</strong></span>
+                                        <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('pid') }}</strong></span>
                                     @endif
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group {{$errors->has('flag')?'has-error':''}}">
                                     <label for="flag">标识：</label>
                                     <input type="text" class="form-control" name="flag" id="flag" placeholder="请输入栏目标识"  value="{{old('flag')}}">
                                     @if ($errors->has('flag'))
-                                        <span class="help-block text-red"><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('flag') }}</strong></span>
+                                        <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('flag') }}</strong></span>
                                     @endif
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group {{$errors->has('sort')?'has-error':''}}">
                                     <label for="sort">排序权重：</label>
                                     <input type="text" class="form-control" name="sort" id="sort" placeholder="请输入数字，默认为0"  value="{{old('sort')}}">
                                     @if ($errors->has('sort'))
-                                        <span class="help-block text-red"><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('sort') }}</strong></span>
+                                        <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('sort') }}</strong></span>
                                     @endif
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group {{$errors->has('keywords')?'has-error':''}}">
                                     <label for="keywords">关键词：</label>
                                     <input type="text" class="form-control" name="keywords" id="keywords" placeholder="请输入关键词" value="{{ old('keywords') }}">
                                         @if ($errors->has('keywords'))
-                                        <span class="help-block text-red"><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('keywords') }}</strong></span>
+                                        <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('keywords') }}</strong></span>
                                     @endif
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group {{$errors->has('description')?'has-error':''}}">
                                     <label for="description">描述：</label>
                                     <input type="text" class="form-control" name="description" id="description" placeholder="请输入描述" value="{{ old('description') }}">
                                         @if ($errors->has('description'))
-                                        <span class="help-block text-red"><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('description') }}</strong></span>
+                                        <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('description') }}</strong></span>
                                     @endif
                                 </div>
                             </div>
                             <div class="box-footer">
-                                <button type="submit" class="btn btn-primary btn-flat">提交</button>
+                                <button type="submit" class="btn btn-success btn-flat">提交</button>
                             </div>
                         </div>
                     </form>
