@@ -16,7 +16,7 @@
                         @foreach($messages as $message)
                         <div class="post">
                             <div class="user-block">
-                                <img class="img-circle img-bordered-sm" src="{{asset('tpl/img/user_avatar.png')}}" alt="{{$message->nickname}}">
+                                <img class="img-circle img-bordered-sm" src="{{asset('img/user_avatar.png')}}" alt="{{$message->nickname}}">
                                 <span class="username">
                                 <a href="#">{{ $message->nickname }}</a>
                                 </span>
