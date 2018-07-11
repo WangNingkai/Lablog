@@ -25,39 +25,39 @@ class AppServiceProvider extends ServiceProvider
     {
         // 分配前台通用的数据
         view()->composer('*', function ($view) {
-            $category_list = Cache::remember('app:category_list', 10080, function () {
+            $category_list = Cache::remember('app:category_list', 43200, function () {
                 // 获取分类导航
                 return Category::select('id', 'name')
                     ->where('pid', 0)
                     ->orderBy('sort', 'asc')
                     ->get();
             });
-            $tag_list = Cache::remember('app:tag_list', 10080, function () {
+            $tag_list = Cache::remember('app:tag_list', 43200, function () {
                 // 获取标签
                 return Tag::select('id', 'name')
                     ->orderBy('created_at', 'desc')
                     ->get();
             });
-            $link_list = Cache::remember('app:link_list', 10080, function () {
+            $link_list = Cache::remember('app:link_list', 43200, function () {
                 // 获取友链
                 return Link::select('id', 'name', 'url')
                     ->orderBy('sort', 'asc')
                     ->get();
             });
-            $article_list = Cache::remember('app:top_article_list', 10080, function () {
+            $article_list = Cache::remember('app:top_article_list', 43200, function () {
                 // 获取热门文章
                 return Article::select('id', 'title')
                     ->orderBy('click', 'desc')
                     ->limit(8)
                     ->get();
             });
-            $message_list=Cache::remember('app:message_list', 10080, function () {
+            $message_list=Cache::remember('app:message_list', 43200, function () {
                 // 获取留言列表
                 return Message::where('status', 1)
                     ->orderBy('created_at', 'desc')
                     ->get();
             });
-            $config = Cache::remember('app:config', 10080, function () {
+            $config = Cache::remember('app:config', 43200, function () {
                 // 获取置顶文章
                 return Config::pluck('value', 'name');
             });

@@ -22,9 +22,9 @@ use App\Events\ArticleViewEvent;
 
 class HomeController extends Controller
 {
-    public $articleModel;
+    const CACHE_EXPIRE = 43200;
 
-    public $cacheExpires = 300;
+    public $articleModel;
 
     public function __construct(Article $articleModel)
     {
@@ -36,7 +36,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $articles = Cache::remember('articles:list', $this->cacheExpires, function () {
+        $articles = Cache::remember('articles:list', self::CACHE_EXPIRE, function () {
             return $this->articleModel
                         ->select('id', 'category_id', 'title', 'author', 'description','click', 'created_at')
                         ->where('status', 1)
@@ -55,7 +55,7 @@ class HomeController extends Controller
     public function article($id, Request $request)
     {
         //Redis缓存中没有该article,则从数据库中取值,并存入Redis中,该键值key='article:cache'.$id生命时间5分钟
-        $article = Cache::remember('article:cache:'.$id, $this->cacheExpires, function () use ($id) {
+        $article = Cache::remember('article:cache:'.$id, self::CACHE_EXPIRE, function () use ($id) {
             return $this->articleModel->with(['category', 'tags'])->whereId($id)->first();
         });
 
@@ -68,7 +68,7 @@ class HomeController extends Controller
         event(new ArticleViewEvent($article, $ip));
 
         // 获取上一篇
-        $prev = Cache::remember('article:cache:pre:'.$id, $this->cacheExpires, function () use ($id) {
+        $prev = Cache::remember('article:cache:pre:'.$id, self::CACHE_EXPIRE, function () use ($id) {
             return $this->articleModel
                         ->select('id', 'title')
                         ->orderBy('created_at', 'asc')
@@ -78,7 +78,7 @@ class HomeController extends Controller
         });
 
         // 获取下一篇
-        $next = Cache::remember('article:cache:next:'.$id, $this->cacheExpires, function () use ($id) {
+        $next = Cache::remember('article:cache:next:'.$id, self::CACHE_EXPIRE, function () use ($id) {
             return $this->articleModel
                         ->select('id', 'title')
                         ->orderBy('created_at', 'desc')
