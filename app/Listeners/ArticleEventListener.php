@@ -102,8 +102,8 @@ class ArticleEventListener
                 Redis::command('DEL', ['laravel:article:cache:'.$id]);
             }
         }else{
-        //哈希类型指令HSET,和数组类似,就像$cacheKey[$ip] = 1;
-        Redis::command('HSET', [$cacheKey, $ip, '1']);
+            //哈希类型指令HSET,和数组类似,就像$cacheKey[$ip] = 1;
+            Redis::command('HSET', [$cacheKey, $ip, '1']);
         }
     }
 }
