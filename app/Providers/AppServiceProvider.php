@@ -44,7 +44,7 @@ class AppServiceProvider extends ServiceProvider
                     ->orderBy('sort', 'asc')
                     ->get();
             });
-            $article_list = Cache::remember('app:top_article_list', 43200, function () {
+            $top_article_list = Cache::remember('app:top_article_list', 43200, function () {
                 // 获取热门文章
                 return Article::select('id', 'title')
                     ->orderBy('click', 'desc')
