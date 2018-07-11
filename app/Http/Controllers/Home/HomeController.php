@@ -39,7 +39,6 @@ class HomeController extends Controller
             ->with(['category', 'tags'])
             ->simplePaginate(6);
         return view('home.index', compact('articles'));
-        // return view('layouts.frontend', compact('articles'));
     }
 
     /**

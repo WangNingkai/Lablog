@@ -22,20 +22,6 @@ php artisan lablog:migrate
 chmod -R 755 storage/
 chown -R www:www *
 
-# 或者
-
-git clone -b master https://github.com/wangningkai/Lablog.git tmp 
-mv tmp/.git . 
-rm -rf tmp 
-git reset --hard 
-cp .env.example .env 
-composer install -vvv 
-php artisan key:generate
-php artisan lablog:install
-php artisan lablog:migrate 
-chmod -R 755 storage/
-chown -R www:www *
-```
 
 ## 注意事项
 
