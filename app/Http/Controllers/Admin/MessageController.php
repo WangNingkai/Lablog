@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Message;
-use Cache;
 use Mail;
 use App\Mail\SendReply;
 
@@ -75,7 +74,6 @@ class MessageController extends Controller
         $emailto=$this->message->where('id',$request->id)->pluck('email');
         operation_event(auth()->user()->name,'回复留言');
         Mail::to( $emailto)->send(new SendReply());
-        Cache::forget('app:message_list');
         return redirect()->route('message_manage');
     }
 
@@ -93,8 +91,6 @@ class MessageController extends Controller
         ];
         $this->message->destroyData($map);
         operation_event(auth()->user()->name,'删除留言');
-        // 更新缓存
-        Cache::forget('app:message_list');
         return redirect()->back();
     }
 }
