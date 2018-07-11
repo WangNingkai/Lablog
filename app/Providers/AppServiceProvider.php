@@ -44,7 +44,7 @@ class AppServiceProvider extends ServiceProvider
                     ->orderBy('sort', 'asc')
                     ->get();
             });
-            $article_list = Cache::remember('app:article_list', 10080, function () {
+            $article_list = Cache::remember('app:top_article_list', 10080, function () {
                 // 获取热门文章
                 return Article::select('id', 'title')
                     ->orderBy('click', 'desc')
@@ -62,7 +62,7 @@ class AppServiceProvider extends ServiceProvider
                 return Config::pluck('value', 'name');
             });
             // 分配数据
-            $assign = compact('category_list', 'tag_list', 'article_list', 'link_list', 'message_list','config');
+            $assign = compact('category_list', 'tag_list', 'top_article_list', 'link_list', 'message_list','config');
             $view->with($assign);
         });
         Schema::defaultStringLength(191);
