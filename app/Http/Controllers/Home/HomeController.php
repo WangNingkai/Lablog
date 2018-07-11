@@ -39,7 +39,7 @@ class HomeController extends Controller
         $articles = Cache::remember('articles:list', $this->cacheExpires, function () {
             return $this->articleModel
                         ->select('id', 'category_id', 'title', 'author', 'description','click', 'created_at')
-                        ->where('status', $status)
+                        ->where('status', 1)
                         ->orderBy('created_at', 'desc')
                         ->with(['category', 'tags'])
                         ->simplePaginate(6);
