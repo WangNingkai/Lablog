@@ -11,16 +11,20 @@ use App\Models\Article;
 use App\Models\ArticleTag;
 use App\Models\Link;
 use App\Models\Message;
+use App\Mail\SendReminder;
 use Auth;
 use Cache;
 use DB;
 use Mail;
-use App\Mail\SendReminder;
+use App\Events\ArticleViewEvent;
+
 
 
 class HomeController extends Controller
 {
     public $articleModel;
+
+    public $cacheExpires = 300;
 
     public function __construct(Article $articleModel)
     {
@@ -32,14 +36,17 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $articles = $this->articleModel
-            ->select('id', 'category_id', 'title', 'author', 'description','click', 'created_at')
-            ->where('status', 1)
-            ->orderBy('created_at', 'desc')
-            ->with(['category', 'tags'])
-            ->simplePaginate(6);
+        $articles = Cache::remember('articles:list', $this->cacheExpires, function () {
+            return $this->articleModel
+                        ->select('id', 'category_id', 'title', 'author', 'description','click', 'created_at')
+                        ->where('status', $status)
+                        ->orderBy('created_at', 'desc')
+                        ->with(['category', 'tags'])
+                        ->simplePaginate(6);
+        });
+        $re=Cache::get('articles:list');
+        dd($re);
         return view('home.index', compact('articles'));
-        // return view('layouts.frontend', compact('articles'));
     }
 
     /**
@@ -47,32 +54,38 @@ class HomeController extends Controller
      */
     public function article($id, Request $request)
     {
-        $article = $this->articleModel->with(['category', 'tags'])->find($id);
+        //Redis缓存中没有该article,则从数据库中取值,并存入Redis中,该键值key='article:cache'.$id生命时间5分钟
+        $article = Cache::remember('article:cache:'.$id, $this->cacheExpires, function () use ($id) {
+            return $this->articleModel->with(['category', 'tags'])->whereId($id)->first();
+        });
+
         if(0===$article->status | !is_null($article->deleted_at)){
             return abort(404);
         }
-        // 同一个用户访问同一篇文章每天只增加1个访问量  使用 ip+id 作为 key 判别
-        $ipAndId = 'articleRequestList' . $request->ip() . ':' . $id;
-        if (!Cache::has($ipAndId)) {
-            cache([$ipAndId => ''], 1440);
-            // 文章点击量+1
-            $article->increment('click');
-        }
+        //获取客户端请求的IP
+        $ip = $request->ip();
+        //触发浏览次数统计时间
+        event(new ArticleViewEvent($article, $ip));
+
         // 获取上一篇
-        $prev = $this->articleModel
-            ->select('id', 'title')
-            ->orderBy('created_at', 'asc')
-            ->where([['id', '>', $id],['status','=',1]])
-            ->limit(1)
-            ->first();
+        $prev = Cache::remember('article:cache:pre:'.$id, $this->cacheExpires, function () use ($id) {
+            return $this->articleModel
+                        ->select('id', 'title')
+                        ->orderBy('created_at', 'asc')
+                        ->where([['id', '>', $id],['status','=',1]])
+                        ->limit(1)
+                        ->first();
+        });
+
         // 获取下一篇
-        $next = $this->articleModel
-            ->select('id', 'title')
-            ->orderBy('created_at', 'desc')
-            ->where([['id', '<', $id],['status','=',1]])
-            ->limit(1)
-            ->first();
-        // dd($next);
+        $next = Cache::remember('article:cache:next:'.$id, $this->cacheExpires, function () use ($id) {
+            return $this->articleModel
+                        ->select('id', 'title')
+                        ->orderBy('created_at', 'desc')
+                        ->where([['id', '<', $id],['status','=',1]])
+                        ->limit(1)
+                        ->first();
+        });
         return view('home.article', compact('article', 'prev', 'next'));
     }
 
