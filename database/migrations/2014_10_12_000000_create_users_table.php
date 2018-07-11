@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->boolean('status')->default(1)->comment('状态 1正常 0限制');
             $table->timestamp('last_login_at')->nullable()->comment('最后登录时间');
-            $table->string('last_login_ip', 20)->default('')->comment('最后登录IP');
+            $table->string('last_login_ip')->default('')->comment('最后登录IP');
             $table->timestamps();
         });
     }

@@ -107,7 +107,7 @@
                                         <a href="{{route('category_edit',$category->id)}}" class="text-green editCategory">
                                             <i class="fa fa-pencil-square-o"></i>
                                         </a>&nbsp;&nbsp;
-                                        <a href="javascript:void(0)" class=" delCategory">
+                                        <a href="javascript:void(0)" class=" delCategory text-red">
                                             <i class="fa fa-trash"></i>
                                         </a>
                                     </td>
