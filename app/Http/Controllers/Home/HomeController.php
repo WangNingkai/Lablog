@@ -27,9 +27,12 @@ class HomeController extends Controller
 
     public $articleModel;
 
+    public $config;
+
     public function __construct(Article $articleModel)
     {
         $this->articleModel = $articleModel;
+        $this->config = Cache::get('app:config')->toArray();
     }
 
     /**
@@ -58,7 +61,7 @@ class HomeController extends Controller
             return $this->articleModel->with(['category', 'tags'])->whereId($id)->first();
         });
 
-        if(0===$article->status | !is_null($article->deleted_at)){
+        if( 0 === $article->status | !is_null($article->deleted_at) ){
             return abort(404);
         }
         //获取客户端请求的IP
@@ -171,19 +174,15 @@ class HomeController extends Controller
      */
     public function message()
     {
-        // $messages=Message::where('status',1)->orderBy('created_at', 'desc')->get();
-        // return view('home.message',compact('messages'));
-        return view('home.message');
+        $messages=Message::where('status',1)->orderBy('created_at', 'desc')->get();
+        return view('home.message',compact('messages'));
     }
 
     // 留言
     public function message_store(Store $request,Message $message)
     {
         $message->storeData($request->all());
-        $config=Cache::get('app:config')->toArray();
-        Mail::to($config['site_mailto_admin'])->send(new SendReminder());
-        // 更新缓存
-        Cache::forget('app:message_list');
+        Mail::to($this->config['site_mailto_admin'])->send(new SendReminder());
         return redirect()->route('message');
 
     }
@@ -224,15 +223,14 @@ class HomeController extends Controller
      */
     public function feed()
     {
-        // 获取文章
         $articles = Cache::remember('feed:article', self::CACHE_EXPIRE, function () {
             return Article::select('id', 'author', 'title', 'description', 'html', 'created_at')
                 ->latest()
                 ->get();
         });
         $feed = App::make("feed");
-        $feed->title = 'LABLOG';
-        $feed->description = '王宁凯的个人博客';
+        $feed->title = $this->config['site_title'];
+        $feed->description = $this->config['site_description'];
         $feed->logo = 'https://share.imwnk.cn/Images/favicon.ico';
         $feed->link = url('feed');
         $feed->setDateFormat('carbon');
@@ -242,7 +240,7 @@ class HomeController extends Controller
 
         foreach ($articles as $article)
         {
-            $feed->add($article->title, $article->author, url('article', $article->id), $article->created_at, $v->description);
+            $feed->add($article->title, $article->author, url('article', $article->id), $article->created_at, $article->description);
         }
         return $feed->render('atom');
     }
