@@ -16,6 +16,7 @@ use Auth;
 use Cache;
 use DB;
 use Mail;
+use App;
 use App\Events\ArticleViewEvent;
 
 
@@ -195,5 +196,35 @@ class HomeController extends Controller
         $count = $this->articleModel->whereMap($map)->count();
         $articles->count = $count;
         return view('home.search', compact('articles'));
+    }
+
+    /**
+     * 引入feed
+     *
+     * @return \Illuminate\Support\Facades\View
+     */
+    public function feed()
+    {
+        // 获取文章
+        $articles = Cache::remember('feed:article', self::CACHE_EXPIRE, function () {
+            return Article::select('id', 'author', 'title', 'description', 'html', 'created_at')
+                ->latest()
+                ->get();
+        });
+        $feed = App::make("feed");
+        $feed->title = 'LABLOG';
+        $feed->description = '王宁凯的个人博客';
+        $feed->logo = 'https://share.imwnk.cn/Images/favicon.ico';
+        $feed->link = url('feed');
+        $feed->setDateFormat('carbon');
+        $feed->pubdate = $articles->first()->created_at;
+        $feed->lang = 'zh-CN';
+        $feed->ctype = 'application/xml';
+
+        foreach ($articles as $article)
+        {
+            $feed->add($article->title, $article->author, url('article', $article->id), $article->created_at, $v->description);
+        }
+        return $feed->render('atom');
     }
 }
