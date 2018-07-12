@@ -104,7 +104,7 @@
                                 @foreach ($newArticles as $article)
                                 <tr>
                                     <td>{{$article->id}}.</td>
-                                    <td><a class="text-balck"href="{{route('article_edit',$article->id)}}">{{$article->title}}</a></td>
+                                    <td><a class="text-black" href="{{route('article_edit',$article->id)}}">{{$article->title}}</a></td>
                                     <td>
                                         {{$article->created_at}}
                                     </td>
