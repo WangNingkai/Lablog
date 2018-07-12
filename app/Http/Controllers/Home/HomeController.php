@@ -45,8 +45,6 @@ class HomeController extends Controller
                         ->with(['category', 'tags'])
                         ->simplePaginate(6);
         });
-        $re=Cache::get('articles:list');
-        dd($re);
         return view('home.index', compact('articles'));
     }
 
@@ -97,12 +95,21 @@ class HomeController extends Controller
     {
         $category = Category::findOrFail($id);
         $childCategoryList=Category::where(['pid'=>$id])->get();
-        $articles = $this->articleModel
-            ->select('id', 'category_id', 'title', 'author', 'description','click', 'created_at')
-            ->where(['status'=>1,'category_id'=>$id])
-            ->orderBy('created_at', 'desc')
-            ->with(['category', 'tags'])
-            ->simplePaginate(10);
+
+        $articles = Cache::remember('article:list:category'.$id, self::CACHE_EXPIRE, function () use ($id) {
+            return $this->articleModel
+                        ->select('id', 'category_id', 'title', 'author', 'description','click', 'created_at')
+                        ->where(['status'=>1,'category_id'=>$id])
+                        ->orderBy('created_at', 'desc')
+                        ->with(['category', 'tags'])
+                        ->simplePaginate(10);
+        });
+        // $articles = $this->articleModel
+        //     ->select('id', 'category_id', 'title', 'author', 'description','click', 'created_at')
+        //     ->where(['status'=>1,'category_id'=>$id])
+        //     ->orderBy('created_at', 'desc')
+        //     ->with(['category', 'tags'])
+        //     ->simplePaginate(10);
         return view('home.category', compact('articles', 'category','childCategoryList'));
     }
 
@@ -113,13 +120,23 @@ class HomeController extends Controller
     {
         $tag = Tag::findOrFail($id);
         $ids = ArticleTag::where('tag_id', $id)->pluck('article_id')->toArray();
-        $articles = $this->articleModel
-            ->select('id', 'category_id', 'title', 'author', 'description','click', 'created_at')
-            ->where('status',1)
-            ->whereIn('id', $ids)
-            ->orderBy('created_at', 'desc')
-            ->with(['category', 'tags'])
-            ->simplePaginate(10);
+
+        $articles = Cache::remember('article:list:tag'.$id, self::CACHE_EXPIRE, function () use ($ids) {
+            return $this->articleModel
+                        ->select('id', 'category_id', 'title', 'author', 'description','click', 'created_at')
+                        ->where('status',1)
+                        ->whereIn('id', $ids)
+                        ->orderBy('created_at', 'desc')
+                        ->with(['category', 'tags'])
+                        ->simplePaginate(10);
+        });
+        // $articles = $this->articleModel
+        //     ->select('id', 'category_id', 'title', 'author', 'description','click', 'created_at')
+        //     ->where('status',1)
+        //     ->whereIn('id', $ids)
+        //     ->orderBy('created_at', 'desc')
+        //     ->with(['category', 'tags'])
+        //     ->simplePaginate(10);
         return view('home.tag', compact('articles', 'tag'));
     }
 
@@ -154,10 +171,12 @@ class HomeController extends Controller
      */
     public function message()
     {
-        $messages=Message::where('status',1)->orderBy('created_at', 'desc')->get();
-        return view('home.message',compact('messages'));
+        // $messages=Message::where('status',1)->orderBy('created_at', 'desc')->get();
+        // return view('home.message',compact('messages'));
+        return view('home.message');
     }
 
+    // 留言
     public function message_store(Store $request,Message $message)
     {
         $message->storeData($request->all());
