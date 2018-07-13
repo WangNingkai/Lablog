@@ -7,9 +7,8 @@ use App\Http\Requests\Link\Store;
 use App\Http\Requests\Link\Update;
 use App\Http\Controllers\Controller;
 use App\Models\Link;
-use Session;
-use DB;
-use Cache;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 
 class LinkController extends Controller
 {

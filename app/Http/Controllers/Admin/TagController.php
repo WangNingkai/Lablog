@@ -8,8 +8,7 @@ use App\Http\Requests\Tag\Update;
 use App\Http\Controllers\Controller;
 use App\Models\Tag;
 use App\Models\ArticleTag;
-use Session;
-use Cache;
+use Illuminate\Support\Facades\Cache;
 
 class TagController extends Controller
 {

@@ -63,7 +63,6 @@ class Article extends Base
         $result = parent::storeData($data);
         baidu_push($result);
         if ($result) {
-            show_message('添加成功');
             // 给文章添加标签
             $articleTag = new ArticleTag();
             $articleTag->addTagIds($result, $tag_ids);

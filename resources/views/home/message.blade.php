@@ -13,7 +13,7 @@
                             <p>在这里您可以对网站提出建议，或咨询相关问题</p>
                             <div class="hr-line-dashed"></div>
                         </div>
-                        @foreach($messages as $message)
+                        @foreach($message_list as $message)
                         <div class="post">
                             <div class="user-block">
                                 <img class="img-circle img-bordered-sm" src="{{asset('img/user_avatar.png')}}" alt="{{$message->nickname}}">

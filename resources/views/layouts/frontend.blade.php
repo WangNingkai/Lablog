@@ -163,7 +163,7 @@
                                     <!-- /.box-header -->
                                     <div class="box-body">
                                         <ul class="list-group list-group-unbordered">
-                                            @foreach($article_list as $article)
+                                            @foreach($top_article_list as $article)
                                                 <li class="list-group-item">
                                                     <i class="fa fa-hand-o-right"></i>
                                                     <a href="{{route('article',$article->id)}}"

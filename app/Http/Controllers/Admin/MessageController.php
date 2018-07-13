@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Message;
-use Mail;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Mail;
 use App\Mail\SendReply;
 
 class MessageController extends Controller
@@ -70,7 +71,6 @@ class MessageController extends Controller
     public function reply(Request $request)
     {
         $this->message->replyData($request->id,$request->reply);
-        // 更新缓存
         $emailto=$this->message->where('id',$request->id)->pluck('email');
         operation_event(auth()->user()->name,'回复留言');
         Mail::to( $emailto)->send(new SendReply());

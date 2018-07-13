@@ -34,7 +34,7 @@
                                 @foreach($articles as $article)
                                 <tr>
                                     <td><input type="checkbox" value="{{$article->id}}" name="aid" class="i-checks"></td>
-                                    <td><a class="text-black" href="{{route('article_edit',$article->id)}}">{{$article->title}}</a></td>
+                                    <td><a class="text-black" href="{{route('article',$article->id)}}">{{$article->title}}</a></td>
                                     <td>{{$article->category->name}}</td>
                                     <td>{{$article->click}}</td>
                                     <td>
