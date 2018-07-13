@@ -10,6 +10,7 @@ use App\Models\Category;
 use App\Models\Article;
 use App\Models\ArticleTag;
 use App\Models\Message;
+use App\Models\Config;
 use App\Mail\SendReminder;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
@@ -27,7 +28,10 @@ class HomeController extends Controller
 
     public function __construct()
     {
-        $this->config = Cache::get('app:config');
+        $this->config = Cache::remember('app:config', self::CACHE_EXPIRE, function () {
+            // 获取置顶文章
+            return Config::pluck('value', 'name');
+        });
     }
 
     /**
