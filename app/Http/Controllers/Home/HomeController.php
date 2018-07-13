@@ -27,7 +27,7 @@ class HomeController extends Controller
 
     public function __construct()
     {
-        $this->config = Cache::get('app:config')->toArray();
+        $this->config = Cache::get('app:config');
     }
 
     /**
