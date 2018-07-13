@@ -40,7 +40,6 @@ class ConfigController extends Controller
         }
         $configModel->updateBatch($editData);
         operation_event(auth()->user()->name,'修改配置文件');
-        show_message('修改完成');
         // 更新缓存
         Cache::forget('app:config');
         return redirect()->back();
@@ -66,7 +65,7 @@ class ConfigController extends Controller
     {
         $content = $request->input('content');
         Config::where('name', 'site_about')->update(['value' => $content]);
-        show_message('提交成功');
+        show_message('修改成功');
         Artisan::call('cache:clear');
         operation_event(auth()->user()->name,'修改关于页面');
         // 更新缓存

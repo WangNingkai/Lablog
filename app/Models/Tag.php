@@ -2,9 +2,6 @@
 
 namespace App\Models;
 
-use DB;
-
-
 class Tag extends Base
 {
     protected $fillable = ['name', 'flag'];

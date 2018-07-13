@@ -8,8 +8,7 @@ use App\Http\Requests\Category\Update;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Article;
-use Session;
-use Cache;
+use Illuminate\Support\Facades\Cache;
 
 class CategoryController extends Controller
 {
@@ -40,21 +39,6 @@ class CategoryController extends Controller
             ->get();
         return view('admin.category', compact('categories','levelOne'));
     }
-
-    // /**
-    //  * 创建文章栏目.
-    //  *
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function create()
-    // {
-    //     $levelOne = $this->category
-    //         ->select('id', 'name')
-    //         ->where('pid', 0)
-    //         ->get();
-
-    //     return view('admin.category.create', compact('levelOne'));
-    // }
 
     /**
      * 存储文章栏目.

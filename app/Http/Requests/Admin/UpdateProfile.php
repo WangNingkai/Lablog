@@ -3,7 +3,7 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class UpdateProfile extends FormRequest
 {

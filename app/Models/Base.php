@@ -2,15 +2,11 @@
 
 namespace App\Models;
 
-use DB;
-use Artisan;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 
 class Base extends Model
 {
-    const STATUS_ENABLE =1;
-
-    const STATUS_DISENABLE =0;
     /**
      * 禁止被批量赋值的字段
      *
@@ -27,14 +23,18 @@ class Base extends Model
      */
     public function storeData($data)
     {
+        if (empty($data))
+        {
+            show_message('数据为空，添加失败',false);
+            return false;
+        }
         //添加数据
-        $result = $this
-            ->create($data)
-            ->id;
+        $result = $this->create($data);
         if ($result) {
             show_message('添加成功');
-            return $result;
+            return $result->id;
         } else {
+            show_message('添加失败',false);
             return false;
         }
     }
@@ -51,9 +51,9 @@ class Base extends Model
         $model = $this
             ->whereMap($map)
             ->get();
-        // 可能有查不到数据的情况
+        // 当数据为空的时候
         if ($model->isEmpty()) {
-            show_message('无需要添加的数据', false);
+            show_message('数据为空，添加失败', false);
             return false;
         }
         foreach ($model as $k => $v) {
@@ -63,6 +63,7 @@ class Base extends Model
             show_message('修改成功');
             return $result;
         } else {
+            show_message('修改失败',false);
             return false;
         }
     }
@@ -82,6 +83,7 @@ class Base extends Model
             show_message('删除成功');
             return $result;
         } else {
+            show_message('删除失败',false);
             return false;
         }
     }
@@ -103,10 +105,32 @@ class Base extends Model
             show_message('恢复成功');
             return $result;
         } else {
+            show_message('恢复失败',false);
             return false;
         }
     }
 
+    /**
+     * 彻底删除
+     *
+     * @param $map
+     *
+     * @return bool
+     */
+    public function forceDeleteData($map)
+    {
+        // 彻底删除
+        $result=$this
+            ->whereMap($map)
+            ->forceDelete();
+        if ($result) {
+            show_message('彻底删除成功');
+            return $result;
+        }else{
+            show_message('彻底删除失败',false);
+            return false;
+        }
+    }
     /**
      * 使用作用域扩展 Builder 链式操作
      *
@@ -118,49 +142,55 @@ class Base extends Model
      * ]
      *
      * @param $query
-     * @param $map
+     * @param array $map
      * @return mixed
      */
-    public function scopeWhereMap($query, $map)
+    public function scopeWhereMap($query, array $map)
     {
         // 如果是空直接返回
         if (empty($map)) {
             return $query;
         }
 
+        $where = 'where';
+        if (isset($map['_logic'])) {
+            $logic = strtolower($map['_logic']);
+            $where = $logic == 'or' ? 'orWhere' : 'where';
+            unset($map['_logic']);
+        }
         // 判断各种方法
         foreach ($map as $k => $v) {
             if (is_array($v)) {
                 $sign = strtolower($v[0]);
                 switch ($sign) {
                     case 'in':
-                        $query->whereIn($k, $v[1]);
+                        $query->{$where.'In'}($k, $v[1]);
                         break;
                     case 'notin':
-                        $query->whereNotIn($k, $v[1]);
+                        $query->{$where.'NotIn'}($k, $v[1]);
                         break;
                     case 'between':
-                        $query->whereBetween($k, $v[1]);
+                        $query->{$where.'Between'}($k, $v[1]);
                         break;
                     case 'notbetween':
-                        $query->whereNotBetween($k, $v[1]);
+                        $query->{$where.'NotBetween'}($k, $v[1]);
                         break;
                     case 'null':
-                        $query->whereNull($k);
+                        $query->{$where.'Null'}($k);
                         break;
                     case 'notnull':
-                        $query->whereNotNull($k);
+                        $query->{$where.'NotNull'}($k);
                         break;
                     case '=':
                     case '>':
                     case '<':
                     case '<>':
                     case 'like':
-                        $query->where($k, $sign, $v[1]);
+                        $query->{$where}($k, $sign, $v[1]);
                         break;
                 }
             } else {
-                $query->where($k, $v);
+                $query->$where($k, $v);
             }
         }
         return $query;
@@ -183,35 +213,35 @@ class Base extends Model
      * @param array $multipleData
      * @return bool|int
      */
-    function updateBatch($multipleData = [])
-    {
+    function updateBatch($multipleData = []){
         if (empty($multipleData)) {
             return false;
         }
         // 获取表名
-        $tableName = config('database.connections.mysql.prefix') . $this->getTable();
+        $tableName = config('database.connections.mysql.prefix').$this->getTable();
         $updateColumn = array_keys($multipleData[0]);
         $referenceColumn = $updateColumn[0];
         unset($updateColumn[0]);
         $whereIn = "";
         // 组合sql语句
-        $sql = "UPDATE " . $tableName . " SET ";
-        foreach ($updateColumn as $uColumn) {
-            $sql .= $uColumn . " = CASE ";
-            foreach ($multipleData as $data) {
-                $sql .= "WHEN " . $referenceColumn . " = '" . $data[$referenceColumn] . "' THEN '" . $data[$uColumn] . "' ";
+        $sql = "UPDATE ".$tableName." SET ";
+        foreach ( $updateColumn as $uColumn ) {
+            $sql .=  $uColumn." = CASE ";
+            foreach( $multipleData as $data ) {
+                $sql .= "WHEN ".$referenceColumn." = '".$data[$referenceColumn]."' THEN '".$data[$uColumn]."' ";
             }
-            $sql .= "ELSE " . $uColumn . " END, ";
+            $sql .= "ELSE ".$uColumn." END, ";
         }
-        foreach ($multipleData as $data) {
-            $whereIn .= "'" . $data[$referenceColumn] . "', ";
+        foreach( $multipleData as $data ) {
+            $whereIn .= "'".$data[$referenceColumn]."', ";
         }
-        $sql = rtrim($sql, ", ") . " WHERE " . $referenceColumn . " IN (" . rtrim($whereIn, ', ') . ")";
+        $sql = rtrim($sql, ", ")." WHERE ".$referenceColumn." IN (".  rtrim($whereIn, ', ').")";
         // 更新
         $result = DB::update(DB::raw($sql));
-        // 如果有数据变动；则清空缓存
         if ($result) {
-            Artisan::call('cache:clear');
+            flash_success('操作成功');
+        } else {
+            flash_error('操作失败');
         }
         return $result;
     }

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Artisan;
+use Illuminate\Support\Facades\Artisan;
 use App\Models\Article;
 use App\Models\Message;
 use App\Models\Tag;

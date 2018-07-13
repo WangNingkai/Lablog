@@ -1,11 +1,9 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Libraries\Extensions\Tree;
 use Illuminate\Support\Facades\Mail;
 use HyperDown\Parser;
-use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Redis;
 use Jenssegers\Agent\Agent;
 use App\Events\OperationEvent;

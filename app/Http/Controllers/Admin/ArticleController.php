@@ -9,7 +9,7 @@ use App\Models\Article;
 use App\Models\Category;
 use App\Models\Tag;
 use App\Models\ArticleTag;
-use Cache;
+use Illuminate\Support\Facades\Cache;
 
 class ArticleController extends Controller
 {

@@ -9,13 +9,11 @@ use App\Models\Tag;
 use App\Models\Category;
 use App\Models\Article;
 use App\Models\ArticleTag;
-use App\Models\Link;
 use App\Models\Message;
 use App\Mail\SendReminder;
-use Auth;
-use Cache;
-use DB;
-use Mail;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use App\Events\ArticleViewEvent;
 
 

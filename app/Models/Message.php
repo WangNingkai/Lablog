@@ -14,13 +14,12 @@ class Message extends Base
     public function storeData($data)
     {
         //添加数据
-        $result = $this
-            ->create($data)
-            ->id;
+        $result = $this->create($data);
         if ($result) {
             show_message('留言成功，等待审核');
-            return $result;
+            return $result->id;
         } else {
+            show_message('留言失败',false);
             return false;
         }
     }
@@ -37,7 +36,7 @@ class Message extends Base
             ->whereMap($map)
             ->get();
         if ($model->isEmpty()) {
-            show_message('非法数据！', false);
+            show_message('数据为空，操作失败', false);
             return false;
         }
         foreach ($model as $k => $v) {
@@ -47,6 +46,7 @@ class Message extends Base
             show_message('操作成功');
             return $result;
         } else {
+            show_message('操作失败',false);
             return false;
         }
     }
@@ -63,14 +63,15 @@ class Message extends Base
             ->find($id);
         // 可能有查不到数据的情况
         if (!$model) {
-            show_message('非法数据！', false);
+            show_message('数据为空，回复失败', false);
             return false;
         }
-        $result=$model->forceFill(['reply'=>$reply,'status'=>1])->save();;
+        $result=$model->forceFill(['reply'=>$reply,'status'=>1])->save();
         if ($result) {
-            show_message('操作成功');
+            show_message('回复成功');
             return $result;
         } else {
+            show_message('回复失败',false);
             return false;
         }
     }

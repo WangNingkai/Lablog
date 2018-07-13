@@ -3,16 +3,14 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\View;
 use App\Models\Category;
 use App\Models\Tag;
 use App\Models\Link;
 use App\Models\Article;
 use App\Models\Message;
 use App\Models\Config;
-use Cache;
-use File;
-use Schema;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
 {

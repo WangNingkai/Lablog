@@ -6,8 +6,8 @@ use App\Http\Requests\Admin\UpdatePassword;
 use App\Http\Requests\Admin\UpdateProfile;
 use App\Http\Controllers\Controller;
 use App\Models\User as Admin;
-use Auth;
-use Hash;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
@@ -33,7 +33,7 @@ class ProfileController extends Controller
         if (Hash::check($request->get('old_password'), $admin->password)) {
             $admin->password = bcrypt($request->get('password'));
             $admin->save();
-            show_message('成功修改密码');
+            show_message('修改密码成功');
             operation_event(auth()->user()->name,'修改密码');
             return redirect()->back();
         }
@@ -55,7 +55,7 @@ class ProfileController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
         ]);
-        show_message('成功修改信息');
+        show_message('修改信息成功');
         operation_event(auth()->user()->name,'修改个人信息');
         return redirect()->back();
     }
