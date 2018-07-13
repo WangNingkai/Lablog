@@ -49,18 +49,12 @@ class AppServiceProvider extends ServiceProvider
                     ->limit(8)
                     ->get();
             });
-            $message_list=Cache::remember('app:message_list', 43200, function () {
-                // 获取留言列表
-                return Message::where('status', 1)
-                    ->orderBy('created_at', 'desc')
-                    ->get();
-            });
             $config = Cache::remember('app:config', 43200, function () {
                 // 获取置顶文章
                 return Config::pluck('value', 'name');
             });
             // 分配数据
-            $assign = compact('category_list', 'tag_list', 'top_article_list', 'link_list', 'message_list','config');
+            $assign = compact('category_list', 'tag_list', 'top_article_list', 'link_list','config');
             $view->with($assign);
         });
         Schema::defaultStringLength(191);

@@ -35,6 +35,7 @@ Route::group(['namespace' => 'Home', 'middleware' => ['check.status']], function
     Route::get('message','HomeController@message')->name('message');
     Route::post('message_store','HomeController@message_store')->name('message_store');
     Route::get('search', 'HomeController@search')->name('search');
+    Route::get('feed', 'HomeController@feed')->name('feed');
 });
 // 后台
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['auth:web','check.timeout']], function () {

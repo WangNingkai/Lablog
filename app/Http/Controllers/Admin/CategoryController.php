@@ -71,10 +71,10 @@ class CategoryController extends Controller
         }
         $category = $this->category->find($id);
         $map = [
-            'pid' => 0,
-            'id' => ['<>', $id]
+            ['pid', '=', 0],
+            ['id', '<>', $id]
         ];
-        $levelOne = $this->category->select('id', 'name')->whereMap($map)->get();
+        $levelOne = $this->category->select('id', 'name')->where($map)->get();
         return view('admin.category-edit', compact('categories','category', 'levelOne'));
     }
 
