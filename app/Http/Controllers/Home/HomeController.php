@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use App\Events\ArticleViewEvent;
+use Illuminate\Support\Facades\App;
 
 
 
@@ -152,7 +153,7 @@ class HomeController extends Controller
      */
     public function message()
     {
-        $messages = Cache::remember('messages:list', self::CACHE_EXPIRE, function () use ($ids) {
+        $messages = Cache::remember('messages:list', self::CACHE_EXPIRE, function ()  {
             return Message::where('status',1)->orderBy('created_at', 'desc')->get();
         });
         return view('home.message',compact('messages'));
