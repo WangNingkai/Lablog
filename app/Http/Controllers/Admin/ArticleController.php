@@ -60,6 +60,7 @@ class ArticleController extends Controller
         operation_event(auth()->user()->name,'添加文章');
         // 更新缓存
         Cache::forget('app:top_article_list');
+        Cache::forget('feed:articles');
         return redirect()->route('article_manage');
     }
 
@@ -107,6 +108,7 @@ class ArticleController extends Controller
         operation_event(auth()->user()->name,'编辑文章');
         // 更新缓存
         Cache::forget('app:top_article_list');
+        Cache::forget('feed:articles');
         return redirect()->route('article_manage');
     }
 
@@ -127,6 +129,7 @@ class ArticleController extends Controller
         operation_event(auth()->user()->name,'软删除文章');
         // 更新缓存
         Cache::forget('app:top_article_list');
+        Cache::forget('feed:articles');
         return redirect()->back();
     }
 
@@ -163,6 +166,7 @@ class ArticleController extends Controller
         operation_event(auth()->user()->name,'恢复软删除文章');
         // 更新缓存
         Cache::forget('app:top_article_list');
+        Cache::forget('feed:articles');
         return redirect()->back();
     }
 
@@ -187,7 +191,9 @@ class ArticleController extends Controller
         operation_event(auth()->user()->name,'完全删除文章');
         show_message('彻底删除成功');
         // 更新缓存
+        Cache::forget('app:top_article_list');
         Cache::forget('app:tag_list');
+        Cache::forget('feed:articles');
         return redirect()->back();
     }
 }

@@ -14,7 +14,6 @@ class ConfigController extends Controller
     /**
      * 列举配置目录.
      *
-     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function manage()
