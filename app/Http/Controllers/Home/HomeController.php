@@ -15,14 +15,13 @@ use App\Mail\SendReminder;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
-use App\Events\ArticleViewEvent;
 use Illuminate\Support\Facades\App;
 
 
 
 class HomeController extends Controller
 {
-    const CACHE_EXPIRE = 43200;
+    const CACHE_EXPIRE = 1440;
 
     public $config;
 
@@ -55,13 +54,14 @@ class HomeController extends Controller
     {
         $article = Article::with(['category', 'tags'])->whereId($id)->first();
 
+        $key = 'articleRequestList:'.$id.':'.$request->ip();
+        if (!Cache::has($key)) {
+            Cache::put($key,$request->ip(), 1440);
+            $article->increment('click');
+        }
         if( 0 === $article->status | !is_null($article->deleted_at) ){
             return abort(404);
         }
-        //获取客户端请求的IP
-        $ip = $request->ip();
-        //触发浏览次数统计时间
-        event(new ArticleViewEvent($article, $ip));
 
         // 获取上一篇
         $prev = Article::select('id', 'title')
