@@ -200,6 +200,8 @@
 {!! pace_js() !!}
 <!-- SweetAlert2  -->
 {!! sweetalert2_js() !!}
+{!! validate_js() !!}
+<script src="{{asset('js/validator.js')}}"></script>
 @if(Session::has('alertMessage'))
     <script>
         $(function () {

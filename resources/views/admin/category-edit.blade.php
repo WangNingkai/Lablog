@@ -16,7 +16,7 @@
         <section class="content container-fluid">
             <div class="row">
                 <div class="col-md-4">
-                    <form role="form"  method="POST" action="{{route('category_update',$category->id)}}">
+                    <form role="form"  method="POST" action="{{route('category_update',$category->id)}}" id="editCategoryForm">
                         {{ csrf_field() }}
                         <div class="box box-default">
                             <div class="box-header with-border">

@@ -108,7 +108,7 @@
                             </div>
                         </div>
                     </form>
-                    <form role="form"  method="POST" action="{{route('link_store')}}">
+                    <form role="form"  method="POST" action="{{route('link_store')}}" id="createLinkForm">
                         {{ csrf_field() }}
                         <div class="box box-default">
                             <div class="box-header with-border">

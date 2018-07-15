@@ -66,7 +66,7 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <form role="form"  method="POST" action="{{route('category_store')}}">
+                    <form role="form"  method="POST" action="{{route('category_store')}}" id="createCategoryForm">
                         {{ csrf_field() }}
                         <div class="box box-default">
                             <div class="box-header with-border">

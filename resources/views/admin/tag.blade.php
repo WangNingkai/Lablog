@@ -99,7 +99,7 @@
                             </div>
                         </div>
                     </form>
-                    <form role="form"  method="POST" action="{{route('tag_store')}}">
+                    <form role="form"  method="POST" action="{{route('tag_store')}}" id="createTagForm">
                         {{ csrf_field() }}
                         <div class="box box-default">
                             <div class="box-header with-border">

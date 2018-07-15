@@ -16,7 +16,7 @@
         <section class="content container-fluid">
             <div class="row">
                 <div class="col-md-6">
-                    <form role="form"  method="POST" action="{{route('profile_update')}}">
+                    <form role="form"  method="POST" action="{{route('profile_update')}}" id="editProfileForm">
                     {{ csrf_field() }}
                         <div class="box box-default">
                             <div class="box-header with-border">
@@ -46,7 +46,7 @@
                      </form>
                 </div>
                 <div class="col-md-6">
-                    <form role="form"  method="POST" action="{{route('password_update')}}">
+                    <form role="form"  method="POST" action="{{route('password_update')}}" id="changePassForm">
                         {{ csrf_field() }}
                         <div class="box box-default">
                             <div class="box-header with-border">

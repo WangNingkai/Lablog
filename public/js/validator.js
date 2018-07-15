@@ -1,5 +1,5 @@
 $.validator.setDefaults({
-    ignore: ":hidden, [contenteditable='true']:not([name])",
+    ignore: ":hidden",
     highlight: function (e) {
         $(e).closest(".form-group").removeClass("has-success").addClass("has-error")
     },
@@ -10,14 +10,17 @@ $.validator.setDefaults({
     errorPlacement: function (e, r) {
         e.appendTo(r.is(":radio") || r.is(":checkbox") ? r.parent().parent().parent() : r.parent())
     },
-    errorClass: "help-block m-b-none",
-    validClass: "help-block m-b-none"
-}), jQuery.validator.addMethod("regex", function (value, element, params) {
-    var exp = new RegExp(params);
-    return exp.test(value)
-}, "格式错误"), $().ready(function () {
-    var e = "<i class='fa fa-times-circle'></i> ";
-    $("#addTagForm").validate({
+    errorClass: "help-block",
+    validClass: "help-block"
+});
+$.validator.addMethod("regex", function (value, element, params) {
+    exp = new RegExp(params);
+    return exp.test(value);
+}, "格式错误");
+
+$(function() {
+    e = "<i class='fa fa-times-circle'></i> ";
+    $("#createTagForm").validate({
         rules: {
             name: {
                 required: !0,
@@ -53,7 +56,7 @@ $.validator.setDefaults({
             }
         }
     });
-    $("#addCategoryForm").validate({
+    $("#createCategoryForm").validate({
         rules: {
             name: {
                 required: !0,
@@ -114,6 +117,7 @@ $.validator.setDefaults({
             },
             sort: {
                 required: !0,
+                number:true
             }
         },
         messages: {
@@ -134,10 +138,11 @@ $.validator.setDefaults({
             },
             sort: {
                 required: e + "请输入排序权重",
+                number: e + "请输入合法的数字"
             }
         }
     });
-    $("#addArticleForm").validate({
+    $("#createArticleForm").validate({
         rules: {
             title: {
                 required: !0,
@@ -233,13 +238,14 @@ $.validator.setDefaults({
             }
         }
     });
-    $("#addLinkForm").validate({
+    $("#createLinkForm").validate({
         rules: {
             name: {
                 required: !0,
             },
             url: {
                 required: !0,
+                url:true
             }
         },
         messages: {
@@ -248,6 +254,7 @@ $.validator.setDefaults({
             },
             url: {
                 required: e + "请输入友链地址",
+                url: e + "请输入正确的链接"
             }
         }
     });
@@ -268,5 +275,51 @@ $.validator.setDefaults({
                 required: e + "请输入友链地址",
             }
         }
-    })
+    });
+    $("#editProfileForm").validate({
+        rules: {
+            name: {
+                required: !0,
+            },
+            email: {
+                required: !0,
+                email: true
+            }
+        },
+        messages: {
+            name: {
+                required: e + "请输入用户名",
+            },
+            email: {
+                required: e + "请输入邮箱",
+                email:  e + "请输入正确的邮箱地址"
+            }
+        }
+    });
+    $("#changePassForm").validate({
+        rules: {
+            old_password: {
+                required: !0,
+            },
+            password: {
+                required: !0,
+            },
+            password_confirmation: {
+                required: !0,
+                equalTo: "#password"
+            }
+        },
+        messages: {
+            old_password: {
+                required: e + "请输入原密码",
+            },
+            password: {
+                required: e + "请输入新密码",
+            },
+            password_confirmation: {
+                required: e + "请确认新密码",
+                equalTo: e + "两次密码不一致"
+            }
+        }
+    });
 });

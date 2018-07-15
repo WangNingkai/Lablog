@@ -15,7 +15,7 @@
             </ol>
         </section>
         <section class="content container-fluid">
-            <form role="form"  method="POST" action="{{route('article_store')}}">
+            <form role="form"  method="POST" action="{{route('article_store')}}" id="createArticleForm">
             {{ csrf_field() }}
                 <div class="row">
                     <div class="col-md-12">
@@ -119,7 +119,7 @@
                                         <span class="help-block"><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('content') }}</strong></span>
                                     @endif
                                     <div id="editormd_id">
-                                        <textarea name="content" style="display:none;"></textarea>
+                                        <textarea name="content" style="display:none;">{{old('content')}}</textarea>
                                     </div>
                                 </div>
                             </div>
