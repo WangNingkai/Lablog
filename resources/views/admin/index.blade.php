@@ -121,7 +121,13 @@
                             <h3 class="box-title">最新留言</h3>
                         </div>
                         <div class="box-body chat" id="chat-box">
-                            @foreach($newMessages as $message)
+                            @if(blank($newMessages))
+                                <div class="callout callout-danger text-center">
+                                    <h4>Oops！</h4>
+                                    <p>暂无新留言</p>
+                                </div>
+                            @else
+                                @foreach($newMessages as $message)
                             <div class="item">
                                 <img src="{{asset('tpl/img/user_avatar.png')}}" alt="{{$message->nickname}}" class="online">
                                 <p class="message">
@@ -134,6 +140,7 @@
                                 </p>
                             </div>
                             @endforeach
+                            @endif
                         </div>
                     </div>
                 </div>
