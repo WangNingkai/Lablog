@@ -65,6 +65,7 @@
                                 @endif
                             </div>
                         </div>
+                        <div class="hr-line-dashed"></div>
                     </div>
                 </div>
             </div>
