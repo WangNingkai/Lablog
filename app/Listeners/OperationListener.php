@@ -3,10 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\OperationEvent;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Ip;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class OperationListener
 {
@@ -41,14 +38,8 @@ class OperationListener
             'operation_time' => $timestamp,
         ];
 
-        // zhuzhichao/ip-location-zh 包含的方法获取ip地理位置
-        // $addresses = Ip::find($ip);
-        // $basic_info['address'] = implode(' ', $addresses);
         $basic_info['address']=ip_to_city($ip);
-
         // 提取agent信息
-
-        //设备名称
         $ua_info=get_ua();
         $operation_info=array_merge($basic_info,$ua_info);
         //插入到数据库

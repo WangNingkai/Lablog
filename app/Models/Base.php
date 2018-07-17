@@ -239,9 +239,9 @@ class Base extends Model
         // 更新
         $result = DB::update(DB::raw($sql));
         if ($result) {
-            flash_success('操作成功');
+            show_message('操作成功');
         } else {
-            flash_error('操作失败');
+            show_message('操作失败',false);
         }
         return $result;
     }

@@ -17,6 +17,8 @@ class Category extends Base
 
     /**
      * 递归获取树形索引
+     * @param integer
+     * @param integer
      * @return array 角色数组
      */
     public function getTreeIndex($id = 0, $deep = 0) {

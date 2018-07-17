@@ -3,13 +3,10 @@
 namespace App\Listeners;
 
 use Illuminate\Auth\Events\Login;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Carbon\Carbon;
 use App\Events\OperationEvent;
-use Jenssegers\Agent\Agent;
-use Request;
-use Auth;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginListener
 {

@@ -2,15 +2,11 @@
 
 namespace App\Events;
 
-use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use App\Models\User;
-use Ip;
 
 
 
@@ -58,7 +54,7 @@ class OperationEvent
     }
 
     // 获取操作者
-    public function getOperater()
+    public function getOperator()
     {
         return $this->operater;
     }
