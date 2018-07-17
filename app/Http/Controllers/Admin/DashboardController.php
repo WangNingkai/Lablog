@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Artisan;
 use App\Models\Article;
 use App\Models\Message;
 use App\Models\Tag;
 use App\Models\Category;
+use App\Models\Comment;
 
 
 class DashboardController extends Controller
@@ -21,10 +21,12 @@ class DashboardController extends Controller
         $allCategoriesCount=Category::count();
         $allMessagesCount = Message::count();
         // 最新未读留言
-        $newMessages = Message::where(['status'=>0])->orderBy('created_at', 'desc')->limit(5)->get();
+        $newComments = Comment::where(['status'=>0])->orderBy('created_at', 'desc')->limit(5)->get();
+        // 最新未读留言
+        $newMessages = Message::where(['status'=>0])->with('article')->orderBy('created_at', 'desc')->limit(5)->get();
         // 最新发布文章
         $newArticles = Article::orderBy('created_at', 'desc')->limit('6')->get();
-        $assign=compact('allArticlesCount','allTagsCount','allCategoriesCount','allMessagesCount','newMessages','newArticles');
+        $assign=compact('allArticlesCount','allTagsCount','allCategoriesCount','allMessagesCount','newMessages','newArticles','allCommentsCount','newComments');
         return view('admin.index', $assign);
     }
 

@@ -87,8 +87,7 @@
 
             </div>
             <div class="row">
-                <div class="col-lg-6">
-
+                <div class="col-lg-4">
                     <div class="box box-default">
                         <div class="box-header">
                             <i class="ion ion-clipboard"></i>
@@ -114,7 +113,38 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-4">
+                    <div class="box box-default">
+                        <div class="box-header">
+                            <i class="fa fa-comments-o"></i>
+                            <h3 class="box-title">最新评论</h3>
+                        </div>
+                        <div class="box-body chat" id="chat-box">
+                            @if(blank($newComments))
+                                <div class="callout callout-primary text-center">
+                                    <h4>Oops！</h4>
+                                    <p>暂无新评论</p>
+                                </div>
+                            @else
+                                @foreach($newComments as $comment)
+                                    <div class="item">
+                                        <img src="{{asset('img/user_avatar.png')}}" alt="{{$comment->nickname}}" class="online">
+                                        <p class="message">
+                                            <a href="#" class="name">
+                                                <small class="text-muted pull-right">
+                                                    <i class="fa fa-clock-o"></i> {{$comment->created_at}}</small>
+                                                {{$comment->nickname}}
+                                            </a>
+                                            <span class="text-muted">来自文章：{{$comment->article->title}}</span><br/>
+                                            {{$comment->content}}
+                                        </p>
+                                    </div>
+                                @endforeach
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
                     <div class="box box-default">
                         <div class="box-header">
                             <i class="fa fa-comments-o"></i>
@@ -122,14 +152,14 @@
                         </div>
                         <div class="box-body chat" id="chat-box">
                             @if(blank($newMessages))
-                                <div class="callout callout-danger text-center">
+                                <div class="callout callout-primary text-center">
                                     <h4>Oops！</h4>
                                     <p>暂无新留言</p>
                                 </div>
                             @else
                                 @foreach($newMessages as $message)
                             <div class="item">
-                                <img src="{{asset('tpl/img/user_avatar.png')}}" alt="{{$message->nickname}}" class="online">
+                                <img src="{{asset('img/user_avatar.png')}}" alt="{{$message->nickname}}" class="online">
                                 <p class="message">
                                     <a href="#" class="name">
                                         <small class="text-muted pull-right">

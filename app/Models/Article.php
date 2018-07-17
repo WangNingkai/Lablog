@@ -20,9 +20,8 @@ class Article extends Base
         return str_replace(["\r", "\n", "\r\n"], '', $value);
     }
 
+
     /**
-     * 关联文章表
-     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function category()
@@ -30,14 +29,21 @@ class Article extends Base
         return $this->belongsTo(Category::class);
     }
 
+
     /**
-     * 关联标签表
-     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function tags()
     {
-        return $this->belongsToMany(Tag::class, 'article_tags');
+        return $this->belongsToMany(Tag::class,'article_tags');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 
     /**

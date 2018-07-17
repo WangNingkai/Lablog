@@ -16,7 +16,7 @@ class CreateOperationLogsTable extends Migration
         Schema::create('operation_logs', function (Blueprint $table) {
             // id operater operation ip operation_time  address device  browser platform language device_type
             $table->increments('id');
-            $table->string('operater')->nullable()->comment('操作者');;
+            $table->string('operator')->nullable()->comment('操作者');;
             $table->string('operation')->nullable()->comment('操作');;
             $table->string('ip')->nullable()->comment('ip');;
             $table->integer('operation_time')->nullable()->comment('时间');;

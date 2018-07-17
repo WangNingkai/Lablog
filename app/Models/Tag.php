@@ -7,7 +7,7 @@ class Tag extends Base
     protected $fillable = ['name', 'flag'];
 
     /**
-     * 关联文章表
+     * 多对多关联文章表
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */

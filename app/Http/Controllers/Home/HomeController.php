@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Home;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\Message\Store;
+use App\Http\Requests\Message\Store as MessageStore;
+use App\Http\Requests\Comment\Store as CommentStore;
 use App\Http\Controllers\Controller;
 use App\Models\Tag;
 use App\Models\Category;
 use App\Models\Article;
+use App\Models\Comment;
 use App\Models\ArticleTag;
 use App\Models\Message;
 use App\Models\Config;
@@ -34,7 +36,7 @@ class HomeController extends Controller
     }
 
     /**
-     * 首页
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
@@ -48,12 +50,15 @@ class HomeController extends Controller
     }
 
     /**
-     * 文章页
+     * @param $id
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|void
      */
     public function article($id, Request $request)
     {
-        $article = Article::with(['category', 'tags'])->whereId($id)->first();
-
+        $article = Article::with(['category', 'tags','comments'=>function ($query) {
+            $query->where('status', 1);
+        }])->whereId($id)->first();
         $key = 'articleRequestList:'.$id.':'.$request->ip();
         if (!Cache::has($key)) {
             Cache::put($key,$request->ip(), 1440);
@@ -80,7 +85,21 @@ class HomeController extends Controller
     }
 
     /**
-     * 栏目页
+     * @param CommentStore $request
+     * @param Comment $comment
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function comment_store(CommentStore $request,Comment $comment)
+    {
+        $comment->storeData($request->all());
+//        Mail::to($this->config['site_mailto_admin'])->send(new SendReminder());
+        return redirect()->back();
+
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function category($id)
     {
@@ -96,7 +115,8 @@ class HomeController extends Controller
     }
 
     /**
-     * 标签页
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function tag($id)
     {
@@ -113,7 +133,7 @@ class HomeController extends Controller
     }
 
     /**
-     * 归档
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function archive()
     {
@@ -135,8 +155,8 @@ class HomeController extends Controller
         return view('home.archive', compact('archive'));
     }
 
-    /*
-     * 留言板
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function message()
     {
@@ -144,17 +164,21 @@ class HomeController extends Controller
         return view('home.message',compact('messages'));
     }
 
-    // 留言
-    public function message_store(Store $request,Message $message)
+    /**
+     * @param MessageStore $request
+     * @param Message $message
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function message_store(MessageStore $request,Message $message)
     {
         $message->storeData($request->all());
         Mail::to($this->config['site_mailto_admin'])->send(new SendReminder());
-        return redirect()->route('message');
+        return redirect()->back();
 
     }
 
     /**
-     * 关于页
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function about()
     {
@@ -162,7 +186,7 @@ class HomeController extends Controller
     }
 
     /**
-     * 搜索
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function search()
     {

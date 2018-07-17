@@ -8,7 +8,7 @@ class Category extends Base
     protected $fillable = ['name', 'flag', 'pid', 'keywords', 'description', 'sort'];
 
     /**
-     * 一对多关联文章
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function articles()
     {

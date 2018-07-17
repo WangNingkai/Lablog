@@ -50,12 +50,12 @@
                                 {{ csrf_field() }}
                                 <div class="row">
                                     <div class="col-xs-12 form-group">
-                                        <textarea class="form-control" style="resize: none;" rows="3" cols="4" name="content" placeholder="请输入留言"></textarea>
+                                        <textarea class="form-control" style="resize: none;" rows="3" cols="4" name="content" placeholder="请输入留言" required></textarea>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4 form-group">
-                                        <input type="text" class="form-control" name ="nickname"placeholder="输入评论显示名称 *" required>
+                                        <input type="text" class="form-control" name ="nickname"placeholder="输入留言显示名称 *" required>
                                     </div>
                                     <div class="col-md-4 form-group">
                                         <input type="email" class="form-control" name="email" placeholder="输入电子邮件（不会在留言显示）*" required>

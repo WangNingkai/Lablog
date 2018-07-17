@@ -26,13 +26,13 @@ class OperationListener
     public function handle(OperationEvent $event)
     {
         //获取事件中保存的信息
-        $operater = $event->getOperater();
+        $operator = $event->getOperator();
         $operation = $event->getOperation();
         $ip = $event->getIp();
         $timestamp = $event->getTimestamp();
 
         $basic_info=[
-            'operater' => $operater,
+            'operator' => $operator,
             'operation' => $operation,
             'ip' => $ip,
             'operation_time' => $timestamp,

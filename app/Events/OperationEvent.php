@@ -17,7 +17,7 @@ class OperationEvent
     /**
      * @var User 用户模型
      */
-    protected $operater;
+    protected $operator;
 
     /**
      *
@@ -56,7 +56,7 @@ class OperationEvent
     // 获取操作者
     public function getOperator()
     {
-        return $this->operater;
+        return $this->operator;
     }
 
     // 获取操作

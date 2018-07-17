@@ -39,7 +39,7 @@ class Store extends FormRequest
     {
         return [
             'nickname' => '昵称',
-            'eamil' => '邮箱',
+            'email' => '邮箱',
             'content' => '留言内容',
 
         ];

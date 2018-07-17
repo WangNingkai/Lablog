@@ -75,6 +75,7 @@
                                 <a href="javascript:void(0)" class="btn btn-primary btn-flat" onclick="selectEmpty('mid')">全不选</a>
                                 <a href="javascript:void(0)" class="btn btn-primary btn-flat" onclick="selectReverse('mid')">反选</a>
                                 <a href="javascript:void(0)" class="btn btn-danger btn-flat" id="delSelectedMessage">删除选定</a>
+                                <a href="javascript:void(0)" class="btn btn-success btn-flat" id="checkSelectedMessage">审核选定</a>
                             </div>
                             {{ $messages->links('vendor.pagination.adminlte') }}
                         </div>

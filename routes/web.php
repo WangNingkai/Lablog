@@ -29,6 +29,7 @@ Route::group(['namespace' => 'Home', 'middleware' => ['check.status']], function
     Route::get('/', 'HomeController@index')->name('home');
     Route::get('about', 'HomeController@about')->name('about');
     Route::get('article/{id}', 'HomeController@article')->name('article');
+    Route::post('comment_store','HomeController@comment_store')->name('comment_store');
     Route::get('category/{id}', 'HomeController@category')->name('category');
     Route::get('tag/{id}', 'HomeController@tag')->name('tag');
     Route::get('archive', 'HomeController@archive')->name('archive');
@@ -89,6 +90,14 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
         Route::get('trash', 'ArticleController@trash')->name('article_trash');
         Route::post('restore', 'ArticleController@restore')->name('article_restore');
         Route::post('destroy', 'ArticleController@destroy')->name('article_destroy');
+    });
+    // 评论
+    Route::group(['prefix' => 'comment'], function () {
+        Route::get('manage', 'CommentController@manage')->name('comment_manage');
+        Route::get('show/{id?}', 'CommentController@show')->name('comment_show');
+        Route::post('check', 'CommentController@check')->name('comment_check');
+        Route::post('reply', 'CommentController@reply')->name('comment_reply');
+        Route::post('destroy', 'CommentController@destroy')->name('comment_destroy');
     });
     // 友链
     Route::group(['prefix' => 'link'], function () {
