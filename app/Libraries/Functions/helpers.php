@@ -362,13 +362,21 @@ if (!function_exists('baidu_push')) {
     /**
      * 百度推广推送
      *
-     * @param int $id
+     * @param mix $id 文章id
+     * @param string $type 推送类型 添加urls 1更新update 2删除del
      */
-    function baidu_push($id)
+    function baidu_push($id,$ype = 'urls')
     {
         $urls=[];
-        $urls[]=route('article',$id);
-        $api=env('BAIDU_PUSH_API');
+        if(is_array($id))
+        {
+            foreach ($id as $value) {
+                $urls[]=route('article',$value);
+            }
+        }else {
+            $urls[]=route('article',$id);
+        }
+        $api='http://data.zz.baidu.com/'.$type.'site='.env('APP_URL').'&token='.env('BAIDU_PUSH_TOKEN');
         $ch=curl_init();
         $options=[
             CURLOPT_URL=>$api,

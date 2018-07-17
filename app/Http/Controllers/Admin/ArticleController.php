@@ -189,6 +189,7 @@ class ArticleController extends Controller
         $articleTagModel = new ArticleTag;
         $articleTagModel->whereIn('article_id', $arr)->forceDelete();
         operation_event(auth()->user()->name,'完全删除文章');
+        baidu_push($arr,'del');
         show_message('彻底删除成功');
         // 更新缓存
         Cache::forget('app:top_article_list');
