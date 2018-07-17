@@ -42,13 +42,16 @@ class OperationEvent
 
 
     /**
-     * Create a new event instance.
+     * OperationEvent constructor.
+     * @param $operator
+     * @param $operation
+     * @param $ip
+     * @param $timestamp
      *
-     * @return void
      */
-    public function __construct($operater,$operation,$ip,$timestamp)
+    public function __construct($operator, $operation, $ip = '', $timestamp = '')
     {
-            $this->operater = $operater;
+            $this->operater = $operator;
             $this->operation = $operation;
             $this->ip = $ip;
             $this->timestamp = $timestamp;

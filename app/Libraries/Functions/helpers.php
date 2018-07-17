@@ -4,17 +4,14 @@ use Illuminate\Support\Facades\Session;
 use App\Libraries\Extensions\Tree;
 use Illuminate\Support\Facades\Mail;
 use HyperDown\Parser;
-use Illuminate\Support\Facades\Redis;
 use Jenssegers\Agent\Agent;
 use App\Events\OperationEvent;
-use WangNingkai\Translation\BaiduTranslation;
 
 if (!function_exists('get_ua')) {
     /**
      * 获取客户端UA
      *
-     * @param $time
-     * @return bool|string
+     * @return array
      */
     function get_ua()
     {
@@ -50,11 +47,12 @@ if (!function_exists('operation_event')) {
     /**
      * 操作日志事件
      *
-     * @param $time
-     * @return bool|string
+     * @param string $operator 操作者
+     * @param string $operation 操作名称
+     * @return string
      */
-    function operation_event($operater,$operation){
-        event(new OperationEvent($operater,$operation,request()->getClientIp(), time()));
+    function operation_event($operator,$operation){
+        event(new OperationEvent($operator,$operation,request()->getClientIp(), time()));
     }
 }
 
@@ -107,6 +105,7 @@ if (!function_exists('set_active')) {
      * 设置导航栏状态
      *
      * @param string $route
+     * @return bool
      */
     function set_active($route)
     {
@@ -193,6 +192,7 @@ if (!function_exists('get_tree')) {
      * @param array $data 要转换的数据集
      * @param string $pid parent标记字段
      * @param string $count 获取个数
+     * @return  array
      */
     function get_tree($data, $pid, $count = null)
     {
@@ -208,10 +208,10 @@ if (!function_exists('get_tree')) {
                 }
                 //将记录存入新数组
                 $tree[] = $v;
-
                 if ($count === count($tree)) {
                     break;
                 } elseif (is_null($count)) {
+                    return [];
                 }
             }
         }
@@ -225,7 +225,7 @@ if (!function_exists('get_select')) {
      *
      * @param array $data 数据
      * @param integer $selectedId 所选id
-     * @return void
+     * @return string
      */
     function get_select($data, $selectedId = 0)
     {
@@ -240,7 +240,7 @@ if (!function_exists('ip_to_city')) {
      * 根据ip获取城市
      *
      * @param string $ip
-     * @return array
+     * @return string
      */
     function ip_to_city($ip)
     {
@@ -264,7 +264,7 @@ if (!function_exists('markdown_to_html')) {
     function markdown_to_html($markdown)
     {
         preg_match_all('/&lt;iframe.*iframe&gt;/', $markdown, $iframe);
-        // 如果有iframe 则先替换为临时字符串
+        // 如果有 iframe 则先替换为临时字符串
         if (!empty($iframe[0])) {
             $tmp = [];
             // 组合临时字符串
@@ -273,7 +273,7 @@ if (!function_exists('markdown_to_html')) {
             }
             // 替换临时字符串
             $markdown = str_replace($iframe[0], $tmp, $markdown);
-            // 讲iframe转义
+            // 讲 iframe 转义
             $replace = array_map(function ($v) {
                 return htmlspecialchars_decode($v);
             }, $iframe[0]);
@@ -293,9 +293,9 @@ if (!function_exists('send_email')) {
     /**
      * 发送邮件函数
      *
-     * @param $email            收件人邮箱  如果群发 则传入数组
-     * @param $name             收件人名称
-     * @param $subject          标题
+     * @param  string $email            邮箱  如果群发 则传入数组
+     * @param string $name             名称
+     * @param string $subject          标题
      * @param array $data 邮件模板中用的变量 示例：['name'=>'帅白','phone'=>'110']
      * @param string $template 邮件模板
      * @return array            发送状态
@@ -319,7 +319,7 @@ if ( !function_exists('upload') ) {
 	/**
 	 * 上传文件函数
 	 *
-	 * @param $file             表单的name名
+	 * @param string $file             表单的name名
 	 * @param string $path      上传的路径
 	 * @param bool $childPath   是否根据日期生成子目录
 	 * @return array            上传的状态
@@ -358,41 +358,11 @@ if ( !function_exists('upload') ) {
 		return ['status_code' => 200, 'message' => '上传成功', 'data' => ['old_name' => $oldName, 'new_name' => $newName, 'path' => trim($path, '.')]];
 	}
 }
-if (! function_exists('redis')) {
-    /**
-     * redis的便捷操作方法
-     *
-     * @param $key
-     * @param null $value
-     * @param null $expire
-     * @return bool|string
-     */
-    function redis($key = null, $value = null, $expire = null)
-    {
-        if (is_null($key)) {
-            return app('redis');
-        }
-
-        if (is_null($value)) {
-            $content = Redis::get($key);
-            if (is_null($content)) {
-                return null;
-            }
-            return is_null($content) ? null : unserialize($content);
-        }
-
-        Redis::set($key, serialize($value));
-        if (! is_null($expire)) {
-            Redis::expire($key, $expire);
-        }
-    }
-}
 if (!function_exists('baidu_push')) {
     /**
      * 百度推广推送
      *
      * @param int $id
-     * @return bool
      */
     function baidu_push($id)
     {
@@ -414,22 +384,5 @@ if (!function_exists('baidu_push')) {
             curl_exec($ch);
         }
         curl_close($ch);
-    }
-}
-if(!function_exists('baidu_trans')){
-
-    /**
-     * 百度翻译API
-     *
-     * @param string $query 语言
-     * @param string $from 源语言
-     * @param string $to   目标语言
-     * @return void
-     */
-    function baidu_trans($query,$from='auto',$to='en'){
-        $app_id=env('BAIDU_APP_ID');
-        $secrect_key=env('BAIDU_SECRECT_KEY');
-        $translation = new BaiduTranslation($app_id,$secrect_key);
-        return $translation->translate($query,$from,$to);
     }
 }
