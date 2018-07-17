@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\SendReply;
 
 class CommentController extends Controller
 {
@@ -77,9 +75,7 @@ class CommentController extends Controller
     public function reply(Request $request)
     {
         $this->comment->replyData($request->id,$request->reply);
-//        $emailto=$this->comment->where('id',$request->id)->pluck('email');
-        operation_event(auth()->user()->name,'回复评论');
-//        Mail::to( $emailto)->send(new SendReply());
+        operation_event(auth()->user()->name,'回复评论');  //TODO:发邮件
         return redirect()->route('comment_manage');
     }
 

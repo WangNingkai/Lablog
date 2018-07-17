@@ -91,8 +91,7 @@ class HomeController extends Controller
      */
     public function comment_store(CommentStore $request,Comment $comment)
     {
-        $comment->storeData($request->all());
-//        Mail::to($this->config['site_mailto_admin'])->send(new SendReminder());
+        $comment->storeData($request->all());  //TODO:发邮件
         return redirect()->back();
 
     }
@@ -137,21 +136,21 @@ class HomeController extends Controller
      */
     public function archive()
     {
-            $archive = Article::select(DB::raw('DATE_FORMAT(created_at, \'%Y-%m\') as time, count(*) as posts'))
-                            ->where('status',1)
-                            ->groupBy('time')
-                            ->orderBy('time','desc')
-                            ->simplePaginate(3);
-            foreach ($archive as $v) {
-                $start = date('Y-m-d', strtotime($v->time));
-                $end = date('Y-m-d', strtotime('+1 Month', strtotime($v->time)));
-                $articles = Article::select('id', 'title')
-                                ->where('status', 1)
-                                ->whereBetween('created_at', [$start, $end])
-                                ->orderBy('created_at','desc')
-                                ->get();
-                $v->articles = $articles;
-            }
+        $archive = Article::select(DB::raw('DATE_FORMAT(created_at, \'%Y-%m\') as time, count(*) as posts'))
+            ->where('status',1)
+            ->groupBy('time')
+            ->orderBy('time','desc')
+            ->simplePaginate(3);
+        foreach ($archive as $v) {
+            $start = date('Y-m-d', strtotime($v->time));
+            $end = date('Y-m-d', strtotime('+1 Month', strtotime($v->time)));
+            $articles = Article::select('id', 'title')
+                ->where('status', 1)
+                ->whereBetween('created_at', [$start, $end])
+                ->orderBy('created_at','desc')
+                ->get();
+            $v->articles = $articles;
+        }
         return view('home.archive', compact('archive'));
     }
 
@@ -174,7 +173,6 @@ class HomeController extends Controller
         $message->storeData($request->all());
         Mail::to($this->config['site_mailto_admin'])->send(new SendReminder());
         return redirect()->back();
-
     }
 
     /**
