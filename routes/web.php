@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\Config;
+use App\Libraries\Extensions\Select;
+use App\Models\Category;
 
 /*
 |--------------------------------------------------------------------------
@@ -134,4 +136,19 @@ Route::get('close', function () {
 // 测试路由
 Route::get('/test', function () {
 
+    // $arr = [
+    //     1 => ['id'=>'1','parent_id'=>0,'name'=>'一级栏目一'],
+    //     2 => ['id'=>'2','parent_id'=>0,'name'=>'一级栏目二'],
+    //     3 => ['id'=>'3','parent_id'=>1,'name'=>'二级栏目一'],
+    //     4 => ['id'=>'4','parent_id'=>1,'name'=>'二级栏目二'],
+    //     5 => ['id'=>'5','parent_id'=>2,'name'=>'二级栏目三'],
+    //     6 => ['id'=>'6','parent_id'=>3,'name'=>'三级栏目一'],
+    //     7 => ['id'=>'7','parent_id'=>3,'name'=>'三级栏目二']
+    // ];
+    // $arr=(object)$arr;
+    $arr=Category::all();
+    $sel=new Select();
+    $res=$sel->make_option_tree_for_select($arr);
+    return view('home.test' ,compact('res'));
+    // dd($res);
 });
