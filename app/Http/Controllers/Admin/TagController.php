@@ -12,8 +12,15 @@ use Illuminate\Support\Facades\Cache;
 
 class TagController extends Controller
 {
+    /**
+     * @var Tag
+     */
     protected $tag;
 
+    /**
+     * TagController constructor.
+     * @param Tag $tag
+     */
     public function __construct(Tag $tag)
     {
         $this->tag = $tag;

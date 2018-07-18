@@ -14,8 +14,15 @@ use Illuminate\Support\Facades\Cache;
 class ArticleController extends Controller
 {
 
+    /**
+     * @var Article
+     */
     protected $article;
 
+    /**
+     * ArticleController constructor.
+     * @param Article $article
+     */
     public function __construct(Article $article)
     {
         $this->article = $article;

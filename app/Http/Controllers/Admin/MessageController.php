@@ -10,6 +10,9 @@ use App\Mail\SendReply;
 
 class MessageController extends Controller
 {
+    /**
+     * @var Message
+     */
     protected $message;
 
     public function __construct(Message $message)
@@ -19,8 +22,7 @@ class MessageController extends Controller
 
     /**
      * 留言管理列表.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function manage()
     {
@@ -45,9 +47,9 @@ class MessageController extends Controller
     }
 
     /**
-     * 审核留言.
-     * @param  Illuminate\Http\Request
-     * @return \Illuminate\Http\Response
+     * 审核留言
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function check(Request $request)
     {
@@ -62,10 +64,9 @@ class MessageController extends Controller
     }
 
     /**
-     * 回复留言.
-     *
-     * @param
-     * @return \Illuminate\Http\Response
+     * 回复留言
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function reply(Request $request)
     {
@@ -78,8 +79,8 @@ class MessageController extends Controller
 
     /**
      * 删除留言.
-     *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request)
     {

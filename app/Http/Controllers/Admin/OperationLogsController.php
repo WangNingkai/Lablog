@@ -8,18 +8,28 @@ use App\Models\OperationLog;
 
 class OperationLogsController extends Controller
 {
+    /**
+     * @var OperationLog
+     */
     protected $operation_logs;
 
+    /**
+     * OperationLogsController constructor.
+     * @param OperationLog $operation_logs
+     */
     public function __construct(OperationLog $operation_logs)
     {
         $this->operation_logs = $operation_logs;
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function manage()
     {
         // 日志
         $operation_logs = $this->operation_logs
-            ->select('id', 'operater', 'operation','operation_time','ip','address','device','browser','platform','language','device_type')
+            ->select('id', 'operator', 'operation','operation_time','ip','address','device','browser','platform','language','device_type')
             ->orderBy('operation_time','desc')
             ->paginate(10);
         return view('admin.operation-logs', compact('operation_logs'));
@@ -27,8 +37,8 @@ class OperationLogsController extends Controller
 
     /**
      * 日志删除.
-     *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request)
     {

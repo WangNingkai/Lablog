@@ -12,9 +12,8 @@ use Illuminate\Support\Facades\Hash;
 class ProfileController extends Controller
 {
     /**
-     * 个人资料管理
-     *
-     * @return \Illuminate\Http\Response
+     * 资料管理
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function manage()
     {
@@ -24,8 +23,8 @@ class ProfileController extends Controller
 
     /**
      * 更新密码
-     *
-     * @return \Illuminate\Http\Response
+     * @param UpdatePassword $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function updatePassword(UpdatePassword $request)
     {
@@ -43,8 +42,8 @@ class ProfileController extends Controller
 
     /**
      * 更新个人资料
-     *
-     * @return \Illuminate\Http\Response
+     * @param UpdateProfile $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function updateProfile(UpdateProfile $request)
     {

@@ -12,18 +12,23 @@ use Illuminate\Support\Facades\Cache;
 
 class LinkController extends Controller
 {
+    /**
+     * @var Link
+     */
     protected $link;
 
-
+    /**
+     * LinkController constructor.
+     * @param Link $link
+     */
     public function __construct(Link $link)
     {
         $this->link = $link;
     }
 
     /**
-     * 友链管理列表.
-     *
-     * @return \Illuminate\Http\Response
+     * 友链管理列表
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function manage()
     {
@@ -84,8 +89,8 @@ class LinkController extends Controller
 
     /**
      * 友链删除.
-     *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request)
     {

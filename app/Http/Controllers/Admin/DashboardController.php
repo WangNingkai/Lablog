@@ -13,7 +13,10 @@ use App\Models\Comment;
 
 class DashboardController extends Controller
 {
-    // 控制台首页
+    /**
+     * 控制台首页
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function home()
     {
         $allArticlesCount=Article::count();
@@ -32,8 +35,7 @@ class DashboardController extends Controller
 
     /**
      * 缓存清理
-     *
-     * @return void
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function clear()
     {
