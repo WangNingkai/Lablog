@@ -74,8 +74,8 @@ class ArticleController extends Controller
     {
         $article = $this->article->find($id);
         $article->tag_ids = ArticleTag::where('article_id', $id)->pluck('tag_id')->toArray();
-        $category_all = Category::all();
-        $category = get_select($category_all->toArray(), $article->category_id);
+        $category_all = Category::all()->toArray();
+        $category = get_select($category_all, $article->category_id);
         $tag = Tag::all();
         return view('admin.article-edit', compact('article', 'category', 'tag'));
     }

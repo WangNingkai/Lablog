@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Session;
-use App\Libraries\Extensions\Tree;
 use Illuminate\Support\Facades\Mail;
 use HyperDown\Parser;
 use Jenssegers\Agent\Agent;
@@ -196,7 +195,8 @@ if (!function_exists('get_tree')) {
      */
     function get_tree($data, $pid, $count = null)
     {
-        $tree = [];                                //每次都声明一个新数组用来放子元素
+        //每次都声明一个新数组用来放子元素
+        $tree = [];
         foreach ($data as $v) {
             if ($v['pid'] == $pid) {
                 //匹配子记录
@@ -224,15 +224,13 @@ if (!function_exists('get_select')) {
      * 获取树形下拉框数据
      *
      * @param array $data 数据
-     * @param integer $selectedId 所选id
+     * @param integer $selected_id 所选id
      * @return string
      */
-    function get_select($data, $selectedId = 0)
+    function get_select($data, $selected_id = 0)
     {
-        $tree = new Tree();
-        $tree->init($data);
-        $str = "<option value=\$id \$selected>\$spacer \$name</option>" . PHP_EOL; //生成的形式
-        return $tree->get_tree(0, $str, $selectedId);
+        $select = new \App\Libraries\Extensions\Select($data);
+        return $select->make_option_tree_for_select($selected_id);
     }
 }
 if (!function_exists('ip_to_city')) {

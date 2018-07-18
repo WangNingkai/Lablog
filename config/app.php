@@ -159,8 +159,6 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        // 自定义函数加载
-        App\Providers\HelperServiceProvider::class,
         /*
          * 第三方
          */
