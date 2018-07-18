@@ -40,6 +40,7 @@
                         <div class="col-md-6">
                             <div class="small text-right">
                                 <h5>状态：</h5>
+                                <div><i class="fa fa-comments-o"> </i> {{ $article->comments->count() }} 评论</div>
                                 <i class="fa fa-eye"> </i> {{$article->click}} 浏览
                             </div>
                         </div>

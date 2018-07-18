@@ -12,13 +12,24 @@ class SendReminder extends Mailable
     use Queueable, SerializesModels;
 
     /**
-     * Create a new message instance.
-     *
-     * @return void
+     * @var string 主题
      */
-    public function __construct()
+    public $subject = '';
+
+    /**
+     * @var string 内容
+     */
+    public $content = '';
+
+    /**
+     * SendReminder constructor.
+     * @param $subject
+     * @param $content
+     */
+    public function __construct($subject,$content)
     {
-        //
+        $this->subject = $subject;
+        $this->content = $content;
     }
 
     /**
@@ -28,6 +39,8 @@ class SendReminder extends Mailable
      */
     public function build()
     {
-        return $this->subject('LABLOG评论提醒')->markdown('emails.reminder');
+        return $this->subject($this->subject)->with([
+            'content' => $this->content
+        ])->markdown('emails.reminder');
     }
 }

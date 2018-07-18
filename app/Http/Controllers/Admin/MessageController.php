@@ -64,15 +64,15 @@ class MessageController extends Controller
     /**
      * 回复留言.
      *
-     * @param  Illuminate\Http\Request
+     * @param
      * @return \Illuminate\Http\Response
      */
     public function reply(Request $request)
     {
         $this->message->replyData($request->id,$request->reply);
-        $emailto=$this->message->where('id',$request->id)->pluck('email');
+        $emailto=$this->message->where('id',$request->id)->value('email');
         operation_event(auth()->user()->name,'回复留言');
-        Mail::to( $emailto)->send(new SendReply());
+        Mail::to( $emailto)->send(new SendReply('站点留言回复提醒','您在我站的留言，站长已经回复，请注意查看.',route('message')));
         return redirect()->route('message_manage');
     }
 

@@ -44,30 +44,32 @@ class HomeController extends Controller
         $articles = Article::select('id', 'category_id', 'title', 'author', 'description','click', 'created_at')
             ->where('status', 1)
             ->orderBy('created_at', 'desc')
-            ->with(['category', 'tags'])
+            ->with(['category', 'tags','comments'=>function ($query) {
+                $query->where('status', 1);
+            }])
             ->simplePaginate(6);
+//        dd($articles->comments->count());
         return view('home.index', compact('articles'));
     }
 
     /**
      * @param $id
      * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|void
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function article($id, Request $request)
     {
         $article = Article::with(['category', 'tags','comments'=>function ($query) {
             $query->where('status', 1);
         }])->whereId($id)->first();
+        if( is_null($article) || 0 === $article->status || !is_null($article->deleted_at) ){
+            return abort(404);
+        }
         $key = 'articleRequestList:'.$id.':'.$request->ip();
         if (!Cache::has($key)) {
             Cache::put($key,$request->ip(), 1440);
             $article->increment('click');
         }
-        if( 0 === $article->status | !is_null($article->deleted_at) ){
-            return abort(404);
-        }
-
         // 获取上一篇
         $prev = Article::select('id', 'title')
             ->orderBy('created_at', 'asc')
@@ -92,6 +94,7 @@ class HomeController extends Controller
     public function comment_store(CommentStore $request,Comment $comment)
     {
         $comment->storeData($request->all());  //TODO:发邮件
+        Mail::to($this->config['site_mailto_admin'])->send(new SendReminder('文章评论提醒','您的个人博客现有新的评论，请注意查看审核。'));
         return redirect()->back();
 
     }
@@ -108,7 +111,9 @@ class HomeController extends Controller
         $articles = Article::select('id', 'category_id', 'title', 'author', 'description','click', 'created_at')
             ->where(['status'=>1,'category_id'=>$id])
             ->orderBy('created_at', 'desc')
-            ->with(['category', 'tags'])
+            ->with(['category', 'tags', 'comments'=>function ($query) {
+                $query->where('status', 1);
+            }])
             ->simplePaginate(10);
         return view('home.category', compact('articles', 'category','childCategoryList'));
     }
@@ -126,7 +131,9 @@ class HomeController extends Controller
             ->where('status',1)
             ->whereIn('id', $ids)
             ->orderBy('created_at', 'desc')
-            ->with(['category', 'tags'])
+            ->with(['category', 'tags', 'comments'=>function ($query) {
+                $query->where('status', 1);
+            }])
             ->simplePaginate(10);
         return view('home.tag', compact('articles', 'tag'));
     }
@@ -171,7 +178,7 @@ class HomeController extends Controller
     public function message_store(MessageStore $request,Message $message)
     {
         $message->storeData($request->all());
-        Mail::to($this->config['site_mailto_admin'])->send(new SendReminder());
+        Mail::to($this->config['site_mailto_admin'])->send(new SendReminder('站点留言提醒','您的个人博客现有新的留言，请注意查看审核。'));
         return redirect()->back();
     }
 

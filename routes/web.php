@@ -130,3 +130,8 @@ Route::get('close', function () {
         return redirect()->route('home');
     }
 })->name('close');
+
+// 测试路由
+Route::get('/test', function () {
+
+});

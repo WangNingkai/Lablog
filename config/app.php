@@ -168,6 +168,7 @@ return [
         WangNingkai\Editor\EditorServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Jenssegers\Agent\AgentServiceProvider::class,
+        Recca0120\LaravelTracy\LaravelTracyServiceProvider::class,
 
     ],
 

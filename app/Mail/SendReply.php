@@ -12,13 +12,31 @@ class SendReply extends Mailable
     use Queueable, SerializesModels;
 
     /**
-     * Create a new message instance.
-     *
-     * @return void
+     * @var string 主题
      */
-    public function __construct()
+    public $subject = '';
+
+    /**
+     * @var string 内容
+     */
+    public $content = '';
+
+    /**
+     * @var string 跳转链接
+     */
+    public $url = '';
+
+    /**
+     * SendReply constructor.
+     * @param $subject
+     * @param $content
+     * @param $url
+     */
+    public function __construct($subject,$content,$url)
     {
-        //
+        $this->subject = $subject;
+        $this->content = $content;
+        $this->url = $url;
     }
 
     /**
@@ -28,6 +46,9 @@ class SendReply extends Mailable
      */
     public function build()
     {
-        return $this->subject('LABLOG回复提醒')->markdown('emails.reply');
+        return $this->subject($this->subject)->with([
+            'content' => $this->content,
+            'url'     => $this->url
+        ])->markdown('emails.reply');
     }
 }
