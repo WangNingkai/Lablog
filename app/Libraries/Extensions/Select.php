@@ -8,10 +8,10 @@ class Select
         return $this->init_tree($arr);
     }
 
-    public function make_tree_with_namepre($arr)
+    public function make_tree_with_prefix($arr)
     {
         $arr = $this->make_tree($arr);
-        return $this->add_namepre($arr);
+        return $this->add_prefix($arr);
     }
 
     /**
@@ -21,7 +21,7 @@ class Select
      */
     public function make_option_tree_for_select($arr, $depth=0)
     {
-        $arr = $this->make_tree_with_namepre($arr);
+        $arr = $this->make_tree_with_prefix($arr);
         return $this->make_options($arr, $depth);
     }
 
@@ -43,27 +43,27 @@ class Select
 
 
 
-    public function add_namepre($arr, $prestr = '') {
+    public function add_prefix($arr, $prefix = '') {
         $new_arr = [];
         foreach ($arr as $v) {
-            if ($prestr) {
+            if ($prefix) {
                 if ($v == end($arr)) {
-                    $v->name = $prestr.'└─ '.$v->name;
+                    $v->name = $prefix.'└─ '.$v->name;
                 } else {
-                    $v->name = $prestr.'├─ '.$v->name;
+                    $v->name = $prefix.'├─ '.$v->name;
                 }
             }
 
-            if ($prestr == '') {
-                $prestr_for_children = '　 ';
+            if ($prefix == '') {
+                $prefix_for_children = '　 ';
             } else {
                 if ($v == end($arr)) {
-                    $prestr_for_children = $prestr.'　　 ';
+                    $prefix_for_children = $prefix.'　　 ';
                 } else {
-                    $prestr_for_children = $prestr.'│　 ';
+                    $prefix_for_children = $prefix.'│　 ';
                 }
             }
-            $v->children = $this->add_namepre($v->children, $prestr_for_children);
+            $v->children = $this->add_prefix($v->children, $prefix_for_children);
 
             $new_arr[] = $v;
         }
