@@ -108,7 +108,7 @@
                 <section class="content">
                     <div class="row">
                         @yield('content')
-                        <div class="col-md-4 sider-info">
+                        <div class="col-md-4 hidden-xs">
                             <div class="row">
                                 <div class="box box-widget widget-user">
                                     <!-- Add the bg color to the header using any of the bg-* classes -->

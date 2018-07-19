@@ -135,9 +135,5 @@ Route::get('close', function () {
 
 // 测试路由
 Route::get('/test', function () {
-    $arr=Category::all()->toArray();
-    $sel=new Select($arr);
-    $res=$sel->make_option_tree_for_select(7);
-    return view('home.test' ,compact('res'));
-//     dd($res);
+    return '测试页面';
 });
