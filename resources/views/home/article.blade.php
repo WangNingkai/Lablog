@@ -69,7 +69,7 @@
                 </div>
                 <div class="hr-line-dashed"></div>
                 <div class="row">
-                    <dic class="col-md-12">
+                    <div class="col-md-12">
                         {{--评论内容--}}
                         <div class="post clearfix">
                             <h4 class="text-bold">评论：</h4>
@@ -125,7 +125,7 @@
                                 @endisset
                             </div>
                         @endforeach
-                    </dic>
+                    </div>
                 </div>
             </div>
             <!-- /.box-body -->
