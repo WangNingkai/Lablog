@@ -87,7 +87,7 @@
 
             </div>
             <div class="row">
-                <div class="col-lg-4">
+                <div class="col-lg-6">
                     <div class="box box-default">
                         <div class="box-header">
                             <i class="ion ion-clipboard"></i>
@@ -111,9 +111,40 @@
                                 @endforeach
                             </table>
                         </div>
+                        <div class="box-footer clearfix">
+                            <a href="{{ route('article_manage') }}" class="btn btn-flat bg-blue pull-right">查看更多</a>
+                        </div>
                     </div>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-6">
+                    <div class="box box-default">
+                        <div class="box-header">
+                            <i class="fa fa-comments-o"></i>
+                            <h3 class="box-title">最新留言</h3>
+                        </div>
+                        <div class="box-body chat" id="chat-box">
+                            @if(blank($newMessages))
+                                <div class="text-center">
+                                    <h4>Oops！</h4>
+                                    <p>暂无新留言</p>
+                                </div>
+                            @else
+                                @foreach($newMessages as $message)
+                            <div class="item">
+                                <img src="{{asset('img/user_avatar.png')}}" alt="{{$message->nickname}}" class="online">
+                                <p class="message">
+                                    <a href="#" class="name">
+                                        <small class="text-muted pull-right">
+                                            <i class="fa fa-clock-o"></i> {{$message->created_at}}</small>
+                                        {{$message->nickname}}
+                                    </a>
+                                    {{$message->content}}
+                                </p>
+                            </div>
+                            @endforeach
+                            @endif
+                        </div>
+                    </div>
                     <div class="box box-default">
                         <div class="box-header">
                             <i class="fa fa-comments-o"></i>
@@ -121,7 +152,7 @@
                         </div>
                         <div class="box-body chat" id="chat-box">
                             @if(blank($newComments))
-                                <div class="callout callout-primary text-center">
+                                <div class="text-center">
                                     <h4>Oops！</h4>
                                     <p>暂无新评论</p>
                                 </div>
@@ -140,36 +171,6 @@
                                         </p>
                                     </div>
                                 @endforeach
-                            @endif
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="box box-default">
-                        <div class="box-header">
-                            <i class="fa fa-comments-o"></i>
-                            <h3 class="box-title">最新留言</h3>
-                        </div>
-                        <div class="box-body chat" id="chat-box">
-                            @if(blank($newMessages))
-                                <div class="callout callout-primary text-center">
-                                    <h4>Oops！</h4>
-                                    <p>暂无新留言</p>
-                                </div>
-                            @else
-                                @foreach($newMessages as $message)
-                            <div class="item">
-                                <img src="{{asset('img/user_avatar.png')}}" alt="{{$message->nickname}}" class="online">
-                                <p class="message">
-                                    <a href="#" class="name">
-                                        <small class="text-muted pull-right">
-                                            <i class="fa fa-clock-o"></i> {{$message->created_at}}</small>
-                                        {{$message->nickname}}
-                                    </a>
-                                    {{$message->content}}
-                                </p>
-                            </div>
-                            @endforeach
                             @endif
                         </div>
                     </div>
