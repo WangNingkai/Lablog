@@ -217,7 +217,7 @@ $(function () {
             cancelButtonText: "取消"
         }).then((result) => {
             if (result.value) {
-                $("#detroyForm").submit()
+                $("#destroyForm").submit()
             } else if (result.dismiss === swal.DismissReason.cancel) {
                 swal('已取消', ':)', 'error')
             }
@@ -241,7 +241,7 @@ $(function () {
                 cancelButtonText: "取消"
             }).then((result) => {
                 if (result.value) {
-                    $("#detroyForm").submit()
+                    $("#destroyForm").submit()
                 } else if (result.dismiss === swal.DismissReason.cancel) {
                     swal('已取消', ':)', 'error')
                 }
