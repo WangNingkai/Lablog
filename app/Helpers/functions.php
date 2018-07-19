@@ -360,10 +360,10 @@ if (!function_exists('baidu_push')) {
     /**
      * 百度推广推送
      *
-     * @param mix $id 文章id
+     * @param string|array $id 文章id
      * @param string $type 推送类型 添加urls 1更新update 2删除del
      */
-    function baidu_push($id,$ype = 'urls')
+    function baidu_push($id,$type = 'urls')
     {
         $urls=[];
         if(is_array($id))

@@ -13,3 +13,4 @@ yarn-error.log
 .env
 composer.lock
 composer.phar
+public/favicon.ico
