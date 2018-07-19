@@ -12,7 +12,7 @@
         @else
         <div class="box box-default">
             <div class="box-header with-border">
-                <h3 class="box-title">栏目：<span class="text-red">{{$category->name}}</span</h3>
+                <h3 class="box-title">栏目：<span class="text-red">{{$category->name}}</span></h3>
             </div>
             <div class="box-body">
                 <p>@foreach($childCategoryList as $childCategory)<a href="{{route('category',$childCategory->id)}}" class="btn btn-flat bg-blue tag">{{$childCategory->name}}</a>@endforeach</p>

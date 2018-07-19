@@ -84,7 +84,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4 form-group">
-                                        <input type="text" class="form-control" name ="nickname"placeholder="输入评论显示名称 *" required>
+                                        <input type="text" class="form-control" name ="nickname" placeholder="输入评论显示名称 *" required>
                                     </div>
                                     <div class="col-md-4 form-group">
                                         <input type="email" class="form-control" name="email" placeholder="输入电子邮件（不会在留言显示）*" required>

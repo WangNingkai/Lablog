@@ -50,7 +50,7 @@
                                     <label for="category_id">栏目：</label>
                                     <select class="form-control {{$errors->has('category_id')?'has-error':''}}" name="category_id" id="category_id">
                                         <option value="">请选择栏目</option>
-                                        {{!! $category !!}}
+                                        {!! $category !!}
                                     </select>
                                     @if ($errors->has('category_id'))
                                         <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('category_id') }}</strong></span>
