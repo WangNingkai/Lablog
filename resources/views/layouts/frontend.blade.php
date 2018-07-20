@@ -98,13 +98,13 @@
                 <!-- /.container-fluid -->
             </nav>
         </header>
-        <div class="b-h-50"></div>
+        <div class="blank-div"></div>
         <div class="content-wrapper">
             <div class="container">
                 <section class="content">
                     <div class="row">
                         @yield('content')
-                        <div class="col-md-4 hidden-xs">
+                        <div class="col-md-4 hidden-xs" style="position: ">
                             <div class="row">
                                 <div class="box box-widget widget-user">
                                     <!-- Add the bg color to the header using any of the bg-* classes -->
