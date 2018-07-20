@@ -1,7 +1,23 @@
 @extends('layouts.backend')
 @section('title','控制台 - 个人信息')
 @section('css')
+    <style>
+        .hr-line-dashed {
+            border-top: 1px dashed #e7eaec;
+            color: #fff;
+            background-color: #fff;
+            height: 1px;
+            margin: 20px 0
+        }
 
+        .hr-line-solid {
+            border-bottom: 1px solid #e7eaec;
+            background-color: rgba(0, 0, 0, 0);
+            border-style: solid !important;
+            margin-top: 15px;
+            margin-bottom: 15px
+        }
+    </style>
 @stop
 @section('content')
     <div class="content-wrapper">
@@ -15,7 +31,7 @@
         <!-- 主内容区 -->
         <section class="content container-fluid">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <form role="form"  method="POST" action="{{route('profile_update')}}" id="editProfileForm">
                     {{ csrf_field() }}
                         <div class="box box-default">
@@ -45,7 +61,7 @@
                         </div>
                      </form>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <form role="form"  method="POST" action="{{route('password_update')}}" id="changePassForm">
                         {{ csrf_field() }}
                         <div class="box box-default">
@@ -81,6 +97,25 @@
                             </div>
                         </div>
                     </form>
+                </div>
+                <div class="col-md-4">
+                    <div class="box box-default">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">第三方登录绑定</h3>
+                        </div>
+                        <div class="box-body">
+                            <dl class="dl-horizontal">
+                                <dt>QQ：</dt>
+                                <dd><a href="{{ route('oauth.redirect','qq') }}" class="btn btn-flat bg-gray">点击绑定</a></dd>
+                                <div class="hr-line-dashed"></div>
+                                <dt>微博：</dt>
+                                <dd><a href="{{ route('oauth.redirect','weibo') }}" class="btn btn-flat bg-gray">点击绑定</a></dd>
+                                <div class="hr-line-dashed"></div>
+                                <dt>GitHub：</dt>
+                                <dd><a href="{{ route('oauth.redirect','github') }}" class="btn btn-flat bg-gray">点击绑定</a></dd>
+                            </dl>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
