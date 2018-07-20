@@ -46,7 +46,7 @@ class AppServiceProvider extends ServiceProvider
                 // 获取热门文章
                 return Article::select('id', 'title')
                     ->orderBy('click', 'desc')
-                    ->limit(8)
+                    ->limit(10)
                     ->get();
             });
             $config = Cache::remember('app:config', 1440, function () {

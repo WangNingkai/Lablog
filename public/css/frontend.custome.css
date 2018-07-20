@@ -1,3 +1,7 @@
+.b-h-65{
+    width : 100%;
+    height : 65px
+}
 .hr-line-dashed {
     border-top: 1px dashed #e7eaec;
     color: #fff;

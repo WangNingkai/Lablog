@@ -24,23 +24,20 @@
     {!! sweetalert2_css() !!}
     {!! pace_css('black') !!}
     @yield('css')
-
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- 警告：Respond.js 不支持 file:// 方式查看（即本地方式查看）-->
     <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
-
-    <!-- Google Font -->
     <link rel="stylesheet" href="https://fonts.lug.ustc.edu.cn/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
 </head>
-<!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
 
 <body class="hold-transition skin-black layout-top-nav">
     <div class="wrapper">
         <header class="main-header">
-            <nav class="navbar navbar-static-top">
+            <nav class="navbar navbar-fixed-top">
                 <div class="container">
                     <div class="navbar-header">
                         <a href="{{route('home')}}" class="navbar-brand">
@@ -101,10 +98,9 @@
                 <!-- /.container-fluid -->
             </nav>
         </header>
-        <!-- Full Width Column -->
+        <div class="b-h-65"></div>
         <div class="content-wrapper">
             <div class="container">
-                <!-- Main content -->
                 <section class="content">
                     <div class="row">
                         @yield('content')
@@ -232,11 +228,8 @@
                         </div>
                     </div>
                 </section>
-                <!-- /.content -->
             </div>
-            <!-- /.container -->
         </div>
-        <!-- /.content-wrapper -->
         <footer class="main-footer">
             <div class="container">
                 <div class="pull-right hidden-xs">
@@ -246,10 +239,8 @@
                 <strong>Copyright &copy; {{date('Y')}}
                     <a href="https://imwnk.cn">LABLOG</a>.</strong> All rights reserved.
             </div>
-            <!-- /.container -->
         </footer>
     </div>
-    <!-- ./wrapper -->
 
     <!-- jQuery 3 -->
     <script src="{{asset('adminlte/bower_components/jquery/dist/jquery.min.js')}}"></script>

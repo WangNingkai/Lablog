@@ -48,7 +48,6 @@ class HomeController extends Controller
                 $query->where('status', 1);
             }])
             ->simplePaginate(6);
-//        dd($articles->comments->count());
         return view('home.index', compact('articles'));
     }
 
