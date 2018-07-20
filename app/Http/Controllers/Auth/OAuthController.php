@@ -13,14 +13,17 @@ use App\Models\User;
 
 class OAuthController extends Controller
 {
+    /**
+     * @var array 第三方登录类型
+     */
     public $type = [
         'qq',
         'weibo',
         'github'
     ];
+
     /**
      * OAuthController constructor.
-     *
      * @param Request $request
      */
     public function __construct(Request $request)
@@ -34,6 +37,7 @@ class OAuthController extends Controller
 
     /**
      * 将用户重定向到授权认证页面
+     * @param $service
      * @return mixed
      */
     public function redirectToProvider($service)
@@ -41,7 +45,14 @@ class OAuthController extends Controller
         return Socialite::driver($service)->redirect();
     }
 
-
+    /**
+     * 回调操作
+     * @param Request $request
+     * @param OauthInfo $oauthInfo
+     * @param $service
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function handleProviderCallback(Request $request, OauthInfo $oauthInfo, $service)
     {
 
@@ -52,7 +63,7 @@ class OAuthController extends Controller
         // 判断当前用户是否登录
         if( !Auth::guest() )
         {
-            $uid = Auth::user()->id;
+            $uid = Auth::id();
             $user = User::find($uid);
             if($user->$service.'_openid' == $oauth_user->id)
             {
