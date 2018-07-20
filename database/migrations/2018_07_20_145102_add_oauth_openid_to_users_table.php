@@ -29,6 +29,7 @@ class AddOauthOpenidToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('avatar');
             $table->dropColumn('qq_openid');
             $table->dropColumn('weibo_openid');
             $table->dropColumn('github_openid');
