@@ -18,7 +18,6 @@
     <link rel="stylesheet" href="{{asset('adminlte/bower_components/Ionicons/css/ionicons.min.css')}}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('adminlte/dist/css/AdminLTE.min.css')}}">
-    <!-- AdminLTE 皮肤。从 css/skins 目录下选择一个皮肤，以减少负载，而不是下载所有皮肤。 -->
     <link rel="stylesheet" href="{{asset('adminlte/dist/css/skins/_all-skins.min.css')}}">
     <link href="{{asset('css/frontend.custome.css')}}" rel="stylesheet">
     {!! sweetalert2_css() !!}
@@ -27,9 +26,9 @@
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- 警告：Respond.js 不支持 file:// 方式查看（即本地方式查看）-->
     <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
     <link rel="stylesheet" href="https://fonts.lug.ustc.edu.cn/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
 </head>
@@ -46,8 +45,6 @@
                             <i class="fa fa-bars"></i>
                         </button>
                     </div>
-
-                    <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse " id="navbar-collapse">
                         <form class="navbar-form navbar-left" role="search" action="{{route('search')}}" method="get">
                             <div class="form-group">
@@ -93,9 +90,7 @@
                         </ul>
 
                     </div>
-                    <!-- /.navbar-collapse -->
                 </div>
-                <!-- /.container-fluid -->
             </nav>
         </header>
         <div class="blank-div"></div>
@@ -107,7 +102,6 @@
                         <div class="col-md-4 hidden-xs" style="position: ">
                             <div class="row">
                                 <div class="box box-widget widget-user">
-                                    <!-- Add the bg color to the header using any of the bg-* classes -->
                                     <div class="widget-user-header  bg-black">
                                         <h3 class="widget-user-username">{{ $config['site_admin'] }}</h3>
                                         <h5 class="widget-user-desc">{{ $config['site_admin_info'] }}</h5>
@@ -123,28 +117,21 @@
                                                 class="fa fa-github-alt"></i></h5>
                                                     <span class="description-text"><a class="" href="{{ $config['site_admin_github'] }}">码云</a></span>
                                                 </div>
-                                                <!-- /.description-block -->
                                             </div>
-                                            <!-- /.col -->
                                             <div class="col-sm-4 border-right">
                                                 <div class="description-block">
                                                     <h5 class="description-header"><i
                                                 class="fa fa-weibo"></i></h5>
                                                     <span class="description-text"><a class="" href="{{ $config['site_admin_weibo'] }}">微博</a></span>
                                                 </div>
-                                                <!-- /.description-block -->
                                             </div>
-                                            <!-- /.col -->
                                             <div class="col-sm-4">
                                                 <div class="description-block">
                                                     <h5 class="description-header"><i class="fa fa-envelope"></i></h5>
                                                     <span class="description-text"><a class="" href="{{ $config['site_admin_mail'] }}">邮箱</a></span>
                                                 </div>
-                                                <!-- /.description-block -->
                                             </div>
-                                            <!-- /.col -->
                                         </div>
-                                        <!-- /.row -->
                                     </div>
                                 </div>
                             </div>
@@ -155,7 +142,6 @@
 
                                         <h3 class="box-title">热门文章</h3>
                                     </div>
-                                    <!-- /.box-header -->
                                     <div class="box-body">
                                         <ul class="list-group list-group-unbordered">
                                             @foreach($top_article_list as $article)
@@ -167,7 +153,6 @@
                                             @endforeach
                                         </ul>
                                     </div>
-                                    <!-- /.box-body -->
                                 </div>
                             </div>
                             <div class="row">
@@ -177,7 +162,6 @@
 
                                         <h3 class="box-title">标签云</h3>
                                     </div>
-                                    <!-- /.box-header -->
                                     <div class="box-body">
                                         @foreach($tag_list as $t_list)
                                         <a href="{{route('tag',$t_list->id)}}" @switch(($t_list->id)%5) @case(0)class="tag btn btn-flat btn-xs bg-black" @break @case(1)class="tag btn btn-flat btn-xs bg-olive" @break @case(2)class="tag
@@ -186,7 +170,6 @@
                                         </a>
                                         @endforeach
                                     </div>
-                                    <!-- /.box-body -->
                                 </div>
                             </div>
                             <div class="row">
@@ -196,15 +179,11 @@
 
                                         <h3 class="box-title">友情链接</h3>
                                     </div>
-                                    <!-- /.box-header -->
                                     <div class="box-body">
                                         @foreach( $link_list as $l_list)
-                                        <!-- <span class="simple_tag"> -->
                                             <a href="{{$l_list->url}}" class="tag btn btn-flat btn-sm bg-gray" target="_blank">{{$l_list->name}}</a>
-                                        <!-- </span> -->
                                         @endforeach
                                     </div>
-                                    <!-- /.box-body -->
                                 </div>
                             </div>
                             <div class="row">
@@ -214,7 +193,6 @@
 
                                         <h3 class="box-title">全站搜索</h3>
                                     </div>
-                                    <!-- /.box-header -->
                                     <div class="box-body">
                                         <form action="{{route('search')}}" method="get">
                                             <div class="form-group">
@@ -222,7 +200,6 @@
                                             </div>
                                         </form>
                                     </div>
-                                    <!-- /.box-body -->
                                 </div>
                             </div>
                         </div>
