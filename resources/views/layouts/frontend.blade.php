@@ -98,7 +98,7 @@
                 <!-- /.container-fluid -->
             </nav>
         </header>
-        <div class="b-h-65"></div>
+        <div class="b-h-50"></div>
         <div class="content-wrapper">
             <div class="container">
                 <section class="content">
