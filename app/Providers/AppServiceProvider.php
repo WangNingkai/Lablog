@@ -7,7 +7,6 @@ use App\Models\Category;
 use App\Models\Tag;
 use App\Models\Link;
 use App\Models\Article;
-use App\Models\Message;
 use App\Models\Config;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Schema;

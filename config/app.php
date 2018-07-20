@@ -167,6 +167,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Jenssegers\Agent\AgentServiceProvider::class,
         Recca0120\LaravelTracy\LaravelTracyServiceProvider::class,
+        Overtrue\LaravelSocialite\ServiceProvider::class,
 
     ],
 
@@ -218,6 +219,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Agent' => Jenssegers\Agent\Facades\Agent::class,
+        'Socialite' => Overtrue\LaravelSocialite\Socialite::class,
 
     ],
 

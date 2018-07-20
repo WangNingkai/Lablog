@@ -24,6 +24,15 @@ Route::group(['namespace' => 'Auth'], function () {
     Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail')->name('password.email');
     Route::get('password/reset/{token}', 'ResetPasswordController@showResetForm')->name('password.reset');
     Route::post('password/reset', 'ResetPasswordController@reset');
+    // 第三方登录
+    Route::group(['prefix' => 'oauth'], function () {
+        // 重定向
+        Route::get('redirect/{service}', 'OAuthController@redirectToProvider')->name('oauth.redirect');
+        // 获取用户资料并登录
+        Route::get('callback/{service}', 'OAuthController@handleProviderCallback')->name('oauth.callback');
+        // 退出登录
+        Route::get('logout', 'OAuthController@logout');
+    });
 });
 
 // 前台
