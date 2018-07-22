@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\Admin\UpdatePassword;
 use App\Http\Requests\Admin\UpdateProfile;
 use App\Http\Controllers\Controller;
+use App\Models\OauthInfo;
 use App\Models\User as Admin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -18,6 +19,7 @@ class ProfileController extends Controller
     public function manage()
     {
         $admin = Auth::user();
+        dd($admin);
         return view('admin.profile', compact('admin'));
     }
 
@@ -57,5 +59,14 @@ class ProfileController extends Controller
         show_message('修改信息成功');
         operation_event(auth()->user()->name,'修改个人信息');
         return redirect()->back();
+    }
+
+    public function getOauthInfo(OauthInfo $oauthInfo, $type, $open_id)
+    {
+        $authData = $oauthInfo->whereMap([
+            'type'   => $type,
+            'openid' => $open_id
+        ])->first();
+
     }
 }

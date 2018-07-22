@@ -9,14 +9,6 @@
             height: 1px;
             margin: 20px 0
         }
-
-        .hr-line-solid {
-            border-bottom: 1px solid #e7eaec;
-            background-color: rgba(0, 0, 0, 0);
-            border-style: solid !important;
-            margin-top: 15px;
-            margin-bottom: 15px
-        }
     </style>
 @stop
 @section('content')
@@ -106,13 +98,25 @@
                         <div class="box-body">
                             <dl class="dl-horizontal">
                                 <dt>QQ：</dt>
-                                <dd><a href="{{ route('oauth.redirect','qq') }}" class="btn btn-flat bg-gray">点击绑定</a></dd>
+                                <dd>
+                                    @if(blank($admin->qq_openid))<a href="{{ route('oauth.redirect','qq') }}" class="btn btn-flat bg-gray">点击绑定</a>
+                                    @else  <a href="javascript:void(0)" class="btn btn-flat bg-gray">已绑定(点击解除)</a>
+                                    @endif
+                                </dd>
                                 <div class="hr-line-dashed"></div>
                                 <dt>微博：</dt>
-                                <dd><a href="{{ route('oauth.redirect','weibo') }}" class="btn btn-flat bg-gray">点击绑定</a></dd>
+                                <dd>
+                                    @if(blank($admin->qq_openid))<a href="{{ route('oauth.redirect','weibo') }}" class="btn btn-flat bg-gray">点击绑定</a>
+                                    @else  <a href="javascript:void(0)" class="btn btn-flat bg-gray">已绑定(点击解除)</a>
+                                    @endif
+                                </dd>
                                 <div class="hr-line-dashed"></div>
                                 <dt>GitHub：</dt>
-                                <dd><a href="{{ route('oauth.redirect','github') }}" class="btn btn-flat bg-gray">点击绑定</a></dd>
+                                <dd>
+                                    @if(blank($admin->qq_openid))<a href="{{ route('oauth.redirect','github') }}" class="btn btn-flat bg-gray">点击绑定</a>
+                                    @else  <a href="javascript:void(0)" class="btn btn-flat bg-gray">已绑定(点击解除)</a>
+                                    @endif
+                                </dd>
                             </dl>
                         </div>
                     </div>

@@ -56,7 +56,7 @@ class OAuthController extends Controller
     public function handleProviderCallback(Request $request, OauthInfo $oauthInfo, $service)
     {
 
-        // TODO: 1) 迁移数据库文件 2)后台添加判断绑定跳转 3)登录页面添加关联登录 4)配置页面删除头像链接
+        // TODO: 1) 迁移数据库文件 2)后台添加判断绑定跳转 3)登录页面添加关联登录 4)配置页面删除头像链接 5)后台查看第三方登录页面
         // 获取第三方登录用户资料
         $oauth_user = Socialite::driver($service)->user();
 
@@ -71,6 +71,7 @@ class OAuthController extends Controller
                 return redirect()->route('admin');
             }
             $data = [
+                'user_id'  => $uid,
                 'type' => $this->type[$service],
                 'name' => $oauth_user->nickname,
                 'avatar' => $oauth_user->avatar,
@@ -111,6 +112,14 @@ class OAuthController extends Controller
 
        // 验证成功，登录并且「记住」给定的用户
         Auth::loginUsingId($user->id, true);
+        $oauthData=$oauthInfo->where('uid',$user->id)->first();
+        // 更新第三方登录信息
+        $oauthData->update([
+            'name' => $user->nickname,
+            'access_token' => $user->token,
+            'last_login_ip' => $request->getClientIp(),
+            'login_times' => $oauthData->login_times+1,
+        ]);
         return redirect()->route('dashboard_home');
     }
 

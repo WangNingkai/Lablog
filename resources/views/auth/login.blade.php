@@ -35,6 +35,13 @@
                 <!-- /.col -->
             </div>
         </form>
+        <div class="social-auth-links text-center">
+            <p>- 或者 -</p>
+            <a href="{{ route('oauth.redirect','qq') }}" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-qq"></i> 使用
+                QQ</a>
+            <a href="{{ route('oauth.redirect','weibo') }}" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-weibo"></i> 使用
+                微博</a>
+        </div>
         <a href="{{ route('password.request') }}">忘记密码？</a><br>
     </div>
 @endsection
