@@ -94,7 +94,7 @@ class OAuthController extends Controller
             $oauthInfo->storeData($data);
             // 关联用户表
             $user->update([
-                $service.'open_id' => $oauth_user->id,
+                $service.'_openid' => $oauth_user->id,
             ]);
             show_message('绑定成功，下次可使用'.$service.'登录');
             return redirect()->route('dashboard_home');
