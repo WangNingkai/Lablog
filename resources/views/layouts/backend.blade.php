@@ -52,6 +52,9 @@
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
                     <li>
+                        <a href="{{ route('cache_clear') }}" target="_blank"><i class="fa fa-trash-o"></i>&nbsp;缓存清理</a>
+                    </li>
+                    <li>
                         <a href="{{ route('home') }}" target="_blank"><i class="fa fa-home"></i>&nbsp;查看首页</a>
                     </li>
                     <li class="dropdown user user-menu">
