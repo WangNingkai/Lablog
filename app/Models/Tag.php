@@ -32,7 +32,7 @@ class Tag extends Base
         // 获取分类下的文章数
         $articleCount = ArticleTag::whereIn('tag_id', $tagIdArray)->count();
         // 如果分类下存在文章；则需要下删除文章
-        if (0 !==$articleCount  ) {
+        if ( 0 !==$articleCount ) {
             show_message('请先删除此标签下的文章', false);
             return false;
         }

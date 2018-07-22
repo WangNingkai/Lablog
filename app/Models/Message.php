@@ -5,6 +5,8 @@ namespace App\Models;
 
 class Message extends Base
 {
+    const CHECKED    = 1;
+    const UNCHECKED  = 0;
     /**
      * 添加数据
      *
@@ -40,7 +42,7 @@ class Message extends Base
             return false;
         }
         foreach ($model as $k => $v) {
-            $result = $v->forceFill(['status'=>1])->save();
+            $result = $v->forceFill(['status' => self::CHECKED])->save();
         }
         if ($result) {
             show_message('操作成功');
@@ -66,7 +68,7 @@ class Message extends Base
             show_message('数据为空，回复失败', false);
             return false;
         }
-        $result=$model->forceFill(['reply'=>$reply,'status'=>1])->save();
+        $result = $model->forceFill(['reply' =>$reply,'status' => self::CHECKED])->save();
         if ($result) {
             show_message('回复成功');
             return $result;

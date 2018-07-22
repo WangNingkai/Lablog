@@ -55,7 +55,7 @@ class OAuthController extends Controller
     public function handleProviderCallback(Request $request, OauthInfo $oauthInfo, $service)
     {
 
-        // TODO: 1) 迁移数据库文件 2)后台添加判断绑定跳转 3)登录页面添加关联登录 4)配置页面删除头像链接 5)后台查看第三方登录页面
+        // TODO: 4)配置页面删除头像链接 5)后台查看第三方登录页面 6)上传头像
         // 获取第三方登录用户资料
         $oauth_user = Socialite::driver($service)->user();
 
@@ -63,7 +63,7 @@ class OAuthController extends Controller
         if( !Auth::guest() )
         {
             $uid = Auth::id();
-//            $user = User::findOrFail($uid);
+            // 判断是否绑定
             $checkBind = $oauthInfo->whereMap([
                 'type'   => $this->type[$service],
                 'openid' => $oauth_user->id
@@ -83,6 +83,7 @@ class OAuthController extends Controller
                 'last_login_ip' => $request->getClientIp(),
                 'login_times' => 1,
             ];
+            // 如果是第一次绑定，替换默认管理员图片
 //            $avatarPath = public_path('uploads/avatar/user_'.$uid.'.jpg');
 //            try {
 //                // 下载最新的头像到本地
@@ -94,13 +95,13 @@ class OAuthController extends Controller
 //                // 如果下载失败；则使用默认图片
 //                copy(public_path('uploads/avatar/default.png'), $avatarPath);
 //            }
-            // 保存到第三方登录表
+            // 保存绑定信息
             $oauthInfo->storeData($data);
             show_message('绑定成功，下次可使用'.$service.'登录');
             return redirect()->route('dashboard_home');
         }
 
-        // 查找数据库中是否已经存在该用户信息
+        // 查找用户是否存在绑定信息
         $user = $oauthInfo->whereMap([
             'type'   => $this->type[$service],
             'openid' => $oauth_user->id
@@ -110,10 +111,8 @@ class OAuthController extends Controller
             show_message('后台未绑定关联登录，请绑定后再关联登陆',false);
             return redirect()->route('login');
         }
-
-       // 验证成功，登录并且「记住」给定的用户
+       // 登录并且「记住」给定的用户
         Auth::loginUsingId($user->user_id, true);
-//        $oauthData=$oauthInfo->where('user_id',$user->id)->first();
         // 更新第三方登录信息
         $user->update([
             'name'          => $oauth_user->nickname,
@@ -121,6 +120,7 @@ class OAuthController extends Controller
             'last_login_ip' => $request->getClientIp(),
             'login_times'   => $user->login_times + 1,
         ]);
+        show_message('登陆成功，欢迎使用'.$service.'登录');
         return redirect()->route('dashboard_home');
     }
 

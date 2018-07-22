@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Cache;
 
 class ArticleController extends Controller
 {
-
     /**
      * @var Article
      */

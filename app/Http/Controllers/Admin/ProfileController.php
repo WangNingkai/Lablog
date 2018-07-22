@@ -18,7 +18,28 @@ class ProfileController extends Controller
      */
     public function manage()
     {
-        $admin = Auth::user();
+        $uid = Auth::id();
+        $admin = Admin::where('id',$uid)->with('oauthinfos')->first();
+        // 添加绑定判断
+        foreach($admin->oauthinfos as $oauthinfo)
+        {
+            switch ($oauthinfo->type)
+            {
+                case OauthInfo::TYPE_QQ :
+                    $admin['bindQQ'] = true;
+                    $admin['qqName'] = $oauthinfo->name;
+                    break;
+                case OauthInfo::TYPE_WEIBO :
+                    $admin['bindWeibo'] = true;
+                    $admin['weiboName'] = $oauthinfo->name;
+                    break;
+                case OauthInfo::TYPE_GITHUB :
+                    $admin['bindGithub'] = true;
+                    $admin['githubName'] = $oauthinfo->name;
+                    break;
+            }
+
+        }
         return view('admin.profile', compact('admin'));
     }
 
@@ -48,7 +69,7 @@ class ProfileController extends Controller
      */
     public function updateProfile(UpdateProfile $request)
     {
-        $id = Auth::user()->id;
+        $id = Auth::id();
         $data = $request->all();
         $admin = Admin::findOrFail($id);
         $admin->update([
@@ -60,12 +81,4 @@ class ProfileController extends Controller
         return redirect()->back();
     }
 
-    public function getOauthInfo(OauthInfo $oauthInfo, $type, $open_id)
-    {
-        $authData = $oauthInfo->whereMap([
-            'type'   => $type,
-            'openid' => $open_id
-        ])->first();
-
-    }
 }

@@ -8,6 +8,8 @@ class Article extends Base
 {
     use SoftDeletes;
 
+    const PUBLISHED   = 1;
+    const UNPUBLISHED = 0;
 
     /**
      * 过滤描述中的换行。
