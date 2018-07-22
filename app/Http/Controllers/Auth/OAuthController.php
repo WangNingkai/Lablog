@@ -63,8 +63,12 @@ class OAuthController extends Controller
         if( !Auth::guest() )
         {
             $uid = Auth::id();
-            $user = User::find($uid);
-            if($user->$service.'_openid' == $oauth_user->id)
+//            $user = User::findOrFail($uid);
+            $checkBind = $oauthInfo->whereMap([
+                'type'   => $service,
+                'openid' => $oauth_user->id
+            ])->first();
+            if( $checkBind )
             {
                 show_message('您已经绑定'.$service.'登录，无需再进行绑定',false);
                 return redirect()->route('admin');
@@ -92,16 +96,15 @@ class OAuthController extends Controller
 //            }
             // 保存到第三方登录表
             $oauthInfo->storeData($data);
-            // 关联用户表
-            $user->update([
-                $service.'_openid' => $oauth_user->id,
-            ]);
             show_message('绑定成功，下次可使用'.$service.'登录');
             return redirect()->route('dashboard_home');
         }
 
         // 查找数据库中是否已经存在该用户信息
-        $user = User::where($service.'_openid',$oauth_user->id)->first();
+        $user = $oauthInfo->whereMap([
+            'type'   => $service,
+            'openid' => $oauth_user->id
+        ])->first();
         if ( !$user )
         {
             show_message('后台未绑定关联登录，请绑定后再关联登陆',false);
@@ -109,14 +112,14 @@ class OAuthController extends Controller
         }
 
        // 验证成功，登录并且「记住」给定的用户
-        Auth::loginUsingId($user->id, true);
-        $oauthData=$oauthInfo->where('uid',$user->id)->first();
+        Auth::loginUsingId($user->user_id, true);
+//        $oauthData=$oauthInfo->where('user_id',$user->id)->first();
         // 更新第三方登录信息
-        $oauthData->update([
+        $user->update([
             'name' => $user->nickname,
             'access_token' => $user->token,
             'last_login_ip' => $request->getClientIp(),
-            'login_times' => $oauthData->login_times+1,
+            'login_times' => $user->login_times+1,
         ]);
         return redirect()->route('dashboard_home');
     }
