@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Http\Request;
 use App\Http\Requests\Admin\UpdatePassword;
 use App\Http\Requests\Admin\UpdateProfile;
 use App\Http\Controllers\Controller;
 use App\Models\OauthInfo;
 use App\Models\User as Admin;
-use http\Env\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
