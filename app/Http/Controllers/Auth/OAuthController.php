@@ -71,7 +71,7 @@ class OAuthController extends Controller
             if( $checkBind )
             {
                 show_message('您已经绑定'.$service.'登录，无需再进行绑定',false);
-                return redirect()->route('admin');
+                return redirect()->route('dashboard_home');
             }
             $data = [
                 'user_id'  => $uid,
