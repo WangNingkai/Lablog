@@ -79,13 +79,11 @@ class OAuthController extends Controller
                 'last_login_ip' => $request->getClientIp(),
                 'login_times' => 1,
             ];
-            $avatarPath = public_path('/uploads/avatar/user_'.$uid.'.jpg');
+            $avatarPath = public_path('/uploads/avatar/user_'.$uid.'.png');
             try {
                 // 下载最新的头像到本地
-                $client = new Client();
-                $client->request('GET', $user->avatar, [
-                    'sink' => $avatarPath
-                ]);
+                $client = new Client(['verify' => false]);
+                $client->get($user->avatar,['save_to' => $avatarPath ]);
             } catch (ClientException $e) {
                 // 如果下载失败；则使用默认图片
                 copy(public_path('/uploads/avatar/default.png'), $avatarPath);
