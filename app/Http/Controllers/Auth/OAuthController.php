@@ -29,9 +29,8 @@ class OAuthController extends Controller
     public function __construct(Request $request)
     {
         $service = $request->route('service');
-        // 因为发现有恶意访问回调地址的情况 此处限制允许使用的第三方登录方式
         if (!empty($service) && !in_array($service, $this->type)) {
-            return abort(404);
+            return abort(404, '对不起，找不到相关页面');
         }
     }
 
