@@ -17,9 +17,9 @@ class OAuthController extends Controller
      * @var array 第三方登录类型
      */
     public $type = [
-        'qq',
-        'weibo',
-        'github'
+        'qq'     => 1,
+        'weibo'  => 2,
+        'github' => 3
     ];
 
     /**
@@ -29,7 +29,7 @@ class OAuthController extends Controller
     public function __construct(Request $request)
     {
         $service = $request->route('service');
-        if (!empty($service) && !in_array($service, $this->type)) {
+        if (!empty($service) && !array_key_exists($service, $this->type)) {
             return abort(404, '对不起，找不到相关页面');
         }
     }
@@ -71,7 +71,7 @@ class OAuthController extends Controller
             }
             $data = [
                 'user_id'  => $uid,
-                'type' => $service,
+                'type' => $this->type[$service],
                 'name' => $oauth_user->nickname,
                 'avatar' => $oauth_user->avatar,
                 'openid' => $oauth_user->id,
