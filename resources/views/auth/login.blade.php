@@ -37,11 +37,11 @@
         </form>
         <div class="social-auth-links text-center">
             <p>- 或者 -</p>
-            <a href="{{ route('oauth.redirect','qq') }}" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-qq"></i> 使用
+            <a href="{{ route('oauth.redirect','qq') }}" class="btn btn-block btn-social  btn-flat bg-blue"><i class="fa fa-qq"></i> 使用
                 QQ</a>
-            <a href="{{ route('oauth.redirect','weibo') }}" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-weibo"></i> 使用
+            <a href="{{ route('oauth.redirect','weibo') }}" class="btn btn-block btn-social  btn-flat bg-red"><i class="fa fa-weibo"></i> 使用
                 微博</a>
-            <a href="{{ route('oauth.redirect','github') }}" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-github"></i> 使用
+            <a href="{{ route('oauth.redirect','github') }}" class="btn btn-block btn-social  btn-flat bg-black"><i class="fa fa-github"></i> 使用
                 GitHub</a>
         </div>
         <a href="{{ route('password.request') }}">忘记密码？</a><br>
