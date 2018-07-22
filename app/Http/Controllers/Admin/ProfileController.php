@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\UpdateProfile;
 use App\Http\Controllers\Controller;
 use App\Models\OauthInfo;
 use App\Models\User as Admin;
+use http\Env\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -69,9 +70,9 @@ class ProfileController extends Controller
      */
     public function updateProfile(UpdateProfile $request)
     {
-        $id = Auth::id();
+        $uid = Auth::id();
         $data = $request->all();
-        $admin = Admin::findOrFail($id);
+        $admin = Admin::findOrFail($uid);
         $admin->update([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -79,6 +80,27 @@ class ProfileController extends Controller
         show_message('修改信息成功');
         operation_event(auth()->user()->name,'修改个人信息');
         return redirect()->back();
+    }
+
+    public function unbindThirdLogin(Request $request)
+    {
+        $uid = Auth::id();
+        $param = [
+            'qq'     => OauthInfo::TYPE_QQ,
+            'weibo'  => OauthInfo::TYPE_WEIBO,
+            'github' => OauthInfo::TYPE_GITHUB
+        ];
+        $type = $request->route('type');
+        if (!empty($type) && !array_key_exists($type, $param)) {
+            return abort(404, '对不起，找不到相关页面');
+        }
+        OauthInfo::whereMap([
+            'user_id' => $uid,
+            'type'    => $param[$type]
+        ])->delete();
+        operation_event(auth()->user()->name,'解除关联第三方登录');
+        return redirect()->back();
+
     }
 
 }

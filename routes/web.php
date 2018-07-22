@@ -70,8 +70,9 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
     // 个人资料
     Route::group(['prefix' => 'profile'], function () {
         Route::get('manage', 'ProfileController@manage')->name('profile_manage');
-        Route::post('update_password', 'ProfileController@updatePassword')->name('password_update');
-        Route::post('update_profile', 'ProfileController@updateProfile')->name('profile_update');
+        Route::post('updatePassword', 'ProfileController@updatePassword')->name('password_update');
+        Route::post('updateProfile', 'ProfileController@updateProfile')->name('profile_update');
+        Route::get('unbindThirdLogin', 'ProfileController@unbindThirdLogin')->name('unbind_third_login');
     });
     // 标签
     Route::group(['prefix' => 'tag'], function () {

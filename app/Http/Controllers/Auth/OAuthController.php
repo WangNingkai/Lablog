@@ -97,6 +97,7 @@ class OAuthController extends Controller
 //            }
             // 保存绑定信息
             $oauthInfo->storeData($data);
+            operation_event(auth()->user()->name,'关联第三方登录');
             show_message('绑定成功，下次可使用'.$service.'登录');
             return redirect()->route('dashboard_home');
         }

@@ -101,7 +101,7 @@
                                 <dd>
                                     @if(blank($admin->bindQQ))<a href="{{ route('oauth.redirect','qq') }}" class="btn btn-flat bg-gray">点击绑定</a>
                                     @else  <a href="javascript:void(0)" class="btn btn-flat bg-gray">已绑定 ({{ $admin->qqName }})</a>
-                                    <a href="#" class="btn btn-xs btn-flat bg-red">解除</a>
+                                    <a href="{{ route('unbind_third_login','qq') }}" class="btn btn-flat bg-red">解除</a>
                                     @endif
                                 </dd>
                                 <div class="hr-line-dashed"></div>
@@ -109,7 +109,7 @@
                                 <dd>
                                     @if(blank($admin->bindWeibo))<a href="{{ route('oauth.redirect','weibo') }}" class="btn btn-flat bg-gray">点击绑定</a>
                                     @else  <a href="javascript:void(0)" class="btn btn-flat bg-gray">已绑定 ({{ $admin->weiboName }})</a>
-                                    <a href="#" class="btn btn-xs btn-flat bg-red">解除</a>
+                                    <a href="{{ route('unbind_third_login','weibo') }}" class="btn btn-flat bg-red">解除</a>
                                     @endif
                                 </dd>
                                 <div class="hr-line-dashed"></div>
@@ -117,7 +117,7 @@
                                 <dd>
                                     @if(blank($admin->bindGithub))<a href="{{ route('oauth.redirect','github') }}" class="btn btn-flat bg-gray">点击绑定</a>
                                     @else  <a href="javascript:void(0)" class="btn btn-flat bg-gray">已绑定 ({{ $admin->githubName }})</a>
-                                    <a href="#" class="btn btn-xs btn-flat bg-red">解除</a>
+                                    <a href="{{ route('unbind_third_login','github') }}" class="btn btn-flat bg-red">解除</a>
                                     @endif
                                 </dd>
                             </dl>
