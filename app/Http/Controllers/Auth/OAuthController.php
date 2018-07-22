@@ -65,7 +65,7 @@ class OAuthController extends Controller
             $uid = Auth::id();
 //            $user = User::findOrFail($uid);
             $checkBind = $oauthInfo->whereMap([
-                'type'   => $service,
+                'type'   => $this->type[$service],
                 'openid' => $oauth_user->id
             ])->first();
             if( $checkBind )
@@ -102,7 +102,7 @@ class OAuthController extends Controller
 
         // 查找数据库中是否已经存在该用户信息
         $user = $oauthInfo->whereMap([
-            'type'   => $service,
+            'type'   => $this->type[$service],
             'openid' => $oauth_user->id
         ])->first();
         if ( !$user )
