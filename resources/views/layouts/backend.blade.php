@@ -18,7 +18,6 @@
     <link rel="stylesheet" href="{{asset('adminlte/dist/css/skins/skin-blue.min.css')}}">
     <!-- OTHER stylesheet -->
     {!! pace_css('white') !!}
-    <!-- SweetAlert2  -->
     {!! sweetalert2_css() !!}
     @yield('css')
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -199,21 +198,10 @@
 <!-- OTHER JS SCRIPTS -->
 <script left="90%" bottom="5%" text="返回顶部" src="{{asset('js/x-return-top.min.js')}}"></script>
 {!! pace_js() !!}
-<!-- SweetAlert2  -->
 {!! sweetalert2_js() !!}
 {!! validate_js() !!}
 <script src="{{asset('js/validator.js')}}"></script>
-@if(Session::has('alertMessage'))
-    <script>
-        $(function () {
-            @if(Session::get('alertType')=='success')
-            swal("操作成功", "{{Session::get('alertMessage')}}", "success");
-            @else
-            swal("操作失败", "{{Session::get('alertMessage')}}", "error");
-            @endif
-        });
-    </script>
-@endif
+@include('vendor.message')
 @yield('js')
 </body>
 </html>
