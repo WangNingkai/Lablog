@@ -71,7 +71,7 @@ class OAuthController extends Controller
             }
             $data = [
                 'user_id'  => $uid,
-                'type' => $this->type[$service],
+                'type' => $service,
                 'name' => $oauth_user->nickname,
                 'avatar' => $oauth_user->avatar,
                 'openid' => $oauth_user->id,
@@ -79,7 +79,7 @@ class OAuthController extends Controller
                 'last_login_ip' => $request->getClientIp(),
                 'login_times' => 1,
             ];
-            $avatarPath = public_path('uploads/avatar/user_'.$uid.'.jpg');
+            $avatarPath = public_path('/uploads/avatar/user_'.$uid.'.jpg');
             try {
                 // 下载最新的头像到本地
                 $client = new Client();
@@ -88,7 +88,7 @@ class OAuthController extends Controller
                 ]);
             } catch (ClientException $e) {
                 // 如果下载失败；则使用默认图片
-                copy(public_path('uploads/avatar/default.png'), $avatarPath);
+                copy(public_path('/uploads/avatar/default.png'), $avatarPath);
             }
             // 保存到第三方登录表
             $oauthInfo->storeData($data);

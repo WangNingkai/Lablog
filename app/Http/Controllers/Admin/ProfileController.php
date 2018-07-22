@@ -19,7 +19,7 @@ class ProfileController extends Controller
     public function manage()
     {
         $admin = Auth::user();
-        dd($admin);
+//        dd($admin);
         return view('admin.profile', compact('admin'));
     }
 
