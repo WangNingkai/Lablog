@@ -8,7 +8,6 @@ use GuzzleHttp\Exception\ClientException;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\OauthInfo;
-use App\Models\User;
 
 
 class OAuthController extends Controller

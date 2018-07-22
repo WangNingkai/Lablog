@@ -98,6 +98,7 @@ class ProfileController extends Controller
             'user_id' => $uid,
             'type'    => $param[$type]
         ])->delete();
+        show_message('解除'.$type.'登录成功');
         operation_event(auth()->user()->name,'解除关联第三方登录');
         return redirect()->back();
 
