@@ -41,6 +41,8 @@
                 QQ</a>
             <a href="{{ route('oauth.redirect','weibo') }}" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-weibo"></i> 使用
                 微博</a>
+            <a href="{{ route('oauth.redirect','github') }}" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-github"></i> 使用
+                GitHub</a>
         </div>
         <a href="{{ route('password.request') }}">忘记密码？</a><br>
     </div>
