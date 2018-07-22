@@ -116,10 +116,10 @@ class OAuthController extends Controller
 //        $oauthData=$oauthInfo->where('user_id',$user->id)->first();
         // 更新第三方登录信息
         $user->update([
-            'name' => $user->nickname,
-            'access_token' => $user->token,
+            'name'          => $oauth_user->nickname,
+            'access_token'  => $oauth_user->token,
             'last_login_ip' => $request->getClientIp(),
-            'login_times' => $user->login_times+1,
+            'login_times'   => $user->login_times + 1,
         ]);
         return redirect()->route('dashboard_home');
     }
