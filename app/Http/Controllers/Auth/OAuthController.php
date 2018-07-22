@@ -79,21 +79,22 @@ class OAuthController extends Controller
                 'last_login_ip' => $request->getClientIp(),
                 'login_times' => 1,
             ];
-            $avatarPath = public_path('/uploads/avatar/user_'.$uid.'.png');
-            try {
-                // 下载最新的头像到本地
-                $client = new Client(['verify' => false]);
-                $client->get($user->avatar,['save_to' => $avatarPath ]);
-            } catch (ClientException $e) {
-                // 如果下载失败；则使用默认图片
-                copy(public_path('/uploads/avatar/default.png'), $avatarPath);
-            }
+//            $avatarPath = public_path('uploads/avatar/user_'.$uid.'.jpg');
+//            try {
+//                // 下载最新的头像到本地
+//                $client = new Client(['verify' => false]);
+//                $client->request('GET', $user->avatar, [
+//                    'sink' => $avatarPath
+//                ]);
+//            } catch (ClientException $e) {
+//                // 如果下载失败；则使用默认图片
+//                copy(public_path('uploads/avatar/default.png'), $avatarPath);
+//            }
             // 保存到第三方登录表
             $oauthInfo->storeData($data);
             // 关联用户表
             $user->update([
                 $service.'open_id' => $oauth_user->id,
-                'avatar' => $avatarPath
             ]);
             show_message('绑定成功，下次可使用'.$service.'登录');
             return redirect()->route('dashboard_home');
