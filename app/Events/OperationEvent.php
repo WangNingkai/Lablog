@@ -47,7 +47,7 @@ class OperationEvent
      */
     public function __construct($operator, $operation, $ip = '', $timestamp = '')
     {
-            $this->operater = $operator;
+            $this->operator = $operator;
             $this->operation = $operation;
             $this->ip = $ip;
             $this->timestamp = $timestamp;
