@@ -29,7 +29,7 @@ class HomeController extends Controller
 
     public function __construct()
     {
-        $this->config = Cache::remember('app:config', self::CACHE_EXPIRE, function () {
+        $this->config = Cache::remember('cache:config', self::CACHE_EXPIRE, function () {
             // 获取置顶文章
             return Config::pluck('value', 'name');
         });

@@ -39,7 +39,7 @@ class ConfigController extends Controller
         $configModel->updateBatch($editData);
         operation_event(auth()->user()->name,'修改配置文件');
         // 更新缓存
-        Cache::forget('app:config');
+        Cache::forget('cache:config');
         return redirect()->back();
     }
 
@@ -67,7 +67,7 @@ class ConfigController extends Controller
         Artisan::call('cache:clear');
         operation_event(auth()->user()->name,'修改关于页面');
         // 更新缓存
-        Cache::forget('app:config');
+        Cache::forget('cache:config');
         return redirect()->back();
     }
 }

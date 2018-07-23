@@ -65,7 +65,7 @@ class ArticleController extends Controller
         $this->article->storeData($request->all());
         operation_event(auth()->user()->name,'添加文章');
         // 更新缓存
-        Cache::forget('app:top_article_list');
+        Cache::forget('cache:top_article_list');
         Cache::forget('feed:articles');
         return redirect()->route('article_manage');
     }
@@ -113,7 +113,7 @@ class ArticleController extends Controller
         $this->article->updateData(['id' => $id], $data);
         operation_event(auth()->user()->name,'编辑文章');
         // 更新缓存
-        Cache::forget('app:top_article_list');
+        Cache::forget('cache:top_article_list');
         Cache::forget('feed:articles');
         return redirect()->route('article_manage');
     }
@@ -134,7 +134,7 @@ class ArticleController extends Controller
         $this->article->destroyData($map);
         operation_event(auth()->user()->name,'软删除文章');
         // 更新缓存
-        Cache::forget('app:top_article_list');
+        Cache::forget('cache:top_article_list');
         Cache::forget('feed:articles');
         return redirect()->back();
     }
@@ -171,7 +171,7 @@ class ArticleController extends Controller
         show_message('恢复成功');
         operation_event(auth()->user()->name,'恢复软删除文章');
         // 更新缓存
-        Cache::forget('app:top_article_list');
+        Cache::forget('cache:top_article_list');
         Cache::forget('feed:articles');
         return redirect()->back();
     }
@@ -198,8 +198,8 @@ class ArticleController extends Controller
         baidu_push($arr,'del');
         show_message('彻底删除成功');
         // 更新缓存
-        Cache::forget('app:top_article_list');
-        Cache::forget('app:tag_list');
+        Cache::forget('cache:top_article_list');
+        Cache::forget('cache:tag_list');
         Cache::forget('feed:articles');
         return redirect()->back();
     }

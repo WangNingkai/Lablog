@@ -51,7 +51,7 @@ class CategoryController extends Controller
         $this->category->storeData($request->all());
         operation_event(auth()->user()->name,'添加栏目');
         // 更新缓存
-        Cache::forget('app:category_list');
+        Cache::forget('cache:category_list');
         return redirect()->route('category_manage');
     }
 
@@ -90,7 +90,7 @@ class CategoryController extends Controller
         $this->category->updateData(['id' => $id], $request->except('_token'));
         operation_event(auth()->user()->name,'编辑栏目');
         // 更新缓存
-        Cache::forget('app:category_list');
+        Cache::forget('cache:category_list');
         return redirect()->route('category_manage');
     }
 
@@ -109,7 +109,7 @@ class CategoryController extends Controller
         $this->category->destroyData($map);
         operation_event(auth()->user()->name,'删除栏目');
         // 更新缓存
-        Cache::forget('app:category_list');
+        Cache::forget('cache:category_list');
         return redirect()->route('category_manage');
     }
 }

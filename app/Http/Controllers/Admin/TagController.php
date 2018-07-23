@@ -52,7 +52,7 @@ class TagController extends Controller
         $this->tag->storeData($request->all());
         operation_event(auth()->user()->name,'添加标签');
         // 更新缓存
-        Cache::forget('app:tag_list');
+        Cache::forget('cache:tag_list');
         return redirect()->back();
     }
 
@@ -87,7 +87,7 @@ class TagController extends Controller
         $this->tag->updateData(['id' => $id], ['name'=>$name,'flag'=>$flag]);
         operation_event(auth()->user()->name,'编辑标签');
         // 更新缓存
-        Cache::forget('app:tag_list');
+        Cache::forget('cache:tag_list');
         return redirect()->back();
     }
 
@@ -106,7 +106,7 @@ class TagController extends Controller
         $this->tag->destroyData($map);
         operation_event(auth()->user()->name,'删除标签');
         // 更新缓存
-        Cache::forget('app:tag_list');
+        Cache::forget('cache:tag_list');
         return redirect()->back();
     }
 }

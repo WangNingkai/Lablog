@@ -47,7 +47,7 @@ class LinkController extends Controller
         $this->link->storeData($request->all());
         operation_event(auth()->user()->name,'添加标签');
         // 更新缓存
-        Cache::forget('app:link_list');
+        Cache::forget('cache:link_list');
         return redirect()->back();
     }
 
@@ -83,7 +83,7 @@ class LinkController extends Controller
         $result = $this->link->updateData(['id' => $id], ['name'=>$name,'url'=>$url,'sort'=>$sort,]);
         operation_event(auth()->user()->name,'编辑标签');
         // 更新缓存
-        Cache::forget('app:link_list');
+        Cache::forget('cache:link_list');
         return redirect()->back();
     }
 
@@ -102,7 +102,7 @@ class LinkController extends Controller
         $this->link->destroyData($map);
         operation_event(auth()->user()->name,'删除标签');
         // 更新缓存
-        Cache::forget('app:link_list');
+        Cache::forget('cache:link_list');
         return redirect()->back();
     }
 }
