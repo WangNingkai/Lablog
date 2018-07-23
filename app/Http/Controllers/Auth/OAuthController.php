@@ -85,7 +85,8 @@ class OAuthController extends Controller
                 copy(public_path('uploads/avatar/default.png'), $avatarPath);
             }
             $user = Auth::user();
-            if(empty($user->avatar))
+            // 如果用户默认头像为空或者为default，则关联登录头像
+            if( empty($user->avatar) || strpos( $user->avatar,'default') )
             {
                 $user->avatar = $avatarPath;
                 $user->save();

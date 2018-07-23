@@ -70,7 +70,6 @@
                                 <p>
                                     {{ Auth::user()->name }}
                                 </p>
-                                <p class="text-center">在这里查看个人信息，修改个人信息。</p>
                             </li>
                             <!-- Menu Body -->
                             <li class="user-body">
