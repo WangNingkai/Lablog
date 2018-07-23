@@ -51,17 +51,17 @@
                             <div class="prev pull-left">
                                 @if(blank($prev))
                                 @else
-                                    <a href="{{route('article',$prev['id'])}}"
-                                        class="btn bg-black btn-flat btn-block"><i class="fa fa-arrow-left"></i>&nbsp;{{re_substr($prev['title'],0,10,true)}}
+                                    <a href="{{route('article',$prev['id'])}}" class="btn bg-black btn-flat btn-block" title="{{ $prev->title }}">
+                                        <i class="fa fa-arrow-left"></i>&nbsp;{{re_substr($prev['title'],0,10,true)}}
                                     </a>
                                 @endif
                             </div>
                             <div class="next pull-right">
                                 @if(blank($next))
                                 @else
-                                    <a href="{{route('article',$next['id'])}}"
-                                        class="btn bg-black btn-flat btn-block">{{re_substr($next['title'],0,10,true)}}&nbsp;<i
-                                            class="fa fa-arrow-right"></i></a>
+                                    <a href="{{route('article',$next['id'])}}" class="btn bg-black btn-flat btn-block" title="{{ $next->title }}">
+                                        {{re_substr($next['title'],0,10,true)}}&nbsp;<i class="fa fa-arrow-right"></i>
+                                    </a>
                                 @endif
                             </div>
                         </div>

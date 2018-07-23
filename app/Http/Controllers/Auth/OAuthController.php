@@ -54,7 +54,7 @@ class OAuthController extends Controller
     public function handleProviderCallback(Request $request, OauthInfo $oauthInfo, $service)
     {
 
-        // TODO: 4)配置页面删除头像链接 5)后台查看第三方登录页面 6)上传头像
+        // TODO: 4)配置页面删除头像链接 5)后台查看第三方登录页面 6)上传头像 7)确认密码后再操作
         // 获取第三方登录用户资料
         $oauth_user = Socialite::driver($service)->user();
 
