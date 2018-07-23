@@ -16,7 +16,6 @@ class CreateArticleTagsTable extends Migration
         Schema::create('article_tags', function (Blueprint $table) {
             $table->unsignedInteger('article_id')->default(0)->comment('文章id');
             $table->unsignedInteger('tag_id')->default(0)->comment('标签id');
-            $table->timestamps();
         });
     }
 
