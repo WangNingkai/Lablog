@@ -56,21 +56,6 @@ class AppServiceProvider extends ServiceProvider
             $assign = compact('category_list', 'tag_list', 'top_article_list', 'link_list','config');
             $view->with($assign);
         });
-        // 使用 try catch 是为了解决 composer install 时候触发 php artisan optimize 但此时无数据库的问题
-        try {
-            // 获取配置项
-            $config = Cache::remember('config', 1440, function () {
-                return Config::pluck('value','name');
-            });
-            // 解决初次安装时候没有数据引起报错
-            if ($config->isEmpty()) {
-                Artisan::call('cache:clear');
-            }
-        } catch (QueryException $e) {
-            // 此处清除缓存是为了解决上面无数据库时缓存时 config 缓存了空数据 db:seed 后 config 走了缓存为空的问题
-            Artisan::call('cache:clear');
-            $config = [];
-        }
         Schema::defaultStringLength(255);
     }
 

@@ -99,7 +99,7 @@ class ProfileController extends Controller
             'type'    => $param[$type]
         ])->delete();
         show_message('解除'.$type.'登录成功');
-        operation_event(auth()->user()->name,'解除关联第三方登录');
+        operation_event(auth()->user()->name,'解除关联'.$type.'登录');
         return redirect()->back();
 
     }
