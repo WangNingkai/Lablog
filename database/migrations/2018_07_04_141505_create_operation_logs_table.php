@@ -16,16 +16,16 @@ class CreateOperationLogsTable extends Migration
         Schema::create('operation_logs', function (Blueprint $table) {
             // id operater operation ip operation_time  address device  browser platform language device_type
             $table->increments('id');
-            $table->string('operator')->nullable()->comment('操作者');;
-            $table->string('operation')->nullable()->comment('操作');;
-            $table->string('ip')->nullable()->comment('ip');;
-            $table->integer('operation_time')->nullable()->comment('时间');;
-            $table->string('address')->nullable()->comment('地址');;
-            $table->string('device')->nullable()->comment('设备');;
-            $table->string('browser')->nullable()->comment('浏览器');;
-            $table->string('platform')->nullable()->comment('平台');;
-            $table->string('language')->nullable()->comment('语言');;
-            $table->string('device_type')->nullable()->comment('设备类型');;
+            $table->string('operator')->comment('操作者');;
+            $table->string('operation')->comment('操作');;
+            $table->string('ip')->comment('ip');;
+            $table->integer('operation_time')->comment('时间');;
+            $table->string('address')->comment('地址');;
+            $table->string('device')->comment('设备');;
+            $table->string('browser')->comment('浏览器');;
+            $table->string('platform')->comment('平台');;
+            $table->string('language')->comment('语言');;
+            $table->string('device_type')->comment('设备类型');;
             $table->timestamps();
         });
     }
