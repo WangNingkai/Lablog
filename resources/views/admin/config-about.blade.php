@@ -16,7 +16,7 @@
         <!-- 主内容区 -->
         <section class="content container-fluid">
             <form role="form" method="POST" action="{{route('about_update')}}">
-            {{ csrf_field() }}
+            @csrf
                  <div class="row">
                     <div class="col-md-12">
                         <div class="box box-solid">

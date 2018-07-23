@@ -42,11 +42,11 @@
                                 @endforeach
                             </table>
                             <form id="restoreForm" style="display: none;" method="POST" action="{{route('article_restore')}}">
-                                {{ csrf_field() }}
+                                @csrf
                                 <input type="hidden" name="aid" id="restoreId">
                             </form>
                             <form id="destroyForm" style="display: none;" method="POST" action="{{route('article_destroy')}}">
-                                {{ csrf_field() }}
+                                @csrf
                                 <input type="hidden" name="aid" id="destroyId">
                             </form>
                         </div>

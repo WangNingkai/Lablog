@@ -47,7 +47,7 @@
                             <h4 class="text-bold">给我留言：</h4>
                             @include('errors.validator')
                             <form role="form" action="{{route('message_store')}}" method="post">
-                                {{ csrf_field() }}
+                                @csrf
                                 <div class="row">
                                     <div class="col-xs-12 form-group">
                                         <textarea class="form-control" style="resize: none;" rows="3" cols="4" name="content" placeholder="请输入留言" required></textarea>

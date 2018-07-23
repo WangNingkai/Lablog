@@ -51,7 +51,7 @@
                                 @endforeach
                             </table>
                             <form id="deleteForm" style="display: none;" action="{{route('category_destroy')}}" method="post">
-                                {{ csrf_field() }}
+                                @csrf
                                 <input type="hidden" name="cid" id="deleteId">
                             </form>
                         </div>
@@ -67,7 +67,7 @@
                 </div>
                 <div class="col-md-4">
                     <form role="form"  method="POST" action="{{route('category_store')}}" id="createCategoryForm">
-                        {{ csrf_field() }}
+                        @csrf
                         <div class="box box-default">
                             <div class="box-header with-border">
                                 <h3 class="box-title">新建栏目</h3>

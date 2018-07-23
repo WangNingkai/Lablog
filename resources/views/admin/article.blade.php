@@ -56,7 +56,7 @@
                                 @endforeach
                             </table>
                             <form id="deleteForm" style="display: none;" action="{{route('article_delete')}}" method="post">
-                                {{ csrf_field() }}
+                                @csrf
                                 <input type="hidden" name="aid" id="deleteId">
                             </form>
                         </div>

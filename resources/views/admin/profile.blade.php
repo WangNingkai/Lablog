@@ -25,7 +25,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <form role="form"  method="POST" action="{{route('profile_update')}}" id="editProfileForm">
-                    {{ csrf_field() }}
+                    @csrf
                         <div class="box box-default">
                             <div class="box-header with-border">
                                 <h3 class="box-title">基本设置</h3>
@@ -55,7 +55,7 @@
                 </div>
                 <div class="col-md-4">
                     <form role="form"  method="POST" action="{{route('password_update')}}" id="changePassForm">
-                        {{ csrf_field() }}
+                        @csrf
                         <div class="box box-default">
                             <div class="box-header with-border">
                                 <h3 class="box-title">密码修改</h3>

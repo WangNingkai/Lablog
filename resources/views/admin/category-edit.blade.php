@@ -17,7 +17,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <form role="form"  method="POST" action="{{route('category_update',$category->id)}}" id="editCategoryForm">
-                        {{ csrf_field() }}
+                        @csrf
                         <div class="box box-default">
                             <div class="box-header with-border">
                                 <h3 class="box-title">编辑栏目</h3>
@@ -115,7 +115,7 @@
                                 @endforeach
                             </table>
                             <form id="deleteForm" style="display: none;" action="{{route('category_destroy')}}" method="post">
-                                {{ csrf_field() }}
+                                @csrf
                                 <input type="hidden" name="cid" id="deleteId">
                             </form>
                         </div>

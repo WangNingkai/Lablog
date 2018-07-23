@@ -53,7 +53,7 @@
                                 @endforeach
                             </table>
                             <form id="deleteForm" style="display: none;" action="{{route('operation_logs_destroy')}}" method="post">
-                                {{ csrf_field() }}
+                                @csrf
                                 <input type="hidden" name="opid" id="deleteId">
                             </form>
                         </div>

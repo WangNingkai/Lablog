@@ -54,7 +54,7 @@
                                 @endforeach
                             </table>
                             <form id="deleteForm" style="display: none;" action="{{route('tag_destroy')}}" method="post">
-                                {{ csrf_field() }}
+                                @csrf
                                 <input type="hidden" name="tid" id="deleteId">
                             </form>
                         </div>
@@ -72,7 +72,7 @@
                 <div class="col-md-6">
                     @include('errors.validator')
                     <form role="form"  method="POST" action="{{route('tag_update')}}" id="editTagForm" style="display:none;">
-                        {{ csrf_field() }}
+                        @csrf
                         <div class="box box-default">
                             <div class="box-header with-border">
                                 <h3 class="box-title">编辑标签</h3>
@@ -100,7 +100,7 @@
                         </div>
                     </form>
                     <form role="form"  method="POST" action="{{route('tag_store')}}" id="createTagForm">
-                        {{ csrf_field() }}
+                        @csrf
                         <div class="box box-default">
                             <div class="box-header with-border">
                                 <h3 class="box-title">新建标签</h3>

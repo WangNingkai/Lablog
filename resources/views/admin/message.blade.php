@@ -61,11 +61,11 @@
                                 @endforeach
                             </table>
                                 <form id="deleteForm" style="display: none;" method="POST" action="{{route('message_destroy')}}">
-                                    {{ csrf_field() }}
+                                    @csrf
                                     <input type="hidden" name="mid" id="deleteId">
                                 </form>
                                 <form id="checkForm" style="display: none;" method="POST" action="{{route('message_check')}}">
-                                    {{ csrf_field() }}
+                                    @csrf
                                     <input type="hidden" name="mid" id="checkId">
                                 </form>
                         </div>
@@ -83,7 +83,7 @@
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <form class="form-horizontal" role="form" method="POST" action="{{route('message_reply')}}">
-                                            {{ csrf_field() }}
+                                            @csrf
                                             <input type="hidden" name="id" id="mid">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>

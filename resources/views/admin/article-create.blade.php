@@ -16,7 +16,7 @@
         </section>
         <section class="content container-fluid">
             <form role="form"  method="POST" action="{{route('article_store')}}" id="createArticleForm">
-            {{ csrf_field() }}
+            @csrf
                 <div class="row">
                     <div class="col-md-12">
                         <div class="box box-solid">

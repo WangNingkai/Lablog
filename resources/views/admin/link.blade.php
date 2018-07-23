@@ -55,7 +55,7 @@
                                 @endforeach
                             </table>
                             <form id="deleteForm" style="display: none;" action="{{route('link_destroy')}}" method="post">
-                                {{ csrf_field() }}
+                                @csrf
                                 <input type="hidden" name="lid" id="deleteId">
                             </form>
                         </div>
@@ -73,7 +73,7 @@
                 <div class="col-md-6">
                     @include('errors.validator')
                     <form role="form"  method="POST" action="{{route('link_update')}}" id="editLinkForm" style="display:none;">
-                        {{ csrf_field() }}
+                        @csrf
                         <div class="box box-default">
                             <div class="box-header with-border">
                                 <h3 class="box-title">编辑友链</h3>
@@ -109,7 +109,7 @@
                         </div>
                     </form>
                     <form role="form"  method="POST" action="{{route('link_store')}}" id="createLinkForm">
-                        {{ csrf_field() }}
+                        @csrf
                         <div class="box box-default">
                             <div class="box-header with-border">
                                 <h3 class="box-title">新建友链</h3>

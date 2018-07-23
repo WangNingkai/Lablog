@@ -75,7 +75,7 @@
                             <h4 class="text-bold">评论：</h4>
                             @include('errors.validator')
                             <form role="form" action="{{route('comment_store')}}" method="post">
-                                {{ csrf_field() }}
+                                @csrf
                                 <input type="hidden" name="article_id" id="article_id" value="{{$article->id}}">
                                 <div class="row">
                                     <div class="col-xs-12 form-group">
