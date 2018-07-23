@@ -73,16 +73,17 @@ class OAuthController extends Controller
             }
             // 如果是第一次绑定，替换默认管理员图片
             $avatarName = md5('user_'.$uid.'_'.$service);
-            $avatarPath = public_path('uploads/avatar/'.$avatarName.'.jpg');
+            $avatarSavePath = public_path('uploads/avatar/'.$avatarName.'.jpg');
+            $avatarPath = '/uploads/avatar/'.$avatarName.'.jpg';
             try {
                 // 下载最新的头像到本地
                 $client = new Client(['verify' => false]);
                 $client->request('GET', $oauth_user->avatar, [
-                    'sink' => $avatarPath
+                    'sink' => $avatarSavePath
                 ]);
             } catch (ClientException $e) {
                 // 如果下载失败；则使用默认图片
-                copy(public_path('uploads/avatar/default.png'), $avatarPath);
+                copy(public_path('uploads/avatar/default.png'), $avatarSavePath);
             }
             $user = Auth::user();
             // 如果用户默认头像为空或者为default，则关联登录头像
