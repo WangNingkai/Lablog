@@ -44,7 +44,6 @@ class OAuthController extends Controller
     }
 
     /**
-     * 回调操作
      * @param Request $request
      * @param OauthInfo $oauthInfo
      * @param $service
@@ -72,6 +71,25 @@ class OAuthController extends Controller
                 show_message('您已经绑定'.$service.'登录，无需再进行绑定',false);
                 return redirect()->route('dashboard_home');
             }
+            // 如果是第一次绑定，替换默认管理员图片
+            $avatarName = md5('user_'.$uid.'_'.$service);
+            $avatarPath = public_path('uploads/avatar/'.$avatarName.'.jpg');
+            try {
+                // 下载最新的头像到本地
+                $client = new Client(['verify' => false]);
+                $client->request('GET', $oauth_user->avatar, [
+                    'sink' => $avatarPath
+                ]);
+            } catch (ClientException $e) {
+                // 如果下载失败；则使用默认图片
+                copy(public_path('uploads/avatar/default.png'), $avatarPath);
+            }
+            $user = Auth::user();
+            if(empty($user->avatar))
+            {
+                $user->avatar = $avatarPath;
+                $user->save();
+            }
             $data = [
                 'user_id'  => $uid,
                 'type' => $this->type[$service],
@@ -82,25 +100,12 @@ class OAuthController extends Controller
                 'last_login_ip' => $request->getClientIp(),
                 'login_times' => 1,
             ];
-            // 如果是第一次绑定，替换默认管理员图片
-//            $avatarPath = public_path('uploads/avatar/user_'.$uid.'.jpg');
-//            try {
-//                // 下载最新的头像到本地
-//                $client = new Client(['verify' => false]);
-//                $client->request('GET', $user->avatar, [
-//                    'sink' => $avatarPath
-//                ]);
-//            } catch (ClientException $e) {
-//                // 如果下载失败；则使用默认图片
-//                copy(public_path('uploads/avatar/default.png'), $avatarPath);
-//            }
             // 保存绑定信息
             $oauthInfo->storeData($data);
             operation_event(auth()->user()->name,'关联第三方登录');
             show_message('绑定成功，下次可使用'.$service.'登录');
             return redirect()->route('dashboard_home');
         }
-
         // 查找用户是否存在绑定信息
         $user = $oauthInfo->whereMap([
             'type'   => $this->type[$service],

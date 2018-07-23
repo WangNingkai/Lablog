@@ -59,23 +59,23 @@
                     </li>
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="{{ $config['site_admin_avatar'] }}" class="user-image" alt="{{ $config['site_admin'] }}">
+                            <img src="{{ Auth::user()->avatar }}" class="user-image" alt="{{ Auth::user()->name }}">
                             <!-- hidden-xs 在小型设备上隐藏用户名，只显示图像。 -->
                             <span class="hidden-xs">{{ Auth::user()->name }}</span>
                         </a>
                         <ul class="dropdown-menu">
                             <li class="user-header">
-                                <img src="{{ $config['site_admin_avatar'] }}" class="img-circle"
-                                     alt="{{ $config['site_admin'] }}">
+                                <img src="{{ Auth::user()->avatar }}" class="img-circle"
+                                     alt="{{ Auth::user()->name }}">
                                 <p>
                                     {{ Auth::user()->name }}
                                 </p>
-                                <p class="text-center">{{ $config['site_admin_info'] }}</p>
+                                <p class="text-center">在这里查看个人信息，修改个人信息。</p>
                             </li>
                             <!-- Menu Body -->
                             <li class="user-body">
-                                <p>登陆时间 ：{{Auth::user()->last_login_at}}</p>
-                                <p>登陆地点 ：{{ip_to_city(Auth::user()->last_login_ip)}}</p>
+                                <p>登陆时间 ：{{ Auth::user()->last_login_at }}</p>
+                                <p>登陆地点 ：{{ ip_to_city(Auth::user()->last_login_ip) }}</p>
                             </li>
                             <!-- Menu Footer-->
                             <li class="user-footer">
@@ -104,7 +104,7 @@
             <!-- 用户面板 (可选择) -->
             <div class="user-panel">
                 <div class="pull-left image">
-                    <img src="{{ $config['site_admin_avatar'] }}" class="img-circle" alt="{{ $config['site_admin'] }}">
+                    <img src="{{  Auth::user()->avatar }}" class="img-circle" alt="{{ Auth::user()->name }}">
                 </div>
                 <div class="pull-left info">
                     <p>{{ Auth::user()->name }}</p>
