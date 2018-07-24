@@ -168,6 +168,7 @@ return [
         Jenssegers\Agent\AgentServiceProvider::class,
         Recca0120\LaravelTracy\LaravelTracyServiceProvider::class,
         Overtrue\LaravelSocialite\ServiceProvider::class,
+        Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
 
     ],
 
