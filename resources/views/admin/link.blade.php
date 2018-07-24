@@ -132,7 +132,7 @@
                                 </div>
                                 <div class="form-group {{$errors->has('sort')?'has-error':''}}">
                                     <label for="sort">排序：</label>
-                                    <input type="text" class="form-control" name="sort" id="sort" placeholder="请输入友链链接"  value="{{old('sort')}}">
+                                    <input type="text" class="form-control" name="sort" id="sort" placeholder="请输入友链排序"  value="{{old('sort')}}">
                                     @if ($errors->has('sort'))
                                         <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('sort') }}</strong></span>
                                     @endif
