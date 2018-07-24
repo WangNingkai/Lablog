@@ -72,7 +72,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
         Route::get('manage', 'ProfileController@manage')->name('profile_manage');
         Route::post('updatePassword', 'ProfileController@updatePassword')->name('password_update');
         Route::post('updateProfile', 'ProfileController@updateProfile')->name('profile_update');
-        Route::get('unbindThirdLogin/{type}', 'ProfileController@unbindThirdLogin')->name('unbind_third_login');
+        Route::post('unbindThirdLogin', 'ProfileController@unbindThirdLogin')->name('unbind_third_login');
     });
     // 标签
     Route::group(['prefix' => 'tag'], function () {

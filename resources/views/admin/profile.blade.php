@@ -1,3 +1,9 @@
+/*
+ * @Author: NK.W
+ * @Date: 2018-07-24 08:06:59
+ * @Last Modified by: NK.W
+ * @Last Modified time: 2018-07-24 08:07:29
+ */
 @extends('layouts.backend')
 @section('title','控制台 - 个人信息')
 @section('css')
@@ -101,7 +107,7 @@
                                 <dd>
                                     @if(blank($admin->bindQQ))<a href="{{ route('oauth.redirect','qq') }}" class="btn btn-flat bg-gray">点击绑定</a>
                                     @else  <a href="javascript:void(0)" class="btn btn-flat bg-gray">已绑定 ({{ $admin->qqName }})</a>
-                                    <a href="{{ route('unbind_third_login','qq') }}" class="btn btn-flat bg-red">解除</a>
+                                    <a href="javascript:void(0)" class="btn btn-flat bg-red unbind-btn" data-type="qq">解除</a>
                                     @endif
                                 </dd>
                                 <div class="hr-line-dashed"></div>
@@ -109,7 +115,7 @@
                                 <dd>
                                     @if(blank($admin->bindWeibo))<a href="{{ route('oauth.redirect','weibo') }}" class="btn btn-flat bg-gray">点击绑定</a>
                                     @else  <a href="javascript:void(0)" class="btn btn-flat bg-gray">已绑定 ({{ $admin->weiboName }})</a>
-                                    <a href="{{ route('unbind_third_login','weibo') }}" class="btn btn-flat bg-red">解除</a>
+                                    <a href="javascript:void(0)" class="btn btn-flat bg-red unbind-btn" data-type="weibo">解除</a>
                                     @endif
                                 </dd>
                                 <div class="hr-line-dashed"></div>
@@ -117,10 +123,14 @@
                                 <dd>
                                     @if(blank($admin->bindGithub))<a href="{{ route('oauth.redirect','github') }}" class="btn btn-flat bg-gray">点击绑定</a>
                                     @else  <a href="javascript:void(0)" class="btn btn-flat bg-gray">已绑定 ({{ $admin->githubName }})</a>
-                                    <a href="{{ route('unbind_third_login','github') }}" class="btn btn-flat bg-red">解除</a>
+                                    <a href="javascript:void(0)" class="btn btn-flat bg-red unbind-btn" data-type="github">解除</a>
                                     @endif
                                 </dd>
                             </dl>
+                            <form id="unbindForm" style="display: none;" action="{{ route('unbind_third_login') }}" method="post">
+                                @csrf
+                                <input type="hidden" name="type" id="bindType">
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -129,5 +139,29 @@
     </div>
 @stop
 @section('js')
-
+<script>
+$(function () {
+    $(".unbind-btn").on("click", function () {
+        bindType = $(this).data('type');
+        $("#bindType").val(bindType);
+        swal({
+            title: "确定解除关联吗？",
+            text: "解除后需重新关联才能登陆",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                $("#unbindForm").submit()
+            } else if (result.dismiss === swal.DismissReason.cancel) {
+                swal('已取消', ':)', 'error')
+            }
+        })
+    });
+});
+</script>
 @stop
