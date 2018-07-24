@@ -312,12 +312,12 @@ if (!function_exists('send_email')) {
     /**
      * 发送邮件函数
      *
-     * @param  string $email            邮箱  如果群发 则传入数组
+     * @param  string $email           邮箱  如果群发 则传入数组
      * @param string $name             名称
      * @param string $subject          标题
-     * @param array $data 邮件模板中用的变量 示例：['name'=>'帅白','phone'=>'110']
-     * @param string $template 邮件模板
-     * @return array            发送状态
+     * @param array $data              邮件模板中用的变量 示例：['name'=>'帅白','phone'=>'110']
+     * @param string $template         邮件模板
+     * @return array                   发送状态
      */
     function send_email($email, $name, $subject, $data = [], $template = 'emails.base')
     {

@@ -1,8 +1,6 @@
 <?php
 
 use App\Models\Config;
-use App\Libraries\Extensions\Select;
-use App\Models\Category;
 
 /*
 |--------------------------------------------------------------------------
