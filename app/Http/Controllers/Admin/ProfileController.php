@@ -90,7 +90,7 @@ class ProfileController extends Controller
             'weibo'  => OauthInfo::TYPE_WEIBO,
             'github' => OauthInfo::TYPE_GITHUB
         ];
-        $type = $request->only('type');
+        $type = $request->get('type');
         if (!empty($type) && !array_key_exists($type, $param)) {
             return abort(404, '对不起，找不到相关页面');
         }
