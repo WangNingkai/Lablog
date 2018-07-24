@@ -1,9 +1,3 @@
-/*
- * @Author: NK.W
- * @Date: 2018-07-24 08:06:59
- * @Last Modified by: NK.W
- * @Last Modified time: 2018-07-24 08:07:29
- */
 @extends('layouts.backend')
 @section('title','控制台 - 个人信息')
 @section('css')
