@@ -78,7 +78,11 @@
                                 <a href="javascript:void(0)" class="btn btn-primary btn-flat" onclick="selectReverse('aid')">反选</a>
                                 <a href="javascript:void(0)" class="btn btn-danger btn-flat" id="delSelectedArticle">删除选定</a>
                             </div>
-                             {{ $articles->links('vendor.pagination.adminlte') }}
+                            @if(request()->has('keyword'))
+                                {{ $articles->appends(['keyword' => request()->input('keyword')])->links('vendor.pagination.adminlte') }}
+                                @else
+                                {{ $articles->links('vendor.pagination.adminlte') }}
+                            @endif
                         </div>
                     </div>
                 </div>
