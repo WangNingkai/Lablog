@@ -56,7 +56,7 @@ class AppServiceProvider extends ServiceProvider
             $assign = compact('category_list', 'tag_list', 'top_article_list', 'link_list','config');
             $view->with($assign);
         });
-        Schema::defaultStringLength(255);
+        Schema::defaultStringLength(191);
     }
 
     /**
