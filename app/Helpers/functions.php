@@ -138,16 +138,15 @@ if (!function_exists('ajax_return')) {
      * ajax返回数据
      *
      * @param string $data 需要返回的数据
-     * @param int $status_code
+     * @param int $code
      * @return \Illuminate\Http\JsonResponse
      */
-    function ajax_return($status_code = 200, $data = '')
+    function ajax_return($code = 200, $data = '')
     {
         //如果如果是错误 返回错误信息
-        if ($status_code != 200) {
-            //增加status_code
-            $data = ['status_code' => $status_code, 'message' => $data,];
-            return response()->json($data, $status_code);
+        if ($code != 200) {
+            $data = ['status_code' => $code, 'message' => $data,];
+            return response()->json($data, $code);
         }
         //如果是对象 先转成数组
         if (is_object($data)) {
@@ -185,7 +184,7 @@ if (!function_exists('ajax_return')) {
             //先把所有字段都转成字符串类型
             $data = to_string($data);
         }
-        return response()->json($data, $status_code);
+        return response()->json($data, $code);
     }
 }
 if (!function_exists('re_substr')) {
