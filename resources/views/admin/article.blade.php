@@ -17,12 +17,23 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="box">
-                        <div class="box-header with-border">
+                        <div class="box-header">
                             <h3 class="box-title">全部文章</h3>
                             <span>共 {{ $articles->total() }}篇</span>
+                            <form action="{{ route('article_search') }}" method="get" style="display: inline-flex" class="pull-right">
+                                <div class="box-tools">
+                                    <div class="input-group input-group-sm" style="width: 150px;">
+                                        <input type="text" name="keyword" class="form-control" placeholder="搜索标题">
+
+                                        <span class="input-group-btn">
+                                            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                        <div class="box-body">
-                            <table class="table table-responsive">
+                        <div class="box-body table-responsive no-padding">
+                            <table class="table table-hover">
                                 <tr>
                                     <th style="">#</th>
                                     <th>标题</th>

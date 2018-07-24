@@ -93,8 +93,8 @@
                             <i class="ion ion-clipboard"></i>
                             <h3 class="box-title">最新文章</h3>
                         </div>
-                        <div class="box-body">
-                            <table class="table table-responsive">
+                        <div class="box-body table-responsive no-padding">
+                            <table class="table table-hover">
                                 <tr>
                                     <th>#</th>
                                     <th>标题</th>

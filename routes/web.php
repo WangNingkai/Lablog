@@ -79,6 +79,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
         Route::get('edit/{id?}', 'TagController@edit')->name('tag_edit');
         Route::post('update', 'TagController@update')->name('tag_update');
         Route::post('destroy', 'TagController@destroy')->name('tag_destroy');
+        Route::get('search', 'TagController@search')->name('tag_search');
     });
     // 栏目
     Route::group(['prefix' => 'category'], function () {
@@ -100,6 +101,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
         Route::get('trash', 'ArticleController@trash')->name('article_trash');
         Route::post('restore', 'ArticleController@restore')->name('article_restore');
         Route::post('destroy', 'ArticleController@destroy')->name('article_destroy');
+        Route::get('search', 'ArticleController@search')->name('article_search');
     });
     // 评论
     Route::group(['prefix' => 'comment'], function () {

@@ -84,8 +84,8 @@
                         <div class="box-header with-border">
                             <h3 class="box-title">全部栏目</h3>
                         </div>
-                        <div class="box-body">
-                            <table class="table table-responsive">
+                        <div class="box-body table-responsive no-padding">
+                            <table class="table table-hover">
                                 <tr>
                                     <th style="">#</th>
                                     <th>栏目名</th>

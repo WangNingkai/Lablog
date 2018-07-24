@@ -203,4 +203,19 @@ class ArticleController extends Controller
         Cache::forget('feed:articles');
         return redirect()->back();
     }
+
+    public function search(Request $request)
+    {
+        $keyword = $request->get('keyword');
+        $map = [
+            ['title', 'like', '%' . $keyword . '%'],
+        ];
+        $articles = $this->article
+            ->select('id', 'category_id', 'title','status','click', 'created_at')
+            ->with('category')
+            ->where($map)
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+        return view('admin.article', compact('articles'));
+    }
 }

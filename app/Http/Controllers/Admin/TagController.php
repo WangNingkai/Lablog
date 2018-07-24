@@ -109,4 +109,18 @@ class TagController extends Controller
         Cache::forget('cache:tag_list');
         return redirect()->back();
     }
+
+    public function search(Request $request)
+    {
+        $keyword = $request->get('keyword');
+        $map = [
+            ['name', 'like', '%' . $keyword . '%'],
+        ];
+        $tags = $this->tag->orderBy('id', 'desc')->where($map)->paginate(10);
+        foreach ($tags as $tag) {
+            $articleCount = ArticleTag::where('tag_id', $tag->id)->count();
+            $tag->article_count = $articleCount;
+        }
+        return view('admin.tag', compact('tags'));
+    }
 }

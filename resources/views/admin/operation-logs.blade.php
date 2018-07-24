@@ -21,8 +21,8 @@
                             <h3 class="box-title">全部日志</h3>
                             <span>共 {{ $operation_logs->total() }}条</span>
                         </div>
-                        <div class="box-body">
-                            <table class="table table-responsive">
+                        <div class="box-body table-responsive no-padding">
+                            <table class="table table-hover">
                                 <tr>
                                     <th>#</th>
                                     <th>id</th>

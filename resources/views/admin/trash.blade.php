@@ -21,8 +21,8 @@
                             <h3 class="box-title">回收站</h3>
                             <span>共 {{ $articles->total() }}篇</span>
                         </div>
-                        <div class="box-body">
-                            <table class="table table-responsive">
+                        <div class="box-body table-responsive no-padding">
+                            <table class="table table-hover">
                                 <tr>
                                     <th style="">#</th>
                                     <th>标题</th>
