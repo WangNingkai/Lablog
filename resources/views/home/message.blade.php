@@ -57,7 +57,7 @@
                                         <input type="text" class="form-control" name ="nickname"placeholder="输入留言显示名称 *" required>
                                     </div>
                                     <div class="col-md-4 form-group">
-                                        <input type="email" class="form-control" name="email" placeholder="输入电子邮件（不会在留言显示）*" required>
+                                        <input type="email" class="form-control" name="email" placeholder="输入电子邮件（不会显示）*" required>
                                     </div>
                                     <div class="col-md-4 form-group">
                                         <button type="submit" class="btn btn-flat btn-block bg-green">留言</button>
