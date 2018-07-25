@@ -24,9 +24,9 @@ class DashboardController extends Controller
         $allCategoriesCount=Category::count();
         $allMessagesCount = Message::count();
         // 最新未读留言
-        $newComments = Comment::where(['status'=>Comment::UNCHECKED])->orderBy('created_at', 'desc')->limit(5)->get();
+        $newComments = Comment::where(['status'=>Comment::UNCHECKED])->with('article')->orderBy('created_at', 'desc')->limit(5)->get();
         // 最新未读留言
-        $newMessages = Message::where(['status'=>Message::UNCHECKED])->with('article')->orderBy('created_at', 'desc')->limit(5)->get();
+        $newMessages = Message::where(['status'=>Message::UNCHECKED])->orderBy('created_at', 'desc')->limit(5)->get();
         // 最新发布文章
         $newArticles = Article::orderBy('created_at', 'desc')->limit('6')->get();
         $assign=compact('allArticlesCount','allTagsCount','allCategoriesCount','allMessagesCount','newMessages','newArticles','allCommentsCount','newComments');
