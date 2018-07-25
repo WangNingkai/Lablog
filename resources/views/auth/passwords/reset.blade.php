@@ -31,11 +31,9 @@
             </div>
             <div class="row">
                 <div class="col-xs-8"></div>
-                <!-- /.col -->
                 <div class="col-xs-4">
                     <button type="submit" class="btn btn-primary btn-block btn-flat">重置</button>
                 </div>
-                <!-- /.col -->
             </div>
         </form>
     </div>

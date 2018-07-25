@@ -31,8 +31,6 @@
                                 </ul>
                             </div>
                             <div class="timeline-footer">
-                                <!-- <a class="btn btn-primary btn-xs">阅读更多</a>
-                                <a class="btn btn-danger btn-xs">删除</a> -->
                             </div>
                         </div>
                     </li>

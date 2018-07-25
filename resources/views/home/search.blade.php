@@ -31,7 +31,6 @@
                                     <div class="input-group-btn">
                                         <button type="submit" class="btn btn-flat bg-black">搜索</button>
                                     </div>
-                                    <!-- /btn-group -->
                                 </div>
                             </form>
                         </div>

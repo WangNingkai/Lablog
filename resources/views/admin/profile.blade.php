@@ -20,7 +20,6 @@
                 <li class="active">个人信息</li>
             </ol>
         </section>
-        <!-- 主内容区 -->
         <section class="content container-fluid">
             <div class="row">
                 <div class="col-md-4">

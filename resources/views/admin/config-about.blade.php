@@ -13,7 +13,6 @@
                 <li class="active">关于页面</li>
             </ol>
         </section>
-        <!-- 主内容区 -->
         <section class="content container-fluid">
             <form role="form" method="POST" action="{{route('about_update')}}">
             @csrf

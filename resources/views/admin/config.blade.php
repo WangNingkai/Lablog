@@ -14,7 +14,6 @@
                 <li class="active">站点设置</li>
             </ol>
         </section>
-        <!-- 主内容区 -->
         <section class="content container-fluid">
             <form role="form" method="POST" action="{{ route('config_update') }}">
             @csrf

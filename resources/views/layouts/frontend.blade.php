@@ -8,7 +8,6 @@
     <meta name="keywords" content="@yield('keywords')" />
     <meta name="description" content="@yield('description')" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <!-- 告诉浏览器该页面是自适应布局 -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="{{asset('adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css')}}">
@@ -99,7 +98,7 @@
                 <section class="content">
                     <div class="row">
                         @yield('content')
-                        <div class="col-md-4 hidden-xs" style="position: ">
+                        <div class="col-md-4 hidden-xs">
                             <div class="row">
                                 <div class="box box-widget widget-user">
                                     <div class="widget-user-header  bg-black">
@@ -218,7 +217,6 @@
             </div>
         </footer>
     </div>
-
     <!-- jQuery 3 -->
     <script src="{{asset('adminlte/bower_components/jquery/dist/jquery.min.js')}}"></script>
     <!-- Bootstrap 3.3.7 -->

@@ -15,7 +15,6 @@
                 <h4>您好{{ Auth::user()->name }}，欢迎访问LABLOG</h4>
                 <p>在这里您可以尽情的书写你的创意</p>
             </div>
-            <!-- Small boxes (Stat box) -->
             <div class="row">
                 <div class="col-lg-3 col-xs-6">
 

@@ -9,7 +9,6 @@
 @section('content')
     <div class="col-md-8">
         <div class="box box-solid">
-            <!-- /.box-header -->
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-12">
@@ -70,7 +69,6 @@
                 <div class="hr-line-dashed"></div>
                 <div class="row">
                     <div class="col-md-12">
-                        {{--评论内容--}}
                         <div class="post clearfix">
                             <h4 class="text-bold">评论：</h4>
                             @include('errors.validator')
@@ -104,7 +102,6 @@
                                 </span>
                                     <span class="description">{{ $comment->created_at }}</span>
                                 </div>
-                                <!-- /.user-block -->
                                 <p>
                                     {{ $comment->content }}
                                 </p>
@@ -117,7 +114,6 @@
                                         </span>
                                             <span class="description">{{ $comment->updated_at }}</span>
                                         </div>
-                                        <!-- /.user-block -->
                                         <p>
                                             {{ $comment->reply }}
                                         </p>

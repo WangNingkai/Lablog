@@ -17,7 +17,6 @@
             <div class="box-body">
                 <p>@foreach($childCategoryList as $childCategory)<a href="{{route('category',$childCategory->id)}}" class="btn btn-flat bg-blue tag">{{$childCategory->name}}</a>@endforeach</p>
             </div>
-          <!-- /.box-body -->
         </div>
         @foreach($articles as $article)
             <div class="box box-solid">

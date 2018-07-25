@@ -28,11 +28,9 @@
                         </label>
                     </div>
                 </div>
-                <!-- /.col -->
                 <div class="col-xs-4">
                     <button type="submit" class="btn btn-primary btn-block btn-flat">登录</button>
                 </div>
-                <!-- /.col -->
             </div>
         </form>
         <div class="social-auth-links text-center">

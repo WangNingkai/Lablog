@@ -10,11 +10,9 @@
 
                 <h3 class="box-title">网站公告</h3>
             </div>
-            <!-- /.box-header -->
             <div class="box-body">
                 <p>{{$config['site_info']}}</p>
             </div>
-            <!-- /.box-body -->
         </div>
         @foreach($articles as $article)
             <div class="box box-solid">

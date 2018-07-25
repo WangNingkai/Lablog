@@ -35,7 +35,6 @@
                                         </span>
                                         <span class="description">{{ $message->updated_at }}</span>
                                     </div>
-                                    <!-- /.user-block -->
                                     <p>
                                         {{ $message->reply }}
                                     </p>

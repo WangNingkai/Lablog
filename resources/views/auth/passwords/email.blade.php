@@ -20,11 +20,9 @@
             </div>
             <div class="row">
                 <div class="col-xs-4"></div>
-                <!-- /.col -->
                 <div class="col-xs-8">
                     <button type="submit" class="btn btn-primary btn-block btn-flat">发送找回密码链接</button>
                 </div>
-                <!-- /.col -->
             </div>
         </form>
     </div>

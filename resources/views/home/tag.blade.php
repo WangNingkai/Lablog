@@ -12,7 +12,6 @@
             <div class="box-body">
                  <h3>与<span class="text-red">"{{$tag->name}}"</span>相关的文章</h3>
             </div>
-          <!-- /.box-body -->
         </div>
         @foreach($articles as $article)
             <div class="box box-solid">
