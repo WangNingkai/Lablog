@@ -17,7 +17,6 @@
         "predis/predis": "^1.1",
         "rap2hpoutre/laravel-log-viewer": "^0.19.1",
         "recca0120/laravel-tracy": "^1.8",
-        "renatomarinho/laravel-page-speed": "^1.8",
         "roumen/feed": "^2.12",
         "wangningkai/laravel-editor-md": "^1.1"
     },
