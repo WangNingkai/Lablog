@@ -166,7 +166,7 @@
                     </ul>
                 </li>
                 <li class="{{ set_active('admin/operation_logs/manage') }}"><a href="{{ route('operation_logs_manage') }}"><i class="fa fa-history"></i> <span>操作日志</span></a></li>
-                <li class="{{ set_active('admin/logs') }}"><a href="{{ route('laravel.log') }}"><i class="fa fa-bug"></i> <span>调试日志</span></a></li>
+                {{--<li class=""><a href="#"><i class="fa fa-bug"></i> <span>调试日志</span></a></li>--}}
             </ul>
             <!-- /.sidebar-menu -->
         </section>

@@ -132,7 +132,6 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
         Route::get('manage', 'OperationLogsController@manage')->name('operation_logs_manage');
         Route::post('destroy', 'OperationLogsController@destroy')->name('operation_logs_destroy');
     });
-    Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->name('laravel.log');
 });
 // 关站判断
 Route::get('close', function () {
