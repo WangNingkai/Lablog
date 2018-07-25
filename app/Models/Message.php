@@ -7,6 +7,7 @@ class Message extends Base
 {
     const CHECKED    = 1;
     const UNCHECKED  = 0;
+
     /**
      * 添加数据
      *
