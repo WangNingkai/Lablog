@@ -20,6 +20,15 @@
                     <span class="help-block"><strong>{{ $errors->first('password') }}</strong></span>
                 @endif
             </div>
+            <div class="form-group">
+                <img src="{{captcha_src('flat')}}" style="cursor: pointer" onclick="this.src='{{captcha_src('flat')}}'+Math.random()">
+            </div>
+            <div class="form-group {{$errors->has('captcha')?'has-error':'has-feedback'}}">
+                <input id="captcha" type="text" class="form-control" name="captcha" placeholder="验证码" required>
+                @if ($errors->has('captcha'))
+                    <span class="help-block"><strong>{{ $errors->first('captcha') }}</strong></span>
+                @endif
+            </div>
             <div class="row">
                 <div class="col-xs-8">
                     <div class="checkbox icheck">
