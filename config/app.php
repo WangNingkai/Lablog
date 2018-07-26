@@ -168,6 +168,7 @@ return [
         Jenssegers\Agent\AgentServiceProvider::class,
         Recca0120\LaravelTracy\LaravelTracyServiceProvider::class,
         Overtrue\LaravelSocialite\ServiceProvider::class,
+        Mews\Captcha\CaptchaServiceProvider::class,
 
     ],
 
@@ -220,6 +221,7 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         'Agent' => Jenssegers\Agent\Facades\Agent::class,
         'Socialite' => Overtrue\LaravelSocialite\Socialite::class,
+        'Captcha' => Mews\Captcha\Facades\Captcha::class,
 
     ],
 
