@@ -4,6 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use App\Rules\ValidateName;
 
 class UpdateProfile extends FormRequest
 {
@@ -25,7 +26,7 @@ class UpdateProfile extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:255',
+            'name' => ['required',new ValidateName],
             'email' => 'required|string|email|max:255|unique:users,email,' . Auth::user()->id,
         ];
     }
