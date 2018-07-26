@@ -5,6 +5,7 @@
 @section('css')
     {!! social_css() !!}
     {!! highlight_css() !!}
+    {{--{!! fancybox_css() !!}--}}
 @stop
 @section('content')
     <div class="col-md-8">
@@ -29,7 +30,7 @@
                                 {{$article->title}}
                             </h2>
                         </div>
-                        <div class="content" style="">
+                        <div class="content article-content" style="">
                             {!! $article->html !!}
                         </div>
                         <div class="social-share text-center"
@@ -131,14 +132,19 @@
 @section('js')
     {!! social_js() !!}
     {!! highlight_js() !!}
+    {{--{!! fancybox_js() !!}--}}
 <script>
     $(function () {
         $("pre code").each(function(i, block) {
             hljs.highlightBlock(block);
         });
         // 新页面跳转
-        // $(".content a").attr("target", "_blank");
-        $(".content img").addClass('img-responsive');
+        $(".article-content  img").addClass("img-responsive");
+        // $(".article-content  img").parent().attr("data-fancybox","");
+        // $("[data-fancybox]").fancybox({
+        //     // Options will go here
+        // });
+
     });
 </script>
 @stop

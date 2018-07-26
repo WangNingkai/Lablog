@@ -173,21 +173,32 @@ if (!function_exists('social_js')) {
     }
 }
 
-if (!function_exists('busuanzi_js')) {
-
-    function busuanzi_js()
-    {
-        return '<!--busuanzi_js-->
-<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-        ';
-    }
-}
 if (!function_exists('canvas_nest_js')) {
 
     function canvas_nest_js()
     {
         return '<!--canvas_nest_js-->
 <script count="60" src="https://lib.baomitu.com/canvas-nest.js/2.0.1/canvas-nest.js" ></script>
+        ';
+    }
+}
+
+if (!function_exists('fancybox_css')) {
+
+    function fancybox_css()
+    {
+        return '<!--fancybox_css-->
+<link href="https://lib.baomitu.com/fancybox/3.3.5/jquery.fancybox.min.css" rel="stylesheet">
+        ';
+    }
+}
+
+if (!function_exists('fancybox_js')) {
+
+    function fancybox_js()
+    {
+        return '<!--fancybox_js-->
+<script src="https://lib.baomitu.com/fancybox/3.3.5/jquery.fancybox.min.js"></script>
         ';
     }
 }
