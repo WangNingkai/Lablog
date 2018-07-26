@@ -34,7 +34,7 @@
 <body class="hold-transition @yield('name')-page">
 <div class="@yield('name')-box">
     <div class="@yield('name')-logo">
-        <a href="#"><b>LABLOG</b>个人博客</a>
+        <a href="{{ route('home') }}"><b>LABLOG</b>博客</a>
     </div>
     @yield('content')
 </div>

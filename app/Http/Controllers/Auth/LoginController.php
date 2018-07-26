@@ -53,4 +53,19 @@ class LoginController extends Controller
             'captcha.captcha' => '验证码错误',
         ]);
     }
+
+    /**
+     * 退出跳转回登录页
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        return $this->loggedOut($request) ?: redirect('/login');
+    }
 }
