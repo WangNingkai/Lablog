@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Message;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\ValidateMessage;
 
 class Store extends FormRequest
 {
@@ -26,7 +27,7 @@ class Store extends FormRequest
         return [
             'nickname' => 'required|string',
             'email' => 'required|email',
-            'content' => 'required|string',
+            'content' => ['required', new ValidateMessage],
         ];
     }
 

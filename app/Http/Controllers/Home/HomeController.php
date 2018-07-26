@@ -92,7 +92,9 @@ class HomeController extends Controller
      */
     public function comment_store(CommentStore $request,Comment $comment)
     {
-        $comment->storeData($request->all());  //TODO:发邮件
+        $data = $request->all();
+        $data['ip'] = request()->ip();
+        $comment->storeData($data);
         Mail::to($this->config['site_mailto_admin'])->send(new SendReminder('文章评论提醒','您的个人博客现有新的评论，请注意查看审核。'));
         return redirect()->back();
 
@@ -176,7 +178,9 @@ class HomeController extends Controller
      */
     public function message_store(MessageStore $request,Message $message)
     {
-        $message->storeData($request->all());
+        $data = $request->all();
+        $data['ip'] = request()->ip();
+        $message->storeData($data);
         Mail::to($this->config['site_mailto_admin'])->send(new SendReminder('站点留言提醒','您的个人博客现有新的留言，请注意查看审核。'));
         return redirect()->back();
     }

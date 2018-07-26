@@ -21,6 +21,7 @@ class CreateCommentsTable extends Migration
             $table->string('content')->comment('留言');
             $table->string('reply')->nullable()->comment('回复');
             $table->boolean('status')->default(0)->comment('状态');
+            $table->string('ip',16)->comment('评论ip');
             $table->timestamps();
         });
     }

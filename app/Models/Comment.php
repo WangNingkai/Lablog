@@ -9,6 +9,7 @@ class Comment extends Base
 
     const CHECKED    = 1;
     const UNCHECKED  = 0;
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -35,7 +36,7 @@ class Comment extends Base
             return false;
         }
     }
-    // TODO：单体数据的审核以及多条数据的审核
+
     /**
      * 审核数据
      *
@@ -62,11 +63,12 @@ class Comment extends Base
             return false;
         }
     }
+
     /**
      * 回复数据
      *
      * @param  int $id  id
-     * @param  mix $reply 回复的数据
+     * @param  mixed $reply 回复的数据
      * @return bool        是否成功
      */
     public function replyData($id, $reply)
