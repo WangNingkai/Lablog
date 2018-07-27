@@ -56,7 +56,11 @@ class RoleController extends Controller
     public function update(Update $request, $id)
     {
         $name=$request->get('name');
+        $edit_role = $this->role->findById($id);
+        $edit_role->name = $name;
+        $edit_role->save();
+        // TODO:
     }
-    public function destroy(){}
-    public function search(){}
+    public function destroy(Request $request){}
+    public function search(Request $request){}
 }
