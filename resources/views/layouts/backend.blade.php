@@ -14,6 +14,7 @@
     <!-- Ionicons -->
     <link rel="stylesheet" href="{{asset('adminlte/bower_components/Ionicons/css/ionicons.min.css')}}">
     <!-- Theme style -->
+    @yield('before_css')
     <link rel="stylesheet" href="{{asset('adminlte/dist/css/AdminLTE.min.css')}}">
     <link rel="stylesheet" href="{{asset('adminlte/dist/css/skins/skin-blue.min.css')}}">
     <!-- OTHER stylesheet -->
@@ -134,7 +135,7 @@
                 </li>
                 <li class="treeview {{ set_active('admin/link') }} {{ set_active('admin/message') }} {{ set_active('admin/comment') }}">
                     <a href="#">
-                        <i class="fa fa-cogs"></i> <span>其他</span>
+                        <i class="fa fa-cogs"></i> <span> 其他模块</span>
                         <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                     </a>
                     <ul class="treeview-menu">
@@ -145,16 +146,16 @@
                 </li>
                 <li class="treeview {{ set_active('admin/permission') }} {{ set_active('admin/user') }} {{ set_active('admin/role') }}">
                     <a href="#">
-                        <i class="fa fa-ban"></i> <span> 权限</span>
+                        <i class="fa fa-ban"></i> <span> 权限管理</span>
                         <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                     </a>
                     <ul class="treeview-menu">
                         <li class="{{ set_active('admin/user') }}"><a href="{{ route('user_manage') }}"><i class="fa fa-user"></i> 用户管理</a></li>
-                        <li class="{{ set_active('admin/role') }}"><a href="{{ route('role_manage') }}"><i class="fa fa-users"></i> 用户组管理</a></li>
+                        <li class="{{ set_active('admin/role') }}"><a href="{{ route('role_manage') }}"><i class="fa fa-users"></i> 角色管理</a></li>
                         <li class="{{ set_active('admin/permission') }}"><a href="{{ route('permission_manage') }}"><i class="fa fa-lock"></i> 权限管理</a></li>
                     </ul>
                 </li>
-                <li class="{{ set_active('admin/operation_logs/manage') }}"><a href="{{ route('operation_logs_manage') }}"><i class="fa fa-history"></i> <span> 日志</span></a></li>
+                <li class="{{ set_active('admin/operation_logs/manage') }}"><a href="{{ route('operation_logs_manage') }}"><i class="fa fa-history"></i> <span> 日志查看</span></a></li>
             </ul>
         </section>
     </aside>

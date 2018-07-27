@@ -24,7 +24,7 @@ class Update extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|unique:roles',
+            'name' => 'required|string|unique:roles,name,'.$this->id,
         ];
     }
 
@@ -37,7 +37,6 @@ class Update extends FormRequest
     {
         return [
             'name' => '角色名',
-
         ];
     }
 }

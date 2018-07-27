@@ -11,22 +11,9 @@ use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
 {
-    protected $role;
-
-    public function __construct(Role $role)
-    {
-        $this->role = $role;
-    }
-    // 角色管理
-
-    // 角色增加
-
-    // 角色修改
-
-    // 角色删除
     public function manage()
     {
-        $roles = $this->role->query()->orderBy('id', 'desc')->paginate(10);
+        $roles = Role::query()->orderBy('id', 'desc')->paginate(10);
         $permissions = Permission::all();
         return view('admin.permission.role', compact('roles','permissions'));
     }
@@ -47,8 +34,8 @@ class RoleController extends Controller
 
     public function edit($id)
     {
-        $roles = $this->role->query()->orderBy('id', 'desc')->paginate(10);
-        $edit_role = $this->role->findById($id);
+        $roles = Role::query()->orderBy('id', 'desc')->paginate(10);
+        $edit_role = Role::findById($id);
         $permissions = Permission::all();
         return view('admin.permission.role-edit',compact('edit_role','roles','permissions'));
     }
@@ -56,11 +43,26 @@ class RoleController extends Controller
     public function update(Update $request, $id)
     {
         $name=$request->get('name');
-        $edit_role = $this->role->findById($id);
+        $permissions = $request->get('permissions');
+        $edit_role = Role::findById($id);
         $edit_role->name = $name;
-        $edit_role->save();
-        // TODO:
+        $saveOrFail = $edit_role->save();
+        // 同步权限
+        if($permissions)
+        {
+            $edit_role->syncPermissions($permissions);
+        }
+        $saveOrFail ? show_message('修改成功'): show_message('修改失败',false);
+        operation_event(auth()->user()->name,'修改角色');
+        return redirect()->back();
     }
-    public function destroy(Request $request){}
-    public function search(Request $request){}
+
+    public function destroy(Request $request)
+    {
+
+    }
+    public function search(Request $request)
+    {
+
+    }
 }

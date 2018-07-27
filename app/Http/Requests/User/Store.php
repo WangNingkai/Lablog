@@ -28,6 +28,7 @@ class Store extends FormRequest
             'name' => ['required', new ValidateName],
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
+            'roles' => 'required'
         ];
     }
 
@@ -42,6 +43,7 @@ class Store extends FormRequest
             'name' => '用户名',
             'email' => '邮箱',
             'password' => '密码',
+            'roles' => '角色'
         ];
     }
 }

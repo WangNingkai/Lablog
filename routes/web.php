@@ -140,7 +140,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
             Route::get('manage', 'RoleController@manage')->name('role_manage');
             Route::post('store', 'RoleController@store')->name('role_store');
             Route::get('edit/{id}', 'RoleController@edit')->name('role_edit');
-            Route::post('update', 'RoleController@update')->name('role_update');
+            Route::post('update/{id}', 'RoleController@update')->name('role_update');
             Route::post('destroy', 'RoleController@destroy')->name('role_destroy');
             Route::get('search', 'RoleController@search')->name('role_search');
         });

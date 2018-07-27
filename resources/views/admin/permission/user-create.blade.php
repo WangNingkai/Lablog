@@ -1,8 +1,11 @@
 @extends('layouts.backend')
 @section('title','控制台 - 添加用户')
+@section('before_css')
+    {!! select2_css() !!}
+@stop
+
 @section('css')
     {!! icheck_css() !!}
-    <script></script>
 @stop
 @section('content')
     <div class="content-wrapper">
@@ -24,6 +27,18 @@
                                 <h3 class="box-title">注册用户</h3>
                             </div>
                             <div class="box-body">
+                                <div class="form-group {{$errors->has('roles')?'has-error':''}}">
+                                    <label for="roles">选择角色</label>
+                                    <select class="form-control select2" id="roles" multiple="multiple" data-placeholder="选择角色"
+                                            name="roles[]" style="width: 100%;">
+                                        @foreach($roles as $role)
+                                            <option value="{{ $role->name }}" @if(in_array($role->name,old('roles',[]))) selected @endif>{{ $role->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @if ($errors->has('roles'))
+                                        <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('roles') }}</strong></span>
+                                    @endif
+                                </div>
                                 <div class="form-group {{$errors->has('name')?'has-error':''}}">
                                     <label for="name">用户名：</label>
                                     <input type="text" class="form-control" name="name" id="name" value="{{ old('name') }}">
@@ -62,6 +77,7 @@
     </div>
 @stop
 @section('js')
+    {!! select2_js() !!}
     {!! icheck_js() !!}
     <script>
         $(function () {
@@ -69,6 +85,11 @@
                 checkboxClass: "icheckbox_square-blue",
                 radioClass: "iradio_square-blue",
             });
+            $('.select2').select2();
+            $("#roles").on('click',function () {
+                a= $("#roles").val();
+                console.log(a)
+            })
         });
     </script>
     <script src="{{ asset('js/admin.js') }}"></script>

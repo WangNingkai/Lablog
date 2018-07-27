@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -42,7 +43,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.permission.user-create');
+        $roles = Role::all();
+        return view('admin.permission.user-create',compact('roles'));
     }
 
     public function store(Store $request)
@@ -52,7 +54,8 @@ class UserController extends Controller
             'email' => $request['email'],
             'password' => Hash::make($request['password']),
         ])));
-        // TODO:角色添加选择
+        $roles = $request->get('roles');
+        $user->assignRole($roles);
         show_message('添加成功');
         return redirect()->route('user_manage');
     }

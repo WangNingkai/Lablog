@@ -38,7 +38,7 @@
                                 <tr>
                                     <td><input type="checkbox" value="{{$operation_log->id}}" name="opid" class="i-checks"></td>
                                     <td>{{$operation_log->id}}</td>
-                                    <td>{{$operation_log->operater}}</td>
+                                    <td>{{$operation_log->operator}}</td>
                                     <td>{{$operation_log->operation}}</td>
                                     <td>{{$operation_log->ip}}</td>
                                     <td>{{$operation_log->address}}</td>

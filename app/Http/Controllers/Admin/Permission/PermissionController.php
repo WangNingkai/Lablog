@@ -11,20 +11,6 @@ use Illuminate\Support\Facades\DB;
 
 class PermissionController extends Controller
 {
-    /**
-     * @var Permission
-     */
-    protected $permission;
-
-    /**
-     * PermissionController constructor.
-     * @param Permission $permission
-     */
-    public function __construct(Permission $permission)
-    {
-        $this->permission = $permission;
-    }
-
 
     /**
      * 权限管理列表
@@ -32,7 +18,7 @@ class PermissionController extends Controller
      */
     public function manage()
     {
-        $permissions = $this->permission->query()->orderBy('id', 'desc')->paginate(10);
+        $permissions = Permission::query()->orderBy('id', 'desc')->paginate(10);
         return view('admin.permission.permission', compact('permissions'));
 
     }
@@ -62,7 +48,7 @@ class PermissionController extends Controller
         if (is_null($id)) {
             return abort(404, '对不起，找不到相关页面');
         }
-        if (!$response = $this->permission->query()->find($id)) {
+        if (!$response = Permission::query()->find($id)) {
             return ajax_return(404, ['alert' => '未找到相关数据']);
         }
         return ajax_return(200, $response);
@@ -104,7 +90,7 @@ class PermissionController extends Controller
          // TODO:同步删除权限相关
         DB::table('model_has_permissions')->whereIn('permission_id',$arr)->delete();
         DB::table('role_has_permissions')->whereIn('permission_id',$arr)->delete();
-        $deleteOrFail = $this->permission->query()->whereIn('id',$arr)->delete();
+        $deleteOrFail = Permission::query()->whereIn('id',$arr)->delete();
         $deleteOrFail ? show_message('删除成功') : show_message('删除失败',false);
         operation_event(auth()->user()->name,'删除权限');
         return redirect()->back();
@@ -121,7 +107,7 @@ class PermissionController extends Controller
         $map = [
             ['name', 'like', '%' . $keyword . '%'],
         ];
-        $permissions = $this->permission->query()->where($map)->orderBy('id', 'desc')->paginate(10);
+        $permissions = Permission::query()->where($map)->orderBy('id', 'desc')->paginate(10);
         return view('admin.permission.permission', compact('permissions'));
     }
 }

@@ -76,7 +76,7 @@
                     </div>
                 </div>
                 <div class="col-md-8">
-                    <form role="form"  method="POST" action="{{route('role_update')}}" id="editRoleForm">
+                    <form role="form"  method="POST" action="{{ route('role_update',$edit_role->id) }}" id="editRoleForm">
                         @csrf
                         <div class="box box-default">
                             <div class="box-header with-border">

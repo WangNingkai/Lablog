@@ -203,5 +203,24 @@ if (!function_exists('fancybox_js')) {
     }
 }
 
+if (!function_exists('select2_js')) {
 
+    function select2_js()
+    {
+        return '<!--select2_js-->
+<script src="https://lib.baomitu.com/select2/4.0.5/js/select2.full.min.js"></script>
+<script src="https://lib.baomitu.com/select2/4.0.5/js/i18n/zh-CN.js"></script>
+        ';
+    }
+}
+
+if (!function_exists('select2_css')) {
+
+    function select2_css()
+    {
+        return '<!--select2_css-->
+<link href="https://lib.baomitu.com/select2/4.0.5/css/select2.min.css" rel="stylesheet">
+        ';
+    }
+}
 

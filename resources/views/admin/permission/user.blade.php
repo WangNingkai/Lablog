@@ -2,7 +2,7 @@
 @section('title','控制台 - 用户管理')
 @section('css')
     {!! icheck_css() !!}
-    <script></script>
+
 @stop
 @section('content')
     <div class="content-wrapper">
