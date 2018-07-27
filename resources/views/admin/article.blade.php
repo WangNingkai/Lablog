@@ -48,13 +48,7 @@
                                     <td><a class="text-black" href="{{route('article',$article->id)}}">{{$article->title}}</a></td>
                                     <td>{{$article->category->name}}</td>
                                     <td>{{$article->click}}</td>
-                                    <td>
-                                        @if($article->status==1)
-                                            <span class="text-green">已发布</span>
-                                        @else
-                                            <span class="text-red">未发布</span>
-                                        @endif
-                                    </td>
+                                    <td>{!! $article->status_tag !!}</td>
                                     <td>
                                         <a href="{{route('article_edit',$article->id)}}" class="text-green">
                                             <i class="fa fa-pencil-square-o"></i>

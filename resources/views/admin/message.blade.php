@@ -42,13 +42,7 @@
                                     <td>{{$message->email}}</td>
                                     <td>{{ re_substr($message->content, 0, 20, true) }}</td>
                                     <td>{{$message->created_at}}</td>
-                                    <td>
-                                        @if($message->status==1)
-                                            <span class="text-success">已审核</span>
-                                        @else
-                                            <span class="text-danger">未审核</span>
-                                        @endif
-                                    </td>
+                                    <td>{!! $message->status_tag !!}</td>
                                     <td>
                                         <a href="javascript:void(0)" class="text-green showMessage">
                                             查看

@@ -44,13 +44,7 @@
                                         <td>{{$comment->email}}</td>
                                         <td>{{ re_substr($comment->content, 0, 20, true) }}</td>
                                         <td>{{$comment->created_at}}</td>
-                                        <td>
-                                            @if($comment->status==1)
-                                                <span class="text-success">已审核</span>
-                                            @else
-                                                <span class="text-danger">未审核</span>
-                                            @endif
-                                        </td>
+                                        <td>{!! $comment->status_tag !!}</td>
                                         <td>
                                             <a href="javascript:void(0)" class="text-green showComment">
                                                 查看

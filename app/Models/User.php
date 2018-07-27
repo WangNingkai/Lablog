@@ -5,11 +5,15 @@ namespace App\Models;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Notifications\ResetPasswordNotification;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    const ACTIVE = 1;
+    const FORBID = 0;
+    use Notifiable,HasRoles;
 
+    protected $guard_name = 'web';
     /**
      * The attributes that are mass assignable.
      *
@@ -45,5 +49,10 @@ class User extends Authenticatable
     public function oauthInfos()
     {
         return $this->hasMany(OauthInfo::class);
+    }
+
+    public function getStatusTagAttribute()
+    {
+        return $this->status === self::ACTIVE ? '<a href="javascript:void(0)" class="btn btn-sm btn-success btn-flat">正常</a>' : '<a href="javascript:void(0)" class="btn btn-sm btn-danger btn-flat">禁用</a>';
     }
 }

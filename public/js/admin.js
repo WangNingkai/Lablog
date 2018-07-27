@@ -549,7 +549,70 @@ $(function () {
         } else {
             return false
         }
-    })
+    });
+    $(".editPermission").on("click", function () {
+        $('#editPermissionForm').removeAttr('style');
+        pid = $(this).parent().siblings().eq(0).find("input[name=pid]").val();
+        $.ajax({
+            type: "GET", url: editPermissionUrl + "/" + pid, dataType: "json", success: function (response) {
+                $("#editId").val(response["id"]);
+                $("#editName").val(response["name"]);
+                $("#editRoute").val(response["route"])
+            }, error: function (response) {
+                swal(response.responseJSON.message.alert, "", "error")
+            }
+        });
+        return false
+    });
+    $(".delPermission").on("click", function () {
+        pid = $(this).parent().siblings().eq(0).find("input[name=pid]").val();
+        $("#deleteId").val(pid);
+        swal({
+            title: "确定删除吗？",
+            text: "删除将无法恢复",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                $("#deleteForm").submit()
+            } else if (result.dismiss === swal.DismissReason.cancel) {
+                swal('已取消', ':)', 'error')
+            }
+        })
+    });
+    $("#delSelectedPermission").on("click", function () {
+        ids = new Array();
+        $("input[name='pid']:checked").each(function () {
+            ids.push($(this).val())
+        });
+        if (ids.length != 0) {
+            $("#deleteId").val(ids);
+            formData = $("#deleteForm").serialize();
+            swal({
+                title: "确定删除吗？",
+                text: "删除将无法恢复",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "确定",
+                cancelButtonText: "取消"
+            }).then((result) => {
+                if (result.value) {
+                    $("#deleteForm").submit()
+                } else if (result.dismiss === swal.DismissReason.cancel) {
+                    swal('已取消', ':)', 'error')
+                }
+            })
+        } else {
+            return false
+        }
+    });
 });
 
 function selectAll(id) {

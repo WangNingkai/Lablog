@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Requests\Tag;
+namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class Update extends FormRequest
+class UpdatePassword extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
+     * 判断用户是否有权限进行此请求。
      *
      * @return bool
      */
@@ -24,8 +24,9 @@ class Update extends FormRequest
     public function rules()
     {
         return [
-            'edit_name' => 'required|string|unique:tags,name,' . $this->id,
-            'edit_flag' => 'required|string|unique:tags,flag,' . $this->id,
+            'old_password' => 'required|string|min:8',
+            'password' => 'required|string|min:8|confirmed|different:old_password',
+            'password_confirmation' => 'required|string|min:8',
         ];
     }
 
@@ -37,8 +38,9 @@ class Update extends FormRequest
     public function attributes()
     {
         return [
-            'edit_name' => '标签名',
-            'edit_flag' => '标识',
+            'old_password' => '原密码',
+            'password' => '新密码',
+            'password_confirmation' => '确认密码',
         ];
     }
 }

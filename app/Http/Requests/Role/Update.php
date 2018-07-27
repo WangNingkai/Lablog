@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Tag;
+namespace App\Http\Requests\Role;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,8 +24,7 @@ class Update extends FormRequest
     public function rules()
     {
         return [
-            'edit_name' => 'required|string|unique:tags,name,' . $this->id,
-            'edit_flag' => 'required|string|unique:tags,flag,' . $this->id,
+            'name' => 'required|string|unique:roles',
         ];
     }
 
@@ -37,8 +36,8 @@ class Update extends FormRequest
     public function attributes()
     {
         return [
-            'edit_name' => '标签名',
-            'edit_flag' => '标识',
+            'name' => '角色名',
+
         ];
     }
 }

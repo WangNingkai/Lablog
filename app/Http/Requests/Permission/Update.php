@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Admin;
+namespace App\Http\Requests\Permission;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdatePassword extends FormRequest
+class Update extends FormRequest
 {
     /**
      * 判断用户是否有权限进行此请求。
@@ -24,9 +24,8 @@ class UpdatePassword extends FormRequest
     public function rules()
     {
         return [
-            'old_password' => 'required|string|min:8',
-            'password' => 'required|string|min:8|confirmed|different:old_password',
-            'password_confirmation' => 'required|string|min:8',
+            'edit_name' => 'required|string|unique:permissions,name,' . $this->id,
+            'edit_route' => 'required|string|unique:permissions,route,' . $this->id,
         ];
     }
 
@@ -38,9 +37,9 @@ class UpdatePassword extends FormRequest
     public function attributes()
     {
         return [
-            'old_password' => '原密码',
-            'password' => '新密码',
-            'password_confirmation' => '确认密码',
+            'edit_name' => '权限名',
+            'edit_route' => '路由名',
+
         ];
     }
 }

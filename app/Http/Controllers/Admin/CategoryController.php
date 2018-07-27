@@ -70,13 +70,13 @@ class CategoryController extends Controller
             $articleCount = Article::query()->where('category_id', $category->id)->count();
             $category->article_count = $articleCount;
         }
-        $category = $this->category->query()->find($id);
+        $edit_category = $this->category->query()->find($id);
         $map = [
             ['pid', '=', 0],
             ['id', '<>', $id]
         ];
         $levelOne = $this->category->query()->select('id', 'name')->where($map)->get();
-        return view('admin.category-edit', compact('categories','category', 'levelOne'));
+        return view('admin.category-edit', compact('categories','edit_category', 'levelOne'));
     }
 
     /**

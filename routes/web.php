@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Config;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -86,8 +87,8 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
         Route::get('manage', 'CategoryController@manage')->name('category_manage');
         Route::get('create', 'CategoryController@create')->name('category_create');
         Route::post('store', 'CategoryController@store')->name('category_store');
-        Route::get('edit/{id?}', 'CategoryController@edit')->name('category_edit');
-        Route::post('update/{id?}', 'CategoryController@update')->name('category_update');
+        Route::get('edit/{id}', 'CategoryController@edit')->name('category_edit');
+        Route::post('update/{id}', 'CategoryController@update')->name('category_update');
         Route::post('destroy', 'CategoryController@destroy')->name('category_destroy');
     });
     // 文章
@@ -132,10 +133,42 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
         Route::get('manage', 'OperationLogsController@manage')->name('operation_logs_manage');
         Route::post('destroy', 'OperationLogsController@destroy')->name('operation_logs_destroy');
     });
+    // 权限管理
+    Route::group(['namespace' => 'Permission'],function(){
+        // 角色
+        Route::group(['prefix' => 'role'],function(){
+            Route::get('manage', 'RoleController@manage')->name('role_manage');
+            Route::post('store', 'RoleController@store')->name('role_store');
+            Route::get('edit/{id}', 'RoleController@edit')->name('role_edit');
+            Route::post('update', 'RoleController@update')->name('role_update');
+            Route::post('destroy', 'RoleController@destroy')->name('role_destroy');
+            Route::get('search', 'RoleController@search')->name('role_search');
+        });
+        // 权限
+        Route::group(['prefix' => 'permission'],function(){
+            Route::get('manage', 'PermissionController@manage')->name('permission_manage');
+            Route::post('store', 'PermissionController@store')->name('permission_store');
+            Route::get('edit/{id?}', 'PermissionController@edit')->name('permission_edit');
+            Route::post('update', 'PermissionController@update')->name('permission_update');
+            Route::post('destroy', 'PermissionController@destroy')->name('permission_destroy');
+            Route::get('search', 'PermissionController@search')->name('permission_search');
+        });
+        // 用户
+        Route::group(['prefix' => 'user'],function(){
+            Route::get('manage', 'UserController@manage')->name('user_manage');
+            Route::get('create', 'UserController@create')->name('user_create');
+            Route::post('store', 'UserController@store')->name('user_store');
+            Route::get('edit/{id}', 'UserController@edit')->name('user_edit');
+            Route::post('update/{id}', 'UserController@update')->name('user_update');
+            Route::post('destroy', 'UserController@destroy')->name('user_destroy');
+            Route::get('search', 'UserController@search')->name('user_search');
+        });
+
+    });
 });
 // 关站判断
 Route::get('close', function () {
-    $status = Config::where('name', 'site_status')->pluck('value')->first();
+    $status = Config::query()->where('name', 'site_status')->pluck('value')->first();
     if ($status == 0) {
         return view('home.close');
     } else {
@@ -146,4 +179,4 @@ Route::get('close', function () {
 // 测试路由
 Route::get('/test', function () {
     return '测试页面';
-});
+})->name('test');

@@ -48,6 +48,11 @@ class Article extends Base
         return $this->hasMany(Comment::class);
     }
 
+    public function getStatusTagAttribute()
+    {
+        return $this->status === self::PUBLISHED ? '<a href="javascript:void(0)" class="btn btn-sm btn-success btn-flat">显示</a>' : '<a href="javascript:void(0)" class="btn btn-sm btn-danger btn-flat">隐藏</a>';
+    }
+
     /**
      * 添加文章
      *

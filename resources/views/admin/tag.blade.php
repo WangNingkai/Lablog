@@ -2,8 +2,7 @@
 @section('title','控制台 - 标签管理')
 @section('css')
 {!! icheck_css() !!}
-<script>
-    var editTagUrl = "{{route('tag_edit')}}"</script>
+<script>var editTagUrl = "{{route('tag_edit')}}"</script>
 @stop
 @section('content')
     <div class="content-wrapper">
