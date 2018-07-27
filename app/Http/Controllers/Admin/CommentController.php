@@ -46,7 +46,7 @@ class CommentController extends Controller
         if (is_null($id)) {
             return abort(404, '对不起，找不到相关页面');
         }
-        if (!$response = $this->comment->find($id)) {
+        if (!$response = $this->comment->query()->find($id)) {
             return ajax_return(404, ['alert' => '未找到相关数据']);
         }
         return ajax_return(200, $response);
@@ -76,9 +76,11 @@ class CommentController extends Controller
      */
     public function reply(Request $request)
     {
-        $this->comment->replyData($request->id,$request->reply);
-        $emailto=$this->comment->where('id',$request->id)->value('email');
-        $article_id=$this->comment->where('id',$request->id)->value('article_id');
+        $id =  $request->get('id');
+        $reply = $request->get('reply');
+        $this->comment->replyData($id,$reply);
+        $emailto=$this->comment->query()->where('id',$id)->value('email');
+        $article_id=$this->comment->query()->where('id',$id)->value('article_id');
         operation_event(auth()->user()->name,'回复评论');  //TODO:发邮件
         Mail::to($emailto)->send(new SendReply('站点评论回复提醒','您在我站的评论，站长已经回复，请注意查看.',route('article',$article_id)));
         return redirect()->route('comment_manage');

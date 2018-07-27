@@ -31,7 +31,7 @@ class HomeController extends Controller
     {
         $this->config = Cache::remember('cache:config', self::CACHE_EXPIRE, function () {
             // 获取置顶文章
-            return Config::pluck('value', 'name');
+            return Config::query()->pluck('value', 'name');
         });
     }
 
@@ -41,7 +41,7 @@ class HomeController extends Controller
     public function index()
     {
 
-        $articles = Article::select('id', 'category_id', 'title', 'author', 'description','click', 'created_at')
+        $articles = Article::query()->select('id', 'category_id', 'title', 'author', 'description','click', 'created_at')
             ->where('status', 1)
             ->orderBy('created_at', 'desc')
             ->with(['category', 'tags','comments'=>function ($query) {
@@ -70,14 +70,14 @@ class HomeController extends Controller
             $article->increment('click');
         }
         // 获取上一篇
-        $prev = Article::select('id', 'title')
+        $prev = Article::query()->select('id', 'title')
             ->orderBy('created_at', 'asc')
             ->where([['id', '>', $id],['status','=',Article::PUBLISHED]])
             ->limit(1)
             ->first();
 
         // 获取下一篇
-        $next = Article::select('id', 'title')
+        $next = Article::query()->select('id', 'title')
             ->orderBy('created_at', 'desc')
             ->where([['id', '<', $id],['status','=',Article::PUBLISHED]])
             ->limit(1)
@@ -106,10 +106,10 @@ class HomeController extends Controller
      */
     public function category($id)
     {
-        $category = Category::findOrFail($id);
-        $childCategoryList=Category::where(['pid'=>$id])->get();
+        $category = Category::query()->findOrFail($id);
+        $childCategoryList=Category::query()->where(['pid'=>$id])->get();
 
-        $articles = Article::select('id', 'category_id', 'title', 'author', 'description','click', 'created_at')
+        $articles = Article::query()->select('id', 'category_id', 'title', 'author', 'description','click', 'created_at')
             ->where(['status'=>Article::PUBLISHED,'category_id'=>$id])
             ->orderBy('created_at', 'desc')
             ->with(['category', 'tags', 'comments'=>function ($query) {
@@ -125,10 +125,10 @@ class HomeController extends Controller
      */
     public function tag($id)
     {
-        $tag = Tag::findOrFail($id);
-        $ids = ArticleTag::where('tag_id', $id)->pluck('article_id')->toArray();
+        $tag = Tag::query()->findOrFail($id);
+        $ids = ArticleTag::query()->where('tag_id', $id)->pluck('article_id')->toArray();
 
-        $articles = Article::select('id', 'category_id', 'title', 'author', 'description','click', 'created_at')
+        $articles = Article::query()->select('id', 'category_id', 'title', 'author', 'description','click', 'created_at')
             ->where('status',Article::PUBLISHED)
             ->whereIn('id', $ids)
             ->orderBy('created_at', 'desc')
@@ -144,7 +144,7 @@ class HomeController extends Controller
      */
     public function archive()
     {
-        $archive = Article::select(DB::raw('DATE_FORMAT(created_at, \'%Y-%m\') as time, count(*) as posts'))
+        $archive = Article::query()->select(DB::raw('DATE_FORMAT(created_at, \'%Y-%m\') as time, count(*) as posts'))
             ->where('status',Article::PUBLISHED)
             ->groupBy('time')
             ->orderBy('time','desc')
@@ -152,7 +152,7 @@ class HomeController extends Controller
         foreach ($archive as $v) {
             $start = date('Y-m-d', strtotime($v->time));
             $end = date('Y-m-d', strtotime('+1 Month', strtotime($v->time)));
-            $articles = Article::select('id', 'title')
+            $articles = Article::query()->select('id', 'title')
                 ->where('status', Article::PUBLISHED)
                 ->whereBetween('created_at', [$start, $end])
                 ->orderBy('created_at','desc')
@@ -167,7 +167,7 @@ class HomeController extends Controller
      */
     public function message()
     {
-        $messages = Message::where('status',Message::CHECKED)->orderBy('created_at', 'desc')->get();
+        $messages = Message::query()->where('status',Message::CHECKED)->orderBy('created_at', 'desc')->get();
         return view('home.message',compact('messages'));
     }
 
@@ -203,12 +203,12 @@ class HomeController extends Controller
             ['title', 'like', '%' . $keyword . '%'],
             ['status', '=', Article::PUBLISHED]
         ];
-        $articles = Article::select('id', 'category_id', 'title', 'author', 'description','click', 'created_at')
+        $articles = Article::query()->select('id', 'category_id', 'title', 'author', 'description','click', 'created_at')
             ->where($map)
             ->orderBy('created_at', 'desc')
             ->with(['category', 'tags'])
             ->simplePaginate(8);
-        $count = Article::where($map)->count();
+        $count = Article::query()->where($map)->count();
         $articles->count = $count;
         return view('home.search', compact('articles'));
     }
@@ -221,7 +221,7 @@ class HomeController extends Controller
     public function feed()
     {
         $articles = Cache::remember('feed:articles', self::CACHE_EXPIRE, function () {
-            return Article::select('id', 'author', 'title', 'description', 'html', 'created_at')
+            return Article::query()->select('id', 'author', 'title', 'description', 'html', 'created_at')
                 ->latest()
                 ->get();
         });

@@ -34,7 +34,7 @@ class ValidateComment implements Rule
         }
         $commentIp = request()->ip();;
         // 获取IP最近一次评论时间
-        $lastCommentDate = Comment::where('ip', $commentIp)
+        $lastCommentDate = Comment::query()->where('ip', $commentIp)
             ->orderBy('created_at', 'desc')
             ->value('created_at');
         $lastCommentTime = strtotime($lastCommentDate);
@@ -47,7 +47,7 @@ class ValidateComment implements Rule
         // 限制同一IP一天评论数
 
         $date = date('Y-m-d', $time);
-        $count = Comment::where('ip', $commentIp)
+        $count = Comment::query()->where('ip', $commentIp)
             ->whereBetween('created_at', [$date.' 00:00:00', $date.' 23:59:59'])
             ->count();
         if ($count > 10) {

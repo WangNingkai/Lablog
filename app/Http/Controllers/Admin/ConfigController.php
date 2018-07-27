@@ -50,7 +50,7 @@ class ConfigController extends Controller
      */
     public function manageAbout()
     {
-        $content = Config::where('name', 'site_about')->pluck('value', 'name')->first();
+        $content = Config::query()->where('name', 'site_about')->pluck('value', 'name')->first();
         return view('admin.config-about', compact('content'));
     }
 
@@ -62,7 +62,7 @@ class ConfigController extends Controller
     public function updateAbout(Request $request)
     {
         $content = $request->input('content');
-        Config::where('name', 'site_about')->update(['value' => $content]);
+        Config::query()->where('name', 'site_about')->update(['value' => $content]);
         show_message('修改成功');
         Artisan::call('cache:clear');
         operation_event(auth()->user()->name,'修改关于页面');

@@ -29,6 +29,7 @@ class OperationLogsController extends Controller
     {
         // 日志
         $operation_logs = $this->operation_logs
+            ->query()
             ->select('id', 'operator', 'operation','operation_time','ip','address','device','browser','platform','language','device_type')
             ->orderBy('operation_time','desc')
             ->paginate(10);

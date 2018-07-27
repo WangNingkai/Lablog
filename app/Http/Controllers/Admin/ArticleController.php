@@ -35,6 +35,7 @@ class ArticleController extends Controller
     public function manage()
     {
         $articles = $this->article
+            ->query()
             ->select('id', 'category_id', 'title','status','click', 'created_at')
             ->with('category')
             ->orderBy('created_at', 'desc')
@@ -78,8 +79,8 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        $article = $this->article->find($id);
-        $article->tag_ids = ArticleTag::where('article_id', $id)->pluck('tag_id')->toArray();
+        $article = $this->article->query()->find($id);
+        $article->tag_ids = ArticleTag::query()->where('article_id', $id)->pluck('tag_id')->toArray();
         $category_all = Category::all()->toArray();
         $category = get_select($category_all, $article->category_id);
         $tag = Tag::all();
@@ -146,7 +147,7 @@ class ArticleController extends Controller
      */
     public function trash()
     {
-        $articles = $this->article
+        $articles = $this->article->query()
         ->select('id', 'title', 'deleted_at')
         ->orderBy('deleted_at', 'desc')
         ->onlyTrashed()
@@ -164,7 +165,7 @@ class ArticleController extends Controller
     {
         $data = $request->only('aid');
         $arr = explode(',', $data['aid']);
-        if (!$this->article->whereIn('id', $arr)->restore()) {
+        if (!$this->article->query()->whereIn('id', $arr)->restore()) {
             show_message('恢复失败', false);
             return redirect()->back();
         }

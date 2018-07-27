@@ -30,10 +30,11 @@ class CategoryController extends Controller
         $categories=$this->category->getTreeIndex();
         foreach ($categories as $category) {
             // 文章数量统计
-            $articleCount = Article::where('category_id', $category->id)->count();
+            $articleCount = Article::query()->where('category_id', $category->id)->count();
             $category->article_count = $articleCount;
         }
         $levelOne = $this->category
+            ->query()
             ->select('id', 'name')
             ->where('pid', 0)
             ->get();
@@ -66,15 +67,15 @@ class CategoryController extends Controller
         $categories=$this->category->getTreeIndex();
         foreach ($categories as $category) {
             // 文章数量统计
-            $articleCount = Article::where('category_id', $category->id)->count();
+            $articleCount = Article::query()->where('category_id', $category->id)->count();
             $category->article_count = $articleCount;
         }
-        $category = $this->category->find($id);
+        $category = $this->category->query()->find($id);
         $map = [
             ['pid', '=', 0],
             ['id', '<>', $id]
         ];
-        $levelOne = $this->category->select('id', 'name')->where($map)->get();
+        $levelOne = $this->category->query()->select('id', 'name')->where($map)->get();
         return view('admin.category-edit', compact('categories','category', 'levelOne'));
     }
 
@@ -96,8 +97,8 @@ class CategoryController extends Controller
 
     /**
      * 删除栏目类别.
-     *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request)
     {

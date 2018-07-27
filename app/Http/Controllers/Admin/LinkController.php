@@ -32,7 +32,7 @@ class LinkController extends Controller
      */
     public function manage()
     {
-        $links = $this->link->orderBy(DB::raw('sort is null,sort'))->paginate(10);
+        $links = $this->link->query()->orderBy(DB::raw('sort is null,sort'))->paginate(10);
         return view('admin.link', compact('links'));
     }
 
@@ -62,7 +62,7 @@ class LinkController extends Controller
         if (is_null($id)) {
             return abort(404, '对不起，找不到相关页面');
         }
-        if (!$response = $this->link->find($id)) {
+        if (!$response = $this->link->query()->find($id)) {
             return ajax_return(404, ['alert' => '未找到相关数据']);
         }
         return ajax_return(200, $response);
@@ -80,7 +80,7 @@ class LinkController extends Controller
         $name=$request->edit_name;
         $url=$request->edit_url;
         $sort=$request->edit_sort;
-        $result = $this->link->updateData(['id' => $id], ['name'=>$name,'url'=>$url,'sort'=>$sort,]);
+        $this->link->updateData(['id' => $id], ['name'=>$name,'url'=>$url,'sort'=>$sort,]);
         operation_event(auth()->user()->name,'编辑标签');
         // 更新缓存
         Cache::forget('cache:link_list');

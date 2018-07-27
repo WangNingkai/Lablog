@@ -19,16 +19,16 @@ class DashboardController extends Controller
      */
     public function home()
     {
-        $allArticlesCount=Article::count();
-        $allTagsCount=Tag::count();
-        $allCategoriesCount=Category::count();
-        $allMessagesCount = Message::count();
+        $allArticlesCount=Article::query()->count();
+        $allTagsCount=Tag::query()->count();
+        $allCategoriesCount=Category::query()->count();
+        $allMessagesCount = Message::query()->count();
         // 最新未读留言
-        $newComments = Comment::where(['status'=>Comment::UNCHECKED])->with('article')->orderBy('created_at', 'desc')->limit(5)->get();
+        $newComments = Comment::query()->where(['status'=>Comment::UNCHECKED])->with('article')->orderBy('created_at', 'desc')->limit(5)->get();
         // 最新未读留言
-        $newMessages = Message::where(['status'=>Message::UNCHECKED])->orderBy('created_at', 'desc')->limit(5)->get();
+        $newMessages = Message::query()->where(['status'=>Message::UNCHECKED])->orderBy('created_at', 'desc')->limit(5)->get();
         // 最新发布文章
-        $newArticles = Article::orderBy('created_at', 'desc')->limit('6')->get();
+        $newArticles = Article::query()->orderBy('created_at', 'desc')->limit('6')->get();
         $assign=compact('allArticlesCount','allTagsCount','allCategoriesCount','allMessagesCount','newMessages','newArticles','allCommentsCount','newComments');
         return view('admin.index', $assign);
     }

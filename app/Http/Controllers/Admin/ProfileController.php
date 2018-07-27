@@ -72,7 +72,7 @@ class ProfileController extends Controller
     {
         $uid = Auth::id();
         $data = $request->all();
-        $admin = Admin::findOrFail($uid);
+        $admin = Admin::query()->findOrFail($uid);
         $admin->update([
             'name' => $data['name'],
             'email' => $data['email'],

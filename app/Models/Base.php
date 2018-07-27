@@ -29,7 +29,7 @@ class Base extends Model
             return false;
         }
         //添加数据
-        $result = $this->create($data);
+        $result = $this->query()->create($data);
         if ($result) {
             show_message('添加成功');
             return $result->id;

@@ -33,9 +33,9 @@ class TagController extends Controller
      */
     public function manage()
     {
-        $tags = $this->tag->orderBy('id', 'desc')->paginate(10);
+        $tags = $this->tag->query()->orderBy('id', 'desc')->paginate(10);
         foreach ($tags as $tag) {
-            $articleCount = ArticleTag::where('tag_id', $tag->id)->count();
+            $articleCount = ArticleTag::query()->where('tag_id', $tag->id)->count();
             $tag->article_count = $articleCount;
         }
         return view('admin.tag', compact('tags'));
@@ -67,7 +67,7 @@ class TagController extends Controller
         if (is_null($id)) {
             return abort(404, '对不起，找不到相关页面');
         }
-        if (!$response = $this->tag->find($id)) {
+        if (!$response = $this->tag->query()->find($id)) {
             return ajax_return(404, ['alert' => '未找到相关数据']);
         }
         return ajax_return(200, $response);
@@ -93,8 +93,8 @@ class TagController extends Controller
 
     /**
      * 标签删除.
-     *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request)
     {
@@ -116,9 +116,9 @@ class TagController extends Controller
         $map = [
             ['name', 'like', '%' . $keyword . '%'],
         ];
-        $tags = $this->tag->orderBy('id', 'desc')->where($map)->paginate(10);
+        $tags = $this->tag->query()->orderBy('id', 'desc')->where($map)->paginate(10);
         foreach ($tags as $tag) {
-            $articleCount = ArticleTag::where('tag_id', $tag->id)->count();
+            $articleCount = ArticleTag::query()->where('tag_id', $tag->id)->count();
             $tag->article_count = $articleCount;
         }
         return view('admin.tag', compact('tags'));

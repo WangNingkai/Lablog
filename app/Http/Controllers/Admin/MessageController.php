@@ -26,7 +26,7 @@ class MessageController extends Controller
      */
     public function manage()
     {
-        $messages=$this->message->orderBy('created_at','DESC')->paginate(10);
+        $messages=$this->message->query()->orderBy('created_at','DESC')->paginate(10);
         return view('admin.message',compact('messages'));
     }
 
@@ -40,7 +40,7 @@ class MessageController extends Controller
         if (is_null($id)) {
             return abort(404, '对不起，找不到相关页面');
         }
-        if (!$response = $this->message->find($id)) {
+        if (!$response = $this->message->query()->find($id)) {
             return ajax_return(404, ['alert' => '未找到相关数据']);
         }
         return ajax_return(200, $response);
@@ -70,8 +70,10 @@ class MessageController extends Controller
      */
     public function reply(Request $request)
     {
-        $this->message->replyData($request->id,$request->reply);
-        $emailto=$this->message->where('id',$request->id)->value('email');
+        $id =  $request->get('id');
+        $reply = $request->get('reply');
+        $this->message->replyData($id,$reply);
+        $emailto=$this->message->query()->where('id',$id)->value('email');
         operation_event(auth()->user()->name,'回复留言');
         Mail::to( $emailto)->send(new SendReply('站点留言回复提醒','您在我站的留言，站长已经回复，请注意查看.',route('message')));
         return redirect()->route('message_manage');
