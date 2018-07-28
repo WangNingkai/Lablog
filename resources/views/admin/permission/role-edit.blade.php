@@ -45,7 +45,7 @@
                                         <td><input type="checkbox" value="{{$role->id}}" name="rid" class="i-checks"></td>
                                         <td>{{ $role->name }}</td>
                                         <td>
-                                            <a href="{{ route('role_edit',$role->id) }}" class="text-green editRole">
+                                            <a href="{{ route('role_edit',$role->id) }}" class="text-green">
                                                 <i class="fa fa-pencil-square-o"></i>
                                             </a>&nbsp;&nbsp;
                                             <a href="javascript:void(0)" class="text-red delRole">
@@ -94,7 +94,7 @@
                                     <label for="permissions">权限：</label>
                                     <div class="checkbox">
                                         @foreach( $permissions as $permission)
-                                            <label><input type="checkbox" class="i-checks" value="{{$permission->name}}" name="permissions[]" @if(old('permission') && in_array($permission->name, old('permissions', []))) checked="checked" @elseif($edit_role->hasPermissionTo($permission->name)) checked="checked" @endif >&nbsp;{{$permission->name}}</label>
+                                            <label><input type="checkbox" class="i-checks" value="{{$permission->name}}" name="permissions[]" @if(!is_null(old('permission')) && in_array($permission->name, old('permissions', []))) checked="checked" @elseif($edit_role->hasPermissionTo($permission->name)) checked="checked" @endif >&nbsp;{{$permission->name}}</label>
                                         @endforeach
                                     </div>
                                 </div>

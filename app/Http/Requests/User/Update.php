@@ -27,8 +27,8 @@ class Update extends FormRequest
     {
         return [
             'name' => ['required', new ValidateName],
-            'email' => 'required|string|email|max:255|unique:users,email,' . Auth::user()->id,
-            'password' => 'required|string|min:8|confirmed',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $this->id,
+            'roles' => 'required'
         ];
     }
 
@@ -42,7 +42,7 @@ class Update extends FormRequest
         return [
             'name' => '用户名',
             'email' => '邮箱',
-            'password' => '密码',
+            'roles' => '角色'
         ];
     }
 }

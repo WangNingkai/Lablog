@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\Cache;
 
 class CategoryController extends Controller
 {
+    /**
+     * @var Category
+     */
     protected $category;
 
 

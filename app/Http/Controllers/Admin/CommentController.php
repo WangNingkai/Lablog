@@ -32,7 +32,6 @@ class CommentController extends Controller
     public function manage()
     {
         $comments=$this->comment->with('article')->orderBy('created_at','DESC')->paginate(10);
-//        dd($comments);
         return view('admin.comment',compact('comments'));
     }
 

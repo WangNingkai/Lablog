@@ -53,7 +53,7 @@ class Base extends Model
             ->get();
         // 当数据为空的时候
         if ($model->isEmpty()) {
-            show_message('数据为空，添加失败', false);
+            show_message('数据为空，修改失败', false);
             return false;
         }
         foreach ($model as $k => $v) {

@@ -60,13 +60,13 @@
                                         <td><input type="checkbox" value="{{$user->id}}" name="uid" class="i-checks"></td>
                                         <td>{{ $user->id }}</td>
                                         <td>{{ $user->name }}</td>
-                                        <td>{{ $user->hasAnyRole(\Spatie\Permission\Models\Role::all())}}</td>
+                                        <td>{!! $user->all_roles_tag !!}</td>
                                         <td>{{ $user->email }}</td>
                                         <td>{!! $user->status_tag !!}</td>
                                         <td>{{ $user->last_login_at }}</td>
                                         <td>{{ $user->created_at }}</td>
                                         <td>
-                                            <a href="javascript:void(0)" class="text-green editUser">
+                                            <a href="{{ route('user_edit',$user->id) }}" class="text-green">
                                                 <i class="fa fa-pencil-square-o"></i>
                                             </a>&nbsp;&nbsp;
                                             <a href="javascript:void(0)" class="text-red delUser">

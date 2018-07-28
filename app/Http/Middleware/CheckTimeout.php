@@ -18,7 +18,8 @@ class CheckTimeout
      */
     public function handle($request, Closure $next)
     {
-        $isLoggedIn = $request->path() != 'logout';
+
+        /*$isLoggedIn = $request->path() != 'logout';
         if(! session('lastActivityTime')){
             app('session')->put('lastActivityTime', time());
         } elseif(time() - app('session')->get('lastActivityTime') > $this->timeout){
@@ -28,7 +29,7 @@ class CheckTimeout
             auth()->logout();
             return redirect()->route('login')->withInput(['email' => $email])->withCookie($cookie);
         }
-        $isLoggedIn ? app('session')->put('lastActivityTime', time()) : app('session')->forget('lastActivityTime');
+        $isLoggedIn ? app('session')->put('lastActivityTime', time()) : app('session')->forget('lastActivityTime');*/
         return $next($request);
     }
 }

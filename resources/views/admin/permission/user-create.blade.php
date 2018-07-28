@@ -65,6 +65,19 @@
                                     <label for="password_confirmation">确认密码：</label>
                                     <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="请再次输入密码">
                                 </div>
+                                <div class="form-group">
+                                    <label>用户状态：</label>
+                                    <div class="radio">
+                                        <label class="i-checks">
+                                            <input type="radio" name="status" value="{{ \App\Models\User::ACTIVE }}"
+                                                   @if(old( 'status', \App\Models\User::FORBID)==\App\Models\User::ACTIVE ) checked="checked" @endif> &nbsp; 正常
+                                        </label>
+                                        <label class="i-checks">
+                                            <input type="radio" name="status" value="{{ \App\Models\User::FORBID }}"
+                                                   @if(old( 'status', \App\Models\User::FORBID)==\App\Models\User::FORBID ) checked="checked" @endif> &nbsp; 禁用
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                             <div class="box-footer">
                                 <button type="submit" class="btn btn-success btn-flat">提交</button>
@@ -86,10 +99,6 @@
                 radioClass: "iradio_square-blue",
             });
             $('.select2').select2();
-            $("#roles").on('click',function () {
-                a= $("#roles").val();
-                console.log(a)
-            })
         });
     </script>
     <script src="{{ asset('js/admin.js') }}"></script>

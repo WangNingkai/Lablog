@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Permission;
 
 use App\Http\Requests\Role\Store;
 use App\Http\Requests\Role\Update;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Permission;
@@ -11,12 +12,21 @@ use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
 {
+    /**
+     * 角色列表管理
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function manage()
     {
         $roles = Role::query()->orderBy('id', 'desc')->paginate(10);
         $permissions = Permission::all();
         return view('admin.permission.role', compact('roles','permissions'));
     }
+
+    /**
+     * @param Store $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(Store $request)
     {
         $name = $request->get('name');
@@ -32,6 +42,10 @@ class RoleController extends Controller
         return redirect()->back();
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function edit($id)
     {
         $roles = Role::query()->orderBy('id', 'desc')->paginate(10);
@@ -40,6 +54,11 @@ class RoleController extends Controller
         return view('admin.permission.role-edit',compact('edit_role','roles','permissions'));
     }
 
+    /**
+     * @param Update $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(Update $request, $id)
     {
         $name=$request->get('name');
@@ -59,10 +78,36 @@ class RoleController extends Controller
 
     public function destroy(Request $request)
     {
+        // todo:超级管理员禁止删除
+        $data = $request->only('rid');
+        $arr = explode(',', $data['rid']);
+        // 判断该角色是否存在用户，确定删除将用户角色移除，同时移除关联权限
+        $roles = Role::query()->whereIn('id',$arr);
+        foreach ($roles->get() as $role)
+        {
+            // 返回要删除角色的用户.移除用户角色
+            $users = User::role($role)->get();
+            foreach($users as $user )
+            {
+                $user->removeRole($role);
+            }
+        }
+        // 删除角色
+        $deleteOrFail = $roles->delete();
+        $deleteOrFail ? show_message('删除成功') : show_message('删除失败',false);
+        operation_event(auth()->user()->name,'删除角色');
+        return redirect()->back();
 
     }
+
     public function search(Request $request)
     {
-
+        $keyword = $request->get('keyword');
+        $map = [
+            ['name', 'like', '%' . $keyword . '%'],
+        ];
+        $roles = Role::query()->where($map)->orderBy('id', 'desc')->paginate(10);
+        $permissions = Permission::all();
+        return view('admin.permission.role', compact('roles','permissions'));
     }
 }

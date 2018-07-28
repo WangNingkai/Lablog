@@ -166,7 +166,6 @@ return [
         Overtrue\LaravelLang\TranslationServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Jenssegers\Agent\AgentServiceProvider::class,
-        Recca0120\LaravelTracy\LaravelTracyServiceProvider::class,
         Overtrue\LaravelSocialite\ServiceProvider::class,
         Mews\Captcha\CaptchaServiceProvider::class,
 

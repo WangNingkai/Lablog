@@ -613,6 +613,100 @@ $(function () {
             return false
         }
     });
+    $(".delRole").on("click", function () {
+        rid = $(this).parent().siblings().eq(0).find("input[name=rid]").val();
+        $("#deleteId").val(rid);
+        swal({
+            title: "确定删除吗？",
+            text: "删除将无法恢复",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "确定",
+            cancelButtonText: "取消"
+        }).then((result) => {
+            if (result.value) {
+                $("#deleteForm").submit()
+            } else if (result.dismiss === swal.DismissReason.cancel) {
+                swal('已取消', ':)', 'error')
+            }
+        })
+    });
+    $("#delSelectedRole").on("click", function () {
+        ids = new Array();
+        $("input[name='rid']:checked").each(function () {
+            ids.push($(this).val())
+        });
+        if (ids.length != 0) {
+            $("#deleteId").val(ids);
+            swal({
+                title: "确定删除吗？",
+                text: "删除将无法恢复",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "确定",
+                cancelButtonText: "取消"
+            }).then((result) => {
+                if (result.value) {
+                    $("#deleteForm").submit()
+                } else if (result.dismiss === swal.DismissReason.cancel) {
+                    swal('已取消', ':)', 'error')
+                }
+            })
+        } else {
+            return false
+        }
+    });
+    $(".delUser").on("click", function () {
+        uid = $(this).parent().siblings().eq(0).find("input[name=uid]").val();
+        $("#deleteId").val(uid);
+        swal({
+            title: "确定删除吗？",
+            text: "删除将无法恢复",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "确定",
+            cancelButtonText: "取消"
+        }).then((result) => {
+            if (result.value) {
+                $("#deleteForm").submit()
+            } else if (result.dismiss === swal.DismissReason.cancel) {
+                swal('已取消', ':)', 'error')
+            }
+        })
+    });
+    $("#delSelectedUser").on("click", function () {
+        ids = new Array();
+        $("input[name='uid']:checked").each(function () {
+            ids.push($(this).val())
+        });
+        if (ids.length != 0) {
+            $("#deleteId").val(ids);
+            swal({
+                title: "确定删除吗？",
+                text: "删除将无法恢复",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "确定",
+                cancelButtonText: "取消"
+            }).then((result) => {
+                if (result.value) {
+                    $("#deleteForm").submit()
+                } else if (result.dismiss === swal.DismissReason.cancel) {
+                    swal('已取消', ':)', 'error')
+                }
+            })
+        } else {
+            return false
+        }
+    });
 });
 
 function selectAll(id) {

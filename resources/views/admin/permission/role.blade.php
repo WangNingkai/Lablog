@@ -45,7 +45,7 @@
                                         <td><input type="checkbox" value="{{$role->id}}" name="rid" class="i-checks"></td>
                                         <td>{{ $role->name }}</td>
                                         <td>
-                                            <a href="{{ route('role_edit',$role->id) }}" class="text-green editRole">
+                                            <a href="{{ route('role_edit',$role->id) }}" class="text-green">
                                                 <i class="fa fa-pencil-square-o"></i>
                                             </a>&nbsp;&nbsp;&nbsp;
                                             <a href="javascript:void(0)" class="text-red delRole">

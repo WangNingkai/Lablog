@@ -205,6 +205,10 @@ class ArticleController extends Controller
         return redirect()->back();
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function search(Request $request)
     {
         $keyword = $request->get('keyword');

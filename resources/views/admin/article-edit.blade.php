@@ -87,12 +87,12 @@
                                     <label>发布：</label>
                                     <div class="radio">
                                         <label class="i-checks">
-                                            <input type="radio" name="status" value="1"
-                                               @if($article->status == 1) checked="checked" @endif> &nbsp; 是
+                                            <input type="radio" name="status" value="{{ \App\Models\Article::PUBLISHED }}"
+                                                   @if(!is_null(old('status')) && old( 'status') == \App\Models\Article::PUBLISHED) checked="checked" @elseif($article->status == \App\Models\Article::PUBLISHED ) checked="checked"  @endif> &nbsp; 是
                                         </label>
                                         <label class="i-checks">
-                                            <input type="radio" name="status" value="0"
-                                                @if($article->status == 0) checked="checked" @endif> &nbsp; 否
+                                            <input type="radio" name="status" value="{{ \App\Models\Article::UNPUBLISHED }}"
+                                                   @if(!is_null(old('status')) && old( 'status') == \App\Models\Article::UNPUBLISHED) checked="checked" @elseif($article->status == \App\Models\Article::UNPUBLISHED ) checked="checked"  @endif> &nbsp; 否
                                         </label>
                                     </div>
                                     @if ($errors->has('status'))
