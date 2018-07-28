@@ -264,8 +264,8 @@ if (!function_exists('ip_to_city')) {
     function ip_to_city($ip)
     {
 
-        $url="http://ip.taobao.com/service/getIpInfo.php?ip=".$ip;
-        $ip=json_decode(file_get_contents($url));
+        $url = "http://ip.taobao.com/service/getIpInfo.php?ip=".$ip;
+        $ip = json_decode(file_get_contents($url));
         if((string)$ip->code=='1'){
             return false;
         }
@@ -386,7 +386,7 @@ if (!function_exists('baidu_push')) {
      */
     function baidu_push($id,$type = 'urls')
     {
-        $urls=[];
+        $urls = [];
         if(is_array($id))
         {
             foreach ($id as $value) {
@@ -395,18 +395,18 @@ if (!function_exists('baidu_push')) {
         }else {
             $urls[]=route('article',$id);
         }
-        $api='http://data.zz.baidu.com/'.$type.'?site='.env('APP_URL').'&token='.env('BAIDU_PUSH_TOKEN');
-        $ch=curl_init();
+        $api = 'http://data.zz.baidu.com/'.$type.'?site='.env('APP_URL').'&token='.env('BAIDU_PUSH_TOKEN');
+        $ch = curl_init();
         $options=[
-            CURLOPT_URL=>$api,
-            CURLOPT_POST=>true,
-            CURLOPT_RETURNTRANSFER=>true,
-            CURLOPT_POSTFIELDS=>implode("\n", $urls),
-            CURLOPT_HTTPHEADER=>['Content-Type: text/plain'],
+            CURLOPT_URL => $api,
+            CURLOPT_POST => true,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_POSTFIELDS => implode("\n", $urls),
+            CURLOPT_HTTPHEADER => ['Content-Type: text/plain'],
         ];
         curl_setopt_array($ch, $options);
-        $result=curl_exec($ch);
-        $msg=json_decode($result, true);
+        $result = curl_exec($ch);
+        $msg = json_decode($result, true);
         if (array_key_exists('error',$msg)) {
             curl_exec($ch);
         }

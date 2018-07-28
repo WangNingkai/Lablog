@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Admin\Permission;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Permission;
 use App\Http\Requests\Permission\Store;
 use App\Http\Requests\Permission\Update;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
 
 class PermissionController extends Controller
 {
@@ -18,7 +20,7 @@ class PermissionController extends Controller
      */
     public function manage()
     {
-        $permissions = Permission::query()->orderBy('id', 'desc')->paginate(10);
+        $permissions = Permission::query()->orderBy('name', 'desc')->paginate(10);
         return view('admin.permission.permission', compact('permissions'));
 
     }
@@ -33,6 +35,9 @@ class PermissionController extends Controller
         $name = $request->get('name');
         $route = $request->get('route');
         $createOrFail = Permission::create(['name' => $name, 'route' => $route]);
+        // 同步更新权限到超级管理员
+        $role = Role::findByName(User::SUPERADMIN);
+        $role->givePermissionTo($name);
         $createOrFail ? show_message('添加成功') : show_message('添加失败',false) ;
         operation_event(auth()->user()->name,'添加权限');
         return redirect()->back();
@@ -48,7 +53,8 @@ class PermissionController extends Controller
         if (is_null($id)) {
             return abort(404, '对不起，找不到相关页面');
         }
-        if (!$response = Permission::query()->find($id)) {
+        if (!$response = Permission::findById($id))
+        {
             return ajax_return(404, ['alert' => '未找到相关数据']);
         }
         return ajax_return(200, $response);
@@ -87,7 +93,6 @@ class PermissionController extends Controller
     {
         $data = $request->only('pid');
         $arr = explode(',', $data['pid']);
-         // TODO:同步删除权限相关
         DB::table('model_has_permissions')->whereIn('permission_id',$arr)->delete();
         DB::table('role_has_permissions')->whereIn('permission_id',$arr)->delete();
         $deleteOrFail = Permission::query()->whereIn('id',$arr)->delete();

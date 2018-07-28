@@ -49,7 +49,7 @@ Route::group(['namespace' => 'Home', 'middleware' => ['check.status']], function
     Route::get('feed', 'HomeController@feed')->name('feed');
 });
 // 后台
-Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['auth:web','check.timeout']], function () {
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['auth:web','check.timeout','check.permission']], function () {
     // 控制台
     Route::get('/', function(){
         return redirect()->route('dashboard_home');

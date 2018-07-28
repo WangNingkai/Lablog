@@ -14,8 +14,11 @@ class User extends Authenticatable
 
     const ACTIVE = 1;
     const FORBID = 0;
+    const SUPERUSER = 1; // 超级管理员ID
+    const SUPERADMIN = '超级管理员'; // 超级管理员角色组
 
     protected $guard_name = 'web';
+
     /**
      * The attributes that are mass assignable.
      *

@@ -61,5 +61,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'check.status' => \App\Http\Middleware\CheckStatus::class,
         'check.timeout' => \App\Http\Middleware\CheckTimeout::class,
+        'check.permission' => \App\Http\Middleware\CheckPermission::class,
     ];
 }

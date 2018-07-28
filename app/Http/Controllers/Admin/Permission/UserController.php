@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
@@ -61,6 +62,11 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+        if(Auth::id() != User::SUPERUSER)
+        {
+            show_message('非超级管理员禁止编辑',false);
+            return redirect()->back();
+        }
         $roles = Role::all();
         $user = User::findOrFail($id);
         return view('admin.permission.user-edit',compact('roles','user'));
@@ -93,9 +99,14 @@ class UserController extends Controller
      */
     public function destroy(Request $request)
     {
-        // todo:超级管理员禁止删除
         $data = $request->only('uid');
         $arr = explode(',', $data['uid']);
+        foreach($arr as $uid)
+        {
+            if($uid == User::SUPERUSER)
+                show_message('超级管理员禁止删除' ,false);
+            return redirect()->back();
+        }
         $users = User::query()->whereIn('id',$arr);
         foreach ($users->get() as $user)
         {

@@ -76,15 +76,23 @@ class RoleController extends Controller
         return redirect()->back();
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy(Request $request)
     {
-        // todo:超级管理员禁止删除
         $data = $request->only('rid');
         $arr = explode(',', $data['rid']);
         // 判断该角色是否存在用户，确定删除将用户角色移除，同时移除关联权限
         $roles = Role::query()->whereIn('id',$arr);
         foreach ($roles->get() as $role)
         {
+            if($role->name == User::SUPERADMIN)
+            {
+                show_message('超级管理员角色无法删除',false);
+                return redirect()->back();
+            }
             // 返回要删除角色的用户.移除用户角色
             $users = User::role($role)->get();
             foreach($users as $user )
@@ -100,6 +108,10 @@ class RoleController extends Controller
 
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function search(Request $request)
     {
         $keyword = $request->get('keyword');
