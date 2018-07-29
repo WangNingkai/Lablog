@@ -54,12 +54,15 @@
                                         <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('email') }}</strong></span>
                                     @endif
                                 </div>
-                                <div class="form-group">
+                                @if($user->id == \App\Models\User::SUPERUSER)
+                                    <input type="hidden" name="status" value="{{ \App\Models\User::ACTIVE }}">
+                                @else
+                                    <div class="form-group">
                                     <label>用户状态：</label>
                                     <div class="radio">
                                         <label class="i-checks">
                                             <input type="radio" name="status" value="{{ \App\Models\User::ACTIVE }}"
-                                                   @if(!is_null(old('status')) && old( 'status') == \App\Models\User::ACTIVE) checked="checked" @elseif($user->status == \App\Models\User::ACTIVE ) checked="checked"  @endif > &nbsp; 正常
+                                                   @if(!is_null(old('status')) && old( 'status') == \App\Models\User::ACTIVE) checked="checked" @elseif($user->status == \App\Models\User::ACTIVE ) checked="checked"  @endif> &nbsp; 正常
                                         </label>
                                         <label class="i-checks">
                                             <input type="radio" name="status" value="{{ \App\Models\User::FORBID }}"
@@ -67,6 +70,7 @@
                                         </label>
                                     </div>
                                 </div>
+                                @endif
                             </div>
                             <div class="box-footer">
                                 <button type="submit" class="btn btn-success btn-flat">提交</button>
