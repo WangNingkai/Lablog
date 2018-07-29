@@ -18,7 +18,7 @@ class CreateOperationLogsTable extends Migration
             $table->increments('id');
             $table->string('operator')->comment('操作者');;
             $table->string('operation')->comment('操作');;
-            $table->string('ip',16)->comment('ip');;
+            $table->string('ip')->comment('ip');;
             $table->integer('operation_time')->comment('时间');;
             $table->string('address')->comment('地址');;
             $table->string('device')->comment('设备');;

@@ -23,7 +23,7 @@ class CreateArticlesTable extends Migration
             $table->char('description')->comment('描述');
             $table->string('keywords')->comment('关键词');
             $table->boolean('status')->default(0)->comment('是否发布 1是 0否');
-            $table->integer('click')->unsigned()->default(0)->comment('点击数');
+            $table->unsignedInteger('click')->default(0)->comment('点击数');
             $table->timestamps();
             $table->softDeletes();
         });

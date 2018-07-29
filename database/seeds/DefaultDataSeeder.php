@@ -2,9 +2,8 @@
 
 use Illuminate\Database\Seeder;
 use App\Models\User;
-use App\Models\Config;
-use App\Models\Tag;
-use App\Models\Category;
+use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
 
 class DefaultDataSeeder extends Seeder
 {
@@ -15,17 +14,23 @@ class DefaultDataSeeder extends Seeder
      */
     public function run()
     {
-                $user = User::create(
+        DB::table('users')->truncate();
+        $user = User::create(
             [
-                'name' => 'user',
-                'email' => 'test@test.com',
+                'name' => 'admin',
+                'email' => 'admin@admin.com',
                 'password' => bcrypt(12345678),
                 'status' => 1,
             ]
         );
+        // 重置角色和权限的缓存
+        app()['cache']->forget('spatie.permission.cache');
+        // 创建角色并赋予超级管理员角色
+        Role::create(['name' => User::SUPERADMIN]);
+        $user->assignRole(User::SUPERADMIN);
 
-        \DB::table('configs')->delete();
-        \DB::table('configs')->insert([
+        DB::table('configs')->truncate();
+        DB::table('configs')->insert([
             0 => [
                 'id' => 1,
                 'name' => 'site_status',
@@ -171,8 +176,8 @@ class DefaultDataSeeder extends Seeder
 
             ],
         ]);
-        \DB::table('tags')->delete();
-        \DB::table('tags')->insert([
+        DB::table('tags')->truncate();
+        DB::table('tags')->insert([
             0 => [
                 'id' => 1,
                 'name' => '默认',
@@ -181,8 +186,8 @@ class DefaultDataSeeder extends Seeder
                 'updated_at' => '2018-01-01 00:00:00',
             ],
         ]);
-        \DB::table('categories')->delete();
-        \DB::table('categories')->insert([
+        DB::table('categories')->truncate();
+        DB::table('categories')->insert([
             0 => [
                 'id' => 1,
                 'pid' => 0,
