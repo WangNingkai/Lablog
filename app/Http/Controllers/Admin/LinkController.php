@@ -76,10 +76,10 @@ class LinkController extends Controller
      */
     public function update(Update $request)
     {
-        $id = $request->id;
-        $name=$request->edit_name;
-        $url=$request->edit_url;
-        $sort=$request->edit_sort;
+        $id = $request->get('id');
+        $name=$request->get('edit_name');
+        $url=$request->get('edit_url');
+        $sort=$request->get('edit_sort');
         $this->link->updateData(['id' => $id], ['name'=>$name,'url'=>$url,'sort'=>$sort,]);
         operation_event(auth()->user()->name,'编辑标签');
         // 更新缓存

@@ -19,8 +19,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\App;
 
-
-
 class HomeController extends Controller
 {
     const CACHE_EXPIRE = 1440;

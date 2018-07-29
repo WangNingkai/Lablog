@@ -81,9 +81,9 @@ class TagController extends Controller
      */
     public function update(Update $request)
     {
-        $id = $request->id;
-        $name=$request->edit_name;
-        $flag=$request->edit_flag;
+        $id = $request->get('id');
+        $name=$request->get('edit_name');
+        $flag=$request->get('edit_name');
         $this->tag->updateData(['id' => $id], ['name'=>$name,'flag'=>$flag]);
         operation_event(auth()->user()->name,'编辑标签');
         // 更新缓存

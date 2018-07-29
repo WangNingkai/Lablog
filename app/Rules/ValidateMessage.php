@@ -35,7 +35,7 @@ class ValidateMessage implements Rule
         }
         $MessageIp = request()->ip();;
         // 获取IP最近一次留言时间
-        $lastMessageDate = Message::where('ip', $MessageIp)
+        $lastMessageDate = Message::query()->where('ip', $MessageIp)
             ->orderBy('created_at', 'desc')
             ->value('created_at');
         $lastMessageTime = strtotime($lastMessageDate);
@@ -48,7 +48,7 @@ class ValidateMessage implements Rule
         // 限制同一IP一天留言数
 
         $date = date('Y-m-d', $time);
-        $count = Message::where('ip', $MessageIp)
+        $count = Message::query()->where('ip', $MessageIp)
             ->whereBetween('created_at', [$date . ' 00:00:00', $date . ' 23:59:59'])
             ->count();
         if ($count > 10) {

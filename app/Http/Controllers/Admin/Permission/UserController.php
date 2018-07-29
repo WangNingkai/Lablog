@@ -52,6 +52,7 @@ class UserController extends Controller
         $roles = $request->get('roles');
         $creatOrFail->assignRole($roles);
         $creatOrFail?show_message('添加成功'):show_message('添加失败',false);
+        operation_event(auth()->user()->name,'注册用户');
         return redirect()->route('user_manage');
     }
 
@@ -89,6 +90,7 @@ class UserController extends Controller
         ]);
         $user->syncRoles($roles);
         $saveOrFail?show_message('编辑成功'):show_message('编辑失败',false);
+        operation_event(auth()->user()->name,'编辑用户');
         return redirect()->route('user_manage');
     }
 

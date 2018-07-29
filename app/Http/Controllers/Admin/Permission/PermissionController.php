@@ -75,9 +75,10 @@ class PermissionController extends Controller
             show_message('未查到相关，添加失败', false);
             return redirect()->back();
         }
-        $permission->name = $name;
-        $permission->route = $route;
-        $saveOrFail = $permission->save();
+        $saveOrFail = $permission->update([
+            'name' => $name,
+            'route' => $route
+        ]);
         $saveOrFail ? show_message('修改成功'): show_message('修改失败',false);
         operation_event(auth()->user()->name,'修改权限');
         return redirect()->back();

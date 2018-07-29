@@ -5,7 +5,6 @@ namespace App\Listeners;
 use Illuminate\Auth\Events\Login;
 use Carbon\Carbon;
 use App\Events\OperationEvent;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Auth;
 
 class LoginListener
@@ -35,7 +34,7 @@ class LoginListener
         $user->save();
 
         // 写入操作日志
-        event(new OperationEvent(Auth::user()->name,'管理员登录', Request::getClientIp(), time()));
+        event(new OperationEvent(Auth::user()->name,'管理员登录', request()->ip(), time()));
 
     }
 }

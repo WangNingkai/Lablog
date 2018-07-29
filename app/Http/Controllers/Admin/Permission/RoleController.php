@@ -19,7 +19,7 @@ class RoleController extends Controller
     public function manage()
     {
         $roles = Role::query()->orderBy('id', 'desc')->paginate(10);
-        $permissions = Permission::all();
+        $permissions = Permission::query()->orderBy('name')->get();
         return view('admin.permission.role', compact('roles','permissions'));
     }
 
@@ -50,7 +50,7 @@ class RoleController extends Controller
     {
         $roles = Role::query()->orderBy('id', 'desc')->paginate(10);
         $edit_role = Role::findById($id);
-        $permissions = Permission::all();
+        $permissions = Permission::query()->orderBy('name')->get();
         return view('admin.permission.role-edit',compact('edit_role','roles','permissions'));
     }
 
