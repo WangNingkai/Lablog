@@ -665,7 +665,7 @@ $(function () {
         $("#deleteId").val(uid);
         swal({
             title: "确定删除吗？",
-            text: "删除将无法恢复",
+            text: "删除后用户将被移到小黑屋",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
@@ -689,7 +689,7 @@ $(function () {
             $("#deleteId").val(ids);
             swal({
                 title: "确定删除吗？",
-                text: "删除将无法恢复",
+                text: "删除后用户将被移到小黑屋",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
@@ -699,6 +699,100 @@ $(function () {
             }).then((result) => {
                 if (result.value) {
                     $("#deleteForm").submit()
+                } else if (result.dismiss === swal.DismissReason.cancel) {
+                    swal('已取消', ':)', 'error')
+                }
+            })
+        } else {
+            return false
+        }
+    });
+    $(".restoreUser").on("click", function () {
+        uid = $(this).parent().siblings().eq(0).find("input[name=uid]").val();
+        $("#restoreId").val(uid);
+        swal({
+            title: "确定恢复吗？",
+            text: "恢复后可在全部用户列表查看",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "确定",
+            cancelButtonText: "取消"
+        }).then((result) => {
+            if (result.value) {
+                $("#restoreForm").submit()
+            } else if (result.dismiss === swal.DismissReason.cancel) {
+                swal('已取消', ':)', 'error')
+            }
+        })
+    });
+    $("#restoreSelectedUser").on("click", function () {
+        ids = new Array();
+        $("input[name='uid']:checked").each(function () {
+            ids.push($(this).val())
+        });
+        if (ids.length != 0) {
+            $("#restoreId").val(ids);
+            swal({
+                title: "确定恢复吗？",
+                text: "恢复后可在全部用户列表查看",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "确定",
+                cancelButtonText: "取消"
+            }).then((result) => {
+                if (result.value) {
+                    $("#restoreForm").submit()
+                } else if (result.dismiss === swal.DismissReason.cancel) {
+                    swal('已取消', ':)', 'error')
+                }
+            })
+        } else {
+            return false
+        }
+    });
+    $(".destroyUser").on("click", function () {
+        uid = $(this).parent().siblings().eq(0).find("input[name=uid]").val();
+        $("#destroyId").val(uid);
+        swal({
+            title: "确定删除吗？",
+            text: "删除将无法恢复",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "确定",
+            cancelButtonText: "取消"
+        }).then((result) => {
+            if (result.value) {
+                $("#destroyForm").submit()
+            } else if (result.dismiss === swal.DismissReason.cancel) {
+                swal('已取消', ':)', 'error')
+            }
+        })
+    });
+    $("#destroySelectedUser").on("click", function () {
+        ids = new Array();
+        $("input[name='uid']:checked").each(function () {
+            ids.push($(this).val())
+        });
+        if (ids.length != 0) {
+            $("#destroyId").val(ids);
+            swal({
+                title: "确定删除吗？",
+                text: "删除将无法恢复",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "确定",
+                cancelButtonText: "取消"
+            }).then((result) => {
+                if (result.value) {
+                    $("#destroyForm").submit()
                 } else if (result.dismiss === swal.DismissReason.cancel) {
                     swal('已取消', ':)', 'error')
                 }

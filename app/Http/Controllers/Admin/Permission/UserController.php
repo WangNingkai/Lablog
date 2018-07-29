@@ -95,27 +95,23 @@ class UserController extends Controller
     }
 
     /**
-     * 用户删除
+     * 用户软删除
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Request $request)
+    public function delete(Request $request)
     {
         $data = $request->only('uid');
         $arr = explode(',', $data['uid']);
         foreach($arr as $uid)
         {
             if($uid == User::SUPERUSER)
+            {
                 show_message('超级管理员禁止删除' ,false);
-            return redirect()->back();
+                return redirect()->back();
+            }
         }
         $users = User::query()->whereIn('id',$arr);
-        foreach ($users->get() as $user)
-        {
-            // 判断用户有哪些角色和权限， 删除用户关联角色记录
-            DB::table('model_has_roles')->where('model_id',$user->id)->delete();
-            DB::table('model_has_permissions')->where('model_id',$user->id)->delete();
-        }
         $deleteOrFail = $users->delete();
         $deleteOrFail ? show_message('删除成功') : show_message('删除失败',false);
         operation_event(auth()->user()->name,'删除用户');
@@ -123,6 +119,55 @@ class UserController extends Controller
 
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function trash()
+    {
+        $users = User::query()
+            ->orderBy('deleted_at', 'desc')
+            ->onlyTrashed()
+            ->paginate(10);
+        return view('admin.permission.user-trash', compact('users'));
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function restore(Request $request)
+    {
+        $data = $request->only('uid');
+        $arr = explode(',', $data['uid']);
+        if (!User::query()->whereIn('id', $arr)->restore()) {
+            show_message('恢复失败', false);
+            return redirect()->back();
+        }
+        show_message('恢复成功');
+        operation_event(auth()->user()->name,'恢复软删除用户');
+        return redirect()->back();
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy(Request $request)
+    {
+        $data = $request->only('uid');
+        $arr = explode(',', $data['uid']);
+        $users = User::query()->whereIn('id',$arr);
+        foreach ($users->get() as $user)
+        {
+            // 判断用户有哪些角色和权限， 删除用户关联角色记录
+            DB::table('model_has_roles')->where('model_id',$user->id)->delete();
+            DB::table('model_has_permissions')->where('model_id',$user->id)->delete();
+        }
+        $destroyOrFail = $users->forceDelete();
+        $destroyOrFail ? show_message('删除成功') : show_message('删除失败',false);
+        operation_event(auth()->user()->name,'完全删除用户');
+        return redirect()->back();
+    }
     /**
      * 搜索
      * @param Request $request

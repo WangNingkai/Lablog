@@ -152,7 +152,7 @@ class ArticleController extends Controller
         ->orderBy('deleted_at', 'desc')
         ->onlyTrashed()
         ->paginate(10);
-        return view('admin.trash', compact('articles'));
+        return view('admin.article-trash', compact('articles'));
     }
 
     /**
@@ -179,10 +179,9 @@ class ArticleController extends Controller
 
     /**
      * 彻底删除文章.
-     *
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function destroy(Request $request)
     {
@@ -194,10 +193,11 @@ class ArticleController extends Controller
         }
         // 删除对应标签记录
         $articleTagModel = new ArticleTag;
-        $articleTagModel->whereIn('article_id', $arr)->forceDelete();
+        $deleteOrFail = $articleTagModel->whereIn('article_id', $arr)->delete();
+        $deleteOrFail ? show_message('彻底删除成功') : show_message('彻底删除失败',false);
         operation_event(auth()->user()->name,'完全删除文章');
         baidu_push($arr,'del');
-        show_message('彻底删除成功');
+
         // 更新缓存
         Cache::forget('cache:top_article_list');
         Cache::forget('cache:tag_list');

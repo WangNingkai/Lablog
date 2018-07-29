@@ -160,6 +160,9 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
             Route::post('store', 'UserController@store')->name('user_store');
             Route::get('edit/{id}', 'UserController@edit')->name('user_edit');
             Route::post('update/{id}', 'UserController@update')->name('user_update');
+            Route::post('delete', 'UserController@delete')->name('user_delete');
+            Route::get('trash', 'UserController@trash')->name('user_trash');
+            Route::post('restore', 'UserController@restore')->name('user_restore');
             Route::post('destroy', 'UserController@destroy')->name('user_destroy');
             Route::get('search', 'UserController@search')->name('user_search');
         });

@@ -19,7 +19,7 @@ $.validator.addMethod("regex", function (value, element, params) {
 }, "格式错误");
 
 $(function() {
-    e = "<i class='fa fa-times-circle'></i> ";
+    e = "<i class='fa fa-times-circle'></i> &nbsp;";
     $("#createTagForm").validate({
         rules: {
             name: {
@@ -320,6 +320,144 @@ $(function() {
                 required: e + "请确认新密码",
                 equalTo: e + "两次密码不一致"
             }
+        }
+    });
+    $("#createPermissionForm").validate({
+        rules: {
+            name: {
+                required: !0,
+            },
+            route: {
+                required: !0,
+            }
+        },
+        messages: {
+            name: {
+                required: e + "请输入权限名称",
+            },
+            route: {
+                required: e + "请输入权限路由",
+            }
+        }
+    });
+    $("#editPermissionForm").validate({
+        rules: {
+            name: {
+                required: !0,
+            },
+            flag: {
+                required: !0,
+            }
+        },
+        messages: {
+            name: {
+                required: e + "请输入权限名称",
+            },
+            flag: {
+                required: e + "请输入权限路由",
+            }
+        }
+    });
+    $("#createRoleForm").validate({
+        rules: {
+            name: {
+                required: !0,
+            }
+        },
+        messages: {
+            name: {
+                required: e + "请输入角色名称",
+            }
+        }
+    });
+    $("#editRoleForm").validate({
+        rules: {
+            name: {
+                required: !0,
+            }
+        },
+        messages: {
+            name: {
+                required: e + "请输入角色名称",
+            }
+        }
+    });
+    $("#createUserForm").validate({
+        rules: {
+            roles: {
+                required: !0,
+            },
+            name: {
+                required: !0,
+            },
+            email: {
+                required: !0,
+                email: true
+            },
+            password: {
+                required: !0,
+            },
+            password_confirmation: {
+                required: !0,
+                equalTo: "#password"
+            },
+            status : {
+                required: !0,
+            }
+        },
+        messages: {
+            roles: {
+                required: e + "请至少选择一个角色",
+            },
+            name: {
+                required: e + "请输入用户名",
+            },
+            email: {
+                required: e + "请输入邮箱",
+                email:  e + "请输入正确的邮箱地址"
+            },
+            password: {
+                required: e + "请输入密码",
+            },
+            password_confirmation: {
+                required: e + "请确认密码",
+                equalTo: e + "两次密码不一致"
+            },
+            status: {
+                required: e + "请选择状态",
+            },
+        }
+    });
+    $("#editUserForm").validate({
+        rules: {
+            roles: {
+                required: !0,
+            },
+            name: {
+                required: !0,
+            },
+            email: {
+                required: !0,
+                email: true
+            },
+            status : {
+                required: !0,
+            }
+        },
+        messages: {
+            roles: {
+                required: e + "请至少选择一个角色",
+            },
+            name: {
+                required: e + "请输入用户名",
+            },
+            email: {
+                required: e + "请输入邮箱",
+                email:  e + "请输入正确的邮箱地址"
+            },
+            status: {
+                required: e + "请选择状态",
+            },
         }
     });
 });

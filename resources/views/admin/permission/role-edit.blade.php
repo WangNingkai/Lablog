@@ -21,17 +21,6 @@
                         <div class="box-header">
                             <h3 class="box-title">全部角色</h3>
                             <span>共 {{ $roles->total() }}个</span>
-                            <form action="{{ route('role_search') }}" method="get" style="display: inline-flex" class="pull-right">
-                                <div class="box-tools">
-                                    <div class="input-group input-group-sm" style="width: 150px;">
-                                        <input type="text" name="keyword" class="form-control" placeholder="搜索">
-
-                                        <span class="input-group-btn">
-                                            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                                        </span>
-                                    </div>
-                                </div>
-                            </form>
                         </div>
                         <div class="box-body table-responsive no-padding">
                             <table class="table table-hover">
