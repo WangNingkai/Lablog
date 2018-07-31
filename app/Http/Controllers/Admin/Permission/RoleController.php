@@ -19,7 +19,7 @@ class RoleController extends Controller
     public function manage()
     {
         $roles = Role::query()->orderBy('id', 'desc')->paginate(10);
-        $permissions = Permission::query()->orderBy('name')->get();
+        $permissions = Permission::query()->orderBy('route')->get();
         return view('admin.permission.role', compact('roles','permissions'));
     }
 

@@ -20,7 +20,7 @@ class PermissionController extends Controller
      */
     public function manage()
     {
-        $permissions = Permission::query()->orderBy('name', 'desc')->paginate(12);
+        $permissions = Permission::query()->orderBy('route', 'desc')->paginate(12);
         return view('admin.permission.permission', compact('permissions'));
 
     }
