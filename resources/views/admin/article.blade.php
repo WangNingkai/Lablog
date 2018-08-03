@@ -1,12 +1,15 @@
 @extends('layouts.backend')
 @section('title','控制台 - 文章管理')
+@section('before_css')
+    {!! select2_css() !!}
+@stop
 @section('css')
-{!! icheck_css() !!}
-<style>
-    .tag {
-        margin: .2em
-    }
-</style>
+    {!! icheck_css() !!}
+    <style>
+        .tag {
+            margin: .2em
+        }
+    </style>
 @stop
 @section('content')
     <div class="content-wrapper">
@@ -23,10 +26,24 @@
                 <div class="col-md-12">
                     <div class="box box-solid">
                         <div class="box-body">
-                            @foreach($categories as $category)
-                                <a href="{{ route('article_manage',['category'=> $category->id]) }}" @switch(($category->id)%5) @case(0)class="tag btn btn-flat btn-xs bg-black" @break @case(1)class="tag btn btn-flat btn-xs bg-olive" @break @case(2)class="tag btn btn-flat btn-xs bg-blue" @break @case(3)class="tag btn btn-flat btn-xs bg-purple" @break @default class="tag btn btn-flat btn-xs bg-maroon" @endswitch>{{$category->name}}
-                                </a>
-                            @endforeach
+                            <form action="{{ route('article_manage') }}" method="get">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <select class="form-control select2" name="category" id="category_id" >
+                                            <option value="0">请选择栏目</option>
+                                            {!! $categories !!}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input type="text" name="keyword" class="form-control" placeholder="搜索标题" value="{{ request()->input('keyword') }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="submit" class="btn btn-success btn-flat"><i class="fa fa-search"></i>&nbsp;搜索</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -37,17 +54,6 @@
                         <div class="box-header">
                             <h3 class="box-title">全部文章</h3>
                             <span>共 {{ $articles->total() }}篇</span>
-                            <form action="{{ route('article_manage') }}" method="get" style="display: inline-flex" class="pull-right">
-                                <div class="box-tools">
-                                    <div class="input-group input-group-sm" style="width: 150px;">
-                                        <input type="text" name="keyword" class="form-control" placeholder="搜索标题">
-
-                                        <span class="input-group-btn">
-                                            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                                        </span>
-                                    </div>
-                                </div>
-                            </form>
                         </div>
                         <div class="box-body table-responsive no-padding">
                             <table class="table table-hover">
@@ -60,21 +66,21 @@
                                     <th style="">操作</th>
                                 </tr>
                                 @foreach($articles as $article)
-                                <tr>
-                                    <td><input type="checkbox" value="{{$article->id}}" name="aid" class="i-checks"></td>
-                                    <td><a class="text-black" href="{{ route('article',$article->id) }}">{{ $article->title }}</a></td>
-                                    <td>{{$article->category->name}}</td>
-                                    <td>{{$article->click}}</td>
-                                    <td>{!! $article->status_tag !!}</td>
-                                    <td>
-                                        <a href="{{ route('article_edit',$article->id) }}" class="text-green">
-                                            <i class="fa fa-pencil-square-o"></i>
-                                        </a>&nbsp;&nbsp;
-                                        <a href="javascript:void(0)" class="text-red delArticle">
-                                            <i class="fa fa-trash"></i>
-                                        </a>
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td><input type="checkbox" value="{{$article->id}}" name="aid" class="i-checks"></td>
+                                        <td><a class="text-black" href="{{ route('article',$article->id) }}">{{ $article->title }}</a></td>
+                                        <td>{{$article->category->name}}</td>
+                                        <td>{{$article->click}}</td>
+                                        <td>{!! $article->status_tag !!}</td>
+                                        <td>
+                                            <a href="{{ route('article_edit',$article->id) }}" class="text-green">
+                                                <i class="fa fa-pencil-square-o"></i>
+                                            </a>&nbsp;&nbsp;
+                                            <a href="javascript:void(0)" class="text-red delArticle">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </table>
                             <form id="deleteForm" style="display: none;" action="{{ route('article_delete') }}" method="post">
@@ -98,14 +104,16 @@
     </div>
 @stop
 @section('js')
-{!! icheck_js() !!}
-<script>
-    $(function () {
-        $(".i-checks").iCheck({
-            checkboxClass: "icheckbox_square-blue",
-            radioClass: "iradio_square-blue",
+    {!! select2_js() !!}
+    {!! icheck_js() !!}
+    <script>
+        $(function () {
+            $(".i-checks").iCheck({
+                checkboxClass: "icheckbox_square-blue",
+                radioClass: "iradio_square-blue",
+            });
+            $('.select2').select2();
         });
-    });
-</script>
-<script src="{{ asset('js/admin.js') }}"></script>
+    </script>
+    <script src="{{ asset('js/admin.js') }}"></script>
 @stop

@@ -29,28 +29,23 @@ class ArticleController extends Controller
 
     /**
      * 列举文章列表
-     *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function manage(Request $request)
     {
-        // TODO:列表分类查看
-        $keyword = $request->get('keyword');
-        $category = $request->get('category');
-        $map = $keyword ? [
-            ['title', 'like', '%' . $keyword . '%'],
-        ]:[];
-        $andMap = $category ? [
-            ['category_id', '=', $category ],
-        ] : [];
+        $keyword = $request->get('keyword') ?? '';
+        $category = $request->get('category') ?? 0 ;
+        $map = [];
+        $keyword ? array_push($map, ['title', 'like', '%' . $keyword . '%']) : null;
+        $category ? array_push($map, ['category_id', '=', $category]) : null;
         $articles =  $this->article
             ->select('id', 'category_id', 'title','status','click', 'created_at')
             ->where($map)
-            ->orWhere($andMap)
             ->with('category')
             ->orderBy('created_at', 'desc')
             ->paginate(10);
-        $categories = Category::query()->select('id','name')->get();
+        $categories = get_select(Category::all()->toArray(),$category);
         return view('admin.article', compact('articles','categories'));
     }
 
@@ -92,8 +87,7 @@ class ArticleController extends Controller
     {
         $article = $this->article->query()->find($id);
         $article->tag_ids = ArticleTag::query()->where('article_id', $id)->pluck('tag_id')->toArray();
-        $category_all = Category::all()->toArray();
-        $category = get_select($category_all, $article->category_id);
+        $category = get_select(Category::all()->toArray(), $article->category_id);
         $tag = Tag::all();
         return view('admin.article-edit', compact('article', 'category', 'tag'));
     }
