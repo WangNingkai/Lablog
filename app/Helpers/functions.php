@@ -430,6 +430,19 @@ if (!function_exists('transform_time')) {
         }
     }
 }
+if (!function_exists('transform_size')) {
+    /**
+     * @param $size
+     * @return string
+     */
+    function transform_size($size)
+    {
+        $units = array(' B', ' KB', ' MB', ' GB', ' TB');
+        for ($i = 0; $size >= 1024 && $i < 4; $i++) $size /= 1024;
+        return round($size, 2).$units[$i];
+    }
+
+}
 if (!function_exists('re_substr')) {
     /**
      * 字符串截取，支持中文和其他编码

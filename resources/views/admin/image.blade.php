@@ -1,4 +1,5 @@
 @extends('layouts.backend')
+@section('title','控制台 - 图床管理')
 @section('css')
     {!! datatables_css() !!}
     {!! fancybox_css() !!}
@@ -43,8 +44,8 @@
                                             </a></td>
                                         <td>{{ $item['filename'] }}</td>
                                         <td>{{ $item['storename'] }}</td>
-                                        <td>{{ $item['size'] }}</td>
-                                        <td>{{ $item['timestamp'] }}</td>
+                                        <td>{{ transform_size($item['size']) }}</td>
+                                        <td>{{ transform_time($item['timestamp']) }}</td>
                                         <td>{{ $item['url'] }}</td>
                                         <td><a href="{{ $item['delete'] }}" target="_blank" class="delete-item"><span class="text-red">删除链接</span></a></td>
                                     </tr>
