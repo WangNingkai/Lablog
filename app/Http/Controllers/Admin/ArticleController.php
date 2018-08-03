@@ -32,15 +32,26 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function manage()
+    public function manage(Request $request)
     {
-        $articles = $this->article
-            ->query()
+        // TODO:列表分类查看
+        $keyword = $request->get('keyword');
+        $category = $request->get('category');
+        $map = $keyword ? [
+            ['title', 'like', '%' . $keyword . '%'],
+        ]:[];
+        $andMap = $category ? [
+            ['category_id', '=', $category ],
+        ] : [];
+        $articles =  $this->article
             ->select('id', 'category_id', 'title','status','click', 'created_at')
+            ->where($map)
+            ->orWhere($andMap)
             ->with('category')
             ->orderBy('created_at', 'desc')
             ->paginate(10);
-        return view('admin.article', compact('articles'));
+        $categories = Category::query()->select('id','name')->get();
+        return view('admin.article', compact('articles','categories'));
     }
 
     /**
@@ -205,22 +216,18 @@ class ArticleController extends Controller
         return redirect()->back();
     }
 
-    /**
-     * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function search(Request $request)
+    public function getByCategory(Request $request)
     {
-        $keyword = $request->get('keyword');
-        $map = [
-            ['title', 'like', '%' . $keyword . '%'],
-        ];
+        $category = $request->get('category');
         $articles = $this->article
             ->select('id', 'category_id', 'title','status','click', 'created_at')
-            ->with('category')
-            ->where($map)
+            ->with(['category'=> function ($query) use($category) {
+                $query->where('name', $category);
+            }])
             ->orderBy('created_at', 'desc')
             ->paginate(10);
-        return view('admin.article', compact('articles'));
+        $categories = Category::query()->select('id','name')->get();
+        return view('admin.article', compact('articles','categories'));
+
     }
 }

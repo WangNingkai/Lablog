@@ -102,7 +102,6 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
         Route::get('trash', 'ArticleController@trash')->name('article_trash');
         Route::post('restore', 'ArticleController@restore')->name('article_restore');
         Route::post('destroy', 'ArticleController@destroy')->name('article_destroy');
-        Route::get('search', 'ArticleController@search')->name('article_search');
     });
     // 评论
     Route::group(['prefix' => 'comment'], function () {

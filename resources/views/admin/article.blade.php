@@ -2,6 +2,11 @@
 @section('title','控制台 - 文章管理')
 @section('css')
 {!! icheck_css() !!}
+<style>
+    .tag {
+        margin: .2em
+    }
+</style>
 @stop
 @section('content')
     <div class="content-wrapper">
@@ -16,11 +21,23 @@
         <section class="content container-fluid">
             <div class="row">
                 <div class="col-md-12">
+                    <div class="box box-solid">
+                        <div class="box-body">
+                            @foreach($categories as $category)
+                                <a href="{{ route('article_manage',['category'=> $category->id]) }}" @switch(($category->id)%5) @case(0)class="tag btn btn-flat btn-xs bg-black" @break @case(1)class="tag btn btn-flat btn-xs bg-olive" @break @case(2)class="tag btn btn-flat btn-xs bg-blue" @break @case(3)class="tag btn btn-flat btn-xs bg-purple" @break @default class="tag btn btn-flat btn-xs bg-maroon" @endswitch>{{$category->name}}
+                                </a>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
                     <div class="box">
                         <div class="box-header">
                             <h3 class="box-title">全部文章</h3>
                             <span>共 {{ $articles->total() }}篇</span>
-                            <form action="{{ route('article_search') }}" method="get" style="display: inline-flex" class="pull-right">
+                            <form action="{{ route('article_manage') }}" method="get" style="display: inline-flex" class="pull-right">
                                 <div class="box-tools">
                                     <div class="input-group input-group-sm" style="width: 150px;">
                                         <input type="text" name="keyword" class="form-control" placeholder="搜索标题">
@@ -45,12 +62,12 @@
                                 @foreach($articles as $article)
                                 <tr>
                                     <td><input type="checkbox" value="{{$article->id}}" name="aid" class="i-checks"></td>
-                                    <td><a class="text-black" href="{{route('article',$article->id)}}">{{$article->title}}</a></td>
+                                    <td><a class="text-black" href="{{ route('article',$article->id) }}">{{ $article->title }}</a></td>
                                     <td>{{$article->category->name}}</td>
                                     <td>{{$article->click}}</td>
                                     <td>{!! $article->status_tag !!}</td>
                                     <td>
-                                        <a href="{{route('article_edit',$article->id)}}" class="text-green">
+                                        <a href="{{ route('article_edit',$article->id) }}" class="text-green">
                                             <i class="fa fa-pencil-square-o"></i>
                                         </a>&nbsp;&nbsp;
                                         <a href="javascript:void(0)" class="text-red delArticle">
@@ -60,7 +77,7 @@
                                 </tr>
                                 @endforeach
                             </table>
-                            <form id="deleteForm" style="display: none;" action="{{route('article_delete')}}" method="post">
+                            <form id="deleteForm" style="display: none;" action="{{ route('article_delete') }}" method="post">
                                 @csrf
                                 <input type="hidden" name="aid" id="deleteId">
                             </form>
@@ -72,11 +89,7 @@
                                 <a href="javascript:void(0)" class="btn btn-primary btn-flat" onclick="selectReverse('aid')">反选</a>
                                 <a href="javascript:void(0)" class="btn btn-danger btn-flat" id="delSelectedArticle">删除选定</a>
                             </div>
-                            @if(request()->has('keyword'))
-                                {{ $articles->appends(['keyword' => request()->input('keyword')])->links('vendor.pagination.adminlte') }}
-                                @else
-                                {{ $articles->links('vendor.pagination.adminlte') }}
-                            @endif
+                            {{ $articles->appends(request()->input())->links('vendor.pagination.adminlte') }}
                         </div>
                     </div>
                 </div>
