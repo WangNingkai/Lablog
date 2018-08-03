@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use GuzzleHttp\Client;
-use Illuminate\Support\Facades\Validator;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 
 class ImageController extends Controller
 {
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function list()
     {
         $client = new Client();
@@ -18,36 +18,31 @@ class ImageController extends Controller
         $content = json_decode($response->getBody()->getContents(), true);
         $list = [];
         if ($content['code'] == 'success')
-        {
             $list = $content['data'];
-        }
         return view('admin.image',compact('list'));
     }
+
     /**
-     * @param Request $request
-     * @return array
+     * @return array|\Illuminate\Http\JsonResponse
      */
-    public function upload(Request $request)
+    public function upload()
     {
-        $validator = Validator::make($request->all(), [
-            'file' => 'required|max:5096|image'
-        ]);
-        if ($validator->fails()) {
-            return $this->fail($validator->errors()->first());
-        }
-        /** @var UploadedFile $file */
-        $file = $request->file();
+        $rule = ['smfile' => 'required|max:5096|image'];
+        $result = upload_file('smfile',$rule,'uploads/tmp/',false);
+        $file = $result['status_code'] == 200 ? $result['data'] : null;
+        $file['path'] = public_path( $file['path']).$file['new_name'];
         try {
-            $url = $this->uploadToSM($file);
-            return $this->success($url);
+            $response = $this->uploadToSM($file);
+            @unlink($file['path']);
+            return $response;
         } catch (\Exception $e) {
-            return $this->fail($e->getMessage());
+            return response()->json(['code' => 'error' ,'msg' => $e->getMessage()]);
         }
     }
+
     /**
-     *
-     * @param $file UploadedFile
-     * @return array
+     * @param $file
+     * @return mixed
      */
     private function uploadToSM($file)
     {
@@ -56,19 +51,11 @@ class ImageController extends Controller
             'multipart' => [
                 [
                     'name' => 'smfile',
-                    'contents' => fopen($file->getRealPath(), 'r'),
-                    'filename' => $file->getClientOriginalName()
+                    'contents' => fopen($file['path'], 'r'),
+                    'filename' => $file['old_name']
                 ]
             ]
         ]);
         return json_decode($response->getBody()->getContents(), true);
-    }
-    public function success($data = [], $code = 200)
-    {
-        return ['code' => $code, 'data' => $data];
-    }
-    public function fail($data = [], $code = 500)
-    {
-        return ['code' => $code, 'data' => $data];
     }
 }

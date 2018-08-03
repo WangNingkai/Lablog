@@ -188,32 +188,37 @@
             } );
         });
         $("#smfile").fileinput({
-            uploadUrl: '{{ route('image_upload') }}',
-            allowedFileExtensions : ['jpeg', 'jpg', 'png', 'gif', 'bmp'],
+            language: 'zh',
+            uploadUrl: '{{ route("image_upload") }}',
+            allowedFileExtensions: ["jpeg", "jpg", "png", "gif", "bmp"],
             overwriteInitial: false,
             maxFileSize: 5120,
             maxFilesNum: 10,
             maxFileCount: 10,
         });
-        $('#smfile').on('fileuploaded', function(event, data, previewId, index) {
-            var form = data.form, files = data.files, extra = data.extra, response = data.response, reader = data.reader;
-            if(response.code == 'success') {
-                if ( $("showurl").css("display") ) {
-                    $('#urlcode').append(response.data.url + "\n");
-                    $('#htmlcode').append("&lt;img src=\""+ response.data.url +"\" alt=\""+ files[index].name +"\" title=\""+ files[index].name +"\" /&gt;" + "\n");
-                    $('#bbcode').append("[img]"+ response.data.url +"[/img]" + "\n");
-                    $('#markdown').append("!["+ files[index].name +"](" + response.data.url + ")" + "\n");
-                    $('#markdownlinks').append("[!["+ files[index].name +"](" + response.data.url + ")]" +"(" + response.data.url + ")" + "\n");
-                    $('#deletecode').append(response.data.delete + "\n");
+        $("#smfile").on("fileuploaded", function (event, data, previewId, index) {
+            var form = data.form,
+                files = data.files,
+                extra = data.extra,
+                response = data.response,
+                reader = data.reader;
+            if (response.code == "success") {
+                if ($("showurl").css("display")) {
+                    $("#urlcode").append(response.data.url + "\n");
+                    $("#htmlcode").append("&lt;img src=\"" + response.data.url + "\" alt=\"" + files[index].name + "\" title=\"" + files[index].name + "\" /&gt;" + "\n");
+                    $("#bbcode").append("[img]" + response.data.url + "[/img]" + "\n");
+                    $("#markdown").append("![" + files[index].name + "](" + response.data.url + ")" + "\n");
+                    $("#markdownlinks").append("[![" + files[index].name + "](" + response.data.url + ")]" + "(" + response.data.url + ")" + "\n");
+                    $("#deletecode").append(response.data.delete + "\n");
 
                 } else if (response.data.url) {
                     $("#showurl").show();
-                    $('#urlcode').append(response.data.url + "\n");
-                    $('#htmlcode').append("&lt;img src=\""+ response.data.url +"\" alt=\""+ files[index].name +"\" title=\""+ files[index].name +"\" /&gt;" + "\n");
-                    $('#bbcode').append("[img]"+ response.data.url +"[/img]" + "\n");
-                    $('#markdown').append("!["+ files[index].name +"](" + response.data.url + ")" + "\n");
-                    $('#markdownlinks').append("[!["+ files[index].name +"](" + response.data.url + ")]" +"(" + response.data.url + ")" + "\n");
-                    $('#deletecode').append(response.data.delete + "\n");
+                    $("#urlcode").append(response.data.url + "\n");
+                    $("#htmlcode").append("&lt;img src=\"" + response.data.url + "\" alt=\"" + files[index].name + "\" title=\"" + files[index].name + "\" /&gt;" + "\n");
+                    $("#bbcode").append("[img]" + response.data.url + "[/img]" + "\n");
+                    $("#markdown").append("![" + files[index].name + "](" + response.data.url + ")" + "\n");
+                    $("#markdownlinks").append("[![" + files[index].name + "](" + response.data.url + ")]" + "(" + response.data.url + ")" + "\n");
+                    $("#deletecode").append(response.data.delete + "\n");
                 }
             }
         });

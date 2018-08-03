@@ -216,12 +216,13 @@ if (!function_exists('upload_file') ) {
 	/**
 	 * 上传文件函数
 	 *
-	 * @param string $file             表单的name名
+	 * @param string $file      表单的name名
+     * @param array  $rule     规则
 	 * @param string $path      上传的路径
 	 * @param bool $childPath   是否根据日期生成子目录
 	 * @return array            上传的状态
 	 */
-	function upload_file($file, $path = 'upload', $childPath = true)
+	function upload_file($file, $rule ,$path = 'upload', $childPath = true)
 	{
 		//判断请求中是否包含name=file的上传文件
 		if (!request()->hasFile($file)) {
@@ -229,7 +230,13 @@ if (!function_exists('upload_file') ) {
 			return $data;
 		}
 		$file = request()->file($file);
-		//判断文件上传过程中是否出错
+        // 判断文件上传条件
+        $validator = \Illuminate\Support\Facades\Validator::make(request()->all(), $rule);
+        if ($validator->fails()) {
+            $data = ['status_code' => 500, 'message' => $validator->errors()->first()];
+            return $data;
+        }
+        //判断文件上传过程中是否出错
 		if (!$file->isValid()) {
 			$data = ['status_code' => 500, 'message' => '文件上传出错'];
 			return $data;
