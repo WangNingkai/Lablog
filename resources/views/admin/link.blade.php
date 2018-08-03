@@ -24,7 +24,7 @@
                             <h3 class="box-title">全部友链</h3>
                             <span>共{{ $links->total() }}个</span>
                         </div>
-                        <div class="box-body table-responsive no-padding">
+                        <div class="box-body ">
                             <table class="table table-hover">
                                 <tr>
                                     <th style="">#</th>

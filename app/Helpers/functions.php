@@ -221,7 +221,7 @@ if (!function_exists('upload_file') ) {
 	 * @param bool $childPath   是否根据日期生成子目录
 	 * @return array            上传的状态
 	 */
-	function upload($file, $path = 'upload', $childPath = true)
+	function upload_file($file, $path = 'upload', $childPath = true)
 	{
 		//判断请求中是否包含name=file的上传文件
 		if (!request()->hasFile($file)) {
@@ -441,3 +441,4 @@ if (!function_exists('re_substr')) {
         return $suffix ? $slice . $omit : $slice;
     }
 }
+

@@ -132,6 +132,11 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
         Route::get('manage', 'OperationLogsController@manage')->name('operation_logs_manage');
         Route::post('destroy', 'OperationLogsController@destroy')->name('operation_logs_destroy');
     });
+
+    Route::group(['prefix' => 'image'],function(){
+        Route::get('list', 'ImageController@list')->name('image_list');
+        Route::post('upload', 'ImageController@upload')->name('image_upload');
+    });
     // 权限管理
     Route::group(['namespace' => 'Permission'],function(){
         // 角色
@@ -165,7 +170,6 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
             Route::post('destroy', 'UserController@destroy')->name('user_destroy');
             Route::get('search', 'UserController@search')->name('user_search');
         });
-
     });
 });
 // 关站判断
