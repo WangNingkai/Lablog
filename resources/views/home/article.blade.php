@@ -5,7 +5,7 @@
 @section('css')
     {!! social_css() !!}
     {!! highlight_css() !!}
-    {{--{!! fancybox_css() !!}--}}
+    {!! fancybox_css() !!}
 @stop
 @section('content')
     <div class="col-md-8">
@@ -132,19 +132,19 @@
 @section('js')
     {!! social_js() !!}
     {!! highlight_js() !!}
-    {{--{!! fancybox_js() !!}--}}
+    {!! fancybox_js() !!}
 <script>
     $(function () {
         $("pre code").each(function(i, block) {
             hljs.highlightBlock(block);
         });
-        // 新页面跳转
         $(".article-content  img").addClass("img-responsive");
-        // $(".article-content  img").parent().attr("data-fancybox","");
-        // $("[data-fancybox]").fancybox({
-        //     // Options will go here
-        // });
-
+        // 判断父类是否是a标签 是添加data属性 否添加a标签
+        if($(".article-content  img").parent().is("a"))
+        {
+            $(".article-content  img").parent().attr("data-fancybox","article-content");
+        }
+        $("[data-fancybox]").fancybox();
     });
 </script>
 @stop
