@@ -47,7 +47,7 @@
                                         <td>{{ transform_size($item['size']) }}</td>
                                         <td>{{ transform_time($item['timestamp']) }}</td>
                                         <td>{{ $item['url'] }}</td>
-                                        <td><a href="{{ $item['delete'] }}" target="_blank" class="delete-item"><span class="text-red">删除链接</span></a></td>
+                                        <td><a href="javascript:void(0)" class="delete-item" data-hash="{{ $item['hash'] }}"><span class="text-red">删除链接</span></a></td>
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -163,6 +163,28 @@
                 'autoWidth'   : false
             });
             $("[data-fancybox]").fancybox();
+            $(".delete-item").on("click",function(){
+                hash = $(this).attr("data-hash");
+                swal({
+                    title: '确定删除吗?',
+                    text: "你将删除此文件的上传地址!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消'
+                }).then((result) => {
+                    if (result.value) {
+                        $.get("https://sm.ms/api/delete/"+ hash);
+                        swal('已删除！','链接将会失效','success');location.reload();
+                    }else if (
+                        result.dismiss === swal.DismissReason.cancel
+                    ) {
+                        swalWithBootstrapButtons('已取消！',':)','error')
+                    }
+                });
+            });
             $("#clear-list").on("click",function(){
                 swal({
                     title: '确定清空吗?',
@@ -185,8 +207,8 @@
                     ) {
                         swalWithBootstrapButtons('已取消！',':)','error')
                     }
-                } );
-            } );
+                });
+            });
         });
         $("#smfile").fileinput({
             language: 'zh',
