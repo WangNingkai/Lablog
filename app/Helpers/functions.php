@@ -137,15 +137,8 @@ if (!function_exists('ip_to_city')) {
     {
         if (!ip_is_private($ip))
         {
-//            $url = "http://ip.taobao.com/service/getIpInfo.php?ip=".$ip;
-////            $json = file_get_contents($url);
-////            $ip = json_decode($json);
-////            if((string)$ip->code == '1'){
-////                return false;
-////            }
-////            $data = (array)$ip->data;
-////            return $data['country'].$data['city'];
-        return '测试';
+            $data = Ip::find($ip);
+            return $data[0].$data[1].$data[2];
         }else{
             return '内网IP';
         }
