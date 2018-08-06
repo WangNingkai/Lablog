@@ -96,8 +96,8 @@
                         </div>
                         <div class="box-body">
                             <div class="row">
-                                <div class="col-md-6">QQ：</div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">QQ：</div>
+                                <div class="col-md-8">
                                     @if(blank($admin->bindQQ))<a href="{{ route('oauth.redirect','qq') }}" class="btn btn-flat bg-gray">点击绑定</a>
                                     @else  <a href="javascript:void(0)" class="btn btn-flat bg-gray">已绑定 ({{ $admin->qqName }})</a>
                                         <a href="javascript:void(0)" class="btn btn-flat bg-red unbind-btn" data-type="qq">解除</a>
@@ -106,8 +106,8 @@
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="row">
-                                <div class="col-md-6">微博：</div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">微博：</div>
+                                <div class="col-md-8">
                                     @if(blank($admin->bindWeibo))<a href="{{ route('oauth.redirect','weibo') }}" class="btn btn-flat bg-gray">点击绑定</a>
                                     @else  <a href="javascript:void(0)" class="btn btn-flat bg-gray">已绑定 ({{ $admin->weiboName }})</a>
                                     <a href="javascript:void(0)" class="btn btn-flat bg-red unbind-btn" data-type="weibo">解除</a>
@@ -116,8 +116,8 @@
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="row">
-                                <div class="col-md-6">GitHub：</div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">GitHub：</div>
+                                <div class="col-md-8">
                                     @if(blank($admin->bindGithub))<a href="{{ route('oauth.redirect','github') }}" class="btn btn-flat bg-gray">点击绑定</a>
                                     @else  <a href="javascript:void(0)" class="btn btn-flat bg-gray">已绑定 ({{ $admin->githubName }})</a>
                                     <a href="javascript:void(0)" class="btn btn-flat bg-red unbind-btn" data-type="github">解除</a>
