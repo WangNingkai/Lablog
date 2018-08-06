@@ -432,14 +432,14 @@ if (!function_exists('transform_time')) {
 }
 if (!function_exists('transform_size')) {
     /**
+     * 文件大小转换
      * @param $size
      * @return string
      */
     function transform_size($size)
     {
-        $units = array(' B', ' KB', ' MB', ' GB', ' TB');
-        for ($i = 0; $size >= 1024 && $i < 4; $i++) $size /= 1024;
-        return round($size, 2).$units[$i];
+        $units = [' B', ' KB', ' MB', ' GB', ' TB'];
+        return @round($size / pow(1024, ($i = floor(log($size, 1024)))), 2) . ' ' . $units[2];
     }
 
 }
