@@ -1,6 +1,7 @@
 @extends('layouts.backend')
 @section('title','控制台 - 个人信息')
 @section('css')
+    <link href="https://cdn.bootcss.com/Dropify/0.2.2/css/dropify.min.css" rel="stylesheet">
     <style>
         .hr-line-dashed {
             border-top: 1px dashed #e7eaec;
@@ -8,6 +9,13 @@
             background-color: #fff;
             height: 1px;
             margin: 20px 0
+        }
+        .avatar-view {
+            height: 100px;
+            width: 100px;
+            border: 3px solid #fff;
+            border-radius: 50px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, .15);
         }
     </style>
 @stop
@@ -23,13 +31,17 @@
         <section class="content container-fluid">
             <div class="row">
                 <div class="col-md-4">
-                    <form role="form"  method="POST" action="{{route('profile_update')}}" id="editProfileForm">
+                    <form role="form"  method="POST" action="{{ route('profile_update') }}" id="editProfileForm">
                     @csrf
                         <div class="box box-default">
                             <div class="box-header with-border">
                                 <h3 class="box-title">基本设置</h3>
                             </div>
                             <div class="box-body">
+                                <div class="form-group">
+                                    <label>上传头像：</label>
+                                    <div class="avatar-view"><a data-toggle="modal" href='#modal-id'><img class="img-circle img-responsive" src="{{ $admin->avatar }}"/></a></div>
+                                </div>
                                 <div class="form-group {{$errors->has('name')?'has-error':''}}">
                                     <label for="name">用户名：</label>
                                     <input type="text" class="form-control" name="name" id="name" value="{{old('name')?old('name'):$admin->name}}">
@@ -133,11 +145,39 @@
                 </div>
             </div>
         </section>
+        <div class="modal fade" id="modal-id">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">上传头像</h4>
+                    </div>
+                    <form action="{{ route('avatar_upload') }}" method="post">
+                        <div class="modal-body">
+                            <input type="file" name="avatar" class="dropify" data-max-height="200" data-allowed-file-extensions="png jpg jpeg" data-max-file-size="2M"/>
+                            <span class="help-block">头像支持png、jpg、jepg 格式小于2M的图片.为保证头像质量请上传等比例的图片。并保证宽度小于200像素</span>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary btn-flat">上传</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 @stop
 @section('js')
+    <script src="https://cdn.bootcss.com/Dropify/0.2.2/js/dropify.min.js"></script>
 <script>
 $(function () {
+    $('.dropify').dropify({
+        messages: {
+            'default': '点击或拖拽图片到这里',
+            'replace': '点击或拖拽图片到这里来替换图片',
+            'remove': '移除',
+            'error': '对不起，你上传的图片太大了'
+        }
+    });
     $(".unbind-btn").on("click", function () {
         bindType = $(this).data('type');
         $("#bindType").val(bindType);

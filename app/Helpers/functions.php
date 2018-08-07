@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Mail;
 use HyperDown\Parser;
 use Jenssegers\Agent\Agent;
 use App\Events\OperationEvent;
+use Zhuzhichao\IpLocationZh\Ip;
 
 if (!function_exists('operation_event')) {
     /**

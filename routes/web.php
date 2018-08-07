@@ -69,6 +69,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
     // 个人资料
     Route::group(['prefix' => 'profile'], function () {
         Route::get('manage', 'ProfileController@manage')->name('profile_manage');
+        Route::post('uploadAvatar', 'ProfileController@uploadAvatar')->name('avatar_upload');
         Route::post('updatePassword', 'ProfileController@updatePassword')->name('password_update');
         Route::post('updateProfile', 'ProfileController@updateProfile')->name('profile_update');
         Route::post('unbindThirdLogin', 'ProfileController@unbindThirdLogin')->name('unbind_third_login');

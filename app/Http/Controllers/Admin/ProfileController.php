@@ -44,6 +44,12 @@ class ProfileController extends Controller
         return view('admin.profile', compact('admin'));
     }
 
+    public function uploadAvatar()
+    {
+        $path = public_path('uploads/avatar/');
+        $rule = ['avatar' => 'required|max:2048|image|dimensions:max_width=200,max_height=200'];
+        upload_file('avatar',$rule,$path,false);
+    }
     /**
      * 更新密码
      * @param UpdatePassword $request
