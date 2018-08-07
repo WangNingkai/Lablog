@@ -47,6 +47,7 @@ class ProfileController extends Controller
     public function uploadAvatar()
     {
         $path = public_path('uploads/avatar/');
+        // todo 判断是否需要改名
         $rule = ['avatar' => 'required|max:2048|image|dimensions:max_width=200,max_height=200'];
         upload_file('avatar',$rule,$path,false);
     }
