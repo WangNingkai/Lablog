@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\User\UpdatePassword;
 use App\Http\Requests\User\UpdateProfile;
@@ -46,10 +47,25 @@ class ProfileController extends Controller
 
     public function uploadAvatar()
     {
-        $path = public_path('uploads/avatar/');
-        // todo 判断是否需要改名
+        $uid = Auth::id();
+        $path = 'uploads/avatar';
         $rule = ['avatar' => 'required|max:2048|image|dimensions:max_width=200,max_height=200'];
-        upload_file('avatar',$rule,$path,false);
+        $avatarName = md5('user_'.$uid.'_avatar');
+        $response = upload_file('avatar', $rule, $path, $avatarName);
+
+        if (200 === $response['status_code'])
+        {
+            $avatarPath = $response['data']['path'].$response['data']['new_name'];
+            $user = User::query()->find($uid);
+            $user->update([
+                'avatar' => $avatarPath
+            ]);
+            show_message('头像上传成功');
+        }else{
+            show_message($response['message'],false);
+        }
+
+        return redirect()->route('profile_manage');
     }
     /**
      * 更新密码

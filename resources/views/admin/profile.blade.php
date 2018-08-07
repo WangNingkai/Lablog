@@ -40,7 +40,7 @@
                             <div class="box-body">
                                 <div class="form-group">
                                     <label>上传头像：</label>
-                                    <div class="avatar-view"><a data-toggle="modal" href='#modal-id'><img class="img-circle img-responsive" src="{{ $admin->avatar }}"/></a></div>
+                                    <div class="avatar-view"><a data-toggle="modal" href='#avatar-modal'><img class="img-responsive img-circle" src="{{ $admin->avatar }}"/></a></div>
                                 </div>
                                 <div class="form-group {{$errors->has('name')?'has-error':''}}">
                                     <label for="name">用户名：</label>
@@ -145,15 +145,16 @@
                 </div>
             </div>
         </section>
-        <div class="modal fade" id="modal-id">
+        <div class="modal fade" id="avatar-modal">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         <h4 class="modal-title">上传头像</h4>
                     </div>
-                    <form action="{{ route('avatar_upload') }}" method="post">
+                    <form action="{{ route('avatar_upload') }}" method="post" enctype="multipart/form-data">
                         <div class="modal-body">
+                            @csrf
                             <input type="file" name="avatar" class="dropify" data-max-height="200" data-allowed-file-extensions="png jpg jpeg" data-max-file-size="2M"/>
                             <span class="help-block">头像支持png、jpg、jepg 格式小于2M的图片.为保证头像质量请上传等比例的图片。并保证宽度小于200像素</span>
                         </div>

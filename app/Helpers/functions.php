@@ -211,13 +211,14 @@ if (!function_exists('upload_file') ) {
 	/**
 	 * 上传文件函数
 	 *
-	 * @param string $file      表单的name名
-     * @param array  $rule     规则
-	 * @param string $path      上传的路径
-	 * @param bool $childPath   是否根据日期生成子目录
-	 * @return array            上传的状态
+	 * @param string $file            表单的name名
+     * @param array  $rule           规则
+	 * @param string $path           上传的路径
+     * @param mixed  $isRandName     是否自定义名
+	 * @param bool $childPath        是否根据日期生成子目录
+	 * @return array                 上传的状态
 	 */
-	function upload_file($file, $rule ,$path = 'upload', $childPath = true)
+	function upload_file($file, $rule ,$path = 'upload', $isRandName = null,$childPath = false)
 	{
 		//判断请求中是否包含name=file的上传文件
 		if (!request()->hasFile($file)) {
@@ -248,7 +249,7 @@ if (!function_exists('upload_file') ) {
 		//获取上传的文件名
 		$oldName = $file->getClientOriginalName();
 		//组合新的文件名
-		$newName = uniqid() . '.' . $file->getClientOriginalExtension();
+        $newName =  $isRandName ? $isRandName.'.' . 'png' : uniqid() . '.' . 'png';
 		//上传失败
 		if (!$file->move($path, $newName)) {
 			return ['status_code' => 500, 'message' => '保存文件失败'];

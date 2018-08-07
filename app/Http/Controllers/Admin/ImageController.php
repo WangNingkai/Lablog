@@ -28,7 +28,7 @@ class ImageController extends Controller
     public function upload()
     {
         $rule = ['smfile' => 'required|max:5096|image'];
-        $result = upload_file('smfile',$rule,'uploads/tmp/',false);
+        $result = upload_file('smfile',$rule,'uploads/tmp/');
         $file = $result['status_code'] == 200 ? $result['data'] : null;
         $file['path'] = public_path( $file['path']).$file['new_name'];
         try {
