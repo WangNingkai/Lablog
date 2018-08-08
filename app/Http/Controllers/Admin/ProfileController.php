@@ -22,7 +22,6 @@ class ProfileController extends Controller
     {
         $uid = Auth::id();
         $admin = Admin::query()->where('id',$uid)->with('oauthinfos')->first();
-        // 添加绑定判断
         foreach($admin->oauthinfos as $oauthinfo)
         {
             switch ($oauthinfo->type)
@@ -51,19 +50,21 @@ class ProfileController extends Controller
         $path = 'uploads/avatar';
         $rule = ['avatar' => 'required|max:2048|image|dimensions:max_width=200,max_height=200'];
         $avatarName = md5('user_'.$uid.'_avatar');
+        // 先删除原图片再上传 ,上传失败恢复默认图片
+        @unlink(public_path('uploads/avatar') . $avatarName.'.png');
         $response = upload_file('avatar', $rule, $path, $avatarName);
-
+        $avatarPath = '/uploads/avatar' . $avatarName.'.png';
         if (200 === $response['status_code'])
         {
             $avatarPath = $response['data']['path'].$response['data']['new_name'];
-            $user = User::query()->find($uid);
-            $user->update([
-                'avatar' => $avatarPath
-            ]);
             show_message('头像上传成功');
         }else{
             show_message($response['message'],false);
         }
+        $user = User::query()->find($uid);
+        $user->update([
+            'avatar' => $avatarPath
+        ]);
 
         return redirect()->route('profile_manage');
     }
