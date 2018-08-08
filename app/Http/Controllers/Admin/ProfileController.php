@@ -21,7 +21,7 @@ class ProfileController extends Controller
     public function manage()
     {
         $uid = Auth::id();
-        $admin = Admin::where('id',$uid)->with('oauthinfos')->first();
+        $admin = Admin::query()->where('id',$uid)->with('oauthinfos')->first();
         // 添加绑定判断
         foreach($admin->oauthinfos as $oauthinfo)
         {
