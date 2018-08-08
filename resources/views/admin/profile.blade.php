@@ -16,6 +16,7 @@
             border: 3px solid #fff;
             border-radius: 50px;
             box-shadow: 0 0 5px rgba(0, 0, 0, .15);
+            margin: 0 auto;
         }
     </style>
 @stop
@@ -40,7 +41,11 @@
                             <div class="box-body">
                                 <div class="form-group">
                                     <label>上传头像：</label>
-                                    <div class="avatar-view"><a data-toggle="modal" href='#avatar-modal'><img class="img-responsive img-circle" src="{{ $admin->avatar }}"/></a></div>
+                                    <div class="avatar-view">
+                                        <a data-toggle="modal" href='#avatar-modal'>
+                                            <img class="img-responsive img-circle" src="{{ $admin->avatar }}"/>
+                                        </a>
+                                    </div>
                                 </div>
                                 <div class="form-group {{$errors->has('name')?'has-error':''}}">
                                     <label for="name">用户名：</label>
