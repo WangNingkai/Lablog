@@ -61,7 +61,7 @@
                             <div class="pull-left">
                                 <a href="javascript:void(0)" class="btn btn-primary btn-flat" onclick="selectAll('opid')">全选</a>
                                 <a href="javascript:void(0)" class="btn btn-primary btn-flat" onclick="selectEmpty('opid')">全不选</a>
-                                <a href="javascript:void(0)" class="btn btn-primary btn-flat" onclick="delSelectedOperationLogs('opid')">反选</a>
+                                <a href="javascript:void(0)" class="btn btn-primary btn-flat" onclick="selectReverse('opid')">反选</a>
                                 <a href="javascript:void(0)" class="btn btn-danger btn-flat" id="delSelectedOperationLogs">删除选定</a>
                             </div>
                              {{ $operation_logs->links('vendor.pagination.adminlte') }}
