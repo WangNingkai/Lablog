@@ -144,6 +144,7 @@
         {
             $(".article-content  img").parent().attr("data-fancybox","article-content");
         }
+        $(".article-content  table").addClass("table table-hover table-bordered");
         $("[data-fancybox]").fancybox();
     });
 </script>
