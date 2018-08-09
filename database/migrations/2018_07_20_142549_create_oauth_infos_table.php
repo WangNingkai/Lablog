@@ -14,7 +14,7 @@ class CreateOauthInfosTable extends Migration
     public function up()
     {
         Schema::create('oauth_infos', function (Blueprint $table) {
-            $table->increments('id')->comment('主键id');
+            $table->increments('id')->comment('三方登录信息ID');
             $table->unsignedInteger('user_id')->comment('绑定的用户id');
             $table->boolean('type')->default(1)->comment('类型 1：QQ  2：新浪微博 3：github');
             $table->string('name')->comment('第三方昵称');

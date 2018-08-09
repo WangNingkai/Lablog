@@ -14,7 +14,7 @@ class CreateCategoriesTable extends Migration
     public function up()
     {
         Schema::create('categories', function (Blueprint $table) {
-            $table->increments('id')->comment('主键ID');
+            $table->increments('id')->comment('分类ID');
             $table->unsignedInteger('pid')->default(0)->comment('父级ID');
             $table->string('name')->comment('栏目名');
             $table->string('flag')->comment('标签标识');

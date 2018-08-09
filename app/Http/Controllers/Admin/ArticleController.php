@@ -104,7 +104,7 @@ class ArticleController extends Controller
     public function update(Store $request, ArticleTag $articleTagModel, $id)
     {
         $data = $request->except('_token');
-        // 如果没有描述;则截取文章内容的前200字作为描述
+        // 如果没有描述;则截取文章内容的前150字作为描述
         if (empty($data['description'])) {
             $description = preg_replace(array('/[~*>#-]*/', '/!?\[.*\]\(.*\)/', '/\[.*\]/'), '', $data['content']);
             $data['description'] = re_substr($description, 0, 150, true);

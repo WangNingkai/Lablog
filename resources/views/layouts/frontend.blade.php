@@ -38,14 +38,14 @@
             <nav class="navbar navbar-fixed-top">
                 <div class="container">
                     <div class="navbar-header">
-                        <a href="{{route('home')}}" class="navbar-brand">
+                        <a href="{{ route('home')}}" class="navbar-brand">
                             <b>{{ $config['site_name'] }}</b></a>
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
                             <i class="fa fa-bars"></i>
                         </button>
                     </div>
                     <div class="collapse navbar-collapse " id="navbar-collapse">
-                        <form class="navbar-form navbar-left" role="search" action="{{route('search')}}" method="get">
+                        <form class="navbar-form navbar-left" role="search" action="{{ route('search') }}" method="get">
                             <div class="form-group">
                                 <input type="text" class="form-control" id="navbar-search-input" name="keyword" placeholder="搜索">
                             </div>
@@ -53,24 +53,22 @@
 
                         <ul class="nav navbar-nav">
                             <li class="">
-                                <a href="{{ route('home')}}">首页
-                                    <span class="sr-only">（当前）</span>
-                                </a>
+                                <a href="{{ route('home')}}">首页</a>
                             </li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">分类
                                     <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu" role="menu">
-                                    @foreach($category_list as $c_list)
+                                    @foreach($category_list as $category_v)
                                         <li>
-                                            <a href="{{route('category',$c_list->id)}}">{{$c_list->name}}</a>
+                                            <a href="{{route('category',$category_v->id)}}">{{$category_v->name}}</a>
                                         </li>
                                     @endforeach
                                 </ul>
                             </li>
                              <li>
-                                <a href="{{route('archive')}}">归档</a>
+                                <a href="{{ route('archive') }}">归档</a>
                             </li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">关于
@@ -80,12 +78,42 @@
                                     <li>
                                         <a href="{{ $config['site_admin_mail'] }}">邮箱投稿</a>
                                     </li>
-                                    <li><a href="{{route('about')}}">关于本站</a></li>
+                                    <li><a href="{{ route('about') }}">关于本站</a></li>
                                 </ul>
                             </li>
                              <li>
-                                <a href="{{route('message')}}">留言</a>
+                                <a href="{{ route('message') }}">留言</a>
                             </li>
+                            <li>
+                                <a href="{{ route('message') }}">留言</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('message') }}">留言</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('message') }}">留言</a>
+                            </li><li>
+                                <a href="{{ route('message') }}">留言</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('message') }}">留言</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('message') }}">留言</a>
+                            </li><li>
+                                <a href="{{ route('message') }}">留言</a>
+                            </li><li>
+                                <a href="{{ route('message') }}">留言</a>
+                            </li><li>
+                                <a href="{{ route('message') }}">留言</a>
+                            </li>
+
+
+
+
+
+
+
                         </ul>
 
                     </div>
