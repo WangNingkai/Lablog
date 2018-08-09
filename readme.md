@@ -7,6 +7,7 @@ Lablog
 - 3.后台支持QQ、微博、github第三方登录；
 - 4.集成优秀的Markdown文本编辑器Editor.md；
 - 5.后台基于路由搭建完整的权限控制系统，支持多后台用户。
+- 6.后台集成SM.MS上传接口，方便用户上传图片
 
 ### 链接
 - 博客：[https://imwnk.cn](https://imwnk.cn)
@@ -47,3 +48,18 @@ chown -R www:www *
 ### 版权
 
 项目使用 MIT 协议；免费开源可随意使用；
+
+### 图片演示
+
+#### 前台首页
+[![2018-08-09_141946.png](https://i.loli.net/2018/08/09/5b6bdda70fc99.png)](https://i.loli.net/2018/08/09/5b6bdda70fc99.png)
+
+#### 前台首页（手机）
+[![2018-08-09_142011.png](https://i.loli.net/2018/08/09/5b6bdda65ce61.png)](https://i.loli.net/2018/08/09/5b6bdda65ce61.png)
+
+#### 登录
+[![2018-08-09_142112.png](https://i.loli.net/2018/08/09/5b6bdda5578f6.png)](https://i.loli.net/2018/08/09/5b6bdda5578f6.png)
+
+#### 后台
+[![2018-08-09_142051.png](https://i.loli.net/2018/08/09/5b6bdda684bc6.png)](https://i.loli.net/2018/08/09/5b6bdda684bc6.png)
+
