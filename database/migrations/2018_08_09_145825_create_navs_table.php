@@ -15,9 +15,10 @@ class CreateNavsTable extends Migration
     {
         Schema::create('navs', function (Blueprint $table) {
             $table->increments('id')->comment('菜单ID');
+            $table->unsignedInteger('parent_id')->default(0)->comment('父级ID');
             $table->string('name')->default('')->comment('菜单名');
             $table->string('url')->nullable()->comment('链接');
-            $table->boolean('type')->default(1)->comment('菜单类型1分类菜单2归档3单页4链接');
+            $table->boolean('type')->default(1)->comment('菜单类型');
             $table->boolean('sort')->default(1)->comment('排序');
             $table->boolean('status')->default(0)->comment('状态');
             $table->timestamps();

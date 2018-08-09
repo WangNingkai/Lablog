@@ -8,6 +8,12 @@ use App\Http\Controllers\Controller;
 
 class NavController extends Controller
 {
+    protected $nav;
+
+    public function __construct(Nav $nav)
+    {
+        $this->nav = $nav;
+    }
 
     public function manage()
     {
