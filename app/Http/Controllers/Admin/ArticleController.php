@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Http\Requests\Article\Store;
 use App\Http\Controllers\Controller;
@@ -196,9 +197,8 @@ class ArticleController extends Controller
             show_message('彻底删除失败', false);
             return redirect()->back();
         }
-        // 删除对应标签记录
-        $articleTagModel = new ArticleTag;
-        $deleteOrFail = $articleTagModel->whereIn('article_id', $arr)->delete();
+        // 删除对应标签记录与评论记录
+        $deleteOrFail = ArticleTag::query()->whereIn('article_id', $arr)->delete() && Comment::query()->whereIn('article_id', $arr)->delete();
         $deleteOrFail ? show_message('彻底删除成功') : show_message('彻底删除失败',false);
         operation_event(auth()->user()->name,'完全删除文章');
         baidu_push($arr,'del');

@@ -73,9 +73,9 @@ class MessageController extends Controller
         $id =  $request->get('id');
         $reply = $request->get('reply');
         $this->message->replyData($id,$reply);
-        $emailto=$this->message->query()->where('id',$id)->value('email');
+        $emailTo=$this->message->query()->where('id',$id)->value('email');
         operation_event(auth()->user()->name,'回复留言');
-        Mail::to( $emailto)->send(new SendReply('站点留言回复提醒','您在我站的留言，站长已经回复，请注意查看.',route('message')));
+        Mail::to( $emailTo)->send(new SendReply('站点留言回复提醒','您在我站的留言，站长已经回复，请注意查看.',route('message')));
         return redirect()->route('message_manage');
     }
 

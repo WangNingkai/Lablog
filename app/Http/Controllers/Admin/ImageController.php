@@ -9,6 +9,7 @@ use GuzzleHttp\Client;
 class ImageController extends Controller
 {
     /**
+     * 上传历史列表
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function list()
@@ -23,6 +24,7 @@ class ImageController extends Controller
     }
 
     /**
+     * 上传
      * @return array|\Illuminate\Http\JsonResponse
      */
     public function upload()
@@ -41,6 +43,7 @@ class ImageController extends Controller
     }
 
     /**
+     * 上传到SM.MS
      * @param $file
      * @return mixed
      */
