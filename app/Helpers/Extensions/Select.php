@@ -1,5 +1,5 @@
 <?php
- namespace App\Libraries\Extensions;
+namespace App\Helpers\Extensions;
 
 class Select
 {

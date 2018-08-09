@@ -61,7 +61,7 @@ if (!function_exists('get_select')) {
      */
     function get_select($data, $selected_id = 0)
     {
-        $select = new \App\Libraries\Extensions\Select($data);
+        $select = new \App\Helpers\Extensions\Select($data);
         return $select->make_option_tree_for_select($selected_id);
     }
 }
@@ -457,4 +457,19 @@ if (!function_exists('re_substr')) {
         return $suffix ? $slice . $omit : $slice;
     }
 }
+if (!function_exists('has_filter')) {
+    /**
+     * 过滤敏感词
+     * @param $content
+     * @return int
+     */
+    function has_filter($content)
+    {
+        $filterFile = storage_path('app/data').'/dict.bin';
+        $dict = new \App\Helpers\Extensions\SimpleDict($filterFile);
+        $re = $dict->search($content);
+        return count($re) > 0 ? 1 : 0;
+    }
+}
+
 

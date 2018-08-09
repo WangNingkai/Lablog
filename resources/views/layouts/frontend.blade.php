@@ -84,38 +84,7 @@
                              <li>
                                 <a href="{{ route('message') }}">留言</a>
                             </li>
-                            <li>
-                                <a href="{{ route('message') }}">留言</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('message') }}">留言</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('message') }}">留言</a>
-                            </li><li>
-                                <a href="{{ route('message') }}">留言</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('message') }}">留言</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('message') }}">留言</a>
-                            </li><li>
-                                <a href="{{ route('message') }}">留言</a>
-                            </li><li>
-                                <a href="{{ route('message') }}">留言</a>
-                            </li><li>
-                                <a href="{{ route('message') }}">留言</a>
-                            </li>
-
-
-
-
-
-
-
                         </ul>
-
                     </div>
                 </div>
             </nav>
