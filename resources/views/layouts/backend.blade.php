@@ -118,7 +118,7 @@
                     </a>
                     <ul class="treeview-menu">
                         <li class="{{ set_active('admin/config/manage') }}" ><a href="{{ route('config_manage') }}"><i class="fa fa-cog"></i> 站点设置</a></li>
-                        <li class="{{ set_active('admin/about/manage') }}"><a href="{{ route('about_manage') }}"><i class="fa fa-address-card"></i> 关于页面</a></li>
+                        <li class="{{ set_active('admin/nav/manage') }}"><a href="{{ route('nav_manage') }}"><i class="fa fa-bars"></i> 菜单管理</a></li>
                     </ul>
                 </li>
                 <li class="treeview {{ set_active('admin/tag') }} {{ set_active('admin/category') }} {{ set_active('admin/article') }} {{ set_active('admin/page') }}">
@@ -135,7 +135,7 @@
 
                     </ul>
                 </li>
-                <li class="treeview {{ set_active('admin/link') }} {{ set_active('admin/message') }} {{ set_active('admin/comment') }}  {{ set_active('admin/image') }}">
+                <li class="treeview {{ set_active('admin/link') }} {{ set_active('admin/message') }} {{ set_active('admin/comment') }}">
                     <a href="#">
                         <i class="fa fa-cogs"></i> <span> 其他模块</span>
                         <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
@@ -144,7 +144,6 @@
                         <li class="{{ set_active('admin/link/manage') }}"><a href="{{ route('link_manage') }}"><i class="fa fa-link"></i> 我的友链</a></li>
                         <li class="{{ set_active('admin/comment/manage') }}"><a href="{{ route('comment_manage') }}"><i class="fa fa-comment"></i> 我的评论</a></li>
                         <li class="{{ set_active('admin/message/manage') }}"><a href="{{ route('message_manage') }}"><i class="fa fa-comments"></i> 我的留言</a></li>
-                        <li class="{{ set_active('admin/image/list') }}"><a href="{{ route('image_list') }}"><i class="fa fa-image"></i> 图床</a></li>
                     </ul>
                 </li>
                 @role(\App\Models\User::SUPERADMIN)
@@ -161,6 +160,7 @@
                 </li>
                 @endrole
                 <li class="{{ set_active('admin/operation_logs/manage') }}"><a href="{{ route('operation_logs_manage') }}"><i class="fa fa-history"></i> <span> 日志查看</span></a></li>
+                <li class="{{ set_active('admin/image/list') }}"><a href="{{ route('image_list') }}"><i class="fa fa-image"></i> <span>图床</span></a></li>
             </ul>
         </section>
     </aside>

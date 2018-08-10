@@ -31,7 +31,7 @@ if (!function_exists('get_tree')) {
         //每次都声明一个新数组用来放子元素
         $tree = [];
         foreach ($data as $v) {
-            if ($v['pid'] == $pid) {
+            if ($v['parent_id'] == $pid) {
                 //匹配子记录
                 $v['children'] = get_tree($data, $v['id'], null);
                 //递归获取子记录
@@ -470,6 +470,30 @@ if (!function_exists('has_filter')) {
         $dict = new SimpleDictionary($filterFile);
         $re = $dict->search($content);
         return count($re) > 0 ? 1 : 0;
+    }
+}
+
+if (!function_exists('get_tree_index')) {
+    /**
+     * @param $data
+     * @param int $id
+     * @param int $deep
+     * @return array
+     */
+    function get_tree_index($data, $id = 0, $deep = 0) {
+        $tempArr = [];
+        foreach ($data as $k => $v) {
+            if($v['parent_id'] == $id){
+                $v['deep'] = $deep;
+                if($v['parent_id']!==0)
+                {
+                    $v['name'] = str_repeat("&nbsp;&nbsp;", $v['deep'] * 2) . '|-' . $v['name'];
+                }
+                $tempArr[] = $v;
+                $tempArr = array_merge($tempArr,get_tree_index($data,$v['id'], $deep + 1));
+            }
+        }
+        return $tempArr;
     }
 }
 

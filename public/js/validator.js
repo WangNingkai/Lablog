@@ -70,7 +70,7 @@ $(function() {
             description: {
                 required: !0,
             },
-            pid: {
+            parent_id: {
                 required: !0,
             },
             sort: {
@@ -90,7 +90,7 @@ $(function() {
             description: {
                 required: e + "请输入描述",
             },
-            pid: {
+            parent_id: {
                 required: e + "请选择父级栏目",
             },
             sort: {
@@ -112,7 +112,7 @@ $(function() {
             description: {
                 required: !0,
             },
-            pid: {
+            parent_id: {
                 required: !0,
             },
             sort: {
@@ -133,7 +133,7 @@ $(function() {
             description: {
                 required: e + "请输入描述",
             },
-            pid: {
+            parent_id: {
                 required: e + "请选择父级栏目",
             },
             sort: {

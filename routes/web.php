@@ -93,6 +93,15 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
         Route::post('update/{id}', 'CategoryController@update')->name('category_update');
         Route::post('destroy', 'CategoryController@destroy')->name('category_destroy');
     });
+    // 菜单
+    Route::group(['prefix' => 'nav'], function () {
+        Route::get('manage', 'NavController@manage')->name('nav_manage');
+        Route::get('create', 'NavController@create')->name('nav_create');
+        Route::post('store', 'NavController@store')->name('nav_store');
+        Route::get('edit/{id}', 'NavController@edit')->name('nav_edit');
+        Route::post('update/{id}', 'NavController@update')->name('nav_update');
+        Route::post('destroy', 'NavController@destroy')->name('nav_destroy');
+    });
     // 文章
     Route::group(['prefix' => 'article'], function () {
         Route::get('manage', 'ArticleController@manage')->name('article_manage');

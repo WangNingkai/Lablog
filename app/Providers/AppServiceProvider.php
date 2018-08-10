@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
             $category_list = Cache::remember('cache:category_list', 1440, function () {
                 // 获取分类导航
                 return Category::query()->select('id', 'name')
-                    ->where('pid', 0)
+                    ->where('parent_id', 0)
                     ->orderBy('sort', 'asc')
                     ->get();
             });

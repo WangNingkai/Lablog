@@ -23,6 +23,10 @@ class PageController extends Controller
         $this->page = $page;
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function manage(Request $request)
     {
         $keyword = $request->get('keyword') ?? '';
@@ -38,13 +42,18 @@ class PageController extends Controller
 
     }
 
-
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function create()
     {
         return view('admin.page-create');
     }
 
-
+    /**
+     * @param Store $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(Store $request)
     {
         $this->page->storeData($request->all());
@@ -52,27 +61,35 @@ class PageController extends Controller
         return redirect()->route('page_manage');
     }
 
-
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function edit($id)
     {
         $page = $this->page->query()->find($id);
         return view('admin.page-edit', compact('page'));
     }
 
-
+    /**
+     * @param Store $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(Store $request, $id)
     {
         $data = $request->except('_token');
-        // 把markdown转html
         unset($data['editormd_id-html-code']);
         $data['html'] = markdown_to_html($data['content']);
-        // 编辑文章
         $this->page->updateData(['id' => $id], $data);
         operation_event(auth()->user()->name,'编辑单页');
         return redirect()->route('page_manage');
     }
 
-
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function delete(Request $request)
     {
         $data = $request->only('pid');
@@ -85,7 +102,9 @@ class PageController extends Controller
         return redirect()->back();
     }
 
-
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function trash()
     {
         $pages = $this->page->query()
@@ -96,7 +115,10 @@ class PageController extends Controller
         return view('admin.page-trash', compact('pages'));
     }
 
-
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function restore(Request $request)
     {
         $data = $request->only('pid');
@@ -110,7 +132,10 @@ class PageController extends Controller
         return redirect()->back();
     }
 
-
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy(Request $request)
     {
         $data = $request->only('pid');

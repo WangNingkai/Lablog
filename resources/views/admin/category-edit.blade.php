@@ -81,16 +81,16 @@
                                     @endif
                                 </div>
                                 <div class="form-group">
-                                    <label for="pid">父级栏目</label>
-                                    <select class="form-control {{$errors->has('pid')?'has-error':''}}" name="pid" id="pid">
+                                    <label for="parent_id">父级栏目</label>
+                                    <select class="form-control {{$errors->has('parent_id')?'has-error':''}}" name="parent_id" id="parent_id">
                                         <option value="">请选择栏目</option>
-                                        <option value="0" @if( 0==$edit_category->pid) selected @endif>一级栏目</option>
+                                        <option value="0" @if( 0==$edit_category->parent_id) selected @endif>一级栏目</option>
                                         @foreach($levelOne as $cate)
-                                        <option value="{{ $cate->id }}" @if( $cate->id==$edit_category->pid) selected @endif>{{ $cate->name }}</option>
+                                        <option value="{{ $cate->id }}" @if( $cate->id==$edit_category->parent_id) selected @endif>{{ $cate->name }}</option>
                                         @endforeach
                                     </select>
-                                    @if ($errors->has('pid'))
-                                        <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('pid') }}</strong></span>
+                                    @if ($errors->has('parent_id'))
+                                        <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('parent_id') }}</strong></span>
                                     @endif
                                 </div>
                                 <div class="form-group {{$errors->has('flag')?'has-error':''}}">

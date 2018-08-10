@@ -255,7 +255,7 @@ $(function () {
         $("#deleteId").val(pid);
         swal({
             title: "确定删除吗？",
-            text: "删除后可在文章回收站恢复",
+            text: "删除后可在单页回收站恢复",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
@@ -279,7 +279,7 @@ $(function () {
             $("#deleteId").val(ids);
             swal({
                 title: "确定删除吗？",
-                text: "删除后可在文章回收站恢复",
+                text: "删除后可在单页回收站恢复",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
@@ -302,7 +302,7 @@ $(function () {
         $("#restoreId").val(pid);
         swal({
             title: "确定恢复吗？",
-            text: "恢复后可在全部文章中查看",
+            text: "恢复后可在单页列表中查看",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
@@ -326,7 +326,7 @@ $(function () {
             $("#restoreId").val(ids);
             swal({
                 title: "确定恢复吗？",
-                text: "恢复后可在全部文章中查看",
+                text: "恢复后可在单页列表中查看",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",

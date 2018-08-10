@@ -18,57 +18,7 @@
         </section>
         <section class="content container-fluid">
             <div class="row">
-                <div class="col-md-8">
-                    <div class="box">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">全部菜单</h3>
-                        </div>
-                        <div class="box-body table-responsive no-padding">
-                            <table class="table table-hover">
-                                <tr>
-                                    <th>#</th>
-                                    <th>菜单名</th>
-                                    <th>类型</th>
-                                    <th>排序权重</th>
-                                    <th>操作</th>
-                                </tr>
-                                @foreach($navs as $nav)
-                                    <tr>
-                                        <td><input type="checkbox" value="{{$nav->id}}" name="nid" class="i-checks"></td>
-                                        <td>{!! $nav->name !!}</td>
-                                        <td>
-                                            {{$nav->type}}
-                                        </td>
-                                        <td>
-                                            {{$nav->sort}}
-                                        </td>
-                                        <td>
-                                            <a href="{{route('nav_edit',$nav->id)}}" class="text-green">
-                                                <i class="fa fa-pencil-square-o"></i>
-                                            </a>&nbsp;&nbsp;
-                                            <a href="javascript:void(0)" class="text-red delCategory">
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </table>
-                            <form id="deleteForm" style="display: none;" action="{{route('nav_destroy')}}" method="post">
-                                @csrf
-                                <input type="hidden" name="nid" id="deleteId">
-                            </form>
-                        </div>
-                        <div class="box-footer clearfix">
-                            <div class="pull-left">
-                                <a href="javascript:void(0)" class="btn btn-primary btn-flat" onclick="selectAll('nid')">全选</a>
-                                <a href="javascript:void(0)" class="btn btn-primary btn-flat" onclick="selectEmpty('nid')">全不选</a>
-                                <a href="javascript:void(0)" class="btn btn-primary btn-flat" onclick="selectReverse('nid')">反选</a>
-                                <a href="javascript:void(0)" class="btn btn-danger btn-flat" id="delSelectedCategory">删除选定</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
+                <div class="col-md-12">
                     <form role="form"  method="POST" action="{{ route('nav_store')}}" id="createNavForm">
                         @csrf
                         <div class="box box-default">
@@ -95,8 +45,8 @@
                                     <select class="form-control select2" name="parent_id" id="parent_id">
                                         <option value="">请选择菜单</option>
                                         <option value="0" selected="selected">一级菜单</option>
-                                        @foreach($emptyNavs as $empty_nav)
-                                            <option value="{{ $empty_nav->id }}">{{ $empty_nav->name }}</option>
+                                        @foreach($emptyNavs as $nav)
+                                            <option value="{{ $nav->id }}">{{ $nav->name }}</option>
                                         @endforeach
                                     </select>
                                     <span class="help-block">仅可选空菜单类型，默认为1级菜单</span>
@@ -188,9 +138,6 @@
                     $("#parent_id").removeAttr("disabled");
                 }
             });
-            $("#createNavForm").on("submit",function () {
-                $("#parent_id").removeAttr("disabled");
-            })
 
         });
     </script>
