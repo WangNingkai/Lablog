@@ -78,7 +78,6 @@
                                     <li>
                                         <a href="{{ $config['site_admin_mail'] }}">邮箱投稿</a>
                                     </li>
-                                    <li><a href="{{ route('about') }}">关于本站</a></li>
                                 </ul>
                             </li>
                              <li>

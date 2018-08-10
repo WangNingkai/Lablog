@@ -42,32 +42,4 @@ class ConfigController extends Controller
         Cache::forget('cache:config');
         return redirect()->back();
     }
-
-    /**
-     * 编辑关于站点页面
-     *
-     * @return  \Illuminate\Http\Response
-     */
-    public function manageAbout()
-    {
-        $content = Config::query()->where('name', 'site_about')->pluck('value', 'name')->first();
-        return view('admin.config-about', compact('content'));
-    }
-
-    /**
-     * 更新关于站点页面
-     *
-     * @return  \Illuminate\Http\Response
-     */
-    public function updateAbout(Request $request)
-    {
-        $content = $request->input('content');
-        Config::query()->where('name', 'site_about')->update(['value' => $content]);
-        show_message('修改成功');
-        Artisan::call('cache:clear');
-        operation_event(auth()->user()->name,'修改关于页面');
-        // 更新缓存
-        Cache::forget('cache:config');
-        return redirect()->back();
-    }
 }

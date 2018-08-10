@@ -86,7 +86,7 @@ class HomeController extends Controller
 
     public function page($id)
     {
-        $page = Page::query()->whereId($id)->first();
+        $page = Page::query()->where('id',$id)->first();
         return view('home.page',compact('page'));
     }
 
@@ -188,14 +188,6 @@ class HomeController extends Controller
         $message->storeData($data);
         Mail::to($this->config['site_mailto_admin'])->send(new SendReminder('站点留言提醒','您的个人博客现有新的留言，请注意查看审核。'));
         return redirect()->back();
-    }
-
-    /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function about()
-    {
-        return view('home.about');
     }
 
     /**

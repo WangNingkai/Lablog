@@ -111,7 +111,7 @@
                 <li class="header">菜单</li>
                 <li class="{{ set_active('admin/home') }}"><a href="{{ route('dashboard_home') }}"><i class="fa fa-home"></i> <span> 首页</span></a></li>
                 <li class="{{ set_active('admin/article/create') }}"><a href="{{ route('article_create') }}"><i class="fa fa-pencil-square-o"></i> <span> 新建文章</span></a></li>
-                <li class="treeview {{ set_active('admin/config') }} {{ set_active('admin/about') }}">
+                <li class="treeview {{ set_active('admin/config') }} {{ set_active('admin/nav') }}">
                     <a href="#">
                         <i class="fa fa-star"></i> <span> 我的站点</span>
                         <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>

@@ -121,14 +121,14 @@ class ConfigsTableSeeder extends Seeder
                 'created_at' => '2018-01-01 00:00:00',
                 'updated_at' => '2018-01-01 00:00:00',
             ),
-            13 => 
-            array (
-                'id' => 14,
-                'name' => 'site_about',
-                'value' => '关于本站',
-                'created_at' => '2018-01-01 00:00:00',
-                'updated_at' => '2018-07-09 00:34:26',
-            ),
+            13 =>
+                array (
+                    'id' => 14,
+                    'name' => 'site_admin_avatar',
+                    'value' => 'http://xxx/xxx/xxx/xxx.jpg',
+                    'created_at' => '2018-01-01 00:00:00',
+                    'updated_at' => '2018-01-01 00:00:00',
+                ),
             14 => 
             array (
                 'id' => 15,
@@ -152,15 +152,7 @@ class ConfigsTableSeeder extends Seeder
                 'value' => 'http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=xxx',
                 'created_at' => '2018-01-01 00:00:00',
                 'updated_at' => '2018-01-01 00:00:00',
-            ),
-            17 => 
-            array (
-                'id' => 18,
-                'name' => 'site_admin_avatar',
-                'value' => 'http://xxx/xxx/xxx/xxx.jpg',
-                'created_at' => '2018-01-01 00:00:00',
-                'updated_at' => '2018-01-01 00:00:00',
-            ),
+            )
         ));
         
         
