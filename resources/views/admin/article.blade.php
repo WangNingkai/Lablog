@@ -62,6 +62,7 @@
                                     <th>标题</th>
                                     <th>栏目</th>
                                     <th>点击量</th>
+                                    <th>创建时间</th>
                                     <th>状态</th>
                                     <th style="">操作</th>
                                 </tr>
@@ -71,6 +72,7 @@
                                         <td><a class="text-black" href="{{ route('article',$article->id) }}">{{ $article->title }}</a></td>
                                         <td>{{$article->category->name}}</td>
                                         <td>{{$article->click}}</td>
+                                        <td>{{ transform_time($article->created_at) }}</td>
                                         <td>{!! $article->status_tag !!}</td>
                                         <td>
                                             <a href="{{ route('article_edit',$article->id) }}" class="text-green">
