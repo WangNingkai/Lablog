@@ -68,62 +68,73 @@
                     </div>
                 </div>
                 <div class="hr-line-dashed"></div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="post clearfix">
-                            <h4 class="text-bold">评论：</h4>
-                            @include('errors.validator')
-                            <form role="form" action="{{route('comment_store')}}" method="post">
-                                @csrf
-                                <input type="hidden" name="article_id" id="article_id" value="{{$article->id}}">
-                                <div class="row">
-                                    <div class="col-xs-12 form-group">
-                                        <textarea class="form-control" style="resize: none;" rows="3" cols="4" name="content" placeholder="请输入评论" required></textarea>
+                @if($article->allow_comment == \App\Models\Article::ALLOW_COMMENT)
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="post clearfix">
+                                <h4 class="text-bold">评论：</h4>
+                                @include('errors.validator')
+                                <form role="form" action="{{route('comment_store')}}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="article_id" id="article_id" value="{{$article->id}}">
+                                    <div class="row">
+                                        <div class="col-xs-12 form-group">
+                                            <textarea class="form-control" style="resize: none;" rows="3" cols="4" name="content" placeholder="请输入评论" required></textarea>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4 form-group">
-                                        <input type="text" class="form-control" name ="nickname" placeholder="输入评论显示名称 *" required>
+                                    <div class="row">
+                                        <div class="col-md-4 form-group">
+                                            <input type="text" class="form-control" name ="nickname" placeholder="输入评论显示名称 *" required>
+                                        </div>
+                                        <div class="col-md-4 form-group">
+                                            <input type="email" class="form-control" name="email" placeholder="输入电子邮件（不会显示）*" required>
+                                        </div>
+                                        <div class="col-md-4 form-group">
+                                            <button type="submit" class="btn btn-flat btn-block bg-green">评论</button>
+                                        </div>
                                     </div>
-                                    <div class="col-md-4 form-group">
-                                        <input type="email" class="form-control" name="email" placeholder="输入电子邮件（不会显示）*" required>
-                                    </div>
-                                    <div class="col-md-4 form-group">
-                                        <button type="submit" class="btn btn-flat btn-block bg-green">评论</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        @foreach($article->comments as $comment)
-                            <div class="post">
-                                <div class="user-block">
-                                    <img class="img-circle img-bordered-sm" src="{{asset('img/user_avatar.png')}}" alt="{{$comment->nickname}}">
-                                    <span class="username">
+                                </form>
+                            </div>
+                            @foreach($article->comments as $comment)
+                                <div class="post">
+                                    <div class="user-block">
+                                        <img class="img-circle img-bordered-sm" src="{{asset('img/user_avatar.png')}}" alt="{{$comment->nickname}}">
+                                        <span class="username">
                                 <a href="#">{{ $comment->nickname }}</a>
                                 </span>
-                                    <span class="description">{{ $comment->created_at }}</span>
-                                </div>
-                                <p>
-                                    {{ $comment->content }}
-                                </p>
-                                @isset($comment->reply)
-                                    <div class="post reply-post">
-                                        <div class="user-block">
-                                            <img class="img-circle img-bordered-sm" src="{{ $config['site_admin_avatar'] }}" alt="{{ $config['site_admin'] }}">
-                                            <span class="username">
+                                        <span class="description">{{ $comment->created_at }}</span>
+                                    </div>
+                                    <p>
+                                        {{ $comment->content }}
+                                    </p>
+                                    @isset($comment->reply)
+                                        <div class="post reply-post">
+                                            <div class="user-block">
+                                                <img class="img-circle img-bordered-sm" src="{{ $config['site_admin_avatar'] }}" alt="{{ $config['site_admin'] }}">
+                                                <span class="username">
                                             <a href="#">站长回复</a>
                                         </span>
-                                            <span class="description">{{ $comment->updated_at }}</span>
+                                                <span class="description">{{ $comment->updated_at }}</span>
+                                            </div>
+                                            <p>
+                                                {{ $comment->reply }}
+                                            </p>
                                         </div>
-                                        <p>
-                                            {{ $comment->reply }}
-                                        </p>
-                                    </div>
-                                @endisset
-                            </div>
-                        @endforeach
+                                    @endisset
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
-                </div>
+                    @else
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="post clearfix">
+                                <h4 class="text-bold">评论已关闭</h4>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
             </div>
             <!-- /.box-body -->
         </div>

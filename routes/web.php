@@ -39,6 +39,7 @@ Route::group(['namespace' => 'Home', 'middleware' => ['check.status']], function
     Route::get('/', 'HomeController@index')->name('home');
     Route::get('about', 'HomeController@about')->name('about');
     Route::get('article/{id}', 'HomeController@article')->name('article');
+    Route::get('page/{id}', 'HomeController@page')->name('page');
     Route::post('comment_store','HomeController@comment_store')->name('comment_store');
     Route::get('category/{id}', 'HomeController@category')->name('category');
     Route::get('tag/{id}', 'HomeController@tag')->name('tag');
@@ -103,6 +104,18 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
         Route::get('trash', 'ArticleController@trash')->name('article_trash');
         Route::post('restore', 'ArticleController@restore')->name('article_restore');
         Route::post('destroy', 'ArticleController@destroy')->name('article_destroy');
+    });
+    // 单页
+    Route::group(['prefix' => 'page'], function () {
+        Route::get('manage', 'PageController@manage')->name('page_manage');
+        Route::get('create', 'PageController@create')->name('page_create');
+        Route::post('store', 'PageController@store')->name('page_store');
+        Route::get('edit/{id}', 'PageController@edit')->name('page_edit');
+        Route::post('update/{id}', 'PageController@update')->name('page_update');
+        Route::post('delete', 'PageController@delete')->name('page_delete');
+        Route::get('trash', 'PageController@trash')->name('page_trash');
+        Route::post('restore', 'PageController@restore')->name('page_restore');
+        Route::post('destroy', 'PageController@destroy')->name('page_destroy');
     });
     // 评论
     Route::group(['prefix' => 'comment'], function () {

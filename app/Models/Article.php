@@ -10,6 +10,8 @@ class Article extends Base
 
     const PUBLISHED   = 1;
     const UNPUBLISHED = 0;
+    const ALLOW_COMMENT = 1;
+    const FORBID_COMMENT = 0;
 
     /**
      * 过滤描述中的换行。

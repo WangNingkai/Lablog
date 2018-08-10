@@ -164,6 +164,9 @@ $(function() {
             },
             status: {
                 required: !0,
+            },
+            allow_comment: {
+                required: !0,
             }
         },
         messages: {
@@ -187,6 +190,9 @@ $(function() {
             },
             status: {
                 required: e + "是否发布",
+            },
+            allow_comment: {
+                required: e + "是否允许评论",
             }
         }
     });
@@ -212,6 +218,9 @@ $(function() {
             },
             status: {
                 required: !0,
+            },
+            allow_comment: {
+                required: !0,
             }
         },
         messages: {
@@ -235,6 +244,9 @@ $(function() {
             },
             status: {
                 required: e + "是否发布",
+            },
+            allow_comment: {
+                required: e + "是否允许评论",
             }
         }
     });
