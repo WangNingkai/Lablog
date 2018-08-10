@@ -250,6 +250,68 @@ $(function() {
             }
         }
     });
+    $("#createPageForm").validate({
+        rules: {
+            title: {
+                required: !0,
+            },
+            author: {
+                required: !0,
+            },
+            content: {
+                required: !0,
+            },
+            status: {
+                required: !0,
+            }
+
+        },
+        messages: {
+            title: {
+                required: e + "请输入标签名",
+            },
+            author: {
+                required: e + "请输入作者",
+            },
+            content: {
+                required: e + "请输入内容",
+            },
+            status: {
+                required: e + "是否发布",
+            }
+        }
+    });
+    $("#editPageForm").validate({
+        rules: {
+            title: {
+                required: !0,
+            },
+            author: {
+                required: !0,
+            },
+            content: {
+                required: !0,
+            },
+            status: {
+                required: !0,
+            }
+
+        },
+        messages: {
+            title: {
+                required: e + "请输入标签名",
+            },
+            author: {
+                required: e + "请输入作者",
+            },
+            content: {
+                required: e + "请输入内容",
+            },
+            status: {
+                required: e + "是否发布",
+            }
+        }
+    });
     $("#createLinkForm").validate({
         rules: {
             name: {

@@ -13,6 +13,7 @@ class Article extends Base
     const ALLOW_COMMENT = 1;
     const FORBID_COMMENT = 0;
 
+    public $tag_ids = [];
     /**
      * 过滤描述中的换行。
      *

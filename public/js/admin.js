@@ -250,6 +250,147 @@ $(function () {
             return false
         }
     });
+    $(".delPage").on("click", function () {
+        pid = $(this).parent().siblings().eq(0).find("input[name=pid]").val();
+        $("#deleteId").val(pid);
+        swal({
+            title: "确定删除吗？",
+            text: "删除后可在文章回收站恢复",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "确定",
+            cancelButtonText: "取消"
+        }).then((result) => {
+            if (result.value) {
+                $("#deleteForm").submit()
+            } else if (result.dismiss === swal.DismissReason.cancel) {
+                swal('已取消', ':)', 'error')
+            }
+        })
+    });
+    $("#delSelectedPage").on("click", function () {
+        ids = new Array();
+        $("input[name='pid']:checked").each(function () {
+            ids.push($(this).val())
+        });
+        if (ids.length != 0) {
+            $("#deleteId").val(ids);
+            swal({
+                title: "确定删除吗？",
+                text: "删除后可在文章回收站恢复",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "确定",
+                cancelButtonText: "取消"
+            }).then((result) => {
+                if (result.value) {
+                    $("#deleteForm").submit()
+                } else if (result.dismiss === swal.DismissReason.cancel) {
+                    swal('已取消', ':)', 'error')
+                }
+            })
+        } else {
+            return false
+        }
+    });
+    $(".restorePage").on("click", function () {
+        pid = $(this).parent().siblings().eq(0).find("input[name=pid]").val();
+        $("#restoreId").val(pid);
+        swal({
+            title: "确定恢复吗？",
+            text: "恢复后可在全部文章中查看",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "确定",
+            cancelButtonText: "取消"
+        }).then((result) => {
+            if (result.value) {
+                $("#restoreForm").submit()
+            } else if (result.dismiss === swal.DismissReason.cancel) {
+                swal('已取消', ':)', 'error')
+            }
+        })
+    });
+    $("#restoreSelectedPage").on("click", function () {
+        ids = new Array();
+        $("input[name='pid']:checked").each(function () {
+            ids.push($(this).val())
+        });
+        if (ids.length != 0) {
+            $("#restoreId").val(ids);
+            swal({
+                title: "确定恢复吗？",
+                text: "恢复后可在全部文章中查看",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "确定",
+                cancelButtonText: "取消"
+            }).then((result) => {
+                if (result.value) {
+                    $("#restoreForm").submit()
+                } else if (result.dismiss === swal.DismissReason.cancel) {
+                    swal('已取消', ':)', 'error')
+                }
+            })
+        } else {
+            return false
+        }
+    });
+    $(".destroyPage").on("click", function () {
+        pid = $(this).parent().siblings().eq(0).find("input[name=pid]").val();
+        $("#destroyId").val(pid);
+        swal({
+            title: "确定删除吗？",
+            text: "删除将无法恢复",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "确定",
+            cancelButtonText: "取消"
+        }).then((result) => {
+            if (result.value) {
+                $("#destroyForm").submit()
+            } else if (result.dismiss === swal.DismissReason.cancel) {
+                swal('已取消', ':)', 'error')
+            }
+        })
+    });
+    $("#destroySelectedPage").on("click", function () {
+        ids = new Array();
+        $("input[name='pid']:checked").each(function () {
+            ids.push($(this).val())
+        });
+        if (ids.length != 0) {
+            $("#destroyId").val(ids);
+            swal({
+                title: "确定删除吗？",
+                text: "删除将无法恢复",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "确定",
+                cancelButtonText: "取消"
+            }).then((result) => {
+                if (result.value) {
+                    $("#destroyForm").submit()
+                } else if (result.dismiss === swal.DismissReason.cancel) {
+                    swal('已取消', ':)', 'error')
+                }
+            })
+        } else {
+            return false
+        }
+    });
     $(".showComment").on("click", function () {
         cid = $(this).parent().siblings().eq(0).find("input[name=cid]").val();
         $.ajax({
