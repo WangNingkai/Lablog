@@ -7,16 +7,28 @@ use App\Http\Requests\Nav\Update;
 use App\Models\Nav;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cache;
 
 class NavController extends Controller
 {
+    // todo:关联缓存
+    /**
+     * @var Nav
+     */
     protected $nav;
 
+    /**
+     * NavController constructor.
+     * @param Nav $nav
+     */
     public function __construct(Nav $nav)
     {
         $this->nav = $nav;
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function manage()
     {
         $navs = $this->nav->getTreeIndex();
@@ -27,29 +39,61 @@ class NavController extends Controller
         return view('admin.nav',compact('navs','emptyNavs'));
     }
 
-
+    /**
+     * @param Store $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(Store $request)
     {
         $this->nav->storeData($request->all());
         operation_event(auth()->user()->name,'添加菜单');
+        Cache::forget('cache:nav_list');
         return redirect()->back();
     }
 
-
-    public function edit(Request $request)
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function edit($id)
     {
+        $navs = $this->nav->getTreeIndex();
+        $editNav = $this->nav->query()->find($id);
+        $emptyNavs = $this->nav->query()
+            ->select('id', 'name')
+            ->where('type',$this->nav::TYPE_EMPTY)
+            ->get();
+        return view('admin.nav-edit', compact('navs','editNav','emptyNavs'));
 
     }
 
-
+    /**
+     * @param Update $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(Update $request, $id)
     {
-        //
+        $this->nav->updateData(['id' => $id], $request->except('_token'));
+        operation_event(auth()->user()->name,'编辑菜单');
+        Cache::forget('cache:nav_list');
+        return redirect()->route('nav_manage');
     }
 
-
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy(Request $request)
     {
-        //
+        $data = $request->only('nid');
+        $arr = explode(',', $data['nid']);
+        $map = [
+            'id' => ['in', $arr]
+        ];
+        $this->nav->destroyData($map);
+        operation_event(auth()->user()->name,'删除菜单');
+        Cache::forget('cache:nav_list');
+        return redirect()->back();
     }
 }

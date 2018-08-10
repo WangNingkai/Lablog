@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Helpers\Extensions\Select;
+use App\Models\Nav;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Category;
 use App\Models\Tag;
@@ -10,7 +12,6 @@ use App\Models\Article;
 use App\Models\Config;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,6 +25,15 @@ class AppServiceProvider extends ServiceProvider
     {
         // 分配前台通用的数据
         view()->composer('*', function ($view) {
+            $nav_list = Cache::remember('cache:nav_list', 1440, function () {
+                // 获取导航栏
+                $data = Nav::query()
+                    ->where('status' , Nav::STATUS_DISPLAY)
+                    ->orderBy('sort', 'asc')
+                    ->get();
+                $select =  new Select($data);
+                return $result = $select->make_tree();
+            });
             $category_list = Cache::remember('cache:category_list', 1440, function () {
                 // 获取分类导航
                 return Category::query()->select('id', 'name')
@@ -31,6 +41,7 @@ class AppServiceProvider extends ServiceProvider
                     ->orderBy('sort', 'asc')
                     ->get();
             });
+
             $tag_list = Cache::remember('cache:tag_list', 1440, function () {
                 // 获取标签
                 return Tag::query()->select('id', 'name')
@@ -55,7 +66,7 @@ class AppServiceProvider extends ServiceProvider
                 return Config::query()->pluck('value', 'name');
             });
             // 分配数据
-            $assign = compact('category_list', 'tag_list', 'top_article_list', 'link_list','config');
+            $assign = compact('nav_list','category_list', 'tag_list', 'top_article_list', 'link_list','config');
             $view->with($assign);
         });
         Schema::defaultStringLength(191);

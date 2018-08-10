@@ -142,6 +142,82 @@ $(function() {
             }
         }
     });
+    $("#createNavForm").validate({
+        rules: {
+            name: {
+                required: !0,
+            },
+            type: {
+                required: !0,
+            },
+            parent_id: {
+                required: !0,
+            },
+            sort: {
+                required: !0,
+                number: true
+            },
+            status: {
+                required: !0,
+            }
+        },
+        messages: {
+            name: {
+                required: e + "请输入菜单名",
+            },
+            type: {
+                required: e + "请输入菜单类型",
+            },
+            parent_id: {
+                required: e + "请选择父级菜单",
+            },
+            sort: {
+                required: e + "请输入排序权重",
+                number: e + "请输入合法的数字"
+            },
+            status: {
+                required: e + "请选择状态",
+            },
+        }
+    });
+    $("#editNavForm").validate({
+        rules: {
+            name: {
+                required: !0,
+            },
+            type: {
+                required: !0,
+            },
+            parent_id: {
+                required: !0,
+            },
+            sort: {
+                required: !0,
+                number: true
+            },
+            status: {
+                required: !0,
+            }
+        },
+        messages: {
+            name: {
+                required: e + "请输入菜单名",
+            },
+            type: {
+                required: e + "请输入菜单类型",
+            },
+            parent_id: {
+                required: e + "请选择父级菜单",
+            },
+            sort: {
+                required: e + "请输入排序权重",
+                number: e + "请输入合法的数字"
+            },
+            status: {
+                required: e + "请选择状态",
+            },
+        }
+    });
     $("#createArticleForm").validate({
         rules: {
             title: {

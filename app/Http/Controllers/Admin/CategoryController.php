@@ -114,6 +114,6 @@ class CategoryController extends Controller
         operation_event(auth()->user()->name,'删除栏目');
         // 更新缓存
         Cache::forget('cache:category_list');
-        return redirect()->route('category_manage');
+        return redirect()->back();
     }
 }

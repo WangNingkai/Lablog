@@ -112,7 +112,7 @@ class HomeController extends Controller
     public function category($id)
     {
         $category = Category::query()->findOrFail($id);
-        $childCategoryList=Category::query()->where(['pid'=>$id])->get();
+        $childCategoryList=Category::query()->where(['parent_id'=>$id])->get();
 
         $articles = Article::query()->select('id', 'category_id', 'title', 'author', 'description','click', 'created_at')
             ->where(['status'=>Article::PUBLISHED,'category_id'=>$id])

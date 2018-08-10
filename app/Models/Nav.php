@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-class Nav extends Base
+class
+Nav extends Base
 {
     # todo:
     # 1.用户添加菜单，选择菜单类型。
@@ -11,6 +12,13 @@ class Nav extends Base
     # 4.后台添加单页。在菜单中可以选择显示、也可分享页面给用户
 
 
+    const TYPE = [
+        0 => '空菜单',
+        1 => '分类菜单',
+        2 => '归档',
+        3 => '单页',
+        4 => '外链',
+    ];
     const TYPE_EMPTY = 0;    // 普通菜单 可添加单页 链接
     const TYPE_MENU = 1;     // 分类菜单（固定存在的）
     const TYPE_ARCHIVE = 2;  // 归档页面（固定存在的）
@@ -19,6 +27,7 @@ class Nav extends Base
     const LIMIT_NUM = 14;    // 最大菜单数
     const STATUS_DISPLAY = 1;
     const STATUS_HIDE = 0;
+
 
     /**
      * 递归获取树形索引
@@ -38,25 +47,21 @@ class Nav extends Base
         return $tempArr;
     }
 
-    public function getTypeAttribute()
+    public function getTypeNameAttribute()
     {
-        switch ($this->attributes['type'])
+        $result = "";
+        foreach (self::TYPE as $key => $type)
         {
-            case self::TYPE_MENU:
-                $result = "栏目";
-                break;
-            case self::TYPE_ARCHIVE:
-                $result = "归档";
-                break;
-            case self::TYPE_PAGE:
-                $result = "单页";
-                break;
-            case self::TYPE_LINK:
-                $result = "外链";
-                break;
-            default:
-                $result = "空菜单";
+            if($this->attributes['type'] == $key)
+            {
+                $result = $type;
+            }
         }
         return $result;
+    }
+
+    public function getStatusTagAttribute()
+    {
+        return $this->attributes['status'] === self::STATUS_DISPLAY ? '<a href="javascript:void(0)" class="btn btn-sm btn-success btn-flat">显示</a>' : '<a href="javascript:void(0)" class="btn btn-sm btn-danger btn-flat">隐藏</a>';
     }
 }

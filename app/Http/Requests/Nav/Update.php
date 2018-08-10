@@ -13,7 +13,7 @@ class Update extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,27 @@ class Update extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|string|unique:navs,name,' . $this->route()->id,
+            'type' => 'required',
+            'parent_id' => 'required',
+            'sort' => 'required',
+            'status' => 'required',
+        ];
+    }
+
+    /**
+     * 定义字段名中文
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return [
+            'name' => '菜单名',
+            'type' => '菜单类型',
+            'parent_id' => '父级ID',
+            'sort' => '排序权重',
+            'status' => '状态',
         ];
     }
 }

@@ -30,23 +30,27 @@
                                     <th>菜单名</th>
                                     <th>类型</th>
                                     <th>排序权重</th>
+                                    <th>状态</th>
                                     <th>操作</th>
                                 </tr>
                                 @foreach($navs as $nav)
                                     <tr>
-                                        <td><input type="checkbox" value="{{$nav->id}}" name="nid" class="i-checks"></td>
+                                        <td><label><input type="checkbox" value="{{$nav->id}}" name="nid" class="i-checks"></label></td>
                                         <td>{!! $nav->name !!}</td>
                                         <td>
-                                            {{$nav->type}}
+                                            {{$nav->type_name}}
                                         </td>
                                         <td>
                                             {{$nav->sort}}
                                         </td>
                                         <td>
+                                            {!! $nav->status_tag !!}
+                                        </td>
+                                        <td>
                                             <a href="{{route('nav_edit',$nav->id)}}" class="text-green">
                                                 <i class="fa fa-pencil-square-o"></i>
                                             </a>&nbsp;&nbsp;
-                                            <a href="javascript:void(0)" class="text-red delCategory">
+                                            <a href="javascript:void(0)" class="text-red delNav">
                                                 <i class="fa fa-trash"></i>
                                             </a>
                                         </td>
@@ -63,7 +67,7 @@
                                 <a href="javascript:void(0)" class="btn btn-primary btn-flat" onclick="selectAll('nid')">全选</a>
                                 <a href="javascript:void(0)" class="btn btn-primary btn-flat" onclick="selectEmpty('nid')">全不选</a>
                                 <a href="javascript:void(0)" class="btn btn-primary btn-flat" onclick="selectReverse('nid')">反选</a>
-                                <a href="javascript:void(0)" class="btn btn-danger btn-flat" id="delSelectedCategory">删除选定</a>
+                                <a href="javascript:void(0)" class="btn btn-danger btn-flat" id="delSelectedNav">删除选定</a>
                             </div>
                         </div>
                     </div>
@@ -80,11 +84,9 @@
                                     <label for="type">菜单类型：</label>
                                     <select class="form-control select2" name="type" id="type" >
                                         <option value="">菜单类型</option>
-                                        <option value="{{ \App\Models\Nav::TYPE_EMPTY }}">空菜单</option>
-                                        <option value="{{ \App\Models\Nav::TYPE_MENU }}">栏目菜单</option>
-                                        <option value="{{ \App\Models\Nav::TYPE_ARCHIVE }}">归档页</option>
-                                        <option value="{{ \App\Models\Nav::TYPE_PAGE }}">单页</option>
-                                        <option value="{{ \App\Models\Nav::TYPE_LINK }}">外链</option>
+                                        @foreach (\App\Models\Nav::TYPE as $key => $type)
+                                            <option value="{{ $key }}" @if (old('type') == $key) selected="selected"@endif>{{ $type }}</option>
+                                        @endforeach
                                     </select>
                                     @if ($errors->has('type'))
                                         <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('type') }}</strong></span>
@@ -96,7 +98,7 @@
                                         <option value="">请选择菜单</option>
                                         <option value="0" selected="selected">一级菜单</option>
                                         @foreach($emptyNavs as $empty_nav)
-                                            <option value="{{ $empty_nav->id }}">{{ $empty_nav->name }}</option>
+                                            <option value="{{ $empty_nav->id }}" @if (old('parent_id') == $empty_nav->id) selected="selected"@endif>{{ $empty_nav->name }}</option>
                                         @endforeach
                                     </select>
                                     <span class="help-block">仅可选空菜单类型，默认为1级菜单</span>
@@ -114,7 +116,7 @@
                                 <div class="form-group {{$errors->has('url')?'has-error':''}}" id="url-group">
                                     <label for="url">链接：</label>
                                     <input type="text" class="form-control" name="url" id="url" placeholder="请输入链接"  value="{{old('url')}}">
-                                    <span class="help-block text-red">链接前请加上协议(如:https://xxx.com)</span>
+                                    <span class="help-block text-red">仅对链接菜单有效，链接前请加上协议(如:https://xxx.com)</span>
                                     @if ($errors->has('url'))
                                         <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('url') }}</strong></span>
                                     @endif
@@ -166,7 +168,7 @@
             let type_menu = "{{ \App\Models\Nav::TYPE_MENU }}";
             let type_page = "{{ \App\Models\Nav::TYPE_PAGE }}";
             let type_archive = "{{ \App\Models\Nav::TYPE_ARCHIVE }}";
-            $("type").select2();
+            $("#type").select2();
             let parent_id_select = $('#parent_id').select2();
             $("#type").on("change",function(){
                 let type = $(this).val();

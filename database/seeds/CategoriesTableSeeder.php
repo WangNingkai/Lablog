@@ -20,7 +20,7 @@ class CategoriesTableSeeder extends Seeder
             0 => 
             array (
                 'id' => 1,
-                'pid' => 0,
+                'parent_id' => 0,
                 'name' => '默认',
                 'flag' => 'default',
                 'keywords' => 'default',
