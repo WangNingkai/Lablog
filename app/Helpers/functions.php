@@ -5,6 +5,7 @@ use HyperDown\Parser;
 use Jenssegers\Agent\Agent;
 use App\Events\OperationEvent;
 use Zhuzhichao\IpLocationZh\Ip;
+use WangNingkai\SimpleDictionary\SimpleDictionary;
 
 if (!function_exists('operation_event')) {
     /**
@@ -466,7 +467,7 @@ if (!function_exists('has_filter')) {
     function has_filter($content)
     {
         $filterFile = storage_path('app/data').'/dict.bin';
-        $dict = new \App\Helpers\Extensions\SimpleDict($filterFile);
+        $dict = new SimpleDictionary($filterFile);
         $re = $dict->search($content);
         return count($re) > 0 ? 1 : 0;
     }
