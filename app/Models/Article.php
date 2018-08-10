@@ -10,7 +10,10 @@ class Article extends Base
 
     const PUBLISHED   = 1;
     const UNPUBLISHED = 0;
+    const ALLOW_COMMENT = 1;
+    const FORBID_COMMENT = 0;
 
+    public $tag_ids = [];
     /**
      * 过滤描述中的换行。
      *
@@ -50,7 +53,7 @@ class Article extends Base
 
     public function getStatusTagAttribute()
     {
-        return $this->status === self::PUBLISHED ? '<a href="javascript:void(0)" class="btn btn-sm btn-success btn-flat">显示</a>' : '<a href="javascript:void(0)" class="btn btn-sm btn-danger btn-flat">隐藏</a>';
+        return $this->attributes['status'] === self::PUBLISHED ? '<a href="javascript:void(0)" class="btn btn-sm btn-success btn-flat">显示</a>' : '<a href="javascript:void(0)" class="btn btn-sm btn-danger btn-flat">隐藏</a>';
     }
 
     /**

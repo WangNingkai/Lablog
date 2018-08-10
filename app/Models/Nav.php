@@ -2,9 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Nav extends Model
+class Nav extends Base
 {
     # todo:
     # 1.用户添加菜单，选择菜单类型。
@@ -16,7 +14,49 @@ class Nav extends Model
     const TYPE_EMPTY = 0;    // 普通菜单 可添加单页 链接
     const TYPE_MENU = 1;     // 分类菜单（固定存在的）
     const TYPE_ARCHIVE = 2;  // 归档页面（固定存在的）
-    const TYPE_PAGE = 3;     // 单页（ajax请求单页列表，再选择单页， url为单页id）
+    const TYPE_PAGE = 3;     // 单页（url为单页链接）
     const TYPE_LINK = 4;     // 链接（直接添加链接）
     const LIMIT_NUM = 14;    // 最大菜单数
+    const STATUS_DISPLAY = 1;
+    const STATUS_HIDE = 0;
+
+    /**
+     * 递归获取树形索引
+     * @param integer
+     * @param integer
+     * @return array 角色数组
+     */
+    public function getTreeIndex($id = 0, $deep = 0) {
+        static $tempArr = [];
+        $data = $this->query()->where('parent_id', $id)->orderBy('sort', 'asc')->get();
+        foreach ($data as $k => $v) {
+            $v->deep = $deep;
+            $v->name = str_repeat("&nbsp;&nbsp;", $v->deep * 2) . '|--' . $v->name;
+            $tempArr[] = $v;
+            $this->getTreeIndex($v->id, $deep + 1);
+        }
+        return $tempArr;
+    }
+
+    public function getTypeAttribute()
+    {
+        switch ($this->attributes['type'])
+        {
+            case self::TYPE_MENU:
+                $result = "栏目";
+                break;
+            case self::TYPE_ARCHIVE:
+                $result = "归档";
+                break;
+            case self::TYPE_PAGE:
+                $result = "单页";
+                break;
+            case self::TYPE_LINK:
+                $result = "外链";
+                break;
+            default:
+                $result = "空菜单";
+        }
+        return $result;
+    }
 }

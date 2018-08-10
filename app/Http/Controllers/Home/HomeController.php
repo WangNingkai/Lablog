@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Home;
 
+use App\Models\Page;
 use Illuminate\Http\Request;
 use App\Http\Requests\Message\Store as MessageStore;
 use App\Http\Requests\Comment\Store as CommentStore;
@@ -81,6 +82,12 @@ class HomeController extends Controller
             ->limit(1)
             ->first();
         return view('home.article', compact('article', 'prev', 'next'));
+    }
+
+    public function page($id)
+    {
+        $page = Page::query()->whereId($id)->first();
+        return view('home.page',compact('page'));
     }
 
     /**

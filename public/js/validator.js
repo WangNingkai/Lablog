@@ -70,7 +70,7 @@ $(function() {
             description: {
                 required: !0,
             },
-            pid: {
+            parent_id: {
                 required: !0,
             },
             sort: {
@@ -90,7 +90,7 @@ $(function() {
             description: {
                 required: e + "请输入描述",
             },
-            pid: {
+            parent_id: {
                 required: e + "请选择父级栏目",
             },
             sort: {
@@ -112,7 +112,7 @@ $(function() {
             description: {
                 required: !0,
             },
-            pid: {
+            parent_id: {
                 required: !0,
             },
             sort: {
@@ -133,7 +133,7 @@ $(function() {
             description: {
                 required: e + "请输入描述",
             },
-            pid: {
+            parent_id: {
                 required: e + "请选择父级栏目",
             },
             sort: {
@@ -164,6 +164,9 @@ $(function() {
             },
             status: {
                 required: !0,
+            },
+            allow_comment: {
+                required: !0,
             }
         },
         messages: {
@@ -187,6 +190,9 @@ $(function() {
             },
             status: {
                 required: e + "是否发布",
+            },
+            allow_comment: {
+                required: e + "是否允许评论",
             }
         }
     });
@@ -212,6 +218,9 @@ $(function() {
             },
             status: {
                 required: !0,
+            },
+            allow_comment: {
+                required: !0,
             }
         },
         messages: {
@@ -232,6 +241,71 @@ $(function() {
             },
             keywords: {
                 required: e + "请输入关键词",
+            },
+            status: {
+                required: e + "是否发布",
+            },
+            allow_comment: {
+                required: e + "是否允许评论",
+            }
+        }
+    });
+    $("#createPageForm").validate({
+        rules: {
+            title: {
+                required: !0,
+            },
+            author: {
+                required: !0,
+            },
+            content: {
+                required: !0,
+            },
+            status: {
+                required: !0,
+            }
+
+        },
+        messages: {
+            title: {
+                required: e + "请输入标签名",
+            },
+            author: {
+                required: e + "请输入作者",
+            },
+            content: {
+                required: e + "请输入内容",
+            },
+            status: {
+                required: e + "是否发布",
+            }
+        }
+    });
+    $("#editPageForm").validate({
+        rules: {
+            title: {
+                required: !0,
+            },
+            author: {
+                required: !0,
+            },
+            content: {
+                required: !0,
+            },
+            status: {
+                required: !0,
+            }
+
+        },
+        messages: {
+            title: {
+                required: e + "请输入标签名",
+            },
+            author: {
+                required: e + "请输入作者",
+            },
+            content: {
+                required: e + "请输入内容",
             },
             status: {
                 required: e + "是否发布",

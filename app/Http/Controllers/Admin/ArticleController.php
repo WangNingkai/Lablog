@@ -41,6 +41,7 @@ class ArticleController extends Controller
         $keyword ? array_push($map, ['title', 'like', '%' . $keyword . '%']) : null;
         $category ? array_push($map, ['category_id', '=', $category]) : null;
         $articles =  $this->article
+            ->query()
             ->select('id', 'category_id', 'title','status','click', 'created_at')
             ->where($map)
             ->with('category')
@@ -193,7 +194,7 @@ class ArticleController extends Controller
     {
         $data = $request->only('aid');
         $arr = explode(',', $data['aid']);
-        if (!$this->article->whereIn('id', $arr)->forceDelete()) {
+        if (!$this->article->query()->whereIn('id', $arr)->forceDelete()) {
             show_message('彻底删除失败', false);
             return redirect()->back();
         }
@@ -214,6 +215,7 @@ class ArticleController extends Controller
     {
         $category = $request->get('category');
         $articles = $this->article
+            ->query()
             ->select('id', 'category_id', 'title','status','click', 'created_at')
             ->with(['category'=> function ($query) use($category) {
                 $query->where('name', $category);
