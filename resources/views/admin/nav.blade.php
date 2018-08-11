@@ -71,6 +71,35 @@
                             </div>
                         </div>
                     </div>
+                    <div class="box box-solid">
+                        <div class="box-body table-responsive no-padding">
+                            <table class="table table-hover">
+                                <tr>
+                                    <th>#</th>
+                                    <th>固有菜单名</th>
+                                    <th>链接</th>
+                                </tr>
+                                <tr>
+                                    <th>#</th>
+                                    <td>首页</td>
+                                    <td>{{ route('home') }}</td>
+
+                                </tr>
+                                <tr>
+
+                                    <th>#</th>
+                                    <td>归档</td>
+                                    <td>{{ route('archive') }}</td>
+
+                                </tr>
+                                <tr>
+                                    <th>#</th>
+                                    <td>留言</td>
+                                    <td>{{ route('message') }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-4">
                     <form role="form"  method="POST" action="{{ route('nav_store')}}" id="createNavForm">
