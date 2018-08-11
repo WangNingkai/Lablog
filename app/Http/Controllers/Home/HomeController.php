@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Home;
 
+use App\Jobs\SendEmail;
 use App\Models\Page;
 use Illuminate\Http\Request;
 use App\Http\Requests\Message\Store as MessageStore;
@@ -14,10 +15,8 @@ use App\Models\Comment;
 use App\Models\ArticleTag;
 use App\Models\Message;
 use App\Models\Config;
-use App\Mail\SendReminder;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\App;
 
 class HomeController extends Controller
@@ -100,7 +99,17 @@ class HomeController extends Controller
         $data = $request->all();
         $data['ip'] = request()->ip();
         $comment->storeData($data);
-        Mail::to($this->config['site_mailto_admin'])->send(new SendReminder('文章评论提醒','您的个人博客现有新的评论，请注意查看审核。'));
+        $param = [
+            'email' => $this->config['site_mailto_admin'],
+            'name' => '亲爱的站长',
+            'subject' => 'LABLOG 文章评论提醒',
+            'data' => [
+                'name' => '亲爱的站长',
+                'content' => '您的个人博客现有新的评论，请注意查看审核。',
+                'url' => route('comment_manage')
+            ],
+        ];
+        $this->dispatch(new SendEmail($param['email'], $param['name'], $param['subject'], $param['data']));
         return redirect()->back();
 
     }
@@ -186,7 +195,17 @@ class HomeController extends Controller
         $data = $request->all();
         $data['ip'] = request()->ip();
         $message->storeData($data);
-        Mail::to($this->config['site_mailto_admin'])->send(new SendReminder('站点留言提醒','您的个人博客现有新的留言，请注意查看审核。'));
+        $param = [
+            'email' => $this->config['site_mailto_admin'],
+            'name' => '亲爱的站长',
+            'subject' => 'LABLOG 站点留言提醒',
+            'data' => [
+                'name' => '亲爱的站长',
+                'content' => '您的个人博客现有新的留言，请注意查看审核。',
+                'url' => route('message_manage')
+            ],
+        ];
+        $this->dispatch(new SendEmail($param['email'], $param['name'], $param['subject'], $param['data']));
         return redirect()->back();
     }
 

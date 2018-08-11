@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Jobs\SendEmail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\SendReply;
 
 class CommentController extends Controller
 {
@@ -81,7 +80,17 @@ class CommentController extends Controller
         $emailTo=$this->comment->query()->where('id',$id)->value('email');
         $article_id=$this->comment->query()->where('id',$id)->value('article_id');
         operation_event(auth()->user()->name,'回复评论');
-        Mail::to($emailTo)->send(new SendReply('站点评论回复提醒','您在我站的评论，站长已经回复，请注意查看.',route('article',$article_id)));
+        $param = [
+            'email' => $emailTo,
+            'name' => $emailTo,
+            'subject' => 'LABLOG 站点评论回复提醒',
+            'data' => [
+                'name' => $emailTo,
+                'content' => '您在我站的评论，站长已经回复，请注意查看。',
+                'url' => route('article',$article_id)
+            ],
+        ];
+        $this->dispatch(new SendEmail($param['email'], $param['name'], $param['subject'], $param['data']));
         return redirect()->route('comment_manage');
     }
 

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Jobs\SendEmail;
 use App\Models\Comment;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Requests\Article\Store;
 use App\Http\Controllers\Controller;
@@ -71,7 +73,22 @@ class ArticleController extends Controller
      */
     public function store(Store $request)
     {
-        $this->article->storeData($request->all());
+        $id = $this->article->storeData($request->all());
+        if($request->get('status') == $this->article::PUBLISHED)
+        {
+            // todo:文章订阅
+            $param = [
+                'email' => '1655586865@qq.com',
+                'name' => '亲爱的订阅用户',
+                'subject' => 'LABLOG 新文章提醒',
+                'data' => [
+                    'name' => '亲爱的订阅用户',
+                    'content' => 'LABLOG 有新文章发布了，快来瞧瞧吧',
+                    'url' => route('article',$id)
+                ],
+            ];
+            $this->dispatch(new SendEmail($param['email'], $param['name'], $param['subject'], $param['data']));
+        }
         operation_event(auth()->user()->name,'添加文章');
         // 更新缓存
         Cache::forget('cache:top_article_list');

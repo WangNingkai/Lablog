@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Jobs\SendEmail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Message;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\SendReply;
 
 class MessageController extends Controller
 {
@@ -75,7 +74,17 @@ class MessageController extends Controller
         $this->message->replyData($id,$reply);
         $emailTo=$this->message->query()->where('id',$id)->value('email');
         operation_event(auth()->user()->name,'回复留言');
-        Mail::to( $emailTo)->send(new SendReply('站点留言回复提醒','您在我站的留言，站长已经回复，请注意查看.',route('message')));
+        $param = [
+            'email' => $emailTo,
+            'name' => $emailTo,
+            'subject' => 'LABLOG 站点留言回复提醒',
+            'data' => [
+                'name' => $emailTo,
+                'content' => '您在我站的留言，站长已经回复，请注意查看。',
+                'url' => route('message')
+            ],
+        ];
+        $this->dispatch(new SendEmail($param['email'], $param['name'], $param['subject'], $param['data']));
         return redirect()->route('message_manage');
     }
 
