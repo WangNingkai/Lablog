@@ -121,7 +121,7 @@
                                             <div class="description-block">
                                                 <h5 class="description-header"><i
                                                         class="fa fa-github-alt"></i></h5>
-                                                <span class="description-text"><a class="" href="{{ $config['site_admin_github'] }}">码云</a></span>
+                                                <span class="description-text"><a class="" href="{{ $config['site_admin_github'] }}">仓库</a></span>
                                             </div>
                                         </div>
                                         <div class="col-sm-4 border-right">

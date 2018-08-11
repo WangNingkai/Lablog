@@ -23,16 +23,12 @@
                 <div class="col-md-12">
                     <div class="box box-solid">
                         <div class="box-body">
-                            <form action="{{ route('page_manage') }}" method="get">
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <input type="text" name="keyword" class="form-control" placeholder="搜索标题" value="{{ request()->input('keyword') }}">
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <button type="submit" class="btn btn-success btn-flat"><i class="fa fa-search"></i>&nbsp;搜索</button>
-                                </div>
-                            </form>
+                            <div class="pull-left">
+                                <a href="{{ route('page_create') }}" class="btn btn-success btn-flat"><i class="fa fa-plus-circle"></i>&nbsp;添加单页</a>
+                            </div>
+                            <div class="pull-right">
+                                <a href="{{ route('page_trash') }}" class="btn btn-danger btn-flat"><i class="fa fa-trash"></i>&nbsp;回收站</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -43,6 +39,17 @@
                         <div class="box-header">
                             <h3 class="box-title">全部单页</h3>
                             <span>共 {{ $pages->total() }}篇</span>
+                            <form action="{{ route('page_manage') }}" method="get" style="display: inline-flex" class="pull-right">
+                                <div class="box-tools">
+                                    <div class="input-group input-group-sm" style="width: 150px;">
+                                        <input type="text" name="keyword" class="form-control" placeholder="搜索标题">
+
+                                        <span class="input-group-btn">
+                                            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                         <div class="box-body table-responsive no-padding">
                             <table class="table table-hover">
@@ -85,8 +92,6 @@
                                 <a href="javascript:void(0)" class="btn btn-primary btn-flat" onclick="selectEmpty('pid')">全不选</a>
                                 <a href="javascript:void(0)" class="btn btn-primary btn-flat" onclick="selectReverse('pid')">反选</a>
                                 <a href="javascript:void(0)" class="btn btn-danger btn-flat" id="delSelectedPage">删除选定</a>
-                                <a href="{{ route('page_create') }}" class="btn btn-success btn-flat"><i class="fa fa-plus-circle"></i>&nbsp;添加单页</a>
-                                <a href="{{ route('page_trash') }}" class="btn btn-danger btn-flat"><i class="fa fa-trash"></i>&nbsp;回收站</a>
                             </div>
                             {{ $pages->appends(request()->input())->links('vendor.pagination.adminlte') }}
                         </div>

@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Cache;
 
 class NavController extends Controller
 {
-    // todo:关联缓存
     /**
      * @var Nav
      */
@@ -45,6 +44,15 @@ class NavController extends Controller
      */
     public function store(Store $request)
     {
+        if ($request->get('parent_id') == 0)
+        {
+            $count = $this->nav->query()->where('parent_id',0)->count();
+            if ($this->nav::LIMIT_NUM == $count)
+            {
+                show_message('一级菜单已达到最大限制',false);
+                return redirect()->back();
+            }
+        };
         $this->nav->storeData($request->all());
         operation_event(auth()->user()->name,'添加菜单');
         Cache::forget('cache:nav_list');

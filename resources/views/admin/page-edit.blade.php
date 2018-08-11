@@ -10,7 +10,7 @@
             <h1>编辑单页<small>LABLOG</small></h1>
             <ol class="breadcrumb">
                 <li><a href="{{ route('dashboard_home') }}"><i class="fa fa-dashboard"></i> 首页</a></li>
-                <li><a href="#">内容管理</a></li>
+                <li><a href="{{ route('page_manage') }}">单页管理</a></li>
                 <li class="active">编辑单页</li>
             </ol>
         </section>

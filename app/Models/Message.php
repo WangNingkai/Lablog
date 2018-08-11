@@ -31,7 +31,6 @@ class Message extends Base
             return false;
         }
     }
-    // TODO：单体数据的审核以及多条数据的审核
     /**
      * 审核数据
      *

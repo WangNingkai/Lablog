@@ -9,7 +9,7 @@
             <h1>回收站<small>LABLOG</small></h1>
             <ol class="breadcrumb">
                 <li><a href="{{ route('dashboard_home') }}"><i class="fa fa-dashboard"></i> 首页</a></li>
-                <li><a href="#">内容管理</a></li>
+                <li><a href="{{ route('article_manage') }}">文章管理</a></li>
                 <li class="active">文章回收站</li>
             </ol>
         </section>

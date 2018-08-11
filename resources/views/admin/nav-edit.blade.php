@@ -12,7 +12,7 @@
             <h1>菜单编辑<small>LABLOG</small></h1>
             <ol class="breadcrumb">
                 <li><a href="{{ route('dashboard_home') }}"><i class="fa fa-dashboard"></i> 首页</a></li>
-                <li><a href="#">内容管理</a></li>
+                <li><a href="{{ route('nav_manage') }}">菜单管理</a></li>
                 <li class="active">菜单编辑</li>
             </ol>
         </section>

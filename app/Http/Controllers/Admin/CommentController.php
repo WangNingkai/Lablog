@@ -80,7 +80,7 @@ class CommentController extends Controller
         $this->comment->replyData($id,$reply);
         $emailTo=$this->comment->query()->where('id',$id)->value('email');
         $article_id=$this->comment->query()->where('id',$id)->value('article_id');
-        operation_event(auth()->user()->name,'回复评论');  //TODO:发邮件
+        operation_event(auth()->user()->name,'回复评论');
         Mail::to($emailTo)->send(new SendReply('站点评论回复提醒','您在我站的评论，站长已经回复，请注意查看.',route('article',$article_id)));
         return redirect()->route('comment_manage');
     }
