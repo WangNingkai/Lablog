@@ -155,7 +155,7 @@ $(function () {
         } else {
             return false
         }
-    });Km
+    });
     $(".delArticle").on("click", function () {
         aid = $(this).parent().siblings().eq(0).find("input[name=aid]").val();
         $("#deleteId").val(aid);
