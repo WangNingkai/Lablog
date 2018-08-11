@@ -22,7 +22,7 @@
 
                     <div class="small-box bg-green">
                         <div class="inner">
-                            <h3>{{ 111 }}</h3>
+                            <h3>{{ $articlesCount }}</h3>
 
                             <p>我的文章</p>
                         </div>
@@ -38,7 +38,7 @@
 
                     <div class="small-box bg-blue">
                         <div class="inner">
-                            <h3>{{ 111 }}</h3>
+                            <h3>{{ $pagesCount }}</h3>
 
                             <p>我的单页</p>
                         </div>
@@ -54,7 +54,7 @@
 
                     <div class="small-box bg-olive">
                         <div class="inner">
-                            <h3>{{ 111 }}</h3>
+                            <h3>{{ $commentsCount }}</h3>
 
                             <p>我的评论</p>
                         </div>
@@ -70,7 +70,7 @@
 
                     <div class="small-box bg-purple">
                         <div class="inner">
-                            <h3>{{ 111 }}</h3>
+                            <h3>{{ $messagesCount }}</h3>
 
                             <p>我的留言</p>
                         </div>

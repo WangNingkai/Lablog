@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Page;
 use Illuminate\Support\Facades\Artisan;
 use App\Models\Article;
 use App\Models\Message;
@@ -19,17 +20,17 @@ class DashboardController extends Controller
      */
     public function home()
     {
-        $allArticlesCount=Article::query()->count();
-        $allTagsCount=Tag::query()->count();
-        $allCategoriesCount=Category::query()->count();
-        $allMessagesCount = Message::query()->count();
-        // 最新未读留言
+        $articlesCount=Article::query()->count();
+        $pagesCount=Page::query()->count();
+        $commentsCount=Comment::query()->count();
+        $messagesCount = Message::query()->count();
+        // 最新未读评论
         $newComments = Comment::query()->where(['status'=>Comment::UNCHECKED])->with('article')->orderBy('created_at', 'desc')->limit(5)->get();
         // 最新未读留言
         $newMessages = Message::query()->where(['status'=>Message::UNCHECKED])->orderBy('created_at', 'desc')->limit(5)->get();
         // 最新发布文章
         $newArticles = Article::query()->orderBy('created_at', 'desc')->limit('6')->get();
-        $assign=compact('allArticlesCount','allTagsCount','allCategoriesCount','allMessagesCount','newMessages','newArticles','allCommentsCount','newComments');
+        $assign=compact('articlesCount','pagesCount','commentsCount','messagesCount','newArticles','newMessages','newComments');
         return view('admin.index', $assign);
     }
 
