@@ -16,10 +16,56 @@
         <section class="content container-fluid">
             <div class="row">
                 <div class="col-md-12">
+                    <div class="box box-solid">
+                        <div class="box-body">
+                            <div class="pull-left">
+                                <a class="btn btn-success btn-flat" data-toggle="modal" href="#subscribe-modal"><i class="fa fa-plus-circle"></i>&nbsp;推送订阅消息</a>
+                                <div class="modal fade" id="subscribe-modal">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                <h4 class="modal-title">推送订阅消息</h4>
+                                            </div>
+                                            <form action="{{ route('subscribe_push') }}" method="post">
+                                                <div class="modal-body">
+                                                    @csrf
+                                                    <div class="form-group {{$errors->has('content')?'has-error':''}}">
+                                                        <label for="">订阅消息：</label>
+                                                        <textarea class="form-control" rows="5" name="content" placeholder="输入 ..." style="resize: none;" required></textarea>
+                                                        @if ($errors->has('content'))
+                                                            <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('content') }}</strong></span>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-primary btn-flat">推送</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
                     <div class="box">
                         <div class="box-header with-border">
                             <h3 class="box-title">全部订阅</h3>
                             <span>共 {{ $subscribes->total() }}条</span>
+                            <form action="{{ route('subscribe_manage') }}" method="get" style="display: inline-flex" class="pull-right">
+                                <div class="box-tools">
+                                    <div class="input-group input-group-sm" style="width: 150px;">
+                                        <input type="text" name="keyword" class="form-control" placeholder="邮箱">
+                                        <span class="input-group-btn">
+                                            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                         <div class="box-body table-responsive no-padding">
                             <table class="table table-hover">

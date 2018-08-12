@@ -187,13 +187,19 @@ class HomeController extends Controller
         return redirect()->back();
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function subscribe()
     {
         return view('home.subscribe');
     }
 
-
-
+    /**
+     * @param SubscribeStore $request
+     * @param Subscribe $subscribe
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function subscribe_store(SubscribeStore $request, Subscribe $subscribe)
     {
         $data = $request->all();

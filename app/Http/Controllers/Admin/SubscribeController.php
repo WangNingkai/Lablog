@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\Extensions\Tool;
 use App\Models\Subscribe;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -35,6 +36,21 @@ class SubscribeController extends Controller
         return view('admin.subscribe', compact('subscribes'));
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function push(Request $request)
+    {
+        $content = $request->get('content');
+        if(blank($content)){
+            Tool::showMessage('推送消息为空，无法推送',false);
+            return redirect()->back();
+        }
+        Tool::pushSubscribe($content);
+        Tool::showMessage('推送消息成功');
+        return redirect()->back();
+    }
     /**
      * 订阅删除.
      * @param Request $request

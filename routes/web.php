@@ -194,6 +194,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
     Route::group(['prefix' => 'subscribe'], function () {
         Route::get('manage', 'SubscribeController@manage')->name('subscribe_manage');
         Route::post('destroy', 'SubscribeController@destroy')->name('subscribe_destroy');
+        Route::post('push', 'SubscribeController@push')->name('subscribe_push');
     });
 });
 # 测试路由

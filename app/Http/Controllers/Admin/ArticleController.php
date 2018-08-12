@@ -78,7 +78,7 @@ class ArticleController extends Controller
         if($request->get('status') == $this->article::PUBLISHED)
         {
             // 推送订阅
-            Tool::pushSubscribe(route('article',$id));
+            Tool::pushSubscribe('',route('article',$id));
         }
         operation_event(auth()->user()->name,'添加文章');
         // 更新缓存

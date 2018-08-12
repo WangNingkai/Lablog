@@ -220,7 +220,7 @@
                 <a target="_blank" href="http://www.miit.gov.cn/" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;" ><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">| {{$config['site_icp_num']}}</p></a>
             </div>
             <strong>Copyright &copy; {{date('Y')}}
-                <a class="title-link" href="https://imwnk.cn">LABLOG</a>.</strong> All rights reserved.<a class="title-link" href="#">订阅本站</a>
+                <a class="title-link" href="https://imwnk.cn">LABLOG</a>.</strong> All rights reserved.
         </div>
     </footer>
 </div>

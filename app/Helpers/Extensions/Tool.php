@@ -46,7 +46,7 @@ class Tool
      * @param $content
      * @param $url
      */
-    public static function pushSubscribe($url,$content = '')
+    public static function pushSubscribe($content = '',$url = '')
     {
         $emails = Subscribe::query()->pluck('email');
         foreach($emails as $email)
