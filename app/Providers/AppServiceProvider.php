@@ -71,7 +71,7 @@ class AppServiceProvider extends ServiceProvider
             $view->with($assign);
         });
         # 获取各种统计
-        view()->composer(['admin/home'], function($view){
+        view()->composer('/admin/*', function($view){
             $articlesCount = Cache::remember('count:article', 1440, function () {
                 // 统计文章总数
                 return Article::query()->count('id');
