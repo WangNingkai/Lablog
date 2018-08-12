@@ -144,7 +144,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="treeview {{ set_active('admin/link') }} {{ set_active('admin/message') }} {{ set_active('admin/comment') }}">
+                <li class="treeview {{ set_active('admin/link') }} {{ set_active('admin/message') }} {{ set_active('admin/comment') }} {{ set_active('admin/subscribe') }}">
                     <a href="#">
                         <i class="fa fa-cogs"></i> <span> 其他模块</span>
                         <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
@@ -153,6 +153,7 @@
                         <li class="{{ set_active('admin/link/manage') }}"><a href="{{ route('link_manage') }}"><i class="fa fa-link"></i> 我的友链</a></li>
                         <li class="{{ set_active('admin/comment/manage') }}"><a href="{{ route('comment_manage') }}"><i class="fa fa-comment"></i> 我的评论</a></li>
                         <li class="{{ set_active('admin/message/manage') }}"><a href="{{ route('message_manage') }}"><i class="fa fa-comments"></i> 我的留言</a></li>
+                        <li class="{{ set_active('admin/subscribe/manage') }}"><a href="{{ route('subscribe_manage') }}"><i class="fa fa-link"></i> 我的订阅</a></li>
                     </ul>
                 </li>
                 @role(\App\Models\User::SUPERADMIN)

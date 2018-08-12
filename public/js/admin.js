@@ -989,6 +989,54 @@ $(function () {
             return false
         }
     });
+    $(".delSubscribes").on("click", function () {
+        sid = $(this).parent().siblings().eq(0).find("input[name=sid]").val();
+        $("#deleteId").val(sid);
+        swal({
+            title: "确定删除吗？",
+            text: "删除将无法恢复",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "确定",
+            cancelButtonText: "取消"
+        }).then((result) => {
+            if (result.value) {
+                $("#deleteForm").submit()
+            } else if (result.dismiss === swal.DismissReason.cancel) {
+                swal('已取消', ':)', 'error')
+            }
+        })
+    });
+    $("#delSelectedSubscribes").on("click", function () {
+        ids = new Array();
+        $("input[name='sid']:checked").each(function () {
+            ids.push($(this).val())
+        });
+        if (ids.length != 0) {
+            $("#deleteId").val(ids);
+            formData = $("#deleteForm").serialize();
+            swal({
+                title: "确定删除吗？",
+                text: "删除将无法恢复",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "确定",
+                cancelButtonText: "取消"
+            }).then((result) => {
+                if (result.value) {
+                    $("#deleteForm").submit()
+                } else if (result.dismiss === swal.DismissReason.cancel) {
+                    swal('已取消', ':)', 'error')
+                }
+            })
+        } else {
+            return false
+        }
+    });
 });
 
 function selectAll(id) {

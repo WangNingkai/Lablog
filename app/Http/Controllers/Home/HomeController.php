@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Home;
 
-use App\Jobs\SendEmail;
+use App\Helpers\Extensions\Tool;
 use App\Models\Page;
+use App\Models\Subscribe;
 use Illuminate\Http\Request;
 use App\Http\Requests\Message\Store as MessageStore;
 use App\Http\Requests\Comment\Store as CommentStore;
+use App\Http\Requests\Subscribe\Store as SubscribeStore;
 use App\Http\Controllers\Controller;
 use App\Models\Tag;
 use App\Models\Category;
@@ -99,17 +101,7 @@ class HomeController extends Controller
         $data = $request->all();
         $data['ip'] = request()->ip();
         $comment->storeData($data);
-        $param = [
-            'email' => $this->config['site_mailto_admin'],
-            'name' => '亲爱的站长',
-            'subject' => 'LABLOG 文章评论提醒',
-            'data' => [
-                'name' => '亲爱的站长',
-                'content' => '您的个人博客现有新的评论，请注意查看审核。',
-                'url' => route('comment_manage')
-            ],
-        ];
-        $this->dispatch(new SendEmail($param['email'], $param['name'], $param['subject'], $param['data']));
+        Tool::pushMessage($this->config['site_mailto_admin'],'站长大大','您的博客现有新的评论，请注意查看审核',route('comment_manage'));
         return redirect()->back();
 
     }
@@ -195,18 +187,23 @@ class HomeController extends Controller
         $data = $request->all();
         $data['ip'] = request()->ip();
         $message->storeData($data);
-        $param = [
-            'email' => $this->config['site_mailto_admin'],
-            'name' => '亲爱的站长',
-            'subject' => 'LABLOG 站点留言提醒',
-            'data' => [
-                'name' => '亲爱的站长',
-                'content' => '您的个人博客现有新的留言，请注意查看审核。',
-                'url' => route('message_manage')
-            ],
-        ];
-        $this->dispatch(new SendEmail($param['email'], $param['name'], $param['subject'], $param['data']));
+        Tool::pushMessage($this->config['site_mailto_admin'],'站长大大','您的博客现有新的留言，请注意查看审核',route('comment_manage'));
         return redirect()->back();
+    }
+
+    public function subscribe()
+    {
+        return view('home.subscribe');
+    }
+
+
+
+    public function subscribe_store(SubscribeStore $request, Subscribe $subscribe)
+    {
+        $data = $request->all();
+        $data['ip'] = $request->ip();
+        $subscribe->storeData($data);
+        return redirect()->route('home');
     }
 
     /**

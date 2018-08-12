@@ -56,17 +56,14 @@ class SendEmail implements ShouldQueue
 
     /**
      * SendEmail constructor.
-     * @param $email
-     * @param $name
-     * @param $subject
-     * @param array $data
+     * @param $param
      */
-    public function __construct($email, $name, $subject, array $data)
+    public function __construct($param)
     {
-        $this->email = $email;
-        $this->name = $name;
-        $this->subject = $subject;
-        $this->data = $data;
+        $this->email = $param['email'];
+        $this->name = $param['name'];
+        $this->subject = $param['subject'];
+        $this->data = $param['data'];
     }
 
     /**

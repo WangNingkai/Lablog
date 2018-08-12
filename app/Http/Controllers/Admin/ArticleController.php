@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\Extensions\Tool;
 use App\Jobs\SendEmail;
 use App\Models\Comment;
 use Carbon\Carbon;
@@ -76,18 +77,8 @@ class ArticleController extends Controller
         $id = $this->article->storeData($request->all());
         if($request->get('status') == $this->article::PUBLISHED)
         {
-            // todo:文章订阅
-            $param = [
-                'email' => '1655586865@qq.com',
-                'name' => '亲爱的订阅用户',
-                'subject' => 'LABLOG 新文章提醒',
-                'data' => [
-                    'name' => '亲爱的订阅用户',
-                    'content' => 'LABLOG 有新文章发布了，快来瞧瞧吧',
-                    'url' => route('article',$id)
-                ],
-            ];
-            $this->dispatch(new SendEmail($param['email'], $param['name'], $param['subject'], $param['data']));
+            // 推送订阅
+            Tool::pushSubscribe(route('article',$id));
         }
         operation_event(auth()->user()->name,'添加文章');
         // 更新缓存

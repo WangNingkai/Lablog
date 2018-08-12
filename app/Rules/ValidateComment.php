@@ -45,7 +45,6 @@ class ValidateComment implements Rule
             return false;
         }
         // 限制同一IP一天评论数
-
         $date = date('Y-m-d', $time);
         $count = Comment::query()->where('ip', $commentIp)
             ->whereBetween('created_at', [$date.' 00:00:00', $date.' 23:59:59'])
