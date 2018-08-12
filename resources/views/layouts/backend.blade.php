@@ -18,9 +18,9 @@
     <link rel="stylesheet" href="{{asset('adminlte/dist/css/AdminLTE.min.css')}}">
     <link rel="stylesheet" href="{{asset('adminlte/dist/css/skins/skin-blue.min.css')}}">
     <!-- OTHER stylesheet -->
-    {!! pace_css('white') !!}
-    {!! sweetalert2_css() !!}
-    @yield('css')
+{!! pace_css('white') !!}
+{!! sweetalert2_css() !!}
+@yield('css')
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- 警告：Respond.js 不支持 file:// 方式查看（即本地方式查看）-->
     <!--[if lt IE 9]>
@@ -111,30 +111,40 @@
                 <li class="header">菜单</li>
                 <li class="{{ set_active('admin/home') }}"><a href="{{ route('dashboard_home') }}"><i class="fa fa-home"></i> <span> 首页</span></a></li>
                 <li class="{{ set_active('admin/article/create') }}"><a href="{{ route('article_create') }}"><i class="fa fa-pencil-square-o"></i> <span> 新建文章</span></a></li>
-                <li class="treeview {{ set_active('admin/config') }} {{ set_active('admin/about') }}">
+                <li class="treeview {{ set_active('admin/config') }} {{ set_active('admin/nav') }}">
                     <a href="#">
                         <i class="fa fa-star"></i> <span> 我的站点</span>
                         <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                     </a>
                     <ul class="treeview-menu">
                         <li class="{{ set_active('admin/config/manage') }}" ><a href="{{ route('config_manage') }}"><i class="fa fa-cog"></i> 站点设置</a></li>
-                        <li class="{{ set_active('admin/about/manage') }}"><a href="{{ route('about_manage') }}"><i class="fa fa-address-card"></i> 关于页面</a></li>
+                        <li class="{{ set_active('admin/nav') }}"><a href="{{ route('nav_manage') }}"><i class="fa fa-bars"></i> 菜单管理</a></li>
                     </ul>
                 </li>
-                <li class="treeview {{ set_active('admin/tag') }} {{ set_active('admin/category') }} {{ set_active('admin/article') }} {{ set_active('admin/image') }}">
+                <li class="treeview {{ set_active('admin/tag') }} {{ set_active('admin/category') }} {{ set_active('admin/article') }} {{ set_active('admin/page') }}">
                     <a href="#">
                         <i class="fa fa-book"></i> <span> 内容管理</span>
                         <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                     </a>
                     <ul class="treeview-menu">
-                        <li class="{{ set_active('admin/tag/manage') }}"><a href="{{ route('tag_manage') }}"><i class="fa fa-tags"></i> 标签管理</a></li>
+                        <li class="{{ set_active('admin/tag') }}"><a href="{{ route('tag_manage') }}"><i class="fa fa-tags"></i> 标签管理</a></li>
                         <li class="{{ set_active('admin/category') }}"><a href="{{ route('category_manage') }}"><i class="fa fa-bars"></i> 栏目管理</a></li>
-                        <li class="{{ set_active('admin/article/manage') }}"><a href="{{ route('article_manage') }}"><i class="fa fa-file"></i> 文章管理</a></li>
-                        <li class="{{ set_active('admin/article/trash') }}"><a href="{{ route('article_trash') }}"><i class="fa fa-trash"></i> 回收站</a></li>
-                        <li class="{{ set_active('admin/image/list') }}"><a href="{{ route('image_list') }}"><i class="fa fa-image"></i> 图床</a></li>
+                        <li class="{{ set_active('admin/article') }}"><a href="{{ route('article_manage') }}"><i class="fa fa-file-text"></i> 文章管理</a></li>
+                        <li class="{{ set_active('admin/page') }}"><a href="{{ route('page_manage') }}"><i class="fa fa-file-o"></i> 单页管理</a></li>
+                        {{--<li class="{{ set_active('admin/article/trash') }}"><a href="{{ route('article_trash') }}"><i class="fa fa-trash"></i> 回收站</a></li>--}}
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-trash"></i> 回收站
+                                <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="{{ route('article_trash') }}"><i class="fa fa-circle-o"></i> 文章回收站</a></li>
+                                <li><a href="{{ route('page_trash') }}"><i class="fa fa-circle-o"></i> 单页回收站</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </li>
-                <li class="treeview {{ set_active('admin/link') }} {{ set_active('admin/message') }} {{ set_active('admin/comment') }}">
+                <li class="treeview {{ set_active('admin/link') }} {{ set_active('admin/message') }} {{ set_active('admin/comment') }} {{ set_active('admin/subscribe') }}">
                     <a href="#">
                         <i class="fa fa-cogs"></i> <span> 其他模块</span>
                         <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
@@ -143,10 +153,11 @@
                         <li class="{{ set_active('admin/link/manage') }}"><a href="{{ route('link_manage') }}"><i class="fa fa-link"></i> 我的友链</a></li>
                         <li class="{{ set_active('admin/comment/manage') }}"><a href="{{ route('comment_manage') }}"><i class="fa fa-comment"></i> 我的评论</a></li>
                         <li class="{{ set_active('admin/message/manage') }}"><a href="{{ route('message_manage') }}"><i class="fa fa-comments"></i> 我的留言</a></li>
+                        <li class="{{ set_active('admin/subscribe/manage') }}"><a href="{{ route('subscribe_manage') }}"><i class="fa fa-link"></i> 我的订阅</a></li>
                     </ul>
                 </li>
                 @role(\App\Models\User::SUPERADMIN)
-                    <li class="treeview {{ set_active('admin/permission') }} {{ set_active('admin/user') }} {{ set_active('admin/role') }}">
+                <li class="treeview {{ set_active('admin/permission') }} {{ set_active('admin/user') }} {{ set_active('admin/role') }}">
                     <a href="#">
                         <i class="fa fa-ban"></i> <span> 权限管理</span>
                         <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
@@ -159,6 +170,7 @@
                 </li>
                 @endrole
                 <li class="{{ set_active('admin/operation_logs/manage') }}"><a href="{{ route('operation_logs_manage') }}"><i class="fa fa-history"></i> <span> 日志查看</span></a></li>
+                <li class="{{ set_active('admin/image/list') }}"><a href="{{ route('image_list') }}"><i class="fa fa-image"></i> <span>图床</span></a></li>
             </ul>
         </section>
     </aside>

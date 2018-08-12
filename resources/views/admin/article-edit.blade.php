@@ -10,7 +10,7 @@
             <h1>编辑文章<small>LABLOG</small></h1>
             <ol class="breadcrumb">
                 <li><a href="{{ route('dashboard_home') }}"><i class="fa fa-dashboard"></i> 首页</a></li>
-                <li><a href="#">内容管理</a></li>
+                <li><a href="{{ route('article_manage') }}">文章管理</a></li>
                 <li class="active">编辑文章</li>
             </ol>
         </section>
@@ -97,6 +97,22 @@
                                     </div>
                                     @if ($errors->has('status'))
                                         <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('status') }}</strong></span>
+                                    @endif
+                                </div>
+                                <div class="form-group {{$errors->has('allow_comment')?'has-error':''}}">
+                                    <label>是否允许评论：</label>
+                                    <div class="radio">
+                                        <label class="i-checks">
+                                            <input type="radio" name="allow_comment" value="{{ \App\Models\Article::ALLOW_COMMENT }}"
+                                                   @if(!is_null(old('allow_comment')) && old( 'allow_comment') == \App\Models\Article::ALLOW_COMMENT) checked="checked" @elseif($article->allow_comment == \App\Models\Article::ALLOW_COMMENT ) checked="checked"  @endif> &nbsp;是
+                                        </label>
+                                        <label class="i-checks">
+                                            <input type="radio" name="allow_comment" value="{{ \App\Models\Article::FORBID_COMMENT }}"
+                                                   @if(!is_null(old('allow_comment')) && old( 'allow_comment') == \App\Models\Article::FORBID_COMMENT) checked="checked" @elseif($article->allow_comment == \App\Models\Article::FORBID_COMMENT ) checked="checked"  @endif> &nbsp;否
+                                        </label>
+                                    </div>
+                                    @if ($errors->has('allow_comment'))
+                                        <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('allow_comment') }}</strong></span>
                                     @endif
                                 </div>
                             </div>

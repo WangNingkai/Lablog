@@ -14,7 +14,7 @@ class CreateMessagesTable extends Migration
     public function up()
     {
         Schema::create('messages', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('id')->comment('留言ID');
             $table->string('nickname')->comment('昵称');
             $table->string('email')->comment('邮箱');
             $table->string('content')->comment('留言');

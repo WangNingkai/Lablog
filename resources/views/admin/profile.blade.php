@@ -1,6 +1,7 @@
 @extends('layouts.backend')
 @section('title','控制台 - 个人信息')
 @section('css')
+    <link href="https://cdn.bootcss.com/Dropify/0.2.2/css/dropify.min.css" rel="stylesheet">
     <style>
         .hr-line-dashed {
             border-top: 1px dashed #e7eaec;
@@ -8,6 +9,14 @@
             background-color: #fff;
             height: 1px;
             margin: 20px 0
+        }
+        .avatar-view {
+            height: 100px;
+            width: 100px;
+            border: 3px solid #fff;
+            border-radius: 50px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, .15);
+            margin: 0 auto;
         }
     </style>
 @stop
@@ -23,13 +32,21 @@
         <section class="content container-fluid">
             <div class="row">
                 <div class="col-md-4">
-                    <form role="form"  method="POST" action="{{route('profile_update')}}" id="editProfileForm">
+                    <form role="form"  method="POST" action="{{ route('profile_update') }}" id="editProfileForm">
                     @csrf
                         <div class="box box-default">
                             <div class="box-header with-border">
                                 <h3 class="box-title">基本设置</h3>
                             </div>
                             <div class="box-body">
+                                <div class="form-group">
+                                    <label>上传头像：</label>
+                                    <div class="avatar-view">
+                                        <a data-toggle="modal" href='#avatar-modal'>
+                                            <img class="img-responsive img-circle" src="{{ $admin->avatar }}"/>
+                                        </a>
+                                    </div>
+                                </div>
                                 <div class="form-group {{$errors->has('name')?'has-error':''}}">
                                     <label for="name">用户名：</label>
                                     <input type="text" class="form-control" name="name" id="name" value="{{old('name')?old('name'):$admin->name}}">
@@ -95,31 +112,35 @@
                             <h3 class="box-title">第三方登录绑定</h3>
                         </div>
                         <div class="box-body">
-                            <dl class="dl-horizontal">
-                                <dt>QQ：</dt>
-                                <dd>
+                            <div class="row">
+                                <div class="col-md-4">QQ：</div>
+                                <div class="col-md-8">
                                     @if(blank($admin->bindQQ))<a href="{{ route('oauth.redirect','qq') }}" class="btn btn-flat bg-gray">点击绑定</a>
                                     @else  <a href="javascript:void(0)" class="btn btn-flat bg-gray">已绑定 ({{ $admin->qqName }})</a>
-                                    <a href="javascript:void(0)" class="btn btn-flat bg-red unbind-btn" data-type="qq">解除</a>
+                                        <a href="javascript:void(0)" class="btn btn-flat bg-red unbind-btn" data-type="qq">解除</a>
                                     @endif
-                                </dd>
-                                <div class="hr-line-dashed"></div>
-                                <dt>微博：</dt>
-                                <dd>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="row">
+                                <div class="col-md-4">微博：</div>
+                                <div class="col-md-8">
                                     @if(blank($admin->bindWeibo))<a href="{{ route('oauth.redirect','weibo') }}" class="btn btn-flat bg-gray">点击绑定</a>
                                     @else  <a href="javascript:void(0)" class="btn btn-flat bg-gray">已绑定 ({{ $admin->weiboName }})</a>
                                     <a href="javascript:void(0)" class="btn btn-flat bg-red unbind-btn" data-type="weibo">解除</a>
                                     @endif
-                                </dd>
-                                <div class="hr-line-dashed"></div>
-                                <dt>GitHub：</dt>
-                                <dd>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="row">
+                                <div class="col-md-4">GitHub：</div>
+                                <div class="col-md-8">
                                     @if(blank($admin->bindGithub))<a href="{{ route('oauth.redirect','github') }}" class="btn btn-flat bg-gray">点击绑定</a>
                                     @else  <a href="javascript:void(0)" class="btn btn-flat bg-gray">已绑定 ({{ $admin->githubName }})</a>
                                     <a href="javascript:void(0)" class="btn btn-flat bg-red unbind-btn" data-type="github">解除</a>
                                     @endif
-                                </dd>
-                            </dl>
+                                </div>
+                            </div>
                             <form id="unbindForm" style="display: none;" action="{{ route('unbind_third_login') }}" method="post">
                                 @csrf
                                 <input type="hidden" name="type" id="bindType">
@@ -129,11 +150,40 @@
                 </div>
             </div>
         </section>
+        <div class="modal fade" id="avatar-modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">上传头像</h4>
+                    </div>
+                    <form action="{{ route('avatar_upload') }}" method="post" enctype="multipart/form-data">
+                        <div class="modal-body">
+                            @csrf
+                            <input type="file" name="avatar" class="dropify" data-max-height="200" data-allowed-file-extensions="png jpg jpeg" data-max-file-size="2M"/>
+                            <span class="help-block">头像支持png、jpg、jepg 格式小于2M的图片.为保证头像质量请上传等比例的图片。并保证宽度小于200像素</span>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary btn-flat">上传</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 @stop
 @section('js')
+    <script src="https://cdn.bootcss.com/Dropify/0.2.2/js/dropify.min.js"></script>
 <script>
 $(function () {
+    $('.dropify').dropify({
+        messages: {
+            'default': '点击或拖拽图片到这里',
+            'replace': '点击或拖拽图片到这里来替换图片',
+            'remove': '移除',
+            'error': '对不起，你上传的图片太大了'
+        }
+    });
     $(".unbind-btn").on("click", function () {
         bindType = $(this).data('type');
         $("#bindType").val(bindType);

@@ -22,7 +22,7 @@ class Message extends Base
     public function storeData($data)
     {
         //添加数据
-        $result = $this->create($data);
+        $result = $this->query()->create($data);
         if ($result) {
             show_message('留言成功，等待审核');
             return $result->id;
@@ -31,7 +31,6 @@ class Message extends Base
             return false;
         }
     }
-    // TODO：单体数据的审核以及多条数据的审核
     /**
      * 审核数据
      *
@@ -41,6 +40,7 @@ class Message extends Base
     public function checkData($map)
     {
         $model = $this
+            ->query()
             ->whereMap($map)
             ->get();
         if ($model->isEmpty()) {
@@ -62,12 +62,13 @@ class Message extends Base
      * 回复数据
      *
      * @param  int $id  id
-     * @param  mix $reply 回复的数据
+     * @param  mixed $reply 回复的数据
      * @return bool        是否成功
      */
     public function replyData($id, $reply)
     {
         $model = $this
+            ->query()
             ->find($id);
         // 可能有查不到数据的情况
         if (!$model) {

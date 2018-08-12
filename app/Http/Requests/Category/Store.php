@@ -28,8 +28,9 @@ class Store extends FormRequest
             'flag' => 'required|string|unique:categories',
             'keywords' => 'required|string',
             'description' => 'required|string',
-            'pid' => 'required',
+            'parent_id' => 'required',
             'sort' => 'required',
+
         ];
     }
 
@@ -45,7 +46,7 @@ class Store extends FormRequest
             'flag' => '标识',
             'keywords' => '关键字',
             'description' => '描述',
-            'pid' => '父级ID',
+            'parent_id' => '父级ID',
             'sort' => '排序权重',
         ];
     }

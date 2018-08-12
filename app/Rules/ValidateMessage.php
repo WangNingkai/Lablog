@@ -29,8 +29,8 @@ class ValidateMessage implements Rule
     public function passes($attribute, $value)
     {
         // 过滤无意义留言
-        if (ctype_alnum($value) || in_array($value, ['test', '测试'])) {
-            $this->message = '禁止无意义留言';
+        if (ctype_alnum($value) || in_array($value, ['test', '测试']) || has_filter($value)) {
+            $this->message = '禁止使用无意义、非法词汇评论';
             return false;
         }
         $MessageIp = request()->ip();;

@@ -47,7 +47,8 @@ class UserController extends Controller
             'name' => $request['name'],
             'email' => $request['email'],
             'password' => Hash::make($request['password']),
-            'status' => $request['status']
+            'status' => $request['status'],
+            'avatar' => '\uploads\avatar\default.png'
         ])));
         $roles = $request->get('roles');
         $creatOrFail->assignRole($roles);

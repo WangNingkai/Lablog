@@ -14,7 +14,7 @@ class ArticleTag extends Base
     public function addTagIds($article_id, $tag_ids)
     {
         // 先删除此文章下的所有标签
-        $this->where('article_id' ,$article_id)->forceDelete();
+        $this->query()->where('article_id' ,$article_id)->forceDelete();
         // 组合批量插入的数据
         $data = [];
         foreach ($tag_ids as $k => $v) {
@@ -23,7 +23,7 @@ class ArticleTag extends Base
                 'tag_id' => $v
             ];
         }
-        $this->insert($data);
+        $this->query()->insert($data);
     }
 
     /**
@@ -36,6 +36,7 @@ class ArticleTag extends Base
     {
         // 获取标签数据
         $tag = $this
+            ->query()
             ->select('article_tags.article_id as id', 't.id as tag_id', 't.name')
             ->join('tags as t', 'article_tags.tag_id', 't.id')
             ->whereIn('article_tags.article_id', $ids)

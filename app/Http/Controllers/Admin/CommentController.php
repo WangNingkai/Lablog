@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\Extensions\Tool;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\SendReply;
 
 class CommentController extends Controller
 {
@@ -25,7 +24,7 @@ class CommentController extends Controller
     }
 
     /**
-     * 留言管理列表.
+     * 评论管理列表.
      *
      * @return \Illuminate\Http\Response
      */
@@ -36,7 +35,7 @@ class CommentController extends Controller
     }
 
     /**
-     * 查看留言.
+     * 查看评论
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
@@ -51,7 +50,7 @@ class CommentController extends Controller
         return ajax_return(200, $response);
     }
 
-    /** 审核回复
+    /** 审核评论
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -68,7 +67,7 @@ class CommentController extends Controller
     }
 
     /**
-     * 回复留言.
+     * 回复评论.
      *
      * @param  Request $request
      * @return \Illuminate\Http\Response
@@ -78,15 +77,15 @@ class CommentController extends Controller
         $id =  $request->get('id');
         $reply = $request->get('reply');
         $this->comment->replyData($id,$reply);
-        $emailto=$this->comment->query()->where('id',$id)->value('email');
+        $emailTo=$this->comment->query()->where('id',$id)->value('email');
         $article_id=$this->comment->query()->where('id',$id)->value('article_id');
-        operation_event(auth()->user()->name,'回复评论');  //TODO:发邮件
-        Mail::to($emailto)->send(new SendReply('站点评论回复提醒','您在我站的评论，站长已经回复，请注意查看.',route('article',$article_id)));
+        operation_event(auth()->user()->name,'回复评论');
+        Tool::pushMessage($emailTo,$emailTo,'您在我站的评论，站长已经回复，请注意查看',route('article',$article_id));
         return redirect()->route('comment_manage');
     }
 
     /**
-     * 删除留言.
+     * 删除评论.
      *
      * @param  Request $request
      * @return \Illuminate\Http\Response

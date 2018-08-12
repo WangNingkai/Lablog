@@ -49,6 +49,7 @@ class Base extends Model
     public function updateData($map, $data)
     {
         $model = $this
+            ->query()
             ->whereMap($map)
             ->get();
         // 当数据为空的时候
@@ -77,6 +78,7 @@ class Base extends Model
     public function destroyData($map)
     {
         $result = $this
+            ->query()
             ->whereMap($map)
             ->delete();
         if ($result) {
@@ -99,6 +101,7 @@ class Base extends Model
     {
         // 恢复
         $result = $this
+            ->query()
             ->whereMap($map)
             ->restore();
         if ($result) {
@@ -121,6 +124,7 @@ class Base extends Model
     {
         // 彻底删除
         $result=$this
+            ->query()
             ->whereMap($map)
             ->forceDelete();
         if ($result) {

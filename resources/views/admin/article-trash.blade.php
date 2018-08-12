@@ -1,5 +1,5 @@
 @extends('layouts.backend')
-@section('title','控制台 - 回收站')
+@section('title','控制台 - 文章回收站')
 @section('css')
 {!! icheck_css() !!}
 @stop
@@ -9,8 +9,8 @@
             <h1>回收站<small>LABLOG</small></h1>
             <ol class="breadcrumb">
                 <li><a href="{{ route('dashboard_home') }}"><i class="fa fa-dashboard"></i> 首页</a></li>
-                <li><a href="#">内容管理</a></li>
-                <li class="active">回收站</li>
+                <li><a href="{{ route('article_manage') }}">文章管理</a></li>
+                <li class="active">文章回收站</li>
             </ol>
         </section>
         <section class="content container-fluid">
@@ -18,7 +18,7 @@
                 <div class="col-md-12">
                     <div class="box">
                         <div class="box-header with-border">
-                            <h3 class="box-title">回收站</h3>
+                            <h3 class="box-title">文章回收站</h3>
                             <span>共 {{ $articles->total() }}篇</span>
                         </div>
                         <div class="box-body table-responsive no-padding">

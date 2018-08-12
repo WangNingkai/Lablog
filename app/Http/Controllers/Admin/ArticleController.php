@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\Extensions\Tool;
+use App\Jobs\SendEmail;
+use App\Models\Comment;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Requests\Article\Store;
 use App\Http\Controllers\Controller;
@@ -40,6 +44,7 @@ class ArticleController extends Controller
         $keyword ? array_push($map, ['title', 'like', '%' . $keyword . '%']) : null;
         $category ? array_push($map, ['category_id', '=', $category]) : null;
         $articles =  $this->article
+            ->query()
             ->select('id', 'category_id', 'title','status','click', 'created_at')
             ->where($map)
             ->with('category')
@@ -69,7 +74,12 @@ class ArticleController extends Controller
      */
     public function store(Store $request)
     {
-        $this->article->storeData($request->all());
+        $id = $this->article->storeData($request->all());
+        if($request->get('status') == $this->article::PUBLISHED)
+        {
+            // 推送订阅
+            Tool::pushSubscribe('',route('article',$id));
+        }
         operation_event(auth()->user()->name,'添加文章');
         // 更新缓存
         Cache::forget('cache:top_article_list');
@@ -103,7 +113,7 @@ class ArticleController extends Controller
     public function update(Store $request, ArticleTag $articleTagModel, $id)
     {
         $data = $request->except('_token');
-        // 如果没有描述;则截取文章内容的前200字作为描述
+        // 如果没有描述;则截取文章内容的前150字作为描述
         if (empty($data['description'])) {
             $description = preg_replace(array('/[~*>#-]*/', '/!?\[.*\]\(.*\)/', '/\[.*\]/'), '', $data['content']);
             $data['description'] = re_substr($description, 0, 150, true);
@@ -192,16 +202,15 @@ class ArticleController extends Controller
     {
         $data = $request->only('aid');
         $arr = explode(',', $data['aid']);
-        if (!$this->article->whereIn('id', $arr)->forceDelete()) {
+        if (!$this->article->query()->whereIn('id', $arr)->forceDelete()) {
             show_message('彻底删除失败', false);
             return redirect()->back();
         }
-        // 删除对应标签记录
-        $articleTagModel = new ArticleTag;
-        $deleteOrFail = $articleTagModel->whereIn('article_id', $arr)->delete();
+        // 删除对应标签记录与评论记录
+        $deleteOrFail = ArticleTag::query()->whereIn('article_id', $arr)->delete() && Comment::query()->whereIn('article_id', $arr)->delete();
         $deleteOrFail ? show_message('彻底删除成功') : show_message('彻底删除失败',false);
         operation_event(auth()->user()->name,'完全删除文章');
-        baidu_push($arr,'del');
+        bd_push($arr,'del');
 
         // 更新缓存
         Cache::forget('cache:top_article_list');
@@ -214,6 +223,7 @@ class ArticleController extends Controller
     {
         $category = $request->get('category');
         $articles = $this->article
+            ->query()
             ->select('id', 'category_id', 'title','status','click', 'created_at')
             ->with(['category'=> function ($query) use($category) {
                 $query->where('name', $category);

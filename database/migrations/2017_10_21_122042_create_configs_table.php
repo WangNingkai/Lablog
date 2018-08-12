@@ -14,7 +14,7 @@ class CreateConfigsTable extends Migration
     public function up()
     {
         Schema::create('configs', function (Blueprint $table) {
-            $table->increments('id')->comment('主键');
+            $table->increments('id')->comment('配置ID');
             $table->string('name')->comment('配置项键名');
             $table->text('value')->nullable()->comment('配置项键值');
             $table->timestamps();

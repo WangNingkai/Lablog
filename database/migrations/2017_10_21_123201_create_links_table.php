@@ -14,10 +14,10 @@ class CreateLinksTable extends Migration
     public function up()
     {
         Schema::create('links', function (Blueprint $table) {
-            $table->increments('id')->comment('主键id');
+            $table->increments('id')->comment('友链ID');
             $table->string('name')->comment('链接名');
             $table->string('url')->comment('链接地址');
-            $table->boolean('sort')->default(1)->comment('排序');
+            $table->unsignedTinyInteger('sort')->default(1)->comment('排序');
             $table->timestamps();
         });
     }

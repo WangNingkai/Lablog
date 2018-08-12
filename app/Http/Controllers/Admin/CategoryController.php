@@ -39,7 +39,7 @@ class CategoryController extends Controller
         $levelOne = $this->category
             ->query()
             ->select('id', 'name')
-            ->where('pid', 0)
+            ->where('parent_id', 0)
             ->get();
         return view('admin.category', compact('categories','levelOne'));
     }
@@ -75,7 +75,7 @@ class CategoryController extends Controller
         }
         $edit_category = $this->category->query()->find($id);
         $map = [
-            ['pid', '=', 0],
+            ['parent_id', '=', 0],
             ['id', '<>', $id]
         ];
         $levelOne = $this->category->query()->select('id', 'name')->where($map)->get();
@@ -114,6 +114,6 @@ class CategoryController extends Controller
         operation_event(auth()->user()->name,'删除栏目');
         // 更新缓存
         Cache::forget('cache:category_list');
-        return redirect()->route('category_manage');
+        return redirect()->back();
     }
 }

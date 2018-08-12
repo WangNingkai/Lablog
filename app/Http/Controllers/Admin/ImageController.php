@@ -9,6 +9,7 @@ use GuzzleHttp\Client;
 class ImageController extends Controller
 {
     /**
+     * 上传历史列表
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function list()
@@ -23,12 +24,13 @@ class ImageController extends Controller
     }
 
     /**
+     * 上传
      * @return array|\Illuminate\Http\JsonResponse
      */
     public function upload()
     {
         $rule = ['smfile' => 'required|max:5096|image'];
-        $result = upload_file('smfile',$rule,'uploads/tmp/',false);
+        $result = upload_file('smfile',$rule,'uploads/tmp/');
         $file = $result['status_code'] == 200 ? $result['data'] : null;
         $file['path'] = public_path( $file['path']).$file['new_name'];
         try {
@@ -41,6 +43,7 @@ class ImageController extends Controller
     }
 
     /**
+     * 上传到SM.MS
      * @param $file
      * @return mixed
      */

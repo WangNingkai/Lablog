@@ -23,7 +23,7 @@ class UsersTableSeeder extends Seeder
             array (
                 'id' => 1,
                 'name' => 'admin',
-                'avatar' => '/uploads/avatar/default.jpg',
+                'avatar' => '/uploads/avatar/default.png',
                 'email' => 'admin@admin.com',
                 'password' => bcrypt(12345678),
                 'remember_token' => NULL,

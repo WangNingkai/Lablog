@@ -1,5 +1,5 @@
 <?php
- namespace App\Libraries\Extensions;
+namespace App\Helpers\Extensions;
 
 class Select
 {
@@ -24,7 +24,7 @@ class Select
     /**
      * @var string 父id字段
      */
-    public $parent_id = 'pid';
+    public $parent_id = 'parent_id';
 
     /**
      * @var string name字段

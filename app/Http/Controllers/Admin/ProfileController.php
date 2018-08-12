@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\User\UpdatePassword;
 use App\Http\Requests\User\UpdateProfile;
@@ -20,8 +21,7 @@ class ProfileController extends Controller
     public function manage()
     {
         $uid = Auth::id();
-        $admin = Admin::where('id',$uid)->with('oauthinfos')->first();
-        // 添加绑定判断
+        $admin = Admin::query()->where('id',$uid)->with('oauthinfos')->first();
         foreach($admin->oauthinfos as $oauthinfo)
         {
             switch ($oauthinfo->type)
@@ -44,6 +44,30 @@ class ProfileController extends Controller
         return view('admin.profile', compact('admin'));
     }
 
+    public function uploadAvatar()
+    {
+        $uid = Auth::id();
+        $path = 'uploads/avatar';
+        $rule = ['avatar' => 'required|max:2048|image|dimensions:max_width=200,max_height=200'];
+        $avatarName = md5('user_'.$uid.'_avatar');
+        // 先删除原图片再上传 ,上传失败恢复默认图片
+        @unlink(public_path('uploads/avatar') . $avatarName.'.png');
+        $response = upload_file('avatar', $rule, $path, $avatarName);
+        $avatarPath = '/uploads/avatar' . $avatarName.'.png';
+        if (200 === $response['status_code'])
+        {
+            $avatarPath = $response['data']['path'].$response['data']['new_name'];
+            show_message('头像上传成功');
+        }else{
+            show_message($response['message'],false);
+        }
+        $user = User::query()->find($uid);
+        $user->update([
+            'avatar' => $avatarPath
+        ]);
+
+        return redirect()->route('profile_manage');
+    }
     /**
      * 更新密码
      * @param UpdatePassword $request

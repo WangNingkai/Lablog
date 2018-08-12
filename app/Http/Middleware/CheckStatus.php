@@ -4,7 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-use App\Models\Config;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Route;
 
 class CheckStatus
 {
@@ -17,10 +18,21 @@ class CheckStatus
      */
     public function handle($request, Closure $next)
     {
-        $status = Config::query()->where('name', 'site_status')->pluck('value')->first();
-        // 判断是否关站
+        $status = Cache::get('cache:config')['site_status'];
+        # 判断是否关站
         if ($status == 0) {
-            return redirect()->route('close');
+            return response()->view('home.close');
+        }
+        $route = Route::currentRouteName();
+        $allowMessage = Cache::get('cache:config')['site_allow_message'];
+        $allowSubscribe = Cache::get('cache:config')['site_allow_subscribe'];
+        if($route == 'message' && $allowMessage == 0)
+        {
+            return abort(404);
+        }
+        if($route == 'subscribe' && $allowSubscribe == 0)
+        {
+            return abort(404);
         }
         return $next($request);
     }

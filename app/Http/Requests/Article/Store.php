@@ -30,7 +30,8 @@ class Store extends FormRequest
             'keywords' => 'required|string',
             'tag_ids' => 'required',
             'content' => 'required|string',
-            'status' => 'required'
+            'status' => 'required',
+            'allow_comment' => 'required'
         ];
     }
 
@@ -48,7 +49,8 @@ class Store extends FormRequest
             'tag_ids' => '标签',
             'keywords' => '关键词',
             'content' => '内容',
-            'status' => '状态'
+            'status' => '状态',
+            'allow_comment' => '是否允许评论'
         ];
     }
 

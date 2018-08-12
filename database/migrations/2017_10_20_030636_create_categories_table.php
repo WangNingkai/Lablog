@@ -14,13 +14,13 @@ class CreateCategoriesTable extends Migration
     public function up()
     {
         Schema::create('categories', function (Blueprint $table) {
-            $table->increments('id')->comment('主键ID');
-            $table->unsignedInteger('pid')->default(0)->comment('父级ID');
+            $table->increments('id')->comment('分类ID');
+            $table->unsignedInteger('parent_id')->default(0)->comment('父级ID');
             $table->string('name')->comment('栏目名');
             $table->string('flag')->comment('标签标识');
             $table->string('keywords')->default('')->comment('关键词');
             $table->string('description')->default('')->comment('描述');
-            $table->boolean('sort')->default(0)->comment('排序');
+            $table->unsignedTinyInteger('sort')->default(1)->comment('排序');
             $table->timestamps();
         });
     }

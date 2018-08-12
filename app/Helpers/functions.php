@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Mail;
 use HyperDown\Parser;
 use Jenssegers\Agent\Agent;
 use App\Events\OperationEvent;
+use Zhuzhichao\IpLocationZh\Ip;
+use WangNingkai\SimpleDictionary\SimpleDictionary;
 
 if (!function_exists('operation_event')) {
     /**
@@ -29,7 +31,7 @@ if (!function_exists('get_tree')) {
         //每次都声明一个新数组用来放子元素
         $tree = [];
         foreach ($data as $v) {
-            if ($v['pid'] == $pid) {
+            if ($v['parent_id'] == $pid) {
                 //匹配子记录
                 $v['children'] = get_tree($data, $v['id'], null);
                 //递归获取子记录
@@ -60,7 +62,7 @@ if (!function_exists('get_select')) {
      */
     function get_select($data, $selected_id = 0)
     {
-        $select = new \App\Libraries\Extensions\Select($data);
+        $select = new \App\Helpers\Extensions\Select($data);
         return $select->make_option_tree_for_select($selected_id);
     }
 }
@@ -137,14 +139,8 @@ if (!function_exists('ip_to_city')) {
     {
         if (!ip_is_private($ip))
         {
-            $url = "http://ip.taobao.com/service/getIpInfo.php?ip=".$ip;
-            $json = file_get_contents($url);
-            $ip = json_decode($json);
-            if((string)$ip->code == '1'){
-                return false;
-            }
-            $data = (array)$ip->data;
-            return $data['country'].$data['city'];
+            $data = Ip::find($ip);
+            return $data[0].$data[1].$data[2];
         }else{
             return '内网IP';
         }
@@ -216,13 +212,14 @@ if (!function_exists('upload_file') ) {
 	/**
 	 * 上传文件函数
 	 *
-	 * @param string $file      表单的name名
-     * @param array  $rule     规则
-	 * @param string $path      上传的路径
-	 * @param bool $childPath   是否根据日期生成子目录
-	 * @return array            上传的状态
+	 * @param string $file            表单的name名
+     * @param array  $rule           规则
+	 * @param string $path           上传的路径
+     * @param mixed  $isRandName     是否自定义名
+	 * @param bool $childPath        是否根据日期生成子目录
+	 * @return array                 上传的状态
 	 */
-	function upload_file($file, $rule ,$path = 'upload', $childPath = true)
+	function upload_file($file, $rule ,$path = 'upload', $isRandName = null,$childPath = false)
 	{
 		//判断请求中是否包含name=file的上传文件
 		if (!request()->hasFile($file)) {
@@ -253,7 +250,7 @@ if (!function_exists('upload_file') ) {
 		//获取上传的文件名
 		$oldName = $file->getClientOriginalName();
 		//组合新的文件名
-		$newName = uniqid() . '.' . $file->getClientOriginalExtension();
+        $newName =  $isRandName ? $isRandName.'.' . 'png' : uniqid() . '.' . 'png';
 		//上传失败
 		if (!$file->move($path, $newName)) {
 			return ['status_code' => 500, 'message' => '保存文件失败'];
@@ -262,14 +259,14 @@ if (!function_exists('upload_file') ) {
 		return ['status_code' => 200, 'message' => '上传成功', 'data' => ['old_name' => $oldName, 'new_name' => $newName, 'path' => trim($path, '.')]];
 	}
 }
-if (!function_exists('baidu_push')) {
+if (!function_exists('bd_push')) {
     /**
      * 百度推广推送
      *
      * @param string|array $id 文章id
      * @param string $type 推送类型 添加urls 1更新update 2删除del
      */
-    function baidu_push($id,$type = 'urls')
+    function bd_push($id,$type = 'urls')
     {
         $urls = [];
         if(is_array($id))
@@ -280,7 +277,7 @@ if (!function_exists('baidu_push')) {
         }else {
             $urls[]=route('article',$id);
         }
-        $api = 'http://data.zz.baidu.com/'.$type.'?site='.env('APP_URL').'&token='.env('BAIDU_PUSH_TOKEN');
+        $api = 'http://data.zz.baidu.com/'.$type.'?site='.env('APP_URL').'&token='.env('BD_PUSH_TOKEN');
         $ch = curl_init();
         $options=[
             CURLOPT_URL => $api,
@@ -432,14 +429,14 @@ if (!function_exists('transform_time')) {
 }
 if (!function_exists('transform_size')) {
     /**
+     * 文件大小转换
      * @param $size
      * @return string
      */
     function transform_size($size)
     {
-        $units = array(' B', ' KB', ' MB', ' GB', ' TB');
-        for ($i = 0; $size >= 1024 && $i < 4; $i++) $size /= 1024;
-        return round($size, 2).$units[$i];
+        $units = [' B', ' KB', ' MB', ' GB', ' TB'];
+        return @round($size / pow(1024, ($i = floor(log($size, 1024)))), 2) . ' ' . $units[2];
     }
 
 }
@@ -461,4 +458,43 @@ if (!function_exists('re_substr')) {
         return $suffix ? $slice . $omit : $slice;
     }
 }
+if (!function_exists('has_filter')) {
+    /**
+     * 过滤敏感词
+     * @param $content
+     * @return int
+     */
+    function has_filter($content)
+    {
+        $filterFile = storage_path('app/data').'/dict.bin';
+        $dict = new SimpleDictionary($filterFile);
+        $re = $dict->search($content);
+        return count($re) > 0 ? 1 : 0;
+    }
+}
+
+if (!function_exists('get_tree_index')) {
+    /**
+     * @param $data
+     * @param int $id
+     * @param int $deep
+     * @return array
+     */
+    function get_tree_index($data, $id = 0, $deep = 0) {
+        $tempArr = [];
+        foreach ($data as $k => $v) {
+            if($v['parent_id'] == $id){
+                $v['deep'] = $deep;
+                if($v['parent_id']!==0)
+                {
+                    $v['name'] = str_repeat("&nbsp;&nbsp;", $v['deep'] * 2) . '|-' . $v['name'];
+                }
+                $tempArr[] = $v;
+                $tempArr = array_merge($tempArr,get_tree_index($data,$v['id'], $deep + 1));
+            }
+        }
+        return $tempArr;
+    }
+}
+
 

@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Config;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Cache;
 
 class ConfigController extends Controller
@@ -22,11 +21,11 @@ class ConfigController extends Controller
 
     /**
      * 更新配置.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Config $config
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, Config $configModel)
+    public function update(Request $request, Config $config)
     {
         $data = $request->except('_token');
         $editData = [];
@@ -36,36 +35,8 @@ class ConfigController extends Controller
                 'value' => $v
             ];
         }
-        $configModel->updateBatch($editData);
+        $config->updateBatch($editData);
         operation_event(auth()->user()->name,'修改配置文件');
-        // 更新缓存
-        Cache::forget('cache:config');
-        return redirect()->back();
-    }
-
-    /**
-     * 编辑关于站点页面
-     *
-     * @return  \Illuminate\Http\Response
-     */
-    public function manageAbout()
-    {
-        $content = Config::query()->where('name', 'site_about')->pluck('value', 'name')->first();
-        return view('admin.config-about', compact('content'));
-    }
-
-    /**
-     * 更新关于站点页面
-     *
-     * @return  \Illuminate\Http\Response
-     */
-    public function updateAbout(Request $request)
-    {
-        $content = $request->input('content');
-        Config::query()->where('name', 'site_about')->update(['value' => $content]);
-        show_message('修改成功');
-        Artisan::call('cache:clear');
-        operation_event(auth()->user()->name,'修改关于页面');
         // 更新缓存
         Cache::forget('cache:config');
         return redirect()->back();

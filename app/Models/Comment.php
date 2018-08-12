@@ -32,7 +32,7 @@ class Comment extends Base
     public function storeData($data)
     {
         //添加数据
-        $result = $this->create($data);
+        $result = $this->query()->create($data);
         if ($result) {
             show_message('评论成功，等待审核');
             return $result->id;
@@ -79,6 +79,7 @@ class Comment extends Base
     public function replyData($id, $reply)
     {
         $model = $this
+            ->query()
             ->find($id);
         // 可能有查不到数据的情况
         if (!$model) {

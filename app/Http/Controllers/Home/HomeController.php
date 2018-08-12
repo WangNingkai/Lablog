@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers\Home;
 
+use App\Helpers\Extensions\Tool;
+use App\Models\Page;
+use App\Models\Subscribe;
 use Illuminate\Http\Request;
 use App\Http\Requests\Message\Store as MessageStore;
 use App\Http\Requests\Comment\Store as CommentStore;
+use App\Http\Requests\Subscribe\Store as SubscribeStore;
 use App\Http\Controllers\Controller;
 use App\Models\Tag;
 use App\Models\Category;
@@ -12,11 +16,8 @@ use App\Models\Article;
 use App\Models\Comment;
 use App\Models\ArticleTag;
 use App\Models\Message;
-use App\Models\Config;
-use App\Mail\SendReminder;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\App;
 
 class HomeController extends Controller
@@ -27,10 +28,7 @@ class HomeController extends Controller
 
     public function __construct()
     {
-        $this->config = Cache::remember('cache:config', self::CACHE_EXPIRE, function () {
-            // 获取置顶文章
-            return Config::query()->pluck('value', 'name');
-        });
+        $this->config = Cache::get('cache:config');
     }
 
     /**
@@ -83,6 +81,12 @@ class HomeController extends Controller
         return view('home.article', compact('article', 'prev', 'next'));
     }
 
+    public function page($id)
+    {
+        $page = Page::query()->where('id',$id)->first();
+        return view('home.page',compact('page'));
+    }
+
     /**
      * @param CommentStore $request
      * @param Comment $comment
@@ -93,7 +97,7 @@ class HomeController extends Controller
         $data = $request->all();
         $data['ip'] = request()->ip();
         $comment->storeData($data);
-        Mail::to($this->config['site_mailto_admin'])->send(new SendReminder('文章评论提醒','您的个人博客现有新的评论，请注意查看审核。'));
+        Tool::pushMessage($this->config['site_mailto_admin'],'站长大大','您的博客现有新的评论，请注意查看审核',route('comment_manage'));
         return redirect()->back();
 
     }
@@ -105,7 +109,7 @@ class HomeController extends Controller
     public function category($id)
     {
         $category = Category::query()->findOrFail($id);
-        $childCategoryList=Category::query()->where(['pid'=>$id])->get();
+        $childCategoryList=Category::query()->where(['parent_id'=>$id])->get();
 
         $articles = Article::query()->select('id', 'category_id', 'title', 'author', 'description','click', 'created_at')
             ->where(['status'=>Article::PUBLISHED,'category_id'=>$id])
@@ -179,16 +183,30 @@ class HomeController extends Controller
         $data = $request->all();
         $data['ip'] = request()->ip();
         $message->storeData($data);
-        Mail::to($this->config['site_mailto_admin'])->send(new SendReminder('站点留言提醒','您的个人博客现有新的留言，请注意查看审核。'));
+        Tool::pushMessage($this->config['site_mailto_admin'],'站长大大','您的博客现有新的留言，请注意查看审核',route('comment_manage'));
         return redirect()->back();
     }
 
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function about()
+    public function subscribe()
     {
-        return view('home.about');
+        return view('home.subscribe');
+    }
+
+    /**
+     * @param SubscribeStore $request
+     * @param Subscribe $subscribe
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function subscribe_store(SubscribeStore $request, Subscribe $subscribe)
+    {
+        $data = $request->all();
+        $data['ip'] = $request->ip();
+        $subscribe->storeData($data);
+        Tool::showMessage('订阅成功');
+        return redirect()->route('home');
     }
 
     /**
