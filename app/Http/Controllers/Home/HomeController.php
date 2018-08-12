@@ -16,7 +16,6 @@ use App\Models\Article;
 use App\Models\Comment;
 use App\Models\ArticleTag;
 use App\Models\Message;
-use App\Models\Config;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
@@ -29,10 +28,7 @@ class HomeController extends Controller
 
     public function __construct()
     {
-        $this->config = Cache::remember('cache:config', self::CACHE_EXPIRE, function () {
-            // 获取置顶文章
-            return Config::query()->pluck('value', 'name');
-        });
+        $this->config = Cache::get('cache:config');
     }
 
     /**

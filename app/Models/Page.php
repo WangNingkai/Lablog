@@ -32,7 +32,6 @@ class Page extends Base
         unset($data['editormd_id-html-code']);
         $data['html'] = markdown_to_html($data['content']);
         $result = parent::storeData($data);
-        baidu_push($result);
         if ($result) {
             return $result;
         } else {

@@ -259,14 +259,14 @@ if (!function_exists('upload_file') ) {
 		return ['status_code' => 200, 'message' => '上传成功', 'data' => ['old_name' => $oldName, 'new_name' => $newName, 'path' => trim($path, '.')]];
 	}
 }
-if (!function_exists('baidu_push')) {
+if (!function_exists('bd_push')) {
     /**
      * 百度推广推送
      *
      * @param string|array $id 文章id
      * @param string $type 推送类型 添加urls 1更新update 2删除del
      */
-    function baidu_push($id,$type = 'urls')
+    function bd_push($id,$type = 'urls')
     {
         $urls = [];
         if(is_array($id))
@@ -277,7 +277,7 @@ if (!function_exists('baidu_push')) {
         }else {
             $urls[]=route('article',$id);
         }
-        $api = 'http://data.zz.baidu.com/'.$type.'?site='.env('APP_URL').'&token='.env('BAIDU_PUSH_TOKEN');
+        $api = 'http://data.zz.baidu.com/'.$type.'?site='.env('APP_URL').'&token='.env('BD_PUSH_TOKEN');
         $ch = curl_init();
         $options=[
             CURLOPT_URL => $api,

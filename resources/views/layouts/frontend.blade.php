@@ -244,7 +244,7 @@
     var _hmt = _hmt || [];
     (function() {
         var hm = document.createElement("script");
-        hm.src = "{{ env('BAIDU_TONGJI_URL') }}";
+        hm.src = "{{ env('BD_TONGJI_ID') }}";
         var s = document.getElementsByTagName("script")[0];
         s.parentNode.insertBefore(hm, s);
     })();

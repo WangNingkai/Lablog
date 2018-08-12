@@ -31,15 +31,11 @@ class Migrate extends Command
     }
 
     /**
-     * Execute the console command.
+     * 执行迁移填充
      *
-     * @return mixed
      */
     public function handle()
     {
-        /**
-         * 执行迁移填充
-         */
         $this->call('key:generate');
         $this->call('migrate');
         $this->call('db:seed');

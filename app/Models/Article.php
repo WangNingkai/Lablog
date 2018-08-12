@@ -77,7 +77,7 @@ class Article extends Base
         unset($data['tag_ids']);
         //添加数据
         $result = parent::storeData($data);
-        baidu_push($result);
+        bd_push($result);
         if ($result) {
             // 给文章添加标签
             $articleTag = new ArticleTag();

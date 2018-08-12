@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Config;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -197,17 +196,8 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
         Route::post('destroy', 'SubscribeController@destroy')->name('subscribe_destroy');
     });
 });
-# 关站判断
-Route::get('close', function () {
-    $status = Config::query()->where('name', 'site_status')->pluck('value')->first();
-    if ($status == 0) {
-        return view('home.close');
-    } else {
-        return redirect()->route('home');
-    }
-})->name('close');
-
 # 测试路由
 Route::get('/test', function () {
     return '测试页面';
 })->name('test');
+

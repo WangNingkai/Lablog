@@ -74,6 +74,61 @@
                         </div>
                         <div class="box box-default">
                             <div class="box-header with-border">
+                                <h3 class="box-title">功能设置</h3>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group {{$errors->has('site_allow_comment')?'has-error':''}}">
+                                    <label>是否开启文章评论：</label>
+                                    <div class="radio">
+                                        <label class="i-checks">
+                                            <input type="radio" name="site_allow_comment" value="1"
+                                                   @if($config[ 'site_allow_comment']==1) checked @endif> &nbsp; 开启
+                                        </label>
+                                        <label class="i-checks">
+                                            <input type="radio" name="site_allow_comment" value="0"
+                                                   @if($config[ 'site_allow_comment']==0) checked @endif> &nbsp; 关闭
+                                        </label>
+                                    </div>
+                                    @if ($errors->has('site_allow_comment'))
+                                        <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('site_allow_comment') }}</strong></span>
+                                    @endif
+                                </div>
+                                <div class="form-group {{$errors->has('site_allow_message')?'has-error':''}}">
+                                    <label>是否开启站点留言：</label>
+                                    <div class="radio">
+                                        <label class="i-checks">
+                                            <input type="radio" name="site_allow_message" value="1"
+                                                   @if($config[ 'site_allow_message']==1) checked @endif> &nbsp; 开启
+                                        </label>
+                                        <label class="i-checks">
+                                            <input type="radio" name="site_allow_message" value="0"
+                                                   @if($config[ 'site_allow_message']==0) checked @endif> &nbsp; 关闭
+                                        </label>
+                                    </div>
+                                    @if ($errors->has('site_allow_message'))
+                                        <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('site_allow_message') }}</strong></span>
+                                    @endif
+                                </div>
+                                <div class="form-group {{$errors->has('site_allow_subscribe')?'has-error':''}}">
+                                    <label>是否开启站点订阅：</label>
+                                    <div class="radio">
+                                        <label class="i-checks">
+                                            <input type="radio" name="site_allow_subscribe" value="1"
+                                                   @if($config[ 'site_allow_subscribe']==1) checked @endif> &nbsp; 开启
+                                        </label>
+                                        <label class="i-checks">
+                                            <input type="radio" name="site_allow_subscribe" value="0"
+                                                   @if($config[ 'site_allow_subscribe']==0) checked @endif> &nbsp; 关闭
+                                        </label>
+                                    </div>
+                                    @if ($errors->has('site_allow_subscribe'))
+                                        <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('site_allow_subscribe') }}</strong></span>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box box-default">
+                            <div class="box-header with-border">
                                 <h3 class="box-title">SEO设置</h3>
                             </div>
                             <div class="box-body">

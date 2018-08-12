@@ -20,17 +20,13 @@ class DashboardController extends Controller
      */
     public function home()
     {
-        $articlesCount=Article::query()->count();
-        $pagesCount=Page::query()->count();
-        $commentsCount=Comment::query()->count();
-        $messagesCount = Message::query()->count();
         # 最新未读评论
         $newComments = Comment::query()->where(['status'=>Comment::UNCHECKED])->with('article')->orderBy('created_at', 'desc')->limit(5)->get();
         # 最新未读留言
         $newMessages = Message::query()->where(['status'=>Message::UNCHECKED])->orderBy('created_at', 'desc')->limit(5)->get();
         # 最新发布文章
         $newArticles = Article::query()->orderBy('created_at', 'desc')->limit('6')->get();
-        $assign=compact('articlesCount','pagesCount','commentsCount','messagesCount','newArticles','newMessages','newComments');
+        $assign=compact('newArticles','newMessages','newComments');
         return view('admin.index', $assign);
     }
 

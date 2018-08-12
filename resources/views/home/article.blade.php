@@ -34,7 +34,7 @@
                             {!! $article->html !!}
                         </div>
                         <div class="social-share text-center"
-                                data-disabled="google,twitter, facebook, diandian,linkedin,douban"></div>
+                             data-disabled="google,twitter, facebook, diandian,linkedin,douban"></div>
                         <div class="copyright_div">
                             <ul class="copyright">
                                 <li><strong>本文作者：</strong>{{$article->author}}</li>
@@ -68,7 +68,15 @@
                     </div>
                 </div>
                 <div class="hr-line-dashed"></div>
-                @if($article->allow_comment == \App\Models\Article::ALLOW_COMMENT)
+                @if($article->allow_comment == \App\Models\Article::FORBID_COMMENT || $config['site_allow_comment'] == 0)
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="post clearfix">
+                                <h4 class="text-bold">评论已关闭</h4>
+                            </div>
+                        </div>
+                    </div>
+                @else
                     <div class="row">
                         <div class="col-md-12">
                             <div class="post clearfix">
@@ -125,14 +133,6 @@
                             @endforeach
                         </div>
                     </div>
-                    @else
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="post clearfix">
-                                <h4 class="text-bold">评论已关闭</h4>
-                            </div>
-                        </div>
-                    </div>
                 @endif
 
             </div>
@@ -144,19 +144,19 @@
     {!! social_js() !!}
     {!! highlight_js() !!}
     {!! fancybox_js() !!}
-<script>
-    $(function () {
-        $("pre code").each(function(i, block) {
-            hljs.highlightBlock(block);
+    <script>
+        $(function () {
+            $("pre code").each(function(i, block) {
+                hljs.highlightBlock(block);
+            });
+            $(".article-content  img").addClass("img-responsive");
+            // 判断父类是否是a标签 是添加data属性 否添加a标签
+            if($(".article-content  img").parent().is("a"))
+            {
+                $(".article-content  img").parent().attr("data-fancybox","article-content");
+            }
+            $(".article-content  table").addClass("table table-hover table-bordered");
+            $("[data-fancybox]").fancybox();
         });
-        $(".article-content  img").addClass("img-responsive");
-        // 判断父类是否是a标签 是添加data属性 否添加a标签
-        if($(".article-content  img").parent().is("a"))
-        {
-            $(".article-content  img").parent().attr("data-fancybox","article-content");
-        }
-        $(".article-content  table").addClass("table table-hover table-bordered");
-        $("[data-fancybox]").fancybox();
-    });
-</script>
+    </script>
 @stop

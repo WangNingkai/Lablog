@@ -3,7 +3,10 @@
 namespace App\Providers;
 
 use App\Helpers\Extensions\Select;
+use App\Models\Comment;
+use App\Models\Message;
 use App\Models\Nav;
+use App\Models\Page;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Category;
 use App\Models\Tag;
@@ -62,11 +65,33 @@ class AppServiceProvider extends ServiceProvider
                     ->get();
             });
             $config = Cache::remember('cache:config', 1440, function () {
-                // 获取置顶文章
                 return Config::query()->pluck('value', 'name');
             });
-            // 分配数据
             $assign = compact('nav_list','category_list', 'tag_list', 'top_article_list', 'link_list','config');
+            $view->with($assign);
+        });
+        # 获取各种统计
+        view()->composer(['admin/home'], function($view){
+            $articlesCount = Cache::remember('count:article', 1440, function () {
+                // 统计文章总数
+                return Article::query()->count('id');
+            });
+
+            $commentsCount = Cache::remember('count:comment', 1440, function () {
+                // 统计评论总数
+                return Comment::query()->count('id');
+            });
+
+            $messagesCount = Cache::remember('count:message', 1440, function () {
+                // 统计留言总数
+                return Message::query()->count('id');
+            });
+
+            $pagesCount = Cache::remember('count:page', 1440, function () {
+                // 统计单页总数
+                return Page::query()->count('id');
+            });
+            $assign = compact('articlesCount', '', 'commentsCount', 'messagesCount', 'pagesCount');
             $view->with($assign);
         });
         Schema::defaultStringLength(191);

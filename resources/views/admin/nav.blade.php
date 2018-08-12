@@ -83,19 +83,22 @@
                                     <th>#</th>
                                     <td>首页</td>
                                     <td>{{ route('home') }}</td>
-
                                 </tr>
                                 <tr>
 
                                     <th>#</th>
                                     <td>归档</td>
                                     <td>{{ route('archive') }}</td>
-
                                 </tr>
                                 <tr>
                                     <th>#</th>
                                     <td>留言</td>
-                                    <td>{{ route('message') }}</td>
+                                    <td>{{ route('message') }} @if($config['site_allow_message'] == 0) (此功能配置已关闭)@endif</td>
+                                </tr>
+                                <tr>
+                                    <th>#</th>
+                                    <td>订阅</td>
+                                    <td>{{ route('subscribe') }} @if($config['site_allow_subscribe'] == 0) (此功能配置已关闭)@endif</td>
                                 </tr>
                             </table>
                         </div>

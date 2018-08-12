@@ -210,7 +210,7 @@ class ArticleController extends Controller
         $deleteOrFail = ArticleTag::query()->whereIn('article_id', $arr)->delete() && Comment::query()->whereIn('article_id', $arr)->delete();
         $deleteOrFail ? show_message('彻底删除成功') : show_message('彻底删除失败',false);
         operation_event(auth()->user()->name,'完全删除文章');
-        baidu_push($arr,'del');
+        bd_push($arr,'del');
 
         // 更新缓存
         Cache::forget('cache:top_article_list');
