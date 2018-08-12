@@ -199,6 +199,7 @@ class HomeController extends Controller
         $data = $request->all();
         $data['ip'] = $request->ip();
         $subscribe->storeData($data);
+        Tool::showMessage('订阅成功');
         return redirect()->route('home');
     }
 
