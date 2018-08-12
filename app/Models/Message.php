@@ -62,7 +62,7 @@ class Message extends Base
      * 回复数据
      *
      * @param  int $id  id
-     * @param  mix $reply 回复的数据
+     * @param  mixed $reply 回复的数据
      * @return bool        是否成功
      */
     public function replyData($id, $reply)
