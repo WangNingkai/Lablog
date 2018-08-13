@@ -81,7 +81,7 @@ class Select
      */
     public function init_tree($arr, $parent_id = 0){
         $new_arr = [];
-        foreach($arr as $k=>$v){
+        foreach($arr as $k => $v){
             if($v[$this->parent_id] == $parent_id){
                 $new_arr[] = $v;
                 unset($arr[$k]);

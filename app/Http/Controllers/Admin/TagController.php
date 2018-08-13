@@ -67,7 +67,7 @@ class TagController extends Controller
         if (is_null($id)) {
             return abort(404, '对不起，找不到相关页面');
         }
-        if (!$response = $this->tag->query()->find($id)) {
+        if (!$response = $this->tag->query()->find($id)->toArray()) {
             return ajax_return(404, ['alert' => '未找到相关数据']);
         }
         return ajax_return(200, $response);

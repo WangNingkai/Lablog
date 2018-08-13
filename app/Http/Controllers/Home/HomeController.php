@@ -40,7 +40,7 @@ class HomeController extends Controller
         $articles = Article::query()->select('id', 'category_id', 'title', 'author', 'description','click', 'created_at')
             ->where('status', 1)
             ->orderBy('created_at', 'desc')
-            ->with(['category', 'tags','comments'=>function ($query) {
+            ->with(['category', 'tags','comments' => function ($query) {
                 $query->where('status', Article::PUBLISHED);
             }])
             ->simplePaginate(6);
@@ -56,7 +56,7 @@ class HomeController extends Controller
     {
         $article = Article::with(['category', 'tags','comments'=>function ($query) {
             $query->where('status', Article::PUBLISHED);
-        }])->whereId($id)->first();
+        }])->query()->where('id',$id)->first();
         if( is_null($article) || 0 === $article->status || !is_null($article->deleted_at) ){
             return abort(404);
         }

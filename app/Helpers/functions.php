@@ -22,34 +22,27 @@ if (!function_exists('get_tree')) {
      * 获取子孙目录树
      *
      * @param array $data 要转换的数据集
-     * @param string $pid parent标记字段
-     * @param string $count 获取个数
+     * @param int $parent_id parent_id 字段
      * @return  array
      */
-    function get_tree($data, $pid, $count = null)
+    function get_tree($data, $parent_id = 0)
     {
-        //每次都声明一个新数组用来放子元素
-        $tree = [];
-        foreach ($data as $v) {
-            if ($v['parent_id'] == $pid) {
-                //匹配子记录
-                $v['children'] = get_tree($data, $v['id'], null);
-                //递归获取子记录
-                if ($v['children'] == null) {
-                    unset($v['children']);
-                    //如果子元素为空则unset()进行删除，说明已经到该分支的最后一个元素了（可选）
-                }
-                //将记录存入新数组
-                $tree[] = $v;
-                if ($count === count($tree)) {
-                    break;
-                } elseif (is_null($count)) {
-                    return [];
-                }
+
+        $new_arr = [];
+        foreach($data as $k => $v){
+            if($v['parent_id'] == $parent_id){
+                $new_arr[] = $v;
+                unset($data[$k]);
             }
         }
-        return $tree;
-        //返回新数组
+        foreach($new_arr as &$a){
+            $a['children'] = get_tree($data, $a['id']);
+            if (count($a['children']) === 0)
+            {
+                unset($a['children']);
+            }
+        }
+        return $new_arr;
     }
 }
 if (!function_exists('get_select')) {
@@ -325,8 +318,8 @@ if (!function_exists('ajax_return')) {
     /**
      * ajax返回数据
      *
-     * @param string $data 需要返回的数据
      * @param int $code
+     * @param string $data  需要返回的数据
      * @return \Illuminate\Http\JsonResponse
      */
     function ajax_return($code = 200, $data = '')
@@ -336,6 +329,7 @@ if (!function_exists('ajax_return')) {
             $data = ['status_code' => $code, 'message' => $data,];
             return response()->json($data, $code);
         }
+
         //如果是对象 先转成数组
         if (is_object($data)) {
             $data = $data->toArray();
@@ -359,7 +353,7 @@ if (!function_exists('ajax_return')) {
                     $arr[$k] = to_string($v);
                 } else {
                     //判断是否有移动端禁止使用的字段
-                    in_array($k, $reserved_words, true) && die('不允许使用【' . $k . '】这个键名 —— 此提示是helper.php 中的ajaxReturn函数返回的');
+                    in_array($k, $reserved_words, true) && die('不允许使用【' . $k . '】这个键名');
                     //转成字符串类型
                     $arr[$k] = strval($v);
                 }
