@@ -24,7 +24,7 @@
                             <div class="hr-line-dashed"></div>
                         </div>
                         <div class="content" style="">
-                            {!! markdown_to_html( $page->content ) !!}
+                            {!! \App\Helpers\Extensions\Tool::markdown2Html($page->content) !!}
                         </div>
                     </div>
                 </div>

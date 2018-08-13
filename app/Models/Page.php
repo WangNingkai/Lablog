@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\Extensions\Tool;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Page extends Base
@@ -30,7 +31,7 @@ class Page extends Base
     {
         # markdown转html
         unset($data['editormd_id-html-code']);
-        $data['html'] = markdown_to_html($data['content']);
+        $data['html'] = Tool::markdown2Html($data['content']);
         $result = parent::storeData($data);
         if ($result) {
             return $result;

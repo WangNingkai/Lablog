@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\Extensions\Tool;
 use App\Http\Controllers\Controller;
 use GuzzleHttp\Client;
 
@@ -30,7 +31,7 @@ class ImageController extends Controller
     public function upload()
     {
         $rule = ['smfile' => 'required|max:5096|image'];
-        $result = upload_file('smfile',$rule,'uploads/tmp/');
+        $result = Tool::uploadFile('smfile',$rule,'uploads/tmp/');
         $file = $result['status_code'] == 200 ? $result['data'] : null;
         $file['path'] = public_path( $file['path']).$file['new_name'];
         try {

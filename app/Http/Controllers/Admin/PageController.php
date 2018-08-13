@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\Extensions\Tool;
 use App\Http\Requests\Page\Store;
 use App\Models\Page;
 use Illuminate\Http\Request;
@@ -80,7 +81,7 @@ class PageController extends Controller
     {
         $data = $request->except('_token');
         unset($data['editormd_id-html-code']);
-        $data['html'] = markdown_to_html($data['content']);
+        $data['html'] = Tool::markdown2Html($data['content']);
         $this->page->updateData(['id' => $id], $data);
         operation_event(auth()->user()->name,'编辑单页');
         return redirect()->route('page_manage');

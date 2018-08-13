@@ -123,7 +123,7 @@ class ArticleController extends Controller
         unset($data['tag_ids']);
         // 把markdown转html
         unset($data['editormd_id-html-code']);
-        $data['html'] = markdown_to_html($data['content']);
+        $data['html'] = Tool::markdown2Html($data['content']);
         $articleTagModel->addTagIds($id, $tag_ids);
         // 编辑文章
         $this->article->updateData(['id' => $id], $data);
@@ -210,7 +210,7 @@ class ArticleController extends Controller
         $deleteOrFail = ArticleTag::query()->whereIn('article_id', $arr)->delete() && Comment::query()->whereIn('article_id', $arr)->delete();
         $deleteOrFail ? show_message('彻底删除成功') : show_message('彻底删除失败',false);
         operation_event(auth()->user()->name,'完全删除文章');
-        bd_push($arr,'del');
+        Tool::bdPush($arr,'del');
 
         // 更新缓存
         Cache::forget('cache:top_article_list');

@@ -54,9 +54,9 @@ class HomeController extends Controller
      */
     public function article($id, Request $request)
     {
-        $article = Article::with(['category', 'tags','comments'=>function ($query) {
+        $article = Article::query()->with(['category', 'tags','comments'=>function ($query) {
             $query->where('status', Article::PUBLISHED);
-        }])->query()->where('id',$id)->first();
+        }])->where('id',$id)->first();
         if( is_null($article) || 0 === $article->status || !is_null($article->deleted_at) ){
             return abort(404);
         }

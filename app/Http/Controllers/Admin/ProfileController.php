@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\Extensions\Tool;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\User\UpdatePassword;
@@ -52,7 +53,7 @@ class ProfileController extends Controller
         $avatarName = md5('user_'.$uid.'_avatar');
         // 先删除原图片再上传 ,上传失败恢复默认图片
         @unlink(public_path('uploads/avatar') . $avatarName.'.png');
-        $response = upload_file('avatar', $rule, $path, $avatarName);
+        $response = Tool::uploadFile('avatar', $rule, $path, $avatarName);
         $avatarPath = '/uploads/avatar' . $avatarName.'.png';
         if (200 === $response['status_code'])
         {

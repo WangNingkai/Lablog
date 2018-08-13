@@ -44,7 +44,7 @@
                                             </a></td>
                                         <td>{{ $item['filename'] }}</td>
                                         <td>{{ $item['storename'] }}</td>
-                                        <td>{{ transform_size($item['size']) }}</td>
+                                        <td>{{ \App\Helpers\Extensions\Tool::transformSize($item['size']) }}</td>
                                         <td>{{ transform_time($item['timestamp']) }}</td>
                                         <td>{{ $item['url'] }}</td>
                                         <td><a href="javascript:void(0)" class="delete-item" data-hash="{{ $item['hash'] }}"><span class="text-red">删除链接</span></a></td>

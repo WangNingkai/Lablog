@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\Extensions\Tool;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Article extends Base
@@ -72,12 +73,12 @@ class Article extends Base
 
         // markdown转html
         unset($data['editormd_id-html-code']);
-        $data['html'] = markdown_to_html($data['content']);
+        $data['html'] = Tool::markdown2Html($data['content']);
         $tag_ids = $data['tag_ids'];
         unset($data['tag_ids']);
         //添加数据
         $result = parent::storeData($data);
-        bd_push($result);
+        Tool::bdPush($result);
         if ($result) {
             // 给文章添加标签
             $articleTag = new ArticleTag();

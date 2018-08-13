@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Helpers\Extensions\Tool;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -73,6 +74,6 @@ class SendEmail implements ShouldQueue
      */
     public function handle()
     {
-        send_email($this->email, $this->name, $this->subject, $this->data, 'emails.base');
+        Tool::sendEmail($this->email, $this->name, $this->subject, $this->data, 'emails.base');
     }
 }

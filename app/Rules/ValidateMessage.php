@@ -2,6 +2,7 @@
 
 namespace App\Rules;
 
+use App\Helpers\Extensions\Tool;
 use Illuminate\Contracts\Validation\Rule;
 use App\Models\Message;
 
@@ -29,7 +30,7 @@ class ValidateMessage implements Rule
     public function passes($attribute, $value)
     {
         // 过滤无意义留言
-        if (ctype_alnum($value) || in_array($value, ['test', '测试']) || has_filter($value)) {
+        if (ctype_alnum($value) || in_array($value, ['test', '测试']) || Tool::hasFilter($value)) {
             $this->message = '禁止使用无意义、非法词汇评论';
             return false;
         }
