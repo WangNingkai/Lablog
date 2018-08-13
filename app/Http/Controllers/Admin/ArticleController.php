@@ -81,6 +81,7 @@ class ArticleController extends Controller
         Tool::recordOperation(auth()->user()->name,'添加文章');
         // 更新缓存
         Cache::forget('cache:top_article_list');
+        Cache::forget('cache:home_articles');
         Cache::forget('feed:articles');
         return redirect()->route('article_manage');
     }
@@ -128,6 +129,7 @@ class ArticleController extends Controller
         Tool::recordOperation(auth()->user()->name,'编辑文章');
         // 更新缓存
         Cache::forget('cache:top_article_list');
+        Cache::forget('cache:home_articles');
         Cache::forget('feed:articles');
         return redirect()->route('article_manage');
     }
@@ -149,6 +151,7 @@ class ArticleController extends Controller
         Tool::recordOperation(auth()->user()->name,'软删除文章');
         // 更新缓存
         Cache::forget('cache:top_article_list');
+        Cache::forget('cache:home_articles');
         Cache::forget('feed:articles');
         return redirect()->back();
     }
@@ -185,6 +188,7 @@ class ArticleController extends Controller
         Tool::showMessage('恢复成功');
         Tool::recordOperation(auth()->user()->name,'恢复软删除文章');
         // 更新缓存
+        Cache::forget('cache:home_articles');
         Cache::forget('cache:top_article_list');
         Cache::forget('feed:articles');
         return redirect()->back();
@@ -212,6 +216,7 @@ class ArticleController extends Controller
 
         // 更新缓存
         Cache::forget('cache:top_article_list');
+        Cache::forget('cache:home_articles');
         Cache::forget('cache:tag_list');
         Cache::forget('feed:articles');
         return redirect()->back();

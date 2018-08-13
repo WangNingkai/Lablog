@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Helpers\Extensions\Select;
+use App\Helpers\Extensions\Tool;
 use App\Models\Comment;
 use App\Models\Message;
 use App\Models\Nav;
@@ -34,8 +35,7 @@ class AppServiceProvider extends ServiceProvider
                     ->where('status' , Nav::STATUS_DISPLAY)
                     ->orderBy('sort', 'asc')
                     ->get();
-                $select =  new Select($data);
-                return $result = $select->make_tree();
+                return Tool::getRecursiveData($data);
             });
             $category_list = Cache::remember('cache:category_list', 1440, function () {
                 // 获取分类导航

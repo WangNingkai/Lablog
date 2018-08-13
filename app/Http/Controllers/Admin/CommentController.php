@@ -6,6 +6,7 @@ use App\Helpers\Extensions\Tool;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
+use Illuminate\Support\Facades\Cache;
 
 class CommentController extends Controller
 {
@@ -63,6 +64,7 @@ class CommentController extends Controller
         ];
         $this->comment->checkData($map);
         Tool::recordOperation(auth()->user()->name,'审核评论');
+        Cache::forget('cache:home_articles');
         return redirect()->route('comment_manage');
     }
 

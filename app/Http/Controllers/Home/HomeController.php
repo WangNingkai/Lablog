@@ -36,13 +36,16 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $articles = Article::query()->select('id', 'category_id', 'title', 'author', 'description','click', 'created_at')
-            ->where('status', 1)
-            ->orderBy('created_at', 'desc')
-            ->with(['category', 'tags','comments' => function ($query) {
-                $query->where('status', Article::PUBLISHED);
-            }])
-            ->simplePaginate(6);
+
+        $articles = Cache::remember('cache:home_articles', self::CACHE_EXPIRE, function () {
+            return Article::query()->select('id', 'category_id', 'title', 'author', 'description','click', 'created_at')
+                ->where('status', 1)
+                ->orderBy('created_at', 'desc')
+                ->with(['category', 'tags','comments' => function ($query) {
+                    $query->where('status', Article::PUBLISHED);
+                }])
+                ->simplePaginate(6);
+        });
         return view('home.index', compact('articles'));
     }
 
