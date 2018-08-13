@@ -3,13 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Page;
 use Illuminate\Support\Facades\Artisan;
 use App\Models\Article;
 use App\Models\Message;
-use App\Models\Tag;
-use App\Models\Category;
 use App\Models\Comment;
+use App\Helpers\Extensions\Tool;
 
 
 class DashboardController extends Controller
@@ -38,8 +36,8 @@ class DashboardController extends Controller
     {
         Artisan::call('cache:clear');
         Artisan::call('view:clear');
-        show_message('缓存清理成功');
-        operation_event(auth()->user()->name,'缓存清理');
+        Tool::showMessage('缓存清理成功');
+        Tool::recordOperation(auth()->user()->name,'缓存清理');
         return redirect()->back();
     }
 }

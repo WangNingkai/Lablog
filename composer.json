@@ -43,7 +43,6 @@
             "App\\": "app/"
         },
         "files": [
-            "app/Helpers/functions.php",
             "app/Helpers/static.php"
         ]
     },

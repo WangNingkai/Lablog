@@ -40,7 +40,7 @@
                                     <td><input type="checkbox" value="{{$message->id}}" name="mid" class="i-checks"></td>
                                     <td>{{$message->nickname}}</td>
                                     <td>{{$message->email}}</td>
-                                    <td>{{ re_substr($message->content, 0, 20, true) }}</td>
+                                    <td>{{ \App\Helpers\Extensions\Tool::subStr($message->content, 0, 20, true) }}</td>
                                     <td>{{$message->created_at}}</td>
                                     <td>{!! $message->status_tag !!}</td>
                                     <td>

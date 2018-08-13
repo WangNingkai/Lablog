@@ -68,7 +68,7 @@
                                         <td><a class="text-black" href="{{ route('page',$page->id) }}">{{ $page->title }}</a></td>
                                         <td>{{ route('page',$page->id) }}</td>
                                         <td>{{$page->click}}</td>
-                                        <td>{{ transform_time($page->created_at) }}</td>
+                                        <td>{{ \App\Helpers\Extensions\Tool::transformTime($page->created_at) }}</td>
                                         <td>{!! $page->status_tag !!}</td>
                                         <td>
                                             <a href="{{ route('page_edit',$page->id) }}" class="text-green">

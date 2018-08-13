@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use App\Helpers\Extensions\Tool;
 
 class RoleController extends Controller
 {
@@ -37,8 +38,8 @@ class RoleController extends Controller
         {
             $createOrFail->syncPermissions($permissions);
         }
-        $createOrFail ? show_message('添加成功') : show_message('添加失败',false) ;
-        operation_event(auth()->user()->name,'添加角色');
+        $createOrFail ? Tool::showMessage('添加成功') : Tool::showMessage('添加失败',false) ;
+        Tool::recordOperation(auth()->user()->name,'添加角色');
         return redirect()->back();
     }
 
@@ -71,8 +72,8 @@ class RoleController extends Controller
         {
             $edit_role->syncPermissions($permissions);
         }
-        $saveOrFail ? show_message('修改成功'): show_message('修改失败',false);
-        operation_event(auth()->user()->name,'修改角色');
+        $saveOrFail ? Tool::showMessage('修改成功'): Tool::showMessage('修改失败',false);
+        Tool::recordOperation(auth()->user()->name,'修改角色');
         return redirect()->back();
     }
 
@@ -90,7 +91,7 @@ class RoleController extends Controller
         {
             if($role->name == User::SUPERADMIN)
             {
-                show_message('超级管理员角色无法删除',false);
+                Tool::showMessage('超级管理员角色无法删除',false);
                 return redirect()->back();
             }
             // 返回要删除角色的用户.移除用户角色
@@ -102,8 +103,8 @@ class RoleController extends Controller
         }
         // 删除角色
         $deleteOrFail = $roles->delete();
-        $deleteOrFail ? show_message('删除成功') : show_message('删除失败',false);
-        operation_event(auth()->user()->name,'删除角色');
+        $deleteOrFail ? Tool::showMessage('删除成功') : Tool::showMessage('删除失败',false);
+        Tool::recordOperation(auth()->user()->name,'删除角色');
         return redirect()->back();
 
     }

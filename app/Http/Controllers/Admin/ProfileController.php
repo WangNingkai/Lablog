@@ -58,9 +58,9 @@ class ProfileController extends Controller
         if (200 === $response['status_code'])
         {
             $avatarPath = $response['data']['path'].$response['data']['new_name'];
-            show_message('头像上传成功');
+            Tool::showMessage('头像上传成功');
         }else{
-            show_message($response['message'],false);
+            Tool::showMessage($response['message'],false);
         }
         $user = User::query()->find($uid);
         $user->update([
@@ -80,11 +80,11 @@ class ProfileController extends Controller
         if (Hash::check($request->get('old_password'), $admin->password)) {
             $admin->password = bcrypt($request->get('password'));
             $admin->save();
-            show_message('修改密码成功');
-            operation_event(auth()->user()->name,'修改密码');
+            Tool::showMessage('修改密码成功');
+            Tool::recordOperation(auth()->user()->name,'修改密码');
             return redirect()->back();
         }
-        show_message('原密码错误，修改密码失败', false);
+        Tool::showMessage('原密码错误，修改密码失败', false);
         return redirect()->back();
     }
 
@@ -102,8 +102,8 @@ class ProfileController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
         ]);
-        show_message('修改信息成功');
-        operation_event(auth()->user()->name,'修改个人信息');
+        Tool::showMessage('修改信息成功');
+        Tool::recordOperation(auth()->user()->name,'修改个人信息');
         return redirect()->back();
     }
 
@@ -123,8 +123,8 @@ class ProfileController extends Controller
             'user_id' => $uid,
             'type'    => $param[$type]
         ])->delete();
-        show_message('解除'.$type.'登录成功');
-        operation_event(auth()->user()->name,'解除关联'.$type.'登录');
+        Tool::showMessage('解除'.$type.'登录成功');
+        Tool::recordOperation(auth()->user()->name,'解除关联'.$type.'登录');
         return redirect()->back();
 
     }

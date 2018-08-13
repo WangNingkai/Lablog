@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
+use App\Helpers\Extensions\Tool;
 
 class UserController extends Controller
 {
@@ -52,8 +53,8 @@ class UserController extends Controller
         ])));
         $roles = $request->get('roles');
         $creatOrFail->assignRole($roles);
-        $creatOrFail?show_message('添加成功'):show_message('添加失败',false);
-        operation_event(auth()->user()->name,'注册用户');
+        $creatOrFail?Tool::showMessage('添加成功'):Tool::showMessage('添加失败',false);
+        Tool::recordOperation(auth()->user()->name,'注册用户');
         return redirect()->route('user_manage');
     }
 
@@ -66,7 +67,7 @@ class UserController extends Controller
     {
         if(Auth::id() != User::SUPERUSER)
         {
-            show_message('非超级管理员禁止编辑',false);
+            Tool::showMessage('非超级管理员禁止编辑',false);
             return redirect()->back();
         }
         $roles = Role::all();
@@ -90,8 +91,8 @@ class UserController extends Controller
             'status' => $request['status'],
         ]);
         $user->syncRoles($roles);
-        $saveOrFail?show_message('编辑成功'):show_message('编辑失败',false);
-        operation_event(auth()->user()->name,'编辑用户');
+        $saveOrFail?Tool::showMessage('编辑成功'):Tool::showMessage('编辑失败',false);
+        Tool::recordOperation(auth()->user()->name,'编辑用户');
         return redirect()->route('user_manage');
     }
 
@@ -108,14 +109,14 @@ class UserController extends Controller
         {
             if($uid == User::SUPERUSER)
             {
-                show_message('超级管理员禁止删除' ,false);
+                Tool::showMessage('超级管理员禁止删除' ,false);
                 return redirect()->back();
             }
         }
         $users = User::query()->whereIn('id',$arr);
         $deleteOrFail = $users->delete();
-        $deleteOrFail ? show_message('删除成功') : show_message('删除失败',false);
-        operation_event(auth()->user()->name,'删除用户');
+        $deleteOrFail ? Tool::showMessage('删除成功') : Tool::showMessage('删除失败',false);
+        Tool::recordOperation(auth()->user()->name,'删除用户');
         return redirect()->back();
 
     }
@@ -141,11 +142,11 @@ class UserController extends Controller
         $data = $request->only('uid');
         $arr = explode(',', $data['uid']);
         if (!User::query()->whereIn('id', $arr)->restore()) {
-            show_message('恢复失败', false);
+            Tool::showMessage('恢复失败', false);
             return redirect()->back();
         }
-        show_message('恢复成功');
-        operation_event(auth()->user()->name,'恢复软删除用户');
+        Tool::showMessage('恢复成功');
+        Tool::recordOperation(auth()->user()->name,'恢复软删除用户');
         return redirect()->back();
     }
 
@@ -165,8 +166,8 @@ class UserController extends Controller
             DB::table('model_has_permissions')->where('model_id',$user->id)->delete();
         }
         $destroyOrFail = $users->forceDelete();
-        $destroyOrFail ? show_message('删除成功') : show_message('删除失败',false);
-        operation_event(auth()->user()->name,'完全删除用户');
+        $destroyOrFail ? Tool::showMessage('删除成功') : Tool::showMessage('删除失败',false);
+        Tool::recordOperation(auth()->user()->name,'完全删除用户');
         return redirect()->back();
     }
     /**

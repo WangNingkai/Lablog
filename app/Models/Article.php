@@ -68,7 +68,7 @@ class Article extends Base
         // 如果没有描述;则截取文章内容的前200字作为描述
         if (empty($data['description'])) {
             $description = preg_replace(array('/[~*>#-]*/', '/!?\[.*\]\(.*\)/', '/\[.*\]/'), '', $data['content']);
-            $data['description'] = re_substr($description, 0, 150, true);
+            $data['description'] = Tool::subStr($description, 0, 150, true);
         }
 
         // markdown转html

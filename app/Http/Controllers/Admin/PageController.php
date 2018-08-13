@@ -58,7 +58,7 @@ class PageController extends Controller
     public function store(Store $request)
     {
         $this->page->storeData($request->all());
-        operation_event(auth()->user()->name,'添加单页');
+        Tool::recordOperation(auth()->user()->name,'添加单页');
         return redirect()->route('page_manage');
     }
 
@@ -83,7 +83,7 @@ class PageController extends Controller
         unset($data['editormd_id-html-code']);
         $data['html'] = Tool::markdown2Html($data['content']);
         $this->page->updateData(['id' => $id], $data);
-        operation_event(auth()->user()->name,'编辑单页');
+        Tool::recordOperation(auth()->user()->name,'编辑单页');
         return redirect()->route('page_manage');
     }
 
@@ -99,7 +99,7 @@ class PageController extends Controller
             'id' => ['in', $arr]
         ];
         $this->page->destroyData($map);
-        operation_event(auth()->user()->name,'软删除单页');
+        Tool::recordOperation(auth()->user()->name,'软删除单页');
         return redirect()->back();
     }
 
@@ -125,11 +125,11 @@ class PageController extends Controller
         $data = $request->only('pid');
         $arr = explode(',', $data['pid']);
         if (!$this->page->query()->whereIn('id', $arr)->restore()) {
-            show_message('恢复失败', false);
+            Tool::showMessage('恢复失败', false);
             return redirect()->back();
         }
-        show_message('恢复成功');
-        operation_event(auth()->user()->name,'恢复软删除单页');
+        Tool::showMessage('恢复成功');
+        Tool::recordOperation(auth()->user()->name,'恢复软删除单页');
         return redirect()->back();
     }
 
@@ -142,10 +142,10 @@ class PageController extends Controller
         $data = $request->only('pid');
         $arr = explode(',', $data['pid']);
         if (!$this->page->query()->whereIn('id', $arr)->forceDelete()) {
-            show_message('彻底删除失败', false);
+            Tool::showMessage('彻底删除失败', false);
             return redirect()->back();
         }
-        operation_event(auth()->user()->name,'完全删除单页');
+        Tool::recordOperation(auth()->user()->name,'完全删除单页');
         return redirect()->back();
     }
 }

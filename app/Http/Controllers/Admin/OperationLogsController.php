@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\OperationLog;
+use App\Helpers\Extensions\Tool;
 
 class OperationLogsController extends Controller
 {
@@ -49,7 +50,7 @@ class OperationLogsController extends Controller
             'id' => ['in', $arr]
         ];
         $this->operation_logs->destroyData($map);
-        operation_event(auth()->user()->name,'删除日志');
+        Tool::recordOperation(auth()->user()->name,'删除日志');
         return redirect()->back();
     }
 }

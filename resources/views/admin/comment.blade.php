@@ -42,7 +42,7 @@
                                         <td>{{$comment->article->title}}</td>
                                         <td>{{$comment->nickname}}</td>
                                         <td>{{$comment->email}}</td>
-                                        <td>{{ re_substr($comment->content, 0, 20, true) }}</td>
+                                        <td>{{ \App\Helpers\Extensions\Tool::subStr($comment->content, 0, 20, true) }}</td>
                                         <td>{{$comment->created_at}}</td>
                                         <td>{!! $comment->status_tag !!}</td>
                                         <td>

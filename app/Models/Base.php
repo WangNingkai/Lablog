@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
+use App\Helpers\Extensions\Tool;
 
 class Base extends Model
 {
@@ -25,16 +26,16 @@ class Base extends Model
     {
         if (empty($data))
         {
-            show_message('数据为空，添加失败',false);
+            Tool::showMessage('数据为空，添加失败',false);
             return false;
         }
         //添加数据
         $result = $this->query()->create($data);
         if ($result) {
-            show_message('添加成功');
+            Tool::showMessage('添加成功');
             return $result->id;
         } else {
-            show_message('添加失败',false);
+            Tool::showMessage('添加失败',false);
             return false;
         }
     }
@@ -54,17 +55,17 @@ class Base extends Model
             ->get();
         // 当数据为空的时候
         if ($model->isEmpty()) {
-            show_message('数据为空，修改失败', false);
+            Tool::showMessage('数据为空，修改失败', false);
             return false;
         }
         foreach ($model as $k => $v) {
             $result = $v->forceFill($data)->save();
         }
         if ($result) {
-            show_message('修改成功');
+            Tool::showMessage('修改成功');
             return $result;
         } else {
-            show_message('修改失败',false);
+            Tool::showMessage('修改失败',false);
             return false;
         }
     }
@@ -82,10 +83,10 @@ class Base extends Model
             ->whereMap($map)
             ->delete();
         if ($result) {
-            show_message('删除成功');
+            Tool::showMessage('删除成功');
             return $result;
         } else {
-            show_message('删除失败',false);
+            Tool::showMessage('删除失败',false);
             return false;
         }
     }
@@ -105,10 +106,10 @@ class Base extends Model
             ->whereMap($map)
             ->restore();
         if ($result) {
-            show_message('恢复成功');
+            Tool::showMessage('恢复成功');
             return $result;
         } else {
-            show_message('恢复失败',false);
+            Tool::showMessage('恢复失败',false);
             return false;
         }
     }
@@ -128,10 +129,10 @@ class Base extends Model
             ->whereMap($map)
             ->forceDelete();
         if ($result) {
-            show_message('彻底删除成功');
+            Tool::showMessage('彻底删除成功');
             return $result;
         }else{
-            show_message('彻底删除失败',false);
+            Tool::showMessage('彻底删除失败',false);
             return false;
         }
     }
@@ -243,9 +244,9 @@ class Base extends Model
         // 更新
         $result = DB::update(DB::raw($sql));
         if ($result) {
-            show_message('操作成功');
+            Tool::showMessage('操作成功');
         } else {
-            show_message('操作失败',false);
+            Tool::showMessage('操作失败',false);
         }
         return $result;
     }

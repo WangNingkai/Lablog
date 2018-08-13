@@ -10,6 +10,7 @@ use App\Http\Requests\Permission\Store;
 use App\Http\Requests\Permission\Update;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
+use App\Helpers\Extensions\Tool;
 
 class PermissionController extends Controller
 {
@@ -38,8 +39,8 @@ class PermissionController extends Controller
         // 同步更新权限到超级管理员
         $role = Role::findByName(User::SUPERADMIN);
         $role->givePermissionTo($name);
-        $createOrFail ? show_message('添加成功') : show_message('添加失败',false) ;
-        operation_event(auth()->user()->name,'添加权限');
+        $createOrFail ? Tool::showMessage('添加成功') : Tool::showMessage('添加失败',false) ;
+        Tool::recordOperation(auth()->user()->name,'添加权限');
         return redirect()->back();
     }
 
@@ -55,9 +56,9 @@ class PermissionController extends Controller
         }
         if (!$response = Permission::findById($id))
         {
-            return ajax_return(404, ['alert' => '未找到相关数据']);
+            return Tool::ajaxReturn(404, ['alert' => '未找到相关数据']);
         }
-        return ajax_return(200, $response);
+        return Tool::ajaxReturn(200, $response);
     }
 
     /**
@@ -72,15 +73,15 @@ class PermissionController extends Controller
         $permission = Permission::query()->findOrFail($id);
         if(!$permission)
         {
-            show_message('未查到相关，添加失败', false);
+            Tool::showMessage('未查到相关，添加失败', false);
             return redirect()->back();
         }
         $saveOrFail = $permission->update([
             'name' => $name,
             'route' => $route
         ]);
-        $saveOrFail ? show_message('修改成功'): show_message('修改失败',false);
-        operation_event(auth()->user()->name,'修改权限');
+        $saveOrFail ? Tool::showMessage('修改成功'): Tool::showMessage('修改失败',false);
+        Tool::recordOperation(auth()->user()->name,'修改权限');
         return redirect()->back();
 
     }
@@ -97,8 +98,8 @@ class PermissionController extends Controller
         DB::table('model_has_permissions')->whereIn('permission_id',$arr)->delete();
         DB::table('role_has_permissions')->whereIn('permission_id',$arr)->delete();
         $deleteOrFail = Permission::query()->whereIn('id',$arr)->delete();
-        $deleteOrFail ? show_message('删除成功') : show_message('删除失败',false);
-        operation_event(auth()->user()->name,'删除权限');
+        $deleteOrFail ? Tool::showMessage('删除成功') : Tool::showMessage('删除失败',false);
+        Tool::recordOperation(auth()->user()->name,'删除权限');
         return redirect()->back();
     }
 

@@ -3,9 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Helpers\Extensions\Tool;
-use App\Jobs\SendEmail;
 use App\Models\Comment;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Requests\Article\Store;
 use App\Http\Controllers\Controller;
@@ -50,7 +48,7 @@ class ArticleController extends Controller
             ->with('category')
             ->orderBy('created_at', 'desc')
             ->paginate(10);
-        $categories = get_select(Category::all()->toArray(),$category);
+        $categories = Tool::getSelect(Category::all()->toArray(),$category);
         return view('admin.article', compact('articles','categories'));
     }
 
@@ -61,7 +59,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        $category = get_select(Category::all()->toArray());
+        $category = Tool::getSelect(Category::all()->toArray());
         $tag = Tag::all();
         return view('admin.article-create', compact('category', 'tag'));
     }
@@ -80,7 +78,7 @@ class ArticleController extends Controller
             // 推送订阅
             Tool::pushSubscribe('',route('article',$id));
         }
-        operation_event(auth()->user()->name,'添加文章');
+        Tool::recordOperation(auth()->user()->name,'添加文章');
         // 更新缓存
         Cache::forget('cache:top_article_list');
         Cache::forget('feed:articles');
@@ -97,7 +95,7 @@ class ArticleController extends Controller
     {
         $article = $this->article->query()->find($id);
         $article->tag_ids = ArticleTag::query()->where('article_id', $id)->pluck('tag_id')->toArray();
-        $category = get_select(Category::all()->toArray(), $article->category_id);
+        $category = Tool::getSelect(Category::all()->toArray(), $article->category_id);
         $tag = Tag::all();
         return view('admin.article-edit', compact('article', 'category', 'tag'));
     }
@@ -116,7 +114,7 @@ class ArticleController extends Controller
         // 如果没有描述;则截取文章内容的前150字作为描述
         if (empty($data['description'])) {
             $description = preg_replace(array('/[~*>#-]*/', '/!?\[.*\]\(.*\)/', '/\[.*\]/'), '', $data['content']);
-            $data['description'] = re_substr($description, 0, 150, true);
+            $data['description'] = Tool::subStr($description, 0, 150, true);
         }
         // 为文章批量添加标签
         $tag_ids = $data['tag_ids'];
@@ -127,7 +125,7 @@ class ArticleController extends Controller
         $articleTagModel->addTagIds($id, $tag_ids);
         // 编辑文章
         $this->article->updateData(['id' => $id], $data);
-        operation_event(auth()->user()->name,'编辑文章');
+        Tool::recordOperation(auth()->user()->name,'编辑文章');
         // 更新缓存
         Cache::forget('cache:top_article_list');
         Cache::forget('feed:articles');
@@ -148,7 +146,7 @@ class ArticleController extends Controller
             'id' => ['in', $arr]
         ];
         $this->article->destroyData($map);
-        operation_event(auth()->user()->name,'软删除文章');
+        Tool::recordOperation(auth()->user()->name,'软删除文章');
         // 更新缓存
         Cache::forget('cache:top_article_list');
         Cache::forget('feed:articles');
@@ -181,11 +179,11 @@ class ArticleController extends Controller
         $data = $request->only('aid');
         $arr = explode(',', $data['aid']);
         if (!$this->article->query()->whereIn('id', $arr)->restore()) {
-            show_message('恢复失败', false);
+            Tool::showMessage('恢复失败', false);
             return redirect()->back();
         }
-        show_message('恢复成功');
-        operation_event(auth()->user()->name,'恢复软删除文章');
+        Tool::showMessage('恢复成功');
+        Tool::recordOperation(auth()->user()->name,'恢复软删除文章');
         // 更新缓存
         Cache::forget('cache:top_article_list');
         Cache::forget('feed:articles');
@@ -203,13 +201,13 @@ class ArticleController extends Controller
         $data = $request->only('aid');
         $arr = explode(',', $data['aid']);
         if (!$this->article->query()->whereIn('id', $arr)->forceDelete()) {
-            show_message('彻底删除失败', false);
+            Tool::showMessage('彻底删除失败', false);
             return redirect()->back();
         }
         // 删除对应标签记录与评论记录
         $deleteOrFail = ArticleTag::query()->whereIn('article_id', $arr)->delete() && Comment::query()->whereIn('article_id', $arr)->delete();
-        $deleteOrFail ? show_message('彻底删除成功') : show_message('彻底删除失败',false);
-        operation_event(auth()->user()->name,'完全删除文章');
+        $deleteOrFail ? Tool::showMessage('彻底删除成功') : Tool::showMessage('彻底删除失败',false);
+        Tool::recordOperation(auth()->user()->name,'完全删除文章');
         Tool::bdPush($arr,'del');
 
         // 更新缓存

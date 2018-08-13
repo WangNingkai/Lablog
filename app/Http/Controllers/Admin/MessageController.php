@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Helpers\Extensions\Tool;
-use App\Jobs\SendEmail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Message;
@@ -32,8 +31,8 @@ class MessageController extends Controller
 
     /**
      * 查看留言.
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @param null $id
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show($id = null)
     {
@@ -41,9 +40,9 @@ class MessageController extends Controller
             return abort(404, '对不起，找不到相关页面');
         }
         if (!$response = $this->message->query()->find($id)) {
-            return ajax_return(404, ['alert' => '未找到相关数据']);
+            return Tool::ajaxReturn(404, ['alert' => '未找到相关数据']);
         }
-        return ajax_return(200, $response);
+        return Tool::ajaxReturn(200, $response);
     }
 
     /**
@@ -59,7 +58,7 @@ class MessageController extends Controller
             'id' => ['in', $arr]
         ];
         $this->message->checkData($map);
-        operation_event(auth()->user()->name,'审核留言');
+        Tool::recordOperation(auth()->user()->name,'审核留言');
         return redirect()->route('message_manage');
     }
 
@@ -74,7 +73,7 @@ class MessageController extends Controller
         $reply = $request->get('reply');
         $this->message->replyData($id,$reply);
         $emailTo=$this->message->query()->where('id',$id)->value('email');
-        operation_event(auth()->user()->name,'回复留言');
+        Tool::recordOperation(auth()->user()->name,'回复留言');
         Tool::pushMessage($emailTo,$emailTo,'您在我站的留言，站长已经回复，请注意查看',route('message'));
         return redirect()->route('message_manage');
     }
@@ -92,7 +91,7 @@ class MessageController extends Controller
             'id' => ['in', $arr]
         ];
         $this->message->destroyData($map);
-        operation_event(auth()->user()->name,'删除留言');
+        Tool::recordOperation(auth()->user()->name,'删除留言');
         return redirect()->back();
     }
 }

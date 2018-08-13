@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Tag;
 use App\Models\ArticleTag;
 use Illuminate\Support\Facades\Cache;
+use App\Helpers\Extensions\Tool;
 
 class TagController extends Controller
 {
@@ -50,7 +51,7 @@ class TagController extends Controller
     public function store(Store $request)
     {
         $this->tag->storeData($request->all());
-        operation_event(auth()->user()->name,'添加标签');
+        Tool::recordOperation(auth()->user()->name,'添加标签');
         // 更新缓存
         Cache::forget('cache:tag_list');
         return redirect()->back();
@@ -58,9 +59,8 @@ class TagController extends Controller
 
     /**
      * 标签编辑.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @param null $id
+     * @return \Illuminate\Http\JsonResponse
      */
     public function edit($id = null)
     {
@@ -68,9 +68,9 @@ class TagController extends Controller
             return abort(404, '对不起，找不到相关页面');
         }
         if (!$response = $this->tag->query()->find($id)->toArray()) {
-            return ajax_return(404, ['alert' => '未找到相关数据']);
+            return Tool::ajaxReturn(404, ['alert' => '未找到相关数据']);
         }
-        return ajax_return(200, $response);
+        return Tool::ajaxReturn(200, $response);
     }
 
     /**
@@ -85,7 +85,7 @@ class TagController extends Controller
         $name=$request->get('edit_name');
         $flag=$request->get('edit_name');
         $this->tag->updateData(['id' => $id], ['name'=>$name,'flag'=>$flag]);
-        operation_event(auth()->user()->name,'编辑标签');
+        Tool::recordOperation(auth()->user()->name,'编辑标签');
         // 更新缓存
         Cache::forget('cache:tag_list');
         return redirect()->back();
@@ -104,7 +104,7 @@ class TagController extends Controller
             'id' => ['in', $arr]
         ];
         $this->tag->destroyData($map);
-        operation_event(auth()->user()->name,'删除标签');
+        Tool::recordOperation(auth()->user()->name,'删除标签');
         // 更新缓存
         Cache::forget('cache:tag_list');
         return redirect()->back();

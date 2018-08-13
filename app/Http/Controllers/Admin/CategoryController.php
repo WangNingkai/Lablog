@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Article;
 use Illuminate\Support\Facades\Cache;
+use App\Helpers\Extensions\Tool;
 
 class CategoryController extends Controller
 {
@@ -53,7 +54,7 @@ class CategoryController extends Controller
     public function store(Store $request)
     {
         $this->category->storeData($request->all());
-        operation_event(auth()->user()->name,'添加栏目');
+        Tool::recordOperation(auth()->user()->name,'添加栏目');
         // 更新缓存
         Cache::forget('cache:category_list');
         return redirect()->route('category_manage');
@@ -92,7 +93,7 @@ class CategoryController extends Controller
     public function update(Update $request, $id)
     {
         $this->category->updateData(['id' => $id], $request->except('_token'));
-        operation_event(auth()->user()->name,'编辑栏目');
+        Tool::recordOperation(auth()->user()->name,'编辑栏目');
         // 更新缓存
         Cache::forget('cache:category_list');
         return redirect()->route('category_manage');
@@ -111,7 +112,7 @@ class CategoryController extends Controller
             'id' => ['in', $arr]
         ];
         $this->category->destroyData($map);
-        operation_event(auth()->user()->name,'删除栏目');
+        Tool::recordOperation(auth()->user()->name,'删除栏目');
         // 更新缓存
         Cache::forget('cache:category_list');
         return redirect()->back();

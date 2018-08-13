@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\Extensions\Tool;
 
 class Message extends Base
 {
@@ -24,10 +25,10 @@ class Message extends Base
         //添加数据
         $result = $this->query()->create($data);
         if ($result) {
-            show_message('留言成功，等待审核');
+            Tool::showMessage('留言成功，等待审核');
             return $result->id;
         } else {
-            show_message('留言失败',false);
+            Tool::showMessage('留言失败',false);
             return false;
         }
     }
@@ -44,17 +45,17 @@ class Message extends Base
             ->whereMap($map)
             ->get();
         if ($model->isEmpty()) {
-            show_message('数据为空，操作失败', false);
+            Tool::showMessage('数据为空，操作失败', false);
             return false;
         }
         foreach ($model as $k => $v) {
             $result = $v->forceFill(['status' => self::CHECKED])->save();
         }
         if ($result) {
-            show_message('操作成功');
+            Tool::showMessage('操作成功');
             return $result;
         } else {
-            show_message('操作失败',false);
+            Tool::showMessage('操作失败',false);
             return false;
         }
     }
@@ -72,15 +73,15 @@ class Message extends Base
             ->find($id);
         // 可能有查不到数据的情况
         if (!$model) {
-            show_message('数据为空，回复失败', false);
+            Tool::showMessage('数据为空，回复失败', false);
             return false;
         }
         $result = $model->forceFill(['reply' =>$reply,'status' => self::CHECKED])->save();
         if ($result) {
-            show_message('回复成功');
+            Tool::showMessage('回复成功');
             return $result;
         } else {
-            show_message('回复失败',false);
+            Tool::showMessage('回复失败',false);
             return false;
         }
     }

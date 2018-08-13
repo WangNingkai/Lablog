@@ -64,7 +64,7 @@ class SubscribeController extends Controller
             'id' => ['in', $arr]
         ];
         $this->subscribe->destroyData($map);
-        operation_event(auth()->user()->name,'删除订阅');
+        Tool::recordOperation(auth()->user()->name,'删除订阅');
         return redirect()->back();
     }
 }

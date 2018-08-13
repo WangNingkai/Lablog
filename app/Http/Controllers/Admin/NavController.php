@@ -8,6 +8,7 @@ use App\Models\Nav;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cache;
+use App\Helpers\Extensions\Tool;
 
 class NavController extends Controller
 {
@@ -49,12 +50,12 @@ class NavController extends Controller
             $count = $this->nav->query()->where('parent_id',0)->count();
             if ($this->nav::LIMIT_NUM == $count)
             {
-                show_message('一级菜单已达到最大限制',false);
+                Tool::showMessage('一级菜单已达到最大限制',false);
                 return redirect()->back();
             }
         };
         $this->nav->storeData($request->all());
-        operation_event(auth()->user()->name,'添加菜单');
+        Tool::recordOperation(auth()->user()->name,'添加菜单');
         Cache::forget('cache:nav_list');
         return redirect()->back();
     }
@@ -83,7 +84,7 @@ class NavController extends Controller
     public function update(Update $request, $id)
     {
         $this->nav->updateData(['id' => $id], $request->except('_token'));
-        operation_event(auth()->user()->name,'编辑菜单');
+        Tool::recordOperation(auth()->user()->name,'编辑菜单');
         Cache::forget('cache:nav_list');
         return redirect()->route('nav_manage');
     }
@@ -100,7 +101,7 @@ class NavController extends Controller
             'id' => ['in', $arr]
         ];
         $this->nav->destroyData($map);
-        operation_event(auth()->user()->name,'删除菜单');
+        Tool::recordOperation(auth()->user()->name,'删除菜单');
         Cache::forget('cache:nav_list');
         return redirect()->back();
     }

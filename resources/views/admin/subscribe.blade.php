@@ -81,7 +81,7 @@
                                         <td><label><input type="checkbox" value="{{$subscribe->id}}" name="sid" class="i-checks"></label></td>
                                         <td>{{$subscribe->id}}</td>
                                         <td>{{$subscribe->email}}</td>
-                                        <td>{{ transform_time($subscribe->created_at) }}</td>
+                                        <td>{{ \App\Helpers\Extensions\Tool::transformTime($subscribe->created_at) }}</td>
                                         <td>
                                             <a href="javascript:void(0)" class="text-red delSubscribes">
                                                 <i class="fa fa-trash"></i>

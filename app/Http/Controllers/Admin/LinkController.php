@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Link;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cache;
+use App\Helpers\Extensions\Tool;
 
 class LinkController extends Controller
 {
@@ -45,17 +46,16 @@ class LinkController extends Controller
     public function store(Store $request)
     {
         $this->link->storeData($request->all());
-        operation_event(auth()->user()->name,'添加标签');
+        Tool::recordOperation(auth()->user()->name,'添加标签');
         // 更新缓存
         Cache::forget('cache:link_list');
         return redirect()->back();
     }
 
     /**
-     * 友链编辑.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * 获取友链信息
+     * @param null $id
+     * @return \Illuminate\Http\JsonResponse
      */
     public function edit($id = null)
     {
@@ -63,9 +63,9 @@ class LinkController extends Controller
             return abort(404, '对不起，找不到相关页面');
         }
         if (!$response = $this->link->query()->find($id)) {
-            return ajax_return(404, ['alert' => '未找到相关数据']);
+            return Tool::ajaxReturn(404, ['alert' => '未找到相关数据']);
         }
-        return ajax_return(200, $response);
+        return Tool::ajaxReturn(200, $response);
     }
 
     /**
@@ -81,7 +81,7 @@ class LinkController extends Controller
         $url=$request->get('edit_url');
         $sort=$request->get('edit_sort');
         $this->link->updateData(['id' => $id], ['name'=>$name,'url'=>$url,'sort'=>$sort,]);
-        operation_event(auth()->user()->name,'编辑标签');
+        Tool::recordOperation(auth()->user()->name,'编辑标签');
         // 更新缓存
         Cache::forget('cache:link_list');
         return redirect()->back();
@@ -100,7 +100,7 @@ class LinkController extends Controller
             'id' => ['in', $arr]
         ];
         $this->link->destroyData($map);
-        operation_event(auth()->user()->name,'删除标签');
+        Tool::recordOperation(auth()->user()->name,'删除标签');
         // 更新缓存
         Cache::forget('cache:link_list');
         return redirect()->back();

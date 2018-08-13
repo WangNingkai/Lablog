@@ -109,29 +109,30 @@
             </form>
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="header">菜单</li>
-                <li class="{{ set_active('admin/home') }}"><a href="{{ route('dashboard_home') }}"><i class="fa fa-home"></i> <span> 首页</span></a></li>
-                <li class="{{ set_active('admin/article/create') }}"><a href="{{ route('article_create') }}"><i class="fa fa-pencil-square-o"></i> <span> 新建文章</span></a></li>
-                <li class="treeview {{ set_active('admin/config') }} {{ set_active('admin/nav') }}">
+                
+                <li class="{{ \App\Helpers\Extensions\Tool::setActive('admin/home') }}"><a href="{{ route('dashboard_home') }}"><i class="fa fa-home"></i> <span> 首页</span></a></li>
+                <li class="{{ \App\Helpers\Extensions\Tool::setActive('admin/article/create') }}"><a href="{{ route('article_create') }}"><i class="fa fa-pencil-square-o"></i> <span> 新建文章</span></a></li>
+                <li class="treeview {{ \App\Helpers\Extensions\Tool::setActive('admin/config') }} {{ \App\Helpers\Extensions\Tool::setActive('admin/nav') }}">
                     <a href="#">
                         <i class="fa fa-star"></i> <span> 我的站点</span>
                         <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                     </a>
                     <ul class="treeview-menu">
-                        <li class="{{ set_active('admin/config/manage') }}" ><a href="{{ route('config_manage') }}"><i class="fa fa-cog"></i> 站点设置</a></li>
-                        <li class="{{ set_active('admin/nav') }}"><a href="{{ route('nav_manage') }}"><i class="fa fa-bars"></i> 菜单管理</a></li>
+                        <li class="{{ \App\Helpers\Extensions\Tool::setActive('admin/config/manage') }}" ><a href="{{ route('config_manage') }}"><i class="fa fa-cog"></i> 站点设置</a></li>
+                        <li class="{{ \App\Helpers\Extensions\Tool::setActive('admin/nav') }}"><a href="{{ route('nav_manage') }}"><i class="fa fa-bars"></i> 菜单管理</a></li>
                     </ul>
                 </li>
-                <li class="treeview {{ set_active('admin/tag') }} {{ set_active('admin/category') }} {{ set_active('admin/article') }} {{ set_active('admin/page') }}">
+                <li class="treeview {{ \App\Helpers\Extensions\Tool::setActive('admin/tag') }} {{ \App\Helpers\Extensions\Tool::setActive('admin/category') }} {{ \App\Helpers\Extensions\Tool::setActive('admin/article') }} {{ \App\Helpers\Extensions\Tool::setActive('admin/page') }}">
                     <a href="#">
                         <i class="fa fa-book"></i> <span> 内容管理</span>
                         <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                     </a>
                     <ul class="treeview-menu">
-                        <li class="{{ set_active('admin/tag') }}"><a href="{{ route('tag_manage') }}"><i class="fa fa-tags"></i> 标签管理</a></li>
-                        <li class="{{ set_active('admin/category') }}"><a href="{{ route('category_manage') }}"><i class="fa fa-bars"></i> 栏目管理</a></li>
-                        <li class="{{ set_active('admin/article') }}"><a href="{{ route('article_manage') }}"><i class="fa fa-file-text"></i> 文章管理</a></li>
-                        <li class="{{ set_active('admin/page') }}"><a href="{{ route('page_manage') }}"><i class="fa fa-file-o"></i> 单页管理</a></li>
-                        {{--<li class="{{ set_active('admin/article/trash') }}"><a href="{{ route('article_trash') }}"><i class="fa fa-trash"></i> 回收站</a></li>--}}
+                        <li class="{{ \App\Helpers\Extensions\Tool::setActive('admin/tag') }}"><a href="{{ route('tag_manage') }}"><i class="fa fa-tags"></i> 标签管理</a></li>
+                        <li class="{{ \App\Helpers\Extensions\Tool::setActive('admin/category') }}"><a href="{{ route('category_manage') }}"><i class="fa fa-bars"></i> 栏目管理</a></li>
+                        <li class="{{ \App\Helpers\Extensions\Tool::setActive('admin/article') }}"><a href="{{ route('article_manage') }}"><i class="fa fa-file-text"></i> 文章管理</a></li>
+                        <li class="{{ \App\Helpers\Extensions\Tool::setActive('admin/page') }}"><a href="{{ route('page_manage') }}"><i class="fa fa-file-o"></i> 单页管理</a></li>
+                        {{--<li class="{{ \App\Helpers\Extensions\Tool::setActive('admin/article/trash') }}"><a href="{{ route('article_trash') }}"><i class="fa fa-trash"></i> 回收站</a></li>--}}
                         <li class="treeview">
                             <a href="#">
                                 <i class="fa fa-trash"></i> 回收站
@@ -144,33 +145,33 @@
                         </li>
                     </ul>
                 </li>
-                <li class="treeview {{ set_active('admin/link') }} {{ set_active('admin/message') }} {{ set_active('admin/comment') }} {{ set_active('admin/subscribe') }}">
+                <li class="treeview {{ \App\Helpers\Extensions\Tool::setActive('admin/link') }} {{ \App\Helpers\Extensions\Tool::setActive('admin/message') }} {{ \App\Helpers\Extensions\Tool::setActive('admin/comment') }} {{ \App\Helpers\Extensions\Tool::setActive('admin/subscribe') }}">
                     <a href="#">
                         <i class="fa fa-cogs"></i> <span> 其他模块</span>
                         <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                     </a>
                     <ul class="treeview-menu">
-                        <li class="{{ set_active('admin/link/manage') }}"><a href="{{ route('link_manage') }}"><i class="fa fa-link"></i> 我的友链</a></li>
-                        <li class="{{ set_active('admin/comment/manage') }}"><a href="{{ route('comment_manage') }}"><i class="fa fa-comment"></i> 我的评论</a></li>
-                        <li class="{{ set_active('admin/message/manage') }}"><a href="{{ route('message_manage') }}"><i class="fa fa-comments"></i> 我的留言</a></li>
-                        <li class="{{ set_active('admin/subscribe/manage') }}"><a href="{{ route('subscribe_manage') }}"><i class="fa fa-link"></i> 我的订阅</a></li>
+                        <li class="{{ \App\Helpers\Extensions\Tool::setActive('admin/link/manage') }}"><a href="{{ route('link_manage') }}"><i class="fa fa-link"></i> 我的友链</a></li>
+                        <li class="{{ \App\Helpers\Extensions\Tool::setActive('admin/comment/manage') }}"><a href="{{ route('comment_manage') }}"><i class="fa fa-comment"></i> 我的评论</a></li>
+                        <li class="{{ \App\Helpers\Extensions\Tool::setActive('admin/message/manage') }}"><a href="{{ route('message_manage') }}"><i class="fa fa-comments"></i> 我的留言</a></li>
+                        <li class="{{ \App\Helpers\Extensions\Tool::setActive('admin/subscribe/manage') }}"><a href="{{ route('subscribe_manage') }}"><i class="fa fa-link"></i> 我的订阅</a></li>
                     </ul>
                 </li>
                 @role(\App\Models\User::SUPERADMIN)
-                <li class="treeview {{ set_active('admin/permission') }} {{ set_active('admin/user') }} {{ set_active('admin/role') }}">
+                <li class="treeview {{ \App\Helpers\Extensions\Tool::setActive('admin/permission') }} {{ \App\Helpers\Extensions\Tool::setActive('admin/user') }} {{ \App\Helpers\Extensions\Tool::setActive('admin/role') }}">
                     <a href="#">
                         <i class="fa fa-ban"></i> <span> 权限管理</span>
                         <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                     </a>
                     <ul class="treeview-menu">
-                        <li class="{{ set_active('admin/user') }}"><a href="{{ route('user_manage') }}"><i class="fa fa-user"></i> 用户管理</a></li>
-                        <li class="{{ set_active('admin/role') }}"><a href="{{ route('role_manage') }}"><i class="fa fa-users"></i> 角色管理</a></li>
-                        <li class="{{ set_active('admin/permission') }}"><a href="{{ route('permission_manage') }}"><i class="fa fa-lock"></i> 权限管理</a></li>
+                        <li class="{{ \App\Helpers\Extensions\Tool::setActive('admin/user') }}"><a href="{{ route('user_manage') }}"><i class="fa fa-user"></i> 用户管理</a></li>
+                        <li class="{{ \App\Helpers\Extensions\Tool::setActive('admin/role') }}"><a href="{{ route('role_manage') }}"><i class="fa fa-users"></i> 角色管理</a></li>
+                        <li class="{{ \App\Helpers\Extensions\Tool::setActive('admin/permission') }}"><a href="{{ route('permission_manage') }}"><i class="fa fa-lock"></i> 权限管理</a></li>
                     </ul>
                 </li>
                 @endrole
-                <li class="{{ set_active('admin/operation_logs/manage') }}"><a href="{{ route('operation_logs_manage') }}"><i class="fa fa-history"></i> <span> 日志查看</span></a></li>
-                <li class="{{ set_active('admin/image/list') }}"><a href="{{ route('image_list') }}"><i class="fa fa-image"></i> <span>图床</span></a></li>
+                <li class="{{ \App\Helpers\Extensions\Tool::setActive('admin/operation_logs/manage') }}"><a href="{{ route('operation_logs_manage') }}"><i class="fa fa-history"></i> <span> 日志查看</span></a></li>
+                <li class="{{ \App\Helpers\Extensions\Tool::setActive('admin/image/list') }}"><a href="{{ route('image_list') }}"><i class="fa fa-image"></i> <span>图床</span></a></li>
             </ul>
         </section>
     </aside>

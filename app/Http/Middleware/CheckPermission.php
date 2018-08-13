@@ -23,13 +23,13 @@ class CheckPermission
         if (Auth()->user()->status == User::FORBID)
         {
             Auth::logout();
-            show_message('您的帐号被管理员停用，请联系管理员',false);
+            Tool::showMessage('您的帐号被管理员停用，请联系管理员',false);
             return redirect()->route('home');
         }
         $route = Route::currentRouteName();
         if ($permission = Permission::query()->where('route', $route)->first()) {
             if (! Auth::user()->can($permission->name)) {
-                show_message('权限不足',false);
+                Tool::showMessage('权限不足',false);
                 return redirect()->back();
             }
         }

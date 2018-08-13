@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\Extensions\Tool;
 
 class Category extends Base
 {
@@ -50,7 +51,7 @@ class Category extends Base
             if (0 === $this->query()->where('id', $value)->pluck('parent_id')->first()) {
                 $categoryCount = $this->query()->where('parent_id', $value)->count();
                 if (0 !== $categoryCount) {
-                    show_message('请先删除所选分类下的子分类', false);
+                    Tool::showMessage('请先删除所选分类下的子分类', false);
                     return false;
                 }
             }
@@ -59,7 +60,7 @@ class Category extends Base
         $articleCount = Article::query()->whereIn('category_id', $categoryIdArray)->count();
         // 如果分类下存在文章；则需要下删除文章
         if (0 !==$articleCount) {
-            show_message('请先删除所选分类下的文章', false);
+            Tool::showMessage('请先删除所选分类下的文章', false);
             return false;
         }
         // 删除分类

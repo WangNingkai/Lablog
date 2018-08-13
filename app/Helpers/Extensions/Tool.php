@@ -283,7 +283,7 @@ class Tool
      * ajax 返回数据
      *
      * @param int $code 返回代码
-     * @param \Illuminate\Support\Collection $data 需要返回的数据
+     * @param mixed $data 需要返回的数据
      * @return \Illuminate\Http\JsonResponse
      */
     public static function ajaxReturn($code, $data)
@@ -296,7 +296,6 @@ class Tool
             $data = $data->toArray();
         }
         return response()->json($data, $code);
-
     }
     /**
      * 记录操作日志事件

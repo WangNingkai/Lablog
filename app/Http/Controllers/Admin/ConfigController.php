@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Config;
 use Illuminate\Support\Facades\Cache;
+use App\Helpers\Extensions\Tool;
 
 class ConfigController extends Controller
 {
@@ -36,7 +37,7 @@ class ConfigController extends Controller
             ];
         }
         $config->updateBatch($editData);
-        operation_event(auth()->user()->name,'修改配置文件');
+        Tool::recordOperation(auth()->user()->name,'修改配置文件');
         // 更新缓存
         Cache::forget('cache:config');
         return redirect()->back();

@@ -52,7 +52,7 @@
                                 @if(blank($prev))
                                 @else
                                     <a href="{{route('article',$prev['id'])}}" class="btn bg-black btn-flat btn-block" title="{{ $prev->title }}">
-                                        <i class="fa fa-arrow-left"></i>&nbsp;{{re_substr($prev['title'],0,10,true)}}
+                                        <i class="fa fa-arrow-left"></i>&nbsp;{{ \App\Helpers\Extensions\Tool::subStr($prev['title'],0,10,true)}}
                                     </a>
                                 @endif
                             </div>
@@ -60,7 +60,7 @@
                                 @if(blank($next))
                                 @else
                                     <a href="{{route('article',$next['id'])}}" class="btn bg-black btn-flat btn-block" title="{{ $next->title }}">
-                                        {{re_substr($next['title'],0,10,true)}}&nbsp;<i class="fa fa-arrow-right"></i>
+                                        {{\App\Helpers\Extensions\Tool::subStr($next['title'],0,10,true)}}&nbsp;<i class="fa fa-arrow-right"></i>
                                     </a>
                                 @endif
                             </div>
