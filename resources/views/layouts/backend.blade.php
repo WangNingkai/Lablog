@@ -66,7 +66,7 @@
                             </li>
                             <li class="user-body">
                                 <p>登陆时间 ：{{ Auth::user()->last_login_at }}</p>
-                                <p>登陆地点 ：{{ ip_to_city(Auth::user()->last_login_ip) }}</p>
+                                <p>登陆地点 ：{{ \App\Helpers\Extensions\Tool::ip2City(Auth::user()->last_login_ip) }}</p>
                             </li>
                             <li class="user-footer">
                                 <div class="pull-left">

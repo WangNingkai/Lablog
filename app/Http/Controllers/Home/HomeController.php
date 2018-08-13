@@ -36,7 +36,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-
         $articles = Article::query()->select('id', 'category_id', 'title', 'author', 'description','click', 'created_at')
             ->where('status', 1)
             ->orderBy('created_at', 'desc')
