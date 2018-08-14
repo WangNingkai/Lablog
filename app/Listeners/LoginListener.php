@@ -3,9 +3,8 @@
 namespace App\Listeners;
 
 use Illuminate\Auth\Events\Login;
-use Carbon\Carbon;
 use App\Events\OperationEvent;
-use Illuminate\Support\Facades\Auth;
+use App\Helpers\Extensions\UserExt;
 
 class LoginListener
 {
@@ -22,19 +21,16 @@ class LoginListener
     /**
      * Handle the event.
      *
-     * @param  Login $event
+     * @param  Login  $event
      * @return void
      */
     public function handle(Login $event)
     {
-        // 记录登录信息
+        //评论列表出现置顶广告，无评论则显示暂无评论空数组
         $user = $event->user;
-        $user->last_login_at = Carbon::now();
+        $user->last_login_at = time();
         $user->last_login_ip = request()->ip();
         $user->save();
-
-        // 写入操作日志
-        event(new OperationEvent(Auth::user()->name,'管理员登录', request()->ip(), time()));
-
+        event(new OperationEvent(UserExt::getAttribute('name'),'管理员登录', request()->ip(), time()));
     }
 }

@@ -56,9 +56,11 @@ class HomeController extends Controller
      */
     public function article($id, Request $request)
     {
-        $article = Article::query()->with(['category', 'tags','comments'=>function ($query) {
-            $query->where('status', Article::PUBLISHED);
-        }])->where('id',$id)->first();
+        $article = Cache::remember('article:cache:'.$id, 10, function () use ($id) {
+            return Article::query()->with(['category', 'tags','comments'=>function ($query) {
+                $query->where('status', Article::PUBLISHED);
+            }])->where('id',$id)->first();
+        });
         if( is_null($article) || 0 === $article->status || !is_null($article->deleted_at) ){
             return abort(404);
         }

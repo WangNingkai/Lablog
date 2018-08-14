@@ -2,6 +2,7 @@
 namespace App\Helpers\Extensions;
 
 use App\Jobs\SendEmail;
+use App\Models\Article;
 use App\Models\Subscribe;
 use Illuminate\Support\Facades\Mail;
 use App\Events\OperationEvent;
