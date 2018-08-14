@@ -40,6 +40,9 @@ class ConfigController extends Controller
         Tool::recordOperation(auth()->user()->name,'修改配置文件');
         // 更新缓存
         Cache::forget('cache:config');
+        Cache::forget('cache:config:site_status');
+        Cache::forget('cache:config:site_allow_message');
+        Cache::forget('cache:config:site_allow_subscribe');
         return redirect()->back();
     }
 }

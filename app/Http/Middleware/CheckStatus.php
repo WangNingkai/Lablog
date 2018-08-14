@@ -19,15 +19,20 @@ class CheckStatus
      */
     public function handle($request, Closure $next)
     {
-
-        $status = Config::query()->where('name', 'site_status')->value('value');
+        $status = Cache::remember('cache:config:site_status', 1440, function () {
+            return Config::query()->where('name', 'site_status')->value('value');
+        });
         # 判断是否关站
         if ($status == 0) {
             return response()->view('home.close');
         }
         $route = Route::currentRouteName();
-        $allowMessage = Config::query()->where('name', 'site_allow_message')->value('value');
-        $allowSubscribe = Config::query()->where('name', 'site_allow_subscribe')->value('value');
+        $allowMessage = Cache::remember('cache:config:site_allow_message', 1440, function () {
+            return  Config::query()->where('name', 'site_allow_message')->value('value');
+        });
+        $allowSubscribe = Cache::remember('cache:config-site_allow_subscribe', 1440, function () {
+            return  Config::query()->where('name', 'site_allow_subscribe')->value('value');
+        });
         if ($route == 'message' && $allowMessage == 0) {
             return abort(404);
         }
