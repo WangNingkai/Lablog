@@ -31,38 +31,18 @@ class Install extends Command
     }
 
     /**
-     * Execute the console command.
-     *
-     * @return mixed
+     * 安装开始
      */
     public function handle()
     {
         /**
          * 获取并替换 .env 中的数据库账号密码
          */
-        $app_name = $this->ask('请输入应用名', 'LABLOG');
-        $app_url = $this->ask('请输入应用域名', 'https://imwnk.cn');
-        $username = $this->ask('请输入数据库账号', 'root');
-        $password = $this->ask('请输入数据库密码', false);
-        $database = $this->ask('请输入数据库名', 'lablog');
-        // ask 不允许为空  此处是为了兼容一些数据库密码为空的情况
-        $password = $password ? $password : '';
-        $envExample = file_get_contents(base_path('.env.example'));
-        $search_db = [
-            'APP_NAME=Lablog',
-            'APP_URL=http://localhost',
-            'DB_DATABASE=homestead',
-            'DB_USERNAME=homestead',
-            'DB_PASSWORD=secret'
-        ];
-        $replace_db = [
-            'APP_NAME='.$app_name,
-            'APP_URL='.$app_url,
-            'DB_DATABASE='.$database,
-            'DB_USERNAME='.$username,
-            'DB_PASSWORD='.$password,
-        ];
-        $env = str_replace($search_db, $replace_db, $envExample);
-        file_put_contents(base_path('.env'), $env);
+        $this->info('========== 初始化配置 ==========');
+        $this->call('lablog:init');
+        $this->warn('========== 请手动执行 ==========');
+        $this->info('php artisan lablog:migrate');
+
+
     }
 }

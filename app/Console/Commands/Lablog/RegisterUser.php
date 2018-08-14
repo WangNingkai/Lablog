@@ -38,6 +38,7 @@ class RegisterUser extends Command
      */
     public function handle()
     {
+
         $username = $this->ask('请输入用户名', false);
         $email = $this->ask('请输入邮箱', false);
         $password = $this->ask('请输入密码', false);
@@ -48,10 +49,13 @@ class RegisterUser extends Command
             'status' => 1,
             'avatar' => '\uploads\avatar\default.png'
         ])));
-        $this->info('========== 注册完成 ==========');
-        $this->line('超级管理员邮箱：' . $email);
-        $this->line('超级管理员密码：' . $password);
-        $this->info('=============================');
+        $this->warn('=======！！！ 牢记注册信息 ！！！=======');
+        $this->line('管理员邮箱：' . $email);
+        $this->line('管理员密码：' . $password);
+        $this->warn('=======！！！ 牢记注册信息 ！！！=======');
+        $this->info('========== 正在执行迁移文件 ==========');
+        $this->call('db:seed');
+        $this->info('========== 安装完成 ==========');
 
     }
 }

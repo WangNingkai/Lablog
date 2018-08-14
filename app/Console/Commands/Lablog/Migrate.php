@@ -31,17 +31,13 @@ class Migrate extends Command
     }
 
     /**
-     * 执行迁移填充
+     * 执行迁移
      *
      */
     public function handle()
     {
-        $this->call('key:generate');
         $this->call('migrate');
-        $this->call('db:seed');
-        $this->info('========== 安装完成 ==========');
-        $this->line('后台链接：/admin');
-        $this->line('超级管理员邮箱：admin@admin.com ');
-        $this->line('超级管理员密码：12345678');
+        $this->warn('========== 请手动执行注册用户 ==========');
+        $this->info('php artisan lablog:register');
     }
 }
