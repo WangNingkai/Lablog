@@ -37,6 +37,10 @@ chown -R www:www *
 **`GD库`扩展** 
 **`Redis`扩展** 
 
+第三方配置在`.env`文件配置
+
+[![q.png](https://i.loli.net/2018/08/14/5b72e6d94df76.png)](https://i.loli.net/2018/08/14/5b72e6d94df76.png)
+
 ### 分支说明
 
 - release: 测试相对稳定代码
