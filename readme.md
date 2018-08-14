@@ -21,9 +21,7 @@ git clone -b release https://gitee.com/wangningkai/Lablog.git tmp
 mv tmp/.git . 
 rm -rf tmp 
 git reset --hard 
-cp .env.example .env 
 composer install -vvv 
-php artisan key:generate
 php artisan lablog:install
 php artisan lablog:migrate 
 chmod -R 755 storage/
@@ -38,6 +36,10 @@ chown -R www:www *
 **`Imagick`扩展**
 **`GD库`扩展** 
 **`Redis`扩展** 
+
+第三方配置在`.env`文件配置
+
+[![q.png](https://i.loli.net/2018/08/14/5b72e6d94df76.png)](https://i.loli.net/2018/08/14/5b72e6d94df76.png)
 
 ### 分支说明
 
