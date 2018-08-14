@@ -37,7 +37,10 @@ class Migrate extends Command
     public function handle()
     {
         $this->call('migrate');
-        $this->warn('========== 请手动执行注册用户 ==========');
-        $this->info('php artisan lablog:register');
+        $this->warn('========== 正在执行注册用户 ==========');
+        $this->call('lablog:register');
+        $this->info('========== 正在执行迁移文件 ==========');
+        $this->call('db:seed');
+        $this->info('========== 安装完成 ==========');
     }
 }

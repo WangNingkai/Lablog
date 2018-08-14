@@ -53,9 +53,5 @@ class RegisterUser extends Command
         $this->line('管理员邮箱：' . $email);
         $this->line('管理员密码：' . $password);
         $this->warn('=======！！！ 牢记注册信息 ！！！=======');
-        $this->info('========== 正在执行迁移文件 ==========');
-        $this->call('db:seed');
-        $this->info('========== 安装完成 ==========');
-
     }
 }
