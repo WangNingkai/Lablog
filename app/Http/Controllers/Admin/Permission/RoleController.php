@@ -34,8 +34,7 @@ class RoleController extends Controller
         $permissions = $request->get('permissions');
         $createOrFail = Role::create(['name' => $name]);
         // 同步权限
-        if($permissions)
-        {
+        if($permissions) {
             $createOrFail->syncPermissions($permissions);
         }
         $createOrFail ? Tool::showMessage('添加成功') : Tool::showMessage('添加失败',false) ;
@@ -68,8 +67,7 @@ class RoleController extends Controller
         $edit_role->name = $name;
         $saveOrFail = $edit_role->save();
         // 同步权限
-        if($permissions)
-        {
+        if($permissions) {
             $edit_role->syncPermissions($permissions);
         }
         $saveOrFail ? Tool::showMessage('修改成功'): Tool::showMessage('修改失败',false);
@@ -87,17 +85,14 @@ class RoleController extends Controller
         $arr = explode(',', $data['rid']);
         // 判断该角色是否存在用户，确定删除将用户角色移除，同时移除关联权限
         $roles = Role::query()->whereIn('id',$arr);
-        foreach ($roles->get() as $role)
-        {
-            if($role->name == User::SUPERADMIN)
-            {
+        foreach ($roles->get() as $role) {
+            if($role->name == User::SUPERADMIN) {
                 Tool::showMessage('超级管理员角色无法删除',false);
                 return redirect()->back();
             }
             // 返回要删除角色的用户.移除用户角色
             $users = User::role($role)->get();
-            foreach($users as $user )
-            {
+            foreach($users as $user ) {
                 $user->removeRole($role);
             }
         }

@@ -44,7 +44,7 @@ class UserController extends Controller
      */
     public function store(Store $request)
     {
-        event(new Registered($creatOrFail = User::create([
+        event(new Registered($createOrFail = User::create([
             'name' => $request['name'],
             'email' => $request['email'],
             'password' => Hash::make($request['password']),
@@ -52,8 +52,8 @@ class UserController extends Controller
             'avatar' => '\uploads\avatar\default.png'
         ])));
         $roles = $request->get('roles');
-        $creatOrFail->assignRole($roles);
-        $creatOrFail?Tool::showMessage('添加成功'):Tool::showMessage('添加失败',false);
+        $createOrFail->assignRole($roles);
+        $createOrFail ? Tool::showMessage('添加成功') : Tool::showMessage('添加失败',false);
         Tool::recordOperation(auth()->user()->name,'注册用户');
         return redirect()->route('user_manage');
     }
@@ -65,13 +65,12 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        if(Auth::id() != User::SUPERUSER)
-        {
+        if(Auth::id() != User::SUPERUSER) {
             Tool::showMessage('非超级管理员禁止编辑',false);
             return redirect()->back();
         }
         $roles = Role::all();
-        $user = User::findOrFail($id);
+        $user = User::query()->findOrFail($id);
         return view('admin.permission.user-edit',compact('roles','user'));
 
     }
@@ -83,7 +82,7 @@ class UserController extends Controller
      */
     public function update(Update $request, $id)
     {
-        $user = User::findOrFail($id);
+        $user = User::query()->findOrFail($id);
         $roles = $request->get('roles');
         $saveOrFail = $user->update([
             'name' => $request['name'],
@@ -105,10 +104,8 @@ class UserController extends Controller
     {
         $data = $request->only('uid');
         $arr = explode(',', $data['uid']);
-        foreach($arr as $uid)
-        {
-            if($uid == User::SUPERUSER)
-            {
+        foreach($arr as $uid) {
+            if($uid == User::SUPERUSER) {
                 Tool::showMessage('超级管理员禁止删除' ,false);
                 return redirect()->back();
             }
@@ -159,8 +156,7 @@ class UserController extends Controller
         $data = $request->only('uid');
         $arr = explode(',', $data['uid']);
         $users = User::query()->whereIn('id',$arr);
-        foreach ($users->get() as $user)
-        {
+        foreach ($users->get() as $user) {
             // 判断用户有哪些角色和权限， 删除用户关联角色记录
             DB::table('model_has_roles')->where('model_id',$user->id)->delete();
             DB::table('model_has_permissions')->where('model_id',$user->id)->delete();

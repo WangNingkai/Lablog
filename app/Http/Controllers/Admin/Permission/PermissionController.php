@@ -54,8 +54,7 @@ class PermissionController extends Controller
         if (is_null($id)) {
             return abort(404, '对不起，找不到相关页面');
         }
-        if (!$response = Permission::findById($id))
-        {
+        if (!$response = Permission::findById($id)) {
             return Tool::ajaxReturn(404, ['alert' => '未找到相关数据']);
         }
         return Tool::ajaxReturn(200, $response);
@@ -71,8 +70,7 @@ class PermissionController extends Controller
         $name=$request->get('edit_name');
         $route=$request->get('edit_route');
         $permission = Permission::query()->findOrFail($id);
-        if(!$permission)
-        {
+        if(!$permission) {
             Tool::showMessage('未查到相关，添加失败', false);
             return redirect()->back();
         }

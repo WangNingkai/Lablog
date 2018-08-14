@@ -73,8 +73,7 @@ class ArticleController extends Controller
     public function store(Store $request)
     {
         $id = $this->article->storeData($request->all());
-        if($request->get('status') == $this->article::PUBLISHED)
-        {
+        if ($request->get('status') == $this->article::PUBLISHED) {
             // 推送订阅
             Tool::pushSubscribe('',route('article',$id));
         }
@@ -96,7 +95,7 @@ class ArticleController extends Controller
     {
         $article = $this->article->query()->find($id);
         $article->tag_ids = ArticleTag::query()->where('article_id', $id)->pluck('tag_id')->toArray();
-        $category = Tool::getSelect(Category::all()->toArray(), $article->category_id);
+        $category = Tool::getSelect(Category::all()->toArray(), $article->getAttributeValue('category_id'));
         $tag = Tag::all();
         return view('admin.article-edit', compact('article', 'category', 'tag'));
     }

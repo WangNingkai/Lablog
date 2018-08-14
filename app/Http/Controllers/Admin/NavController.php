@@ -45,15 +45,13 @@ class NavController extends Controller
      */
     public function store(Store $request)
     {
-        if ($request->get('parent_id') == 0)
-        {
+        if ($request->get('parent_id') == 0) {
             $count = $this->nav->query()->where('parent_id',0)->count();
-            if ($this->nav::LIMIT_NUM == $count)
-            {
+            if ($this->nav::LIMIT_NUM == $count) {
                 Tool::showMessage('一级菜单已达到最大限制',false);
                 return redirect()->back();
             }
-        };
+        }
         $this->nav->storeData($request->all());
         Tool::recordOperation(auth()->user()->name,'添加菜单');
         Cache::forget('cache:nav_list');

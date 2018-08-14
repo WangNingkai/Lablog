@@ -18,7 +18,7 @@ class Migrate extends Command
      *
      * @var string
      */
-    protected $description = 'Lablog Migration';
+    protected $description = '初始化迁移文件';
 
     /**
      * Create a new command instance.
@@ -39,7 +39,7 @@ class Migrate extends Command
         $this->call('key:generate');
         $this->call('migrate');
         $this->call('db:seed');
-        $this->info('*************** 安装完成 ***************');
+        $this->info('========== 安装完成 ==========');
         $this->line('后台链接：/admin');
         $this->line('超级管理员邮箱：admin@admin.com ');
         $this->line('超级管理员密码：12345678');

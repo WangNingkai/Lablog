@@ -70,7 +70,7 @@
                                     <a href="{{ route('archive') }}">{{ $nav_v->name }}</a>
                                 </li>
                             @elseif($nav_v->type === \App\Models\Nav::TYPE_EMPTY)
-                                @if(count($nav_v->children)>0)
+                                @if(!blank($nav_v->children))
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ $nav_v->name }}
                                             <span class="caret"></span>

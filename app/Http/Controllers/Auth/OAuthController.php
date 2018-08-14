@@ -53,22 +53,18 @@ class OAuthController extends Controller
      */
     public function handleProviderCallback(Request $request, OauthInfo $oauthInfo, $service)
     {
-
-        // TODO: 确认密码后再操作
         // 获取第三方登录用户资料
         $oauth_user = Socialite::driver($service)->user();
 
         // 判断当前用户是否登录
-        if( !Auth::guest() )
-        {
+        if( !Auth::guest() ) {
             $uid = Auth::id();
             // 判断是否绑定
             $checkBind = $oauthInfo->whereMap([
                 'type'   => $this->type[$service],
                 'openid' => $oauth_user->id
             ])->first();
-            if( $checkBind )
-            {
+            if( $checkBind ) {
                 Tool::showMessage('您已经绑定'.$service.'登录，无需再进行绑定',false);
                 return redirect()->route('dashboard_home');
             }
@@ -89,8 +85,7 @@ class OAuthController extends Controller
             }
             $user = Auth::user();
             // 如果用户默认头像为空或者为default，则关联登录头像
-            if( empty($user->avatar) || strpos( $user->avatar,'default') )
-            {
+            if( empty($user->avatar) || strpos( $user->avatar,'default') ) {
                 $user->avatar = $avatarPath;
                 $user->save();
             }
@@ -115,8 +110,7 @@ class OAuthController extends Controller
             'type'   => $this->type[$service],
             'openid' => $oauth_user->id
         ])->first();
-        if ( !$user )
-        {
+        if ( !$user ) {
             Tool::showMessage('后台未绑定关联登录，请绑定后再关联登陆',false);
             return redirect()->route('login');
         }

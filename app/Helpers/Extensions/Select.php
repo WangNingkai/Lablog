@@ -1,6 +1,11 @@
 <?php
 namespace App\Helpers\Extensions;
 
+/**
+ * 获取树形菜单
+ * Class Select
+ * @package App\Helpers\Extensions
+ */
 class Select
 {
     /**

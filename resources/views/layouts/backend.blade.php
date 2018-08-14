@@ -53,20 +53,20 @@
                     </li>
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="{{ Auth::user()->avatar }}" class="user-image" alt="{{ Auth::user()->name }}">
-                            <span class="hidden-xs">{{ Auth::user()->name }}</span>
+                            <img src="{{ \App\Helpers\Extensions\UserExt::getAttribute('avatar') }}" class="user-image" alt="{{ \App\Helpers\Extensions\UserExt::getAttribute('name') }}">
+                            <span class="hidden-xs">{{ \App\Helpers\Extensions\UserExt::getAttribute('name') }}</span>
                         </a>
                         <ul class="dropdown-menu">
                             <li class="user-header">
-                                <img src="{{ Auth::user()->avatar }}" class="img-circle"
-                                     alt="{{ Auth::user()->name }}">
+                                <img src="{{ \App\Helpers\Extensions\UserExt::getAttribute('avatar') }}" class="img-circle"
+                                     alt="{{ \App\Helpers\Extensions\UserExt::getAttribute('name') }}">
                                 <p>
-                                    {{ Auth::user()->name }}
+                                    {{ \App\Helpers\Extensions\UserExt::getAttribute('name') }}
                                 </p>
                             </li>
                             <li class="user-body">
-                                <p>登陆时间 ：{{ Auth::user()->last_login_at }}</p>
-                                <p>登陆地点 ：{{ \App\Helpers\Extensions\Tool::ip2City(Auth::user()->last_login_ip) }}</p>
+                                <p>登陆时间 ：{{ \App\Helpers\Extensions\UserExt::getAttribute('last_login_at') }}</p>
+                                <p>登陆地点 ：{{ \App\Helpers\Extensions\Tool::ip2City( \App\Helpers\Extensions\UserExt::getAttribute('last_login_ip')) }}</p>
                             </li>
                             <li class="user-footer">
                                 <div class="pull-left">
@@ -91,10 +91,10 @@
         <section class="sidebar">
             <div class="user-panel">
                 <div class="pull-left image">
-                    <img src="{{  Auth::user()->avatar }}" class="img-circle" alt="{{ Auth::user()->name }}">
+                    <img src="{{  \App\Helpers\Extensions\UserExt::getAttribute('avatar') }}" class="img-circle" alt="{{ \App\Helpers\Extensions\UserExt::getAttribute('name') }}">
                 </div>
                 <div class="pull-left info">
-                    <p>{{ Auth::user()->name }}</p>
+                    <p>{{ \App\Helpers\Extensions\UserExt::getAttribute('name') }}</p>
                     <a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
                 </div>
             </div>
@@ -112,7 +112,7 @@
                 
                 <li class="{{ \App\Helpers\Extensions\Tool::setActive('admin/home') }}"><a href="{{ route('dashboard_home') }}"><i class="fa fa-home"></i> <span> 首页</span></a></li>
                 <li class="{{ \App\Helpers\Extensions\Tool::setActive('admin/article/create') }}"><a href="{{ route('article_create') }}"><i class="fa fa-pencil-square-o"></i> <span> 新建文章</span></a></li>
-                <li class="treeview {{ \App\Helpers\Extensions\Tool::setActive('admin/config') }} {{ \App\Helpers\Extensions\Tool::setActive('admin/nav') }}">
+                <li class="treeview {{ \App\Helpers\Extensions\Tool::setActive(['admin/config','admin/nav']) }} ">
                     <a href="#">
                         <i class="fa fa-star"></i> <span> 我的站点</span>
                         <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
@@ -122,7 +122,7 @@
                         <li class="{{ \App\Helpers\Extensions\Tool::setActive('admin/nav') }}"><a href="{{ route('nav_manage') }}"><i class="fa fa-bars"></i> 菜单管理</a></li>
                     </ul>
                 </li>
-                <li class="treeview {{ \App\Helpers\Extensions\Tool::setActive('admin/tag') }} {{ \App\Helpers\Extensions\Tool::setActive('admin/category') }} {{ \App\Helpers\Extensions\Tool::setActive('admin/article') }} {{ \App\Helpers\Extensions\Tool::setActive('admin/page') }}">
+                <li class="treeview {{ \App\Helpers\Extensions\Tool::setActive(['admin/tag','admin/category','admin/article','admin/page']) }} ">
                     <a href="#">
                         <i class="fa fa-book"></i> <span> 内容管理</span>
                         <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
@@ -145,7 +145,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="treeview {{ \App\Helpers\Extensions\Tool::setActive('admin/link') }} {{ \App\Helpers\Extensions\Tool::setActive('admin/message') }} {{ \App\Helpers\Extensions\Tool::setActive('admin/comment') }} {{ \App\Helpers\Extensions\Tool::setActive('admin/subscribe') }}">
+                <li class="treeview {{ \App\Helpers\Extensions\Tool::setActive(['admin/link','admin/message','admin/comment','admin/subscribe']) }} ">
                     <a href="#">
                         <i class="fa fa-cogs"></i> <span> 其他模块</span>
                         <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
@@ -154,11 +154,11 @@
                         <li class="{{ \App\Helpers\Extensions\Tool::setActive('admin/link/manage') }}"><a href="{{ route('link_manage') }}"><i class="fa fa-link"></i> 我的友链</a></li>
                         <li class="{{ \App\Helpers\Extensions\Tool::setActive('admin/comment/manage') }}"><a href="{{ route('comment_manage') }}"><i class="fa fa-comment"></i> 我的评论</a></li>
                         <li class="{{ \App\Helpers\Extensions\Tool::setActive('admin/message/manage') }}"><a href="{{ route('message_manage') }}"><i class="fa fa-comments"></i> 我的留言</a></li>
-                        <li class="{{ \App\Helpers\Extensions\Tool::setActive('admin/subscribe/manage') }}"><a href="{{ route('subscribe_manage') }}"><i class="fa fa-link"></i> 我的订阅</a></li>
+                        <li class="{{ \App\Helpers\Extensions\Tool::setActive('admin/subscribe/manage') }}"><a href="{{ route('subscribe_manage') }}"><i class="fa fa-first-order"></i> 我的订阅</a></li>
                     </ul>
                 </li>
                 @role(\App\Models\User::SUPERADMIN)
-                <li class="treeview {{ \App\Helpers\Extensions\Tool::setActive('admin/permission') }} {{ \App\Helpers\Extensions\Tool::setActive('admin/user') }} {{ \App\Helpers\Extensions\Tool::setActive('admin/role') }}">
+                <li class="treeview {{ \App\Helpers\Extensions\Tool::setActive(['admin/permission','admin/user','admin/role']) }}">
                     <a href="#">
                         <i class="fa fa-ban"></i> <span> 权限管理</span>
                         <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>

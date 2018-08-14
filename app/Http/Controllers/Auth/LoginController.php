@@ -43,7 +43,8 @@ class LoginController extends Controller
      * 原验证方法 Illuminate\Foundation\Auth\AuthenticatesUsers
      * @param Request $request
      */
-    protected function validateLogin(Request $request){
+    protected function validateLogin(Request $request)
+    {
         $this->validate($request, [
             $this->username() => 'required|string',
             'password' => 'required|string',
@@ -63,9 +64,7 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         $this->guard()->logout();
-
         $request->session()->invalidate();
-
         return $this->loggedOut($request) ?: redirect('/login');
     }
 }

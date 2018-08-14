@@ -2,7 +2,6 @@
 namespace App\Helpers\Extensions;
 
 use App\Jobs\SendEmail;
-use App\Models\Article;
 use App\Models\Subscribe;
 use Illuminate\Support\Facades\Mail;
 use App\Events\OperationEvent;
@@ -11,6 +10,11 @@ use HyperDown\Parser;
 use Jenssegers\Agent\Agent;
 use Zhuzhichao\IpLocationZh\Ip;
 
+/**
+ * 工具助手函数
+ * Class Tool
+ * @package App\Helpers\Extensions
+ */
 class Tool
 {
     /**
@@ -58,8 +62,7 @@ class Tool
     public static function pushSubscribe($content = '',$url = '')
     {
         $emails = Subscribe::query()->pluck('email');
-        foreach($emails as $email)
-        {
+        foreach ( $emails as $email ) {
             $param = [
                 'email' => $email,
                 'name' => '亲爱的订阅用户',
@@ -138,30 +141,22 @@ class Tool
         $diff = date_diff($date1,$date2);
         $dDay = $diff->days;
 
-        if($dTime == 0){
+        if ($dTime == 0) {
             return "1秒前";
-        }elseif( $dTime < 60 && $dTime > 0 ){
+        } elseif ($dTime < 60 && $dTime > 0) {
             return $dTime."秒前";
-        }
-        elseif( $dTime < 3600 && $dTime > 0 ){
+        } elseif ($dTime < 3600 && $dTime > 0) {
             return intval($dTime/60)."分钟前";
-        }
-        elseif( $dTime >= 3600 && $dDay == 0 )
-        {
+        } elseif ($dTime >= 3600 && $dDay == 0) {
             return intval($dTime/3600)."小时前";
-        }
-        elseif( $dDay == 1 )
-        {
+        }elseif($dDay == 1) {
             return date("昨天 H:i",$sTime);
-        }
-        elseif( $dDay == 2 )
-        {
+        } elseif($dDay == 2) {
             return date("前天 H:i",$sTime);
-        }
-        elseif($format == 1){
+        } elseif($format == 1) {
             return date("m-d H:i",$sTime);
-        }else{
-            if(date('Y',$cTime)!=date('Y',$sTime)) // 不是今年
+        } else {
+            if (date('Y',$cTime)!=date('Y',$sTime)) // 不是今年
                 return date("Y-n-j",$sTime);
             else
                 return date("n-j",$sTime);
@@ -243,9 +238,8 @@ class Tool
     public static function bdPush($id,$type = 'urls')
     {
         $urls = [];
-        if(is_array($id))
-        {
-            foreach ($id as $value) {
+        if (is_array($id)) {
+            foreach ( $id as $value ) {
                 $urls[]=route('article',$value);
             }
         }else {
@@ -263,7 +257,7 @@ class Tool
         curl_setopt_array($ch, $options);
         $result = curl_exec($ch);
         $msg = json_decode($result, true);
-        if (array_key_exists('error',$msg)) {
+        if ( array_key_exists('error',$msg) ) {
             curl_exec($ch);
         }
         curl_close($ch);
@@ -272,12 +266,23 @@ class Tool
     /**
      * 设置导航栏状态
      *
-     * @param string $route 路由地址
-     * @return bool
+     * @param mixed $route 路由地址
+     * @return string
      */
     public static function setActive($route)
     {
-        return (request()->is($route . '/*') || request()->is($route)) ? "active" : '';
+        $status = '';
+        if (is_array($route)) {
+            foreach($route as $item) {
+                if(request()->is($item . '/*') || request()->is($item)) {
+                    $status =  'active';
+                    break;
+                }
+            }
+        } else {
+            $status = request()->is($route . '/*') || request()->is($route) ? 'active' : '';
+        }
+        return $status;
     }
 
     /**
@@ -318,15 +323,14 @@ class Tool
     {
         $new_arr = [];
         foreach($data as $k => $v){
-            if($v['parent_id'] == $parent_id){
+            if ($v['parent_id'] == $parent_id) {
                 $new_arr[] = $v;
                 unset($data[$k]);
             }
         }
         foreach($new_arr as &$a){
             $a['children'] = self::getRecursiveData($data, $a['id']);
-            if (count($a['children']) === 0)
-            {
+            if (count($a['children']) === 0) {
                 unset($a['children']);
             }
         }

@@ -5,6 +5,11 @@ namespace App\Helpers\Extensions;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * 登录用户助手函数
+ * Class UserExt
+ * @package App\Helpers\Extensions
+ */
 class UserExt
 {
     /**
@@ -14,7 +19,7 @@ class UserExt
     public static function currentUser()
     {
         $uid = Auth::id();
-        return User::query()->findOrFail($uid);
+        return User::query()->find($uid);
     }
 
     /**
@@ -28,8 +33,15 @@ class UserExt
         return $user->getAttributeValue($key);
     }
 
-    public static function getBy()
+    public static function logout()
     {
+        Auth::logout();
+    }
+
+    public static function hasPermissionTo($permission)
+    {
+        $user = self::currentUser();
+        return $user->hasPermissionTo($permission);
 
     }
 }

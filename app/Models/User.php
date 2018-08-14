@@ -66,10 +66,8 @@ class User extends Authenticatable
     {
         $role_tags = '';
         $roles = Role::all();
-        foreach($roles as $role)
-        {
-            if($this->hasRole($role->name))
-            {
+        foreach ($roles as $role) {
+            if ($this->hasRole($role->name)) {
                 $role_tags.='&nbsp;<a href="javascript:void(0)" class="btn btn-sm btn-success btn-flat">'.$role->name.'</a>';
             }
         }

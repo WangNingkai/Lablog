@@ -2,11 +2,13 @@
 
 namespace App\Http\Middleware;
 
+use App\Helpers\Extensions\UserExt;
 use Closure;
+use Illuminate\Support\Facades\Session;
 
 class CheckTimeout
 {
-    // 超时时间30分钟
+    # 超时时间30分钟
     protected $timeout = 1800;
 
     /**
@@ -19,17 +21,17 @@ class CheckTimeout
     public function handle($request, Closure $next)
     {
 
-        /*$isLoggedIn = $request->path() != 'logout';
-        if(! session('lastActivityTime')){
-            app('session')->put('lastActivityTime', time());
-        } elseif(time() - app('session')->get('lastActivityTime') > $this->timeout){
-            app('session')->forget('lastActivityTime');
+        $isLoggedIn = $request->path() != 'logout';
+        if(! $lastActivityTime = Session::get('lastActivityTime')){
+            Session::put('lastActivityTime',time());
+        } elseif(time() - $lastActivityTime > $this->timeout){
+            Session::forget('lastActivityTime');
             $cookie = cookie('intend', $isLoggedIn ? url()->current() : 'admin');
             $email = $request->user()->email;
-            auth()->logout();
+            UserExt::logout();
             return redirect()->route('login')->withInput(['email' => $email])->withCookie($cookie);
         }
-        $isLoggedIn ? app('session')->put('lastActivityTime', time()) : app('session')->forget('lastActivityTime');*/
+        $isLoggedIn ? Session::put('lastActivityTime', time()) : Session::forget('lastActivityTime');
         return $next($request);
     }
 }

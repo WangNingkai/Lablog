@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class NavsTableSeeder extends Seeder
 {
@@ -14,9 +15,9 @@ class NavsTableSeeder extends Seeder
     {
 
 
-        \DB::table('navs')->delete();
+        DB::table('navs')->delete();
 
-        \DB::table('navs')->insert(array (
+        DB::table('navs')->insert(array (
 
             0 =>
                 array (

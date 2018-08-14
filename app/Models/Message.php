@@ -11,7 +11,7 @@ class Message extends Base
 
     public function getStatusTagAttribute()
     {
-        return $this->status === self::CHECKED ? '<a href="javascript:void(0)" class="btn btn-sm btn-success btn-flat">已审核</a>' : '<a href="javascript:void(0)" class="btn btn-sm btn-danger btn-flat">未审核</a>';
+        return $this->attributes['status'] === self::CHECKED ? '<a href="javascript:void(0)" class="btn btn-sm btn-success btn-flat">已审核</a>' : '<a href="javascript:void(0)" class="btn btn-sm btn-danger btn-flat">未审核</a>';
     }
 
     /**

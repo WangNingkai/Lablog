@@ -43,7 +43,7 @@ class SubscribeController extends Controller
     public function push(Request $request)
     {
         $content = $request->get('content');
-        if(blank($content)){
+        if (blank($content)) {
             Tool::showMessage('推送消息为空，无法推送',false);
             return redirect()->back();
         }

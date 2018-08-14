@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class ConfigsTableSeeder extends Seeder
 {
@@ -14,9 +15,9 @@ class ConfigsTableSeeder extends Seeder
     {
 
 
-        \DB::table('configs')->delete();
+        DB::table('configs')->delete();
 
-        \DB::table('configs')->insert(array (
+        DB::table('configs')->insert(array (
             0 =>
                 array (
                     'id' => 1,

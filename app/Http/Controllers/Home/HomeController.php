@@ -57,11 +57,11 @@ class HomeController extends Controller
     public function article($id, Request $request)
     {
         $article = Cache::remember('article:cache:'.$id, 10, function () use ($id) {
-            return Article::query()->with(['category', 'tags','comments'=>function ($query) {
+            return Article::query()->with(['category', 'tags','comments' => function ($query) {
                 $query->where('status', Article::PUBLISHED);
             }])->where('id',$id)->first();
         });
-        if( is_null($article) || 0 === $article->status || !is_null($article->deleted_at) ){
+        if ( is_null($article) || 0 === $article->status || !is_null($article->deleted_at) ) {
             return abort(404);
         }
         $key = 'articleRequestList:'.$id.':'.$request->ip();
@@ -114,11 +114,10 @@ class HomeController extends Controller
     {
         $category = Category::query()->findOrFail($id);
         $childCategoryList=Category::query()->where(['parent_id'=>$id])->get();
-
         $articles = Article::query()->select('id', 'category_id', 'title', 'author', 'description','click', 'created_at')
             ->where(['status'=>Article::PUBLISHED,'category_id'=>$id])
             ->orderBy('created_at', 'desc')
-            ->with(['category', 'tags', 'comments'=>function ($query) {
+            ->with(['category', 'tags', 'comments' => function ($query) {
                 $query->where('status', Article::PUBLISHED);
             }])
             ->simplePaginate(10);
@@ -138,7 +137,7 @@ class HomeController extends Controller
             ->where('status',Article::PUBLISHED)
             ->whereIn('id', $ids)
             ->orderBy('created_at', 'desc')
-            ->with(['category', 'tags', 'comments'=>function ($query) {
+            ->with(['category', 'tags', 'comments' => function ($query) {
                 $query->where('status', Comment::CHECKED);
             }])
             ->simplePaginate(10);
@@ -254,9 +253,7 @@ class HomeController extends Controller
         $feed->pubdate = $articles->first()->created_at;
         $feed->lang = 'zh-CN';
         $feed->ctype = 'application/xml';
-
-        foreach ($articles as $article)
-        {
+        foreach ($articles as $article) {
             $feed->add($article->title, $article->author, url('article', $article->id), $article->created_at, $article->description);
         }
         return $feed->render('atom');

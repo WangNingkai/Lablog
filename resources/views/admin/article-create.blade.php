@@ -70,7 +70,7 @@
 
                                 <div class="form-group {{$errors->has('author')?'has-error':''}}">
                                     <label for="author">作者：</label>
-                                    <input type="text" class="form-control" name="author" id="author" placeholder="在此输入作者"  value="{{old('author')?old('author'):Auth::user()->name}}">
+                                    <input type="text" class="form-control" name="author" id="author" placeholder="在此输入作者"  value="{{old('author')?old('author'):\App\Helpers\Extensions\UserExt::getAttribute('name')}}">
                                     @if ($errors->has('author'))
                                         <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('author') }}</strong></span>
                                     @endif

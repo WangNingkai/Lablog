@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\DB;
 
 class UsersTableSeeder extends Seeder
 {
@@ -16,9 +17,9 @@ class UsersTableSeeder extends Seeder
     {
         
 
-        \DB::table('users')->delete();
+        DB::table('users')->delete();
         
-        \DB::table('users')->insert(array (
+        DB::table('users')->insert(array (
             0 => 
             array (
                 'id' => 1,

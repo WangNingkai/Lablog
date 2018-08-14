@@ -24,8 +24,7 @@ class Base extends Model
      */
     public function storeData($data)
     {
-        if (empty($data))
-        {
+        if (empty($data)) {
             Tool::showMessage('数据为空，添加失败',false);
             return false;
         }

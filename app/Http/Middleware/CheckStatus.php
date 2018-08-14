@@ -26,12 +26,10 @@ class CheckStatus
         $route = Route::currentRouteName();
         $allowMessage = Cache::get('cache:config')['site_allow_message'];
         $allowSubscribe = Cache::get('cache:config')['site_allow_subscribe'];
-        if($route == 'message' && $allowMessage == 0)
-        {
+        if ($route == 'message' && $allowMessage == 0) {
             return abort(404);
         }
-        if($route == 'subscribe' && $allowSubscribe == 0)
-        {
+        if ($route == 'subscribe' && $allowSubscribe == 0) {
             return abort(404);
         }
         return $next($request);

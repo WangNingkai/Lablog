@@ -23,10 +23,8 @@ class ProfileController extends Controller
     {
         $uid = Auth::id();
         $admin = Admin::query()->where('id',$uid)->with('oauthinfos')->first();
-        foreach($admin->oauthinfos as $oauthinfo)
-        {
-            switch ($oauthinfo->type)
-            {
+        foreach($admin->oauthinfos as $oauthinfo) {
+            switch ($oauthinfo->type) {
                 case OauthInfo::TYPE_QQ :
                     $admin['bindQQ'] = true;
                     $admin['qqName'] = $oauthinfo->name;
@@ -40,7 +38,6 @@ class ProfileController extends Controller
                     $admin['githubName'] = $oauthinfo->name;
                     break;
             }
-
         }
         return view('admin.profile', compact('admin'));
     }
@@ -66,7 +63,6 @@ class ProfileController extends Controller
         $user->update([
             'avatar' => $avatarPath
         ]);
-
         return redirect()->route('profile_manage');
     }
     /**
