@@ -21,9 +21,7 @@ git clone -b release https://gitee.com/wangningkai/Lablog.git tmp
 mv tmp/.git . 
 rm -rf tmp 
 git reset --hard 
-cp .env.example .env 
 composer install -vvv 
-php artisan key:generate
 php artisan lablog:install
 php artisan lablog:migrate 
 chmod -R 755 storage/
