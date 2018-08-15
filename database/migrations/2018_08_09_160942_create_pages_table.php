@@ -17,8 +17,6 @@ class CreatePagesTable extends Migration
             $table->increments('id')->comment('单页ID');
             $table->string('title')->comment('标题');
             $table->string('author')->comment('作者');
-            $table->mediumText('content')->comment('markdown文章内容');
-            $table->mediumText('html')->comment('markdown转的html页面');
             $table->boolean('status')->default(0)->comment('状态');
             $table->unsignedInteger('click')->default(0)->comment('点击数');
             $table->timestamps();

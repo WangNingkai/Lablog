@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Helpers\Extensions\Tool;
 use App\Http\Requests\Page\Store;
+use App\Models\Feed;
 use App\Models\Page;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -80,9 +81,7 @@ class PageController extends Controller
     public function update(Store $request, $id)
     {
         $data = $request->except('_token');
-        unset($data['editormd_id-html-code']);
-        $data['html'] = Tool::markdown2Html($data['content']);
-        $this->page->updateData(['id' => $id], $data);
+        $this->page->updateData($id, $data);
         Tool::recordOperation(auth()->user()->name,'编辑单页');
         return redirect()->route('page_manage');
     }
@@ -141,10 +140,17 @@ class PageController extends Controller
     {
         $data = $request->only('pid');
         $arr = explode(',', $data['pid']);
-        if (!$this->page->query()->whereIn('id', $arr)->forceDelete()) {
+        $deleteOrFail = $this->page->query()->whereIn('id', $arr)->forceDelete();
+        if (!$deleteOrFail) {
             Tool::showMessage('彻底删除失败', false);
             return redirect()->back();
+        } else {
+            Feed::query()
+                ->where('target_type',Feed::TYPE_PAGE)
+                ->whereIn('target_id', $arr)
+                ->delete();
         }
+        Tool::showMessage('彻底删除成功');
         Tool::recordOperation(auth()->user()->name,'完全删除单页');
         return redirect()->back();
     }

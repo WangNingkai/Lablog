@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Helpers\Extensions\Tool;
 use App\Models\Comment;
+use App\Models\Feed;
 use Illuminate\Http\Request;
 use App\Http\Requests\Article\Store;
 use App\Http\Controllers\Controller;
@@ -94,7 +95,6 @@ class ArticleController extends Controller
     public function edit($id)
     {
         $article = $this->article->query()->find($id);
-        $article->tag_ids = ArticleTag::query()->where('article_id', $id)->pluck('tag_id')->toArray();
         $category = Tool::getSelect(Category::all()->toArray(), $article->getAttributeValue('category_id'));
         $tag = Tag::all();
         return view('admin.article-edit', compact('article', 'category', 'tag'));
@@ -104,27 +104,13 @@ class ArticleController extends Controller
      * 更新文章.
      *
      * @param  \App\Http\Requests\Article\Store $request
-     * @param  \App\Models\ArticleTag $articleTagModel
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Store $request, ArticleTag $articleTagModel, $id)
+    public function update(Store $request, $id)
     {
         $data = $request->except('_token');
-        // 如果没有描述;则截取文章内容的前150字作为描述
-        if (empty($data['description'])) {
-            $description = preg_replace(array('/[~*>#-]*/', '/!?\[.*\]\(.*\)/', '/\[.*\]/'), '', $data['content']);
-            $data['description'] = Tool::subStr($description, 0, 150, true);
-        }
-        // 为文章批量添加标签
-        $tag_ids = $data['tag_ids'];
-        unset($data['tag_ids']);
-        // 把markdown转html
-        unset($data['editormd_id-html-code']);
-        $data['html'] = Tool::markdown2Html($data['content']);
-        $articleTagModel->addTagIds($id, $tag_ids);
-        // 编辑文章
-        $this->article->updateData(['id' => $id], $data);
+        $this->article->updateData($id, $data);
         Tool::recordOperation(auth()->user()->name,'编辑文章');
         // 更新缓存
         Cache::forget('cache:top_article_list');
@@ -203,16 +189,26 @@ class ArticleController extends Controller
     {
         $data = $request->only('aid');
         $arr = explode(',', $data['aid']);
-        if (!$this->article->query()->whereIn('id', $arr)->forceDelete()) {
+        $deleteOrFail = $this->article->query()->whereIn('id', $arr)->forceDelete();
+        if (!$deleteOrFail) {
+            // 删除对应标签记录与评论记录
             Tool::showMessage('彻底删除失败', false);
             return redirect()->back();
+        } else {
+            ArticleTag::query()
+                ->whereIn('article_id', $arr)
+                ->delete();
+            Comment::query()
+                ->whereIn('article_id', $arr)
+                ->delete();
+            Feed::query()
+                ->where('target_type',Feed::TYPE_ARTICLE)
+                ->whereIn('target_id', $arr)
+                ->delete();
         }
-        // 删除对应标签记录与评论记录
-        $deleteOrFail = ArticleTag::query()->whereIn('article_id', $arr)->delete() && Comment::query()->whereIn('article_id', $arr)->delete();
-        $deleteOrFail ? Tool::showMessage('彻底删除成功') : Tool::showMessage('彻底删除失败',false);
+        Tool::showMessage('彻底删除成功');
         Tool::recordOperation(auth()->user()->name,'完全删除文章');
         Tool::bdPush($arr,'del');
-
         // 更新缓存
         Cache::forget('cache:top_article_list');
         Cache::forget('cache:home_articles');

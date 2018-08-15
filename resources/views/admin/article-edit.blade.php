@@ -129,7 +129,7 @@
                                         <span class="help-block"><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('content') }}</strong></span>
                                     @endif
                                     <div id="editormd_id">
-                                        <textarea name="content" style="display:none;">{{old('content')?old('content'):$article->content}}</textarea>
+                                        <textarea name="content" style="display:none;">{{old('content')?old('content'):$article->feed->content}}</textarea>
                                     </div>
                                 </div>
                             </div>
