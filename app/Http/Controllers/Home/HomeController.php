@@ -37,13 +37,11 @@ class HomeController extends Controller
     public function index()
     {
 
-        $articles = Cache::remember('cache:home_articles', self::CACHE_EXPIRE, function () {
-            return Article::query()->select('id', 'category_id', 'title', 'author', 'description','click')
-                ->where('status', 1)
-                ->orderBy('created_at', 'desc')
-                ->with(['category', 'tags'])
-                ->simplePaginate(6);
-        });
+        $articles = Article::query()->select('id', 'category_id', 'title', 'author', 'description','click')
+            ->where('status', 1)
+            ->orderBy('created_at', 'desc')
+            ->with(['category', 'tags'])
+            ->simplePaginate(6);
         return view('home.index', compact('articles'));
     }
 
