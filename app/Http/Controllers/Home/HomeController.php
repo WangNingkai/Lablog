@@ -40,7 +40,7 @@ class HomeController extends Controller
         $articles = Cache::remember('cache:home_articles', self::CACHE_EXPIRE, function () {
             return Article::query()->select('id', 'category_id', 'title', 'author', 'description','click')
                 ->where('status', 1)
-                ->orderBy('rank', 'desc')
+                ->orderBy('created_at', 'desc')
                 ->with(['category', 'tags'])
                 ->simplePaginate(6);
         });
@@ -114,7 +114,7 @@ class HomeController extends Controller
         $childCategoryList=Category::query()->where(['parent_id'=>$id])->get();
         $articles = Article::query()->select('id', 'category_id', 'title', 'author', 'description','click')
             ->where(['status' => Article::PUBLISHED,'category_id' => $id])
-            ->orderBy('rank', 'desc')
+            ->orderBy('created_at', 'desc')
             ->with(['category', 'tags'])
             ->simplePaginate(10);
         return view('home.category', compact('articles', 'category','childCategoryList'));
@@ -132,7 +132,7 @@ class HomeController extends Controller
         $articles = Article::query()->select('id', 'category_id', 'title', 'author', 'description','click')
             ->where('status',Article::PUBLISHED)
             ->whereIn('id', $ids)
-            ->orderBy('rank', 'desc')
+            ->orderBy('created_at', 'desc')
             ->with(['category', 'tags'])
             ->simplePaginate(10);
         return view('home.tag', compact('articles', 'tag'));

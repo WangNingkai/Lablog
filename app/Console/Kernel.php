@@ -26,7 +26,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
-        $schedule->command('sync:rank')->hourly();
+        $schedule->command('sync:rank')->daily();
     }
 
     /**
