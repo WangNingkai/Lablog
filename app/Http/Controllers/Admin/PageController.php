@@ -8,6 +8,7 @@ use App\Models\Feed;
 use App\Models\Page;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cache;
 
 class PageController extends Controller
 {
@@ -83,6 +84,9 @@ class PageController extends Controller
         $data = $request->except('_token');
         $this->page->updateData($id, $data);
         Tool::recordOperation(auth()->user()->name,'编辑单页');
+        if (Cache::has('cache:page'.$id)) {
+            Cache::forget('cache:page'.$id);
+        }
         return redirect()->route('page_manage');
     }
 

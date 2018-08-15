@@ -52,7 +52,7 @@ class HomeController extends Controller
      */
     public function article($id, Request $request)
     {
-        $article = Cache::remember('cache:article'.$id, 10, function () use ($id) {
+        $article = Cache::remember('cache:article'.$id, self::CACHE_EXPIRE, function () use ($id) {
             return Article::query()->with(['category', 'tags','comments' => function ($query) {
                 $query->where('status', Comment::CHECKED);
             }])->where('id',$id)->first();
@@ -81,9 +81,16 @@ class HomeController extends Controller
         return view('home.article', compact('article', 'prev', 'next'));
     }
 
-    public function page($id)
+    public function page($id, Request $request)
     {
-        $page = Page::query()->where('id',$id)->first();
+        $page = Cache::remember('cache:page'.$id, self::CACHE_EXPIRE, function () use ($id) {
+            return Page::query()->where('id',$id)->first();
+        });
+        $key = 'pageRequestList:'.$id.':'.$request->ip();
+        if (!Cache::has($key)) {
+            Cache::put($key,$request->ip(), 60);
+            $page->increment('click');
+        }
         return view('home.page',compact('page'));
     }
 
