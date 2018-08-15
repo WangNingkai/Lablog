@@ -126,7 +126,7 @@ class ConfigsTableSeeder extends Seeder
                 array (
                     'id' => 14,
                     'name' => 'site_admin_avatar',
-                    'value' => 'http://xxx/xxx/xxx/xxx.jpg',
+                    'value' => '/uploads/avatar/default.png',
                     'created_at' => '2018-01-01 00:00:00',
                     'updated_at' => '2018-01-01 00:00:00',
                 ),

@@ -2,6 +2,7 @@
 namespace App\Helpers\Extensions;
 
 use App\Jobs\SendEmail;
+use App\Models\Article;
 use App\Models\Subscribe;
 use Illuminate\Support\Facades\Mail;
 use App\Events\OperationEvent;
@@ -421,5 +422,16 @@ class Tool
             $html = str_replace($tmp, $replace, $html);
         }
         return $html;
+    }
+
+
+    public static function syncRank($id)
+    {
+        $article = Article::query()->find($id);
+        $score = pow(intval($article->getAttributeValue('comment_count')),2) + intval($article->getAttributeValue('click')) + 1;
+        $t = floatval((time() - strtotime($article->getAttributeValue('feed_updated_at'))) / 3600);
+        $rank = pow(($score),0.2) / (pow(($t + 2),2));
+        $article->rank = $rank;
+        $article->save();
     }
 }

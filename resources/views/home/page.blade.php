@@ -24,7 +24,7 @@
                             <div class="hr-line-dashed"></div>
                         </div>
                         <div class="content" style="">
-                            {!! \App\Helpers\Extensions\Tool::markdown2Html($page->content) !!}
+                            {!! $page->feed->content !!}
                         </div>
                     </div>
                 </div>

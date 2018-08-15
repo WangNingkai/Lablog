@@ -38,12 +38,10 @@ class HomeController extends Controller
     {
 
         $articles = Cache::remember('cache:home_articles', self::CACHE_EXPIRE, function () {
-            return Article::query()->select('id', 'category_id', 'title', 'author', 'description','click', 'created_at')
+            return Article::query()->select('id', 'category_id', 'title', 'author', 'description','click')
                 ->where('status', 1)
-                ->orderBy('created_at', 'desc')
-                ->with(['category', 'tags','comments' => function ($query) {
-                    $query->where('status', Article::PUBLISHED);
-                }])
+                ->orderBy('rank', 'desc')
+                ->with(['category', 'tags'])
                 ->simplePaginate(6);
         });
         return view('home.index', compact('articles'));
@@ -56,9 +54,9 @@ class HomeController extends Controller
      */
     public function article($id, Request $request)
     {
-        $article = Cache::remember('article:cache:'.$id, 10, function () use ($id) {
+        $article = Cache::remember('cache:article'.$id, 10, function () use ($id) {
             return Article::query()->with(['category', 'tags','comments' => function ($query) {
-                $query->where('status', Article::PUBLISHED);
+                $query->where('status', Comment::CHECKED);
             }])->where('id',$id)->first();
         });
         if ( is_null($article) || 0 === $article->status || !is_null($article->deleted_at) ) {
@@ -66,7 +64,7 @@ class HomeController extends Controller
         }
         $key = 'articleRequestList:'.$id.':'.$request->ip();
         if (!Cache::has($key)) {
-            Cache::put($key,$request->ip(), 1440);
+            Cache::put($key,$request->ip(), 60);
             $article->increment('click');
         }
         // 获取上一篇
@@ -114,12 +112,10 @@ class HomeController extends Controller
     {
         $category = Category::query()->findOrFail($id);
         $childCategoryList=Category::query()->where(['parent_id'=>$id])->get();
-        $articles = Article::query()->select('id', 'category_id', 'title', 'author', 'description','click', 'created_at')
-            ->where(['status'=>Article::PUBLISHED,'category_id'=>$id])
-            ->orderBy('created_at', 'desc')
-            ->with(['category', 'tags', 'comments' => function ($query) {
-                $query->where('status', Article::PUBLISHED);
-            }])
+        $articles = Article::query()->select('id', 'category_id', 'title', 'author', 'description','click')
+            ->where(['status' => Article::PUBLISHED,'category_id' => $id])
+            ->orderBy('rank', 'desc')
+            ->with(['category', 'tags'])
             ->simplePaginate(10);
         return view('home.category', compact('articles', 'category','childCategoryList'));
     }
@@ -133,13 +129,11 @@ class HomeController extends Controller
         $tag = Tag::query()->findOrFail($id);
         $ids = ArticleTag::query()->where('tag_id', $id)->pluck('article_id')->toArray();
 
-        $articles = Article::query()->select('id', 'category_id', 'title', 'author', 'description','click', 'created_at')
+        $articles = Article::query()->select('id', 'category_id', 'title', 'author', 'description','click')
             ->where('status',Article::PUBLISHED)
             ->whereIn('id', $ids)
-            ->orderBy('created_at', 'desc')
-            ->with(['category', 'tags', 'comments' => function ($query) {
-                $query->where('status', Comment::CHECKED);
-            }])
+            ->orderBy('rank', 'desc')
+            ->with(['category', 'tags'])
             ->simplePaginate(10);
         return view('home.tag', compact('articles', 'tag'));
     }
@@ -222,7 +216,7 @@ class HomeController extends Controller
             ['title', 'like', '%' . $keyword . '%'],
             ['status', '=', Article::PUBLISHED]
         ];
-        $articles = Article::query()->select('id', 'category_id', 'title', 'author', 'description','click', 'created_at')
+        $articles = Article::query()->select('id', 'category_id', 'title', 'author', 'description','click')
             ->where($map)
             ->orderBy('created_at', 'desc')
             ->with(['category', 'tags'])

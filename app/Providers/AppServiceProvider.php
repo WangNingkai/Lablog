@@ -60,7 +60,7 @@ class AppServiceProvider extends ServiceProvider
             $top_article_list = Cache::remember('cache:top_article_list', 1440, function () {
                 // 获取热门文章
                 return Article::query()->select('id', 'title')
-                    ->orderBy('click', 'desc')
+                    ->orderBy('rank', 'desc')
                     ->limit(10)
                     ->get();
             });

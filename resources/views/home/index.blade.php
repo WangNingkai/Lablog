@@ -23,7 +23,7 @@
                         </h3>
                     </a>
                     <div class="small m-b-xs">
-                        <strong>{{$article->author}}</strong>&nbsp;&nbsp;<span class="text-muted"><i class="fa fa-clock-o"></i>&nbsp;最后更新于&nbsp;{{\App\Helpers\Extensions\Tool::transformTime($article->updated_at)}}</span>
+                        <strong>{{$article->author}}</strong>&nbsp;&nbsp;<span class="text-muted"><i class="fa fa-clock-o"></i>&nbsp;最后更新于&nbsp;{{\App\Helpers\Extensions\Tool::transformTime($article->feed_updated_at)}}</span>
                     </div>
                     <p>
                         {{$article->description}}
@@ -38,7 +38,7 @@
                         <div class="col-md-6">
                             <div class="small text-right">
                                 <h5>状态：</h5>
-                                <div><i class="fa fa-comments-o"> </i> {{ $article->comments->count() }} 评论</div>
+                                <div><i class="fa fa-comments-o"> </i> {{ $article->comment_count }} 评论</div>
                                 <i class="fa fa-eye"> </i> {{$article->click}} 浏览
                             </div>
                         </div>

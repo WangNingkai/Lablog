@@ -31,7 +31,7 @@
                             </h2>
                         </div>
                         <div class="content article-content" style="">
-                            {!! $article->html !!}
+                            {!! $article->feed->html !!}
                         </div>
                         <div class="social-share text-center"
                              data-disabled="google,twitter, facebook, diandian,linkedin,douban"></div>

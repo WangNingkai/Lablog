@@ -199,6 +199,9 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
 });
 // 测试路由
 Route::get('/test', function () {
-    return '测试页面';
+//    return '测试页面';
+    dump($a = \App\Models\Article::query()->find(1));
+    dump($a->getAttribute('feed'));
+    dd($a->getAttributeValue('feed_updated_at'));
 })->name('test');
 

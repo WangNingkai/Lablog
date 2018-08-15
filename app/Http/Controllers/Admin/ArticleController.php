@@ -116,6 +116,9 @@ class ArticleController extends Controller
         Cache::forget('cache:top_article_list');
         Cache::forget('cache:home_articles');
         Cache::forget('feed:articles');
+        if (Cache::has('cache:article'.$id)) {
+            Cache::forget('cache:article'.$id);
+        }
         return redirect()->route('article_manage');
     }
 

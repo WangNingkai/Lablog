@@ -57,6 +57,23 @@ class Article extends Base
     {
         return ArticleTag::query()->where('article_id', $this->attributes['id'])->pluck('tag_id')->toArray();
     }
+
+    /**
+     * @return int
+     */
+    public function getCommentCountAttribute()
+    {
+        return Comment::query()->where(['article_id' => $this->attributes['id'],'status'=> Comment::CHECKED])->count();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFeedUpdatedAtAttribute()
+    {
+        return Feed::query()->where(['target_type' => Feed::TYPE_ARTICLE,'target_id'=>$this->attributes['id']])->value('updated_at');
+    }
+
     /**
      * 获取状态标签
      * @return string
@@ -93,6 +110,7 @@ class Article extends Base
             $description = preg_replace(array('/[~*>#-]*/', '/!?\[.*\]\(.*\)/', '/\[.*\]/'), '', $data['content']);
             $data['description'] = Tool::subStr($description, 0, 150, true);
         }
+
         unset($data['editormd_id-html-code']);
         unset($data['tag_ids']);
         unset($data['content']);
@@ -110,6 +128,7 @@ class Article extends Base
                 'content' => $feed['content'],
                 'html' => $feed['html'],
             ]);
+            Tool::syncRank($result);
             return $result;
         } else {
             return false;

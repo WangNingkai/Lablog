@@ -30,7 +30,7 @@ class CheckStatus
         $allowMessage = Cache::remember('cache:config:site_allow_message', 1440, function () {
             return  Config::query()->where('name', 'site_allow_message')->value('value');
         });
-        $allowSubscribe = Cache::remember('cache:config-site_allow_subscribe', 1440, function () {
+        $allowSubscribe = Cache::remember('cache:config:site_allow_subscribe', 1440, function () {
             return  Config::query()->where('name', 'site_allow_subscribe')->value('value');
         });
         if ($route == 'message' && $allowMessage == 0) {
