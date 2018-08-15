@@ -24,7 +24,7 @@
                             <div class="hr-line-dashed"></div>
                         </div>
                         <div class="content" style="">
-                            {!! $page->feed->content !!}
+                            {!! $page->feed->html !!}
                         </div>
                     </div>
                 </div>
