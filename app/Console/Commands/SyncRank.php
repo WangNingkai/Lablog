@@ -19,7 +19,7 @@ class SyncRank extends Command
      *
      * @var string
      */
-    protected $description = '同步热度排行';
+    protected $description = 'Sync Rank';
 
     /**
      * Create a new command instance.

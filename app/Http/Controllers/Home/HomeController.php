@@ -230,31 +230,4 @@ class HomeController extends Controller
         $articles->count = $count;
         return view('home.search', compact('articles'));
     }
-
-    /**
-     * 引入feed
-     *
-     * @return \Illuminate\Support\Facades\View
-     */
-    public function feed()
-    {
-        $articles = Cache::remember('feed:articles', self::CACHE_EXPIRE, function () {
-            return Article::query()->select('id', 'author', 'title', 'description', 'created_at')
-                ->latest()
-                ->get();
-        });
-        $feed = App::make("feed");
-        $feed->title = $this->config['site_title'];
-        $feed->description = $this->config['site_description'];
-        $feed->logo = 'https://share.imwnk.cn/Images/favicon.ico';
-        $feed->link = url('feed');
-        $feed->setDateFormat('carbon');
-        $feed->pubdate = $articles->first()->created_at;
-        $feed->lang = 'zh-CN';
-        $feed->ctype = 'application/xml';
-        foreach ($articles as $article) {
-            $feed->add($article->title, $article->author, url('article', $article->id), $article->created_at, $article->description);
-        }
-        return $feed->render('atom');
-    }
 }
