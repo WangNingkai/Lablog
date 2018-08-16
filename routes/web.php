@@ -48,7 +48,6 @@ Route::group(['namespace' => 'Home', 'middleware' => ['check.status']], function
     Route::get('subscribe','HomeController@subscribe')->name('subscribe');
     Route::post('subscribe_store','HomeController@subscribe_store')->name('subscribe_store');
     Route::get('search', 'HomeController@search')->name('search');
-    Route::get('feed', 'HomeController@feed')->name('feed');
 });
 // 后台
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['auth:web','check.timeout','check.permission']], function () {
@@ -199,9 +198,6 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
 });
 // 测试路由
 Route::get('/test', function () {
-//    return '测试页面';
-    dump($a = \App\Models\Article::query()->find(1));
-    dump($a->getAttribute('feed'));
-    dd($a->getAttributeValue('feed_updated_at'));
+    return '测试页面';
 })->name('test');
 
