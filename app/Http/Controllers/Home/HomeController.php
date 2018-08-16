@@ -116,6 +116,7 @@ class HomeController extends Controller
     public function category($id)
     {
         $category = Category::query()->findOrFail($id);
+//        $category = Category::query()->where('flag',$flag)->first();
         $childCategoryList=Category::query()->where(['parent_id'=>$id])->get();
         $articles = Article::query()->select('id', 'category_id', 'title', 'author', 'description','click')
             ->where(['status' => Article::PUBLISHED,'category_id' => $id])
@@ -132,6 +133,7 @@ class HomeController extends Controller
     public function tag($id)
     {
         $tag = Tag::query()->findOrFail($id);
+//        $tag = Tag::query()->where('flag',$flag)->first();
         $ids = ArticleTag::query()->where('tag_id', $id)->pluck('article_id')->toArray();
 
         $articles = Article::query()->select('id', 'category_id', 'title', 'author', 'description','click')
