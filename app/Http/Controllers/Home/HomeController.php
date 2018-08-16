@@ -239,7 +239,7 @@ class HomeController extends Controller
     public function feed()
     {
         $articles = Cache::remember('feed:articles', self::CACHE_EXPIRE, function () {
-            return Article::query()->select('id', 'author', 'title', 'description', 'html', 'created_at')
+            return Article::query()->select('id', 'author', 'title', 'description', 'created_at')
                 ->latest()
                 ->get();
         });
