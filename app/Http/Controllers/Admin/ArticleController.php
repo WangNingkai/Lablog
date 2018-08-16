@@ -108,8 +108,13 @@ class ArticleController extends Controller
      */
     public function update(Store $request, $id)
     {
+        $oldStatus = $this->article->query()->where('id',$id)->value('status');
         $data = $request->except('_token');
         $this->article->updateData($id, $data);
+        if (($data['status'] - $oldStatus) > 0) {
+            // 推送订阅 草稿状态文章发布
+            Tool::pushSubscribe('',route('article',$id));
+        }
         Tool::recordOperation(auth()->user()->name,'编辑文章');
         // 更新缓存
         Cache::forget('cache:top_article_list');
