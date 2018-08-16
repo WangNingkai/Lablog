@@ -27,7 +27,7 @@ class UpdateProfile extends FormRequest
     {
         return [
             'name' => ['required',new ValidateName],
-            'email' => 'required|string|email|max:255|unique:users,email,' . Auth::user()->id,
+            'email' => 'required|string|email|max:255|unique:users,email,' . Auth::id(),
         ];
     }
 

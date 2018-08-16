@@ -24,8 +24,8 @@ class Update extends FormRequest
     public function rules()
     {
         return [
-            'edit_name' => 'required|string|unique:tags,name,' . $this->id,
-            'edit_flag' => 'required|string|unique:tags,flag,' . $this->id,
+            'edit_name' => 'required|string|unique:tags,name,' . $this->route()->id,
+            'edit_flag' => 'required|string|unique:tags,flag,' . $this->route()->id,
         ];
     }
 

@@ -27,7 +27,7 @@ class Update extends FormRequest
     {
         return [
             'name' => ['required', new ValidateName],
-            'email' => 'required|string|email|max:255|unique:users,email,' . $this->id,
+            'email' => 'required|string|email|max:255|unique:users,email,' . $this->route()->id,
             'roles' => 'required'
         ];
     }
