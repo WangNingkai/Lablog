@@ -130,7 +130,7 @@ class SitemapService
             }
         });
 
-        $info = $sitemap->store('xml','tags', public_path('sitemap'));
+        $info = $sitemap->store('xml','categories', public_path('sitemap'));
         Log::info($info);
         return $lastModTime;
     }
