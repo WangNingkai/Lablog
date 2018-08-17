@@ -240,6 +240,7 @@
 {!! sweetalert2_js() !!}
 @include('vendor.message')
 @yield('js')
+<script type="text/javascript" src="http://tajs.qq.com/stats?sId={{ env('TENCENT_ANALYTICS_ID') }}" charset="UTF-8"></script>
 <script>
     var _hmt = _hmt || [];
     (function() {
