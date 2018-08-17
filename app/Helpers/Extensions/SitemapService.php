@@ -16,6 +16,9 @@ class SitemapService
         if ($this->createHome()) {
             $sitemap->addSitemap(config('app.url') . '/sitemap/home.xml', date(DATE_RFC3339, time()));
         }
+        if ($this->createArchive()) {
+            $sitemap->addSitemap(config('app.url') . '/sitemap/archive.xml', date(DATE_RFC3339, time()));
+        }
         if ($lastModTime = $this->createTags()) {
             $sitemap->addSitemap(config('app.url') . '/sitemap/tags.xml', date(DATE_RFC3339, $lastModTime));
         }
@@ -37,8 +40,16 @@ class SitemapService
     public function createHome()
     {
         $sitemap = App::make("sitemap");
-        $sitemap->add(config('app.url'), date(DATE_RFC3339, time()), '1.0', 'daily');
+        $sitemap->add(route('home'), date(DATE_RFC3339, time()), '1.0', 'daily');
         $info = $sitemap->store('xml', 'home', public_path('sitemap'));
+        Log::info($info);
+        return true;
+    }
+    public function createArchive()
+    {
+        $sitemap = App::make("sitemap");
+        $sitemap->add(route('archive'), date(DATE_RFC3339, time()), '1.0', 'daily');
+        $info = $sitemap->store('xml', 'archive', public_path('sitemap'));
         Log::info($info);
         return true;
     }
