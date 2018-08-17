@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Helpers\Extensions\Tool;
+use Illuminate\Support\Facades\Cache;
 
 class Comment extends Base
 {
@@ -58,7 +59,12 @@ class Comment extends Base
             return false;
         }
         foreach ($model as $k => $v) {
-            $result = $v->forceFill(['status'=> self::CHECKED])->save();
+            $oldStatus = $v->getAttributeValue('status');
+            $article_id = $v->article->id;
+            if (Cache::has('cache:article' . $article_id)) {
+                Cache::forget('cache:article' . $article_id);
+            }
+            $result = $v->forceFill(['status'=> abs(1 - $oldStatus)])->save();
         }
         if ($result) {
             Tool::showMessage('操作成功');
