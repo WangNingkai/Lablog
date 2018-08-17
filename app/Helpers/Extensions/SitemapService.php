@@ -48,10 +48,10 @@ class SitemapService
         $articlesData = [];
         Article::query()->select('id', 'created_at', 'updated_at')->chunk(100,function ($articles) use (&$articlesData, &$sitemapName) {
             foreach ($articles as $article) {
-                $sitemapName = date('Y-m', strtotime($article->created_at));
+                $sitemapName = date('Y-m', strtotime($article->feed->created_at));
                 $articlesData[$sitemapName][] = [
                     'url' => route('article', ['id' => $article->id]),
-                    'lastmod' => strtotime($article->updated_at)
+                    'lastmod' => strtotime($article->feed->updated_at)
                 ];
             }
         });
@@ -79,12 +79,12 @@ class SitemapService
 
         $pages = Page::query()->select('id','title','updated_at')->get();
         foreach ($pages as $page) {
-            $pageLastModTime = strtotime($page->updated_at);
+            $pageLastModTime = strtotime($page->feed->updated_at);
             if ($pageLastModTime > $lastModTime) {
                 $lastModTime = $pageLastModTime;
             }
             $url = route('page', ['id' => $page->id]);
-            $sitemap->add($url, date(DATE_RFC3339, strtotime($page->updated_at)), '0.6', 'weekly');
+            $sitemap->add($url, date(DATE_RFC3339, strtotime($page->feed->updated_at)), '0.6', 'weekly');
         }
         $info = $sitemap->store('xml','pages', public_path('sitemap'));
         Log::info($info);
