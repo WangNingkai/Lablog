@@ -71,7 +71,7 @@
                                 <a href="javascript:void(0)" class="btn btn-primary btn-flat" onclick="selectEmpty('cid')">全不选</a>
                                 <a href="javascript:void(0)" class="btn btn-primary btn-flat" onclick="selectReverse('cid')">反选</a>
                                 <a href="javascript:void(0)" class="btn btn-danger btn-flat" id="delSelectedComment">删除选定</a>
-                                <a href="javascript:void(0)" class="btn btn-success btn-flat" id="checkSelectedComment">审核选定</a>
+                                <a href="javascript:void(0)" class="btn btn-success btn-flat" id="checkSelectedComment">通过/隐藏</a>
                             </div>
                             {{ $comments->links('vendor.pagination.adminlte') }}
                         </div>
@@ -119,7 +119,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="submit" class="btn btn-primary btn-flat">回复</button>
-                                            <button type="button" class="checkComment btn btn-success btn-flat">通过</button>
+                                            <button type="button" class="checkComment btn btn-success btn-flat">通过/隐藏</button>
                                             <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">关闭</button>
                                         </div>
                                     </form>
