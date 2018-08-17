@@ -53,26 +53,38 @@ class OperationEvent
             $this->timestamp = $timestamp;
     }
 
-    // 获取操作者
+    /**
+     * 获取操作者
+     * @return User
+     */
     public function getOperator()
     {
         return $this->operator;
     }
 
-    // 获取操作
+    /**
+     *  获取操作
+     * @return string
+     */
     public function getOperation()
     {
         return $this->operation;
     }
 
 
-    // 获取IP
+    /**
+     * 获取IP
+     * @return string
+     */
     public function getIp()
     {
         return $this->ip;
     }
 
-    // 获取操作时间
+    /**
+     * 获取操作时间
+     * @return int|string
+     */
     public function getTimestamp()
     {
         return $this->timestamp;

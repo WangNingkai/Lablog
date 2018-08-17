@@ -8,8 +8,16 @@ use App\Models\Tag;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
 
+/**
+ * 站点地图生成服务
+ * Class SitemapService
+ * @package App\Helpers\Extensions
+ */
 class SitemapService
 {
+    /**
+     * 初始化站点地图
+     */
     public function init()
     {
         $sitemap = App::make ("sitemap");
@@ -37,6 +45,10 @@ class SitemapService
 
     }
 
+    /**
+     * 初始化首页
+     * @return bool
+     */
     public function createHome()
     {
         $sitemap = App::make("sitemap");
@@ -45,6 +57,11 @@ class SitemapService
         Log::info($info);
         return true;
     }
+
+    /**
+     * 初始化归档
+     * @return bool
+     */
     public function createArchive()
     {
         $sitemap = App::make("sitemap");
@@ -53,6 +70,11 @@ class SitemapService
         Log::info($info);
         return true;
     }
+
+    /**
+     * 初始化文章页
+     * @return array
+     */
     public function createArticles(){
         $sitemap = App::make("sitemap");
         $sitemapName = '';
@@ -83,6 +105,10 @@ class SitemapService
         return $lastModTimes;
     }
 
+    /**
+     * 初始化单页
+     * @return false|int
+     */
     public function createPages()
     {
         $sitemap = App::make("sitemap");
@@ -103,6 +129,10 @@ class SitemapService
 
     }
 
+    /**
+     * 初始化标签页
+     * @return int
+     */
     public function createTags()
     {
         $sitemap = App::make("sitemap");
@@ -125,6 +155,10 @@ class SitemapService
 
     }
 
+    /**
+     * 初始化类别页
+     * @return int
+     */
     public function createCategories()
     {
         $sitemap = App::make("sitemap");
