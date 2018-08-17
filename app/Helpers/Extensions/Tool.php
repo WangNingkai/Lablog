@@ -429,9 +429,9 @@ class Tool
     public static function syncRank($id)
     {
         $article = Article::query()->find($id);
-        $score = pow(intval($article->getAttributeValue('comment_count')),2) + intval($article->getAttributeValue('click')) + 1;
-        $t = floatval((time() - strtotime($article->getAttributeValue('feed_updated_at'))) / 3600);
-        $rank = pow(($score),0.8) / (pow(($t + 2),2));
+        $score = pow(intval($article->getAttributeValue('comment_count')),2) + intval($article->getAttributeValue('click')) + 2;
+        $t = intval((time() - strtotime($article->getAttributeValue('feed_updated_at'))) / 3600);
+        $rank = $score - 1 / (pow(($t + 2),1.8));
         $article->rank = $rank;
         $article->save();
     }
