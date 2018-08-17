@@ -41,7 +41,7 @@ class GenerateSitemap extends Command
         $this->info('[' . date('Y-m-d H:i:s', time()) . ']开始执行sitemap生成脚本');
         try {
             $sitemapService = new SitemapService();
-            $sitemapService->buildIndex();
+            $sitemapService->init();
         } catch (\Exception $exception) {
             $this->error('生成sitemap失败：' . $exception->getMessage());
             return;
