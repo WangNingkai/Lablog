@@ -1,4 +1,4 @@
-aut<?php
+<?php
 
 use Illuminate\Http\Request;
 
