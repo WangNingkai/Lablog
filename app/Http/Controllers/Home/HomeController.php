@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Home;
 
 use App\Helpers\Extensions\Tool;
+use App\Models\Config;
 use App\Models\Page;
 use App\Models\Subscribe;
 use Illuminate\Http\Request;
@@ -24,8 +25,14 @@ class HomeController extends Controller
 {
     const CACHE_EXPIRE = 1440;
 
+    /**
+     * @var mixed
+     */
     public $config;
 
+    /**
+     * HomeController constructor.
+     */
     public function __construct()
     {
         $this->config = Cache::get('cache:config');
@@ -116,7 +123,6 @@ class HomeController extends Controller
     public function category($id)
     {
         $category = Category::query()->findOrFail($id);
-//        $category = Category::query()->where('flag',$flag)->first();
         $childCategoryList=Category::query()->where(['parent_id'=>$id])->get();
         $articles = Article::query()->select('id', 'category_id', 'title', 'author', 'description','click')
             ->where(['status' => Article::PUBLISHED,'category_id' => $id])
@@ -133,7 +139,6 @@ class HomeController extends Controller
     public function tag($id)
     {
         $tag = Tag::query()->findOrFail($id);
-//        $tag = Tag::query()->where('flag',$flag)->first();
         $ids = ArticleTag::query()->where('tag_id', $id)->pluck('article_id')->toArray();
 
         $articles = Article::query()->select('id', 'category_id', 'title', 'author', 'description','click')
@@ -173,7 +178,10 @@ class HomeController extends Controller
      */
     public function message()
     {
-        $messages = Message::query()->where('status',Message::CHECKED)->orderBy('created_at', 'desc')->get();
+        $messages = Message::query()
+            ->where('status',Message::CHECKED)
+            ->orderBy('created_at', 'desc')
+            ->get();
         return view('home.message',compact('messages'));
     }
 

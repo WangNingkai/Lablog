@@ -6,7 +6,6 @@ use App\Helpers\Extensions\Tool;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
-use Illuminate\Support\Facades\Cache;
 
 class CommentController extends Controller
 {
