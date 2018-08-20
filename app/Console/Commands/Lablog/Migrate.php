@@ -39,8 +39,8 @@ class Migrate extends Command
         $this->call('migrate');
         $this->warn('========== 正在执行注册用户 ==========');
         $this->call('lablog:register');
-        $this->info('========== 正在执行迁移文件 ==========');
+        $this->warn('========== 正在执行迁移文件 ==========');
         $this->call('db:seed');
-        $this->info('========== 安装完成 ==========');
+        $this->warn('========== 安装完成 ==========');
     }
 }

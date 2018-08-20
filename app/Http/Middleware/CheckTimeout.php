@@ -20,11 +20,10 @@ class CheckTimeout
      */
     public function handle($request, Closure $next)
     {
-
         $isLoggedIn = $request->path() != 'logout';
-        if(! $lastActivityTime = Session::get('lastActivityTime')){
+        if(!$lastActivityTime = Session::get('lastActivityTime')) {
             Session::put('lastActivityTime',time());
-        } elseif(time() - $lastActivityTime > $this->timeout){
+        } elseif(time() - $lastActivityTime > $this->timeout) {
             Session::forget('lastActivityTime');
             $cookie = cookie('intend', $isLoggedIn ? url()->current() : 'admin');
             $email = $request->user()->email;

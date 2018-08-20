@@ -81,7 +81,7 @@ class OAuthController extends Controller
             } catch (ClientException $e) {
                 // 如果下载失败；则使用默认图片
 //                copy(public_path('uploads/avatar/default.png'), $avatarSavePath);
-                $avatarPath = '/uploads/avatar/default.jpg';
+                $avatarPath = '/uploads/avatar/default.png';
             }
             $user = Auth::user();
             // 如果用户默认头像为空或者为default，则关联登录头像
