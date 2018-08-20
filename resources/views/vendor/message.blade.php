@@ -1,4 +1,4 @@
-@if(Session::has('alertMessage'))
+@if (Session::has('alertMessage'))
     <script>
         $(function () {
             @if(Session::get('alertType')=='success')
