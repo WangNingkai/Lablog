@@ -40,7 +40,7 @@
                                         {{$category->article_count}}
                                     </td>
                                     <td>
-                                        <a href="{{route('category_edit',$category->id)}}" class="text-green">
+                                        <a href="{{route('category_edit',$category->id)}}" target="_blank" class="text-green">
                                             <i class="fa fa-pencil-square-o"></i>
                                         </a>&nbsp;&nbsp;
                                         <a href="javascript:void(0)" class="text-red delCategory">

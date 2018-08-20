@@ -71,7 +71,7 @@
                                         <td>{{ \App\Helpers\Extensions\Tool::transformTime($page->created_at) }}</td>
                                         <td>{!! $page->status_tag !!}</td>
                                         <td>
-                                            <a href="{{ route('page_edit',$page->id) }}" class="text-green">
+                                            <a href="{{ route('page_edit',$page->id) }}" target="_blank" class="text-green">
                                                 <i class="fa fa-pencil-square-o"></i>
                                             </a>&nbsp;&nbsp;
                                             <a href="javascript:void(0)" class="text-red delPage">
