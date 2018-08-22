@@ -66,8 +66,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col sidebar mb-3">
-            <h1><i class="fa fa-calendar" aria-hidden="true"></i> Laravel Log Viewer</h1>
-            <p class="text-muted"><i>by Rap2h</i></p>
+            <h1><i class="fa fa-calendar" aria-hidden="true"></i> Laravel 日志记录</h1>
             <div class="list-group div-scroll">
                 @foreach($folders as $folder)
                     <div class="list-group-item">
