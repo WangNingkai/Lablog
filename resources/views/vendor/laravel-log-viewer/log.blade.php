@@ -103,12 +103,10 @@
                 <table id="table-log" class="table table-bordered table-striped" data-ordering-index="{{ $standardFormat ? 2 : 0 }}">
                     <thead>
                     <tr>
-                        @if ($standardFormat)
-                            <th>级别</th>
-                            <th>内容</th>
-                            <th>时间</th>
-                            <th>内容</th>
-                        @endif
+                        <th>级别</th>
+                        <th>内容</th>
+                        <th>时间</th>
+                        <th>详情</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -142,24 +140,32 @@
                         </tr>
                     @endforeach
                     </tbody>
+                    <tfoot>
+                    <tr>
+                        <th>级别</th>
+                        <th>内容</th>
+                        <th>时间</th>
+                        <th>详情</th>
+                    </tr>
+                    </tfoot>
                 </table>
             @endif
             <div class="p-3">
                 @if($current_file)
-                    <a href="?dl={{ \Illuminate\Support\Facades\Crypt::encrypt($current_file) }}{{ ($current_folder) ? '&f=' . \Illuminate\Support\Facades\Crypt::encrypt($current_folder) : '' }}" class="btn btn-info" role="button">
+                    <a href="?dl={{ \Illuminate\Support\Facades\Crypt::encrypt($current_file) }}{{ ($current_folder) ? '&f=' . \Illuminate\Support\Facades\Crypt::encrypt($current_folder) : '' }}" class="btn btn-primary" role="button">
                         <span class="fa fa-download"></span> 下载文件
                     </a>
                     -
-                    <a id="clean-log" href="?clean={{ \Illuminate\Support\Facades\Crypt::encrypt($current_file) }}{{ ($current_folder) ? '&f=' . \Illuminate\Support\Facades\Crypt::encrypt($current_folder) : '' }}" class="btn btn-info" role="button">
+                    <a id="clean-log" href="?clean={{ \Illuminate\Support\Facades\Crypt::encrypt($current_file) }}{{ ($current_folder) ? '&f=' . \Illuminate\Support\Facades\Crypt::encrypt($current_folder) : '' }}" class="btn btn-primary" role="button">
                         <span class="fa fa-sync"></span> 清理文件
                     </a>
                     -
-                    <a id="delete-log" href="?del={{ \Illuminate\Support\Facades\Crypt::encrypt($current_file) }}{{ ($current_folder) ? '&f=' . \Illuminate\Support\Facades\Crypt::encrypt($current_folder) : '' }}" class="btn btn-info" role="button">
+                    <a id="delete-log" href="?del={{ \Illuminate\Support\Facades\Crypt::encrypt($current_file) }}{{ ($current_folder) ? '&f=' . \Illuminate\Support\Facades\Crypt::encrypt($current_folder) : '' }}" class="btn btn-primary" role="button">
                         <span class="fa fa-trash"></span> 删除文件
                     </a>
                     @if(count($files) > 1)
                         -
-                        <a id="delete-all-log" href="?delall=true{{ ($current_folder) ? '&f=' . \Illuminate\Support\Facades\Crypt::encrypt($current_folder) : '' }}" class="btn btn-info" role="button">
+                        <a id="delete-all-log" href="?delall=true{{ ($current_folder) ? '&f=' . \Illuminate\Support\Facades\Crypt::encrypt($current_folder) : '' }}" class="btn btn-primary" role="button">
                             <span class="fa fa-trash-alt"></span> 删除全部文件
                         </a>
                     @endif
@@ -217,13 +223,13 @@
                 return data;
             },
             'lengthChange': false,
-            'searching'   : false,
+            'searching'   : true,
             'ordering'    : true,
             'info'        : true,
             'autoWidth'   : false
         });
         $('#delete-log, #clean-log, #delete-all-log').click(function () {
-            return confirm('Are you sure?');
+            return confirm('确定吗?');
         });
     });
 </script>
