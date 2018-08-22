@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Laravel log viewer</title>
+  <title>Laravel 日志查看</title>
   <link rel="stylesheet"
         href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
@@ -100,20 +100,20 @@
     <div class="col-10 table-container">
       @if ($logs === null)
         <div>
-          Log file >50M, please download it.
+          日志 文件 大于 50M, 请先下载再查看。
         </div>
       @else
         <table id="table-log" class="table table-striped" data-ordering-index="{{ $standardFormat ? 2 : 0 }}">
           <thead>
           <tr>
             @if ($standardFormat)
-              <th>Level</th>
-              <th>Context</th>
-              <th>Date</th>
+              <th>级别</th>
+              <th>内容</th>
+              <th>时间</th>
             @else
-              <th>Line number</th>
+              <th>行号</th>
             @endif
-            <th>Content</th>
+            <th>内容</th>
           </tr>
           </thead>
           <tbody>
@@ -154,20 +154,20 @@
       <div class="p-3">
         @if($current_file)
           <a href="?dl={{ \Illuminate\Support\Facades\Crypt::encrypt($current_file) }}{{ ($current_folder) ? '&f=' . \Illuminate\Support\Facades\Crypt::encrypt($current_folder) : '' }}">
-            <span class="fa fa-download"></span> Download file
+            <span class="fa fa-download"></span> 下载文件
           </a>
           -
           <a id="clean-log" href="?clean={{ \Illuminate\Support\Facades\Crypt::encrypt($current_file) }}{{ ($current_folder) ? '&f=' . \Illuminate\Support\Facades\Crypt::encrypt($current_folder) : '' }}">
-            <span class="fa fa-sync"></span> Clean file
+            <span class="fa fa-sync"></span> 清理文件
           </a>
           -
           <a id="delete-log" href="?del={{ \Illuminate\Support\Facades\Crypt::encrypt($current_file) }}{{ ($current_folder) ? '&f=' . \Illuminate\Support\Facades\Crypt::encrypt($current_folder) : '' }}">
-            <span class="fa fa-trash"></span> Delete file
+            <span class="fa fa-trash"></span> 删除文件
           </a>
           @if(count($files) > 1)
             -
             <a id="delete-all-log" href="?delall=true{{ ($current_folder) ? '&f=' . \Illuminate\Support\Facades\Crypt::encrypt($current_folder) : '' }}">
-              <span class="fa fa-trash-alt"></span> Delete all files
+              <span class="fa fa-trash-alt"></span> 删除全部文件
             </a>
           @endif
         @endif
