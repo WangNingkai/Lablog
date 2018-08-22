@@ -94,27 +94,23 @@
                 @endforeach
             </div>
         </div>
-        <div class="col-10 table-container">
+        <div class="col-10 table-container table-responsive">
             @if ($logs === null)
                 <div>
                     日志 文件 大于 50M, 请先下载再查看。
                 </div>
             @else
-                <table id="table-log" class="table table-bordered table-striped table-responsive" data-ordering-index="{{ $standardFormat ? 2 : 0 }}">
+                <table id="table-log" class="table table-bordered table-striped" data-ordering-index="{{ $standardFormat ? 2 : 0 }}">
                     <thead>
                     <tr>
                         @if ($standardFormat)
                             <th>级别</th>
                             <th>内容</th>
                             <th>时间</th>
-                        @else
-                            <th>行号</th>
                         @endif
-                        <th>内容</th>
                     </tr>
                     </thead>
                     <tbody>
-
                     @foreach($logs as $key => $log)
                         <tr data-display="stack{{{$key}}}">
                             @if ($standardFormat)
@@ -144,26 +140,25 @@
                             </td>
                         </tr>
                     @endforeach
-
                     </tbody>
                 </table>
             @endif
             <div class="p-3">
                 @if($current_file)
-                    <a href="?dl={{ \Illuminate\Support\Facades\Crypt::encrypt($current_file) }}{{ ($current_folder) ? '&f=' . \Illuminate\Support\Facades\Crypt::encrypt($current_folder) : '' }}">
+                    <a href="?dl={{ \Illuminate\Support\Facades\Crypt::encrypt($current_file) }}{{ ($current_folder) ? '&f=' . \Illuminate\Support\Facades\Crypt::encrypt($current_folder) : '' }}" class="btn btn-info" role="button">
                         <span class="fa fa-download"></span> 下载文件
                     </a>
                     -
-                    <a id="clean-log" href="?clean={{ \Illuminate\Support\Facades\Crypt::encrypt($current_file) }}{{ ($current_folder) ? '&f=' . \Illuminate\Support\Facades\Crypt::encrypt($current_folder) : '' }}">
+                    <a id="clean-log" href="?clean={{ \Illuminate\Support\Facades\Crypt::encrypt($current_file) }}{{ ($current_folder) ? '&f=' . \Illuminate\Support\Facades\Crypt::encrypt($current_folder) : '' }}" class="btn btn-info" role="button">
                         <span class="fa fa-sync"></span> 清理文件
                     </a>
                     -
-                    <a id="delete-log" href="?del={{ \Illuminate\Support\Facades\Crypt::encrypt($current_file) }}{{ ($current_folder) ? '&f=' . \Illuminate\Support\Facades\Crypt::encrypt($current_folder) : '' }}">
+                    <a id="delete-log" href="?del={{ \Illuminate\Support\Facades\Crypt::encrypt($current_file) }}{{ ($current_folder) ? '&f=' . \Illuminate\Support\Facades\Crypt::encrypt($current_folder) : '' }}" class="btn btn-info" role="button">
                         <span class="fa fa-trash"></span> 删除文件
                     </a>
                     @if(count($files) > 1)
                         -
-                        <a id="delete-all-log" href="?delall=true{{ ($current_folder) ? '&f=' . \Illuminate\Support\Facades\Crypt::encrypt($current_folder) : '' }}">
+                        <a id="delete-all-log" href="?delall=true{{ ($current_folder) ? '&f=' . \Illuminate\Support\Facades\Crypt::encrypt($current_folder) : '' }}" class="btn btn-info" role="button">
                             <span class="fa fa-trash-alt"></span> 删除全部文件
                         </a>
                     @endif
@@ -186,6 +181,30 @@
             $('#' + $(this).data('display')).toggle();
         });
         $('#table-log').DataTable({
+            "language": {
+                "sProcessing": "处理中...",
+                "sLengthMenu": "显示 _MENU_ 项结果",
+                "sZeroRecords": "没有匹配结果",
+                "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                "sInfoPostFix": "",
+                "sSearch": "搜索:",
+                "sUrl": "",
+                "sEmptyTable": "表中数据为空",
+                "sLoadingRecords": "载入中...",
+                "sInfoThousands": ",",
+                "oPaginate": {
+                    "sFirst": "首页",
+                    "sPrevious": "上页",
+                    "sNext": "下页",
+                    "sLast": "末页"
+                },
+                "oAria": {
+                    "sSortAscending": ": 以升序排列此列",
+                    "sSortDescending": ": 以降序排列此列"
+                }
+            },
             "order": [$('#table-log').data('orderingIndex'), 'desc'],
             "stateSave": true,
             "stateSaveCallback": function (settings, data) {
@@ -195,7 +214,12 @@
                 var data = JSON.parse(window.localStorage.getItem("datatable"));
                 if (data) data.start = 0;
                 return data;
-            }
+            },
+            'lengthChange': false,
+            'searching'   : false,
+            'ordering'    : true,
+            'info'        : true,
+            'autoWidth'   : false
         });
         $('#delete-log, #clean-log, #delete-all-log').click(function () {
             return confirm('Are you sure?');
