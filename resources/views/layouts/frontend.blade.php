@@ -270,7 +270,7 @@
     ga('send', 'pageview');
     <!-- End Google Analytics -->
 </script>
-<script src="https://s13.cnzz.com/z_stat.php?id=1274532005&web_id={{ env("CNZZ_ANALYTICS_ID") }}" language="JavaScript"></script>
+<script src="https://s13.cnzz.com/z_stat.php?id={{ env("CNZZ_ANALYTICS_ID") }}&web_id={{ env("CNZZ_ANALYTICS_ID") }}" language="JavaScript"></script>
 </body>
 
 </html>
