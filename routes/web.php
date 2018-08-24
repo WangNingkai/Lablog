@@ -31,6 +31,7 @@ Route::group(['namespace' => 'Auth'], function () {
         // 退出登录
         Route::get('logout', 'OAuthController@logout');
     });
+    Route::post('hook/{type}','HookController@push');
 });
 
 // 前台
