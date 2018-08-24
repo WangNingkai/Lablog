@@ -24,9 +24,9 @@ class HookController extends Controller
             $allow = $signature == $hash?:false;
         }
         if ($allow) {
-            $basePath = base_path();
-            $command = "cd {$basePath} && git pull";
+            $command = "sudo bash /home/blog-update.sh";
             $process = new Process($command);
+            $process->run();
             if (!$process->isSuccessful()) {
                 throw new ProcessFailedException($process);
             }
