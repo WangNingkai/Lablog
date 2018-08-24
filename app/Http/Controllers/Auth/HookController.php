@@ -17,11 +17,11 @@ class HookController extends Controller
         $data = $request->getContent();
         $allow = false;
         if ($type =='gitee') {
-            $allow = $request->header('X-Gitee-Token') === env('GITEE_HOOK_PASSWORD') ?:false;
+            $allow = $request->header('X-Gitee-Token') == env('GITEE_HOOK_PASSWORD') ?:false;
         } elseif ($type =='gogs') {
             $signature = $request->header('X-Gogs-Signature');
             $hash = hash_hmac ('sha256',$data,env('GOGS_HOOK_PASSWORD'));
-            $allow = $signature === $hash?:false;
+            $allow = $signature == $hash?:false;
         }
         if ($allow) {
             $command = 'bash /root/update-blog.sh';
