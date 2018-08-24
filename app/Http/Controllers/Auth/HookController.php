@@ -6,10 +6,6 @@ use Illuminate\Http\Request;
 
 class HookController extends Controller
 {
-    /**
-     * @param Request $request
-     * @param $type
-     */
     public function push(Request $request,$type)
     {
         $data = $request->getContent();
@@ -24,8 +20,9 @@ class HookController extends Controller
         if ($allow) {
             $command = "sudo bash /root/blog.sh update";
             exec($command,$log,$status);
-            print_r($log);
+            return print_r($log);
+        } else {
+            return abort(403);
         }
-        return abort(403);
     }
 }
