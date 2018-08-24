@@ -3,8 +3,6 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Symfony\Component\Process\Process;
-use Symfony\Component\Process\Exception\ProcessFailedException;
 
 class HookController extends Controller
 {
@@ -25,12 +23,8 @@ class HookController extends Controller
         }
         if ($allow) {
             $command = "sudo bash /root/blog.sh update";
-            $process = new Process($command);
-            $process->run();
-            if (!$process->isSuccessful()) {
-                throw new ProcessFailedException($process);
-            }
-            echo $process->getOutput();
+            exec($command,$log,$status);
+            print_r($log);
         }
         return abort(403);
     }
