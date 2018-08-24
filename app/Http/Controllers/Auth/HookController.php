@@ -8,9 +8,14 @@ use Symfony\Component\Process\Exception\ProcessFailedException;
 
 class HookController extends Controller
 {
+    /**
+     * @param Request $request
+     * @param $type
+     */
     public function push(Request $request,$type)
     {
         $data = $request->getContent();
+        $allow = false;
         if ($type =='gitee') {
             $allow = $request->header('X-Gitee-Token') === env('GITEE_HOOK_PASSWORD') ?:false;
         } elseif ($type =='gogs') {
@@ -27,7 +32,5 @@ class HookController extends Controller
             echo $process->getOutput();
         }
         return abort(403);
-
-
     }
 }
