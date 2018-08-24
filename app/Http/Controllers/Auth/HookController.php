@@ -24,7 +24,7 @@ class HookController extends Controller
             $allow = $signature == $hash?:false;
         }
         if ($allow) {
-            $command = "sudo bash /home/blog-update.sh";
+            $command = "sudo bash /root/blog.sh update";
             $process = new Process($command);
             $process->run();
             if (!$process->isSuccessful()) {
