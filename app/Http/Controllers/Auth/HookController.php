@@ -20,7 +20,7 @@ class HookController extends Controller
         if ($allow) {
             $command = "sudo bash /root/blog.sh update";
             exec($command,$log,$status);
-            return print_r($log);
+            print_r($log);
         } else {
             return abort(403);
         }
