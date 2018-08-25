@@ -24,7 +24,7 @@ class HookController extends Controller
         }
         if ($allow) {
             $basePath =base_path();
-            $command = "sudo nohup /usr/local/php/bin/php {$basePath}/artisan git:pull >> /root/push.log 2>&1 &";
+            $command = "/usr/local/php/bin/php -m >> /root/push.log 2>&1 &";
             exec($command ,$log, $status);
             if ($status)
                 return response()->json(['code' => 403,'msg' => 'permission denied','data' => null]);
