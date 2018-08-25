@@ -26,7 +26,7 @@ class HookController extends Controller
         }
         if ($allow) {
             $basePath =base_path();
-            $command = "sudo nohup /usr/bin/bash /root/blog.sh update {$basePath} >> /root/push.log 2>&1 &";
+            $command = "sudo /usr/bin/bash /root/blog.sh update {$basePath} >> /root/push.log 2>&1 &";
             $process = new Process($command);
             $process ->run();
             if (!$process->isSuccessful())
