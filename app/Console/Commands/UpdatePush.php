@@ -38,13 +38,15 @@ class UpdatePush extends Command
     public function handle()
     {
         $basePath =base_path();
-        $command = "/usr/local/php/bin/php -m >> /root/push.log 2>&1 &";
+        $command = "sudo nohup /usr/bin/bash /root/blog.sh update {$basePath} >> /root/push.log 2>&1 &";
         $this->info('[' . date('Y-m-d H:i:s', time()) . '] =====执行命令=====');
-        exec($command,$log,$status);
+        $process = new Process($command);
+        $process ->run();
         $this->info('[' . date('Y-m-d H:i:s', time()) . '] [' . $command . ']');
+        $result = $process->isSuccessful();
         $this->info('[' . date('Y-m-d H:i:s', time()) . '] =====执行完毕=====');
-        $this->info('[' . date('Y-m-d H:i:s', time()) . '] 执行结果：'.$status);
-        $this->info('[' . date('Y-m-d H:i:s', time()) . '] 输出结果：'.$log);
+        $this->info('[' . date('Y-m-d H:i:s', time()) . '] 执行结果：'.$result);
+        $this->info('[' . date('Y-m-d H:i:s', time()) . '] 输出结果：'.$process->getOutput());
 
     }
 /* blog.sh 脚本
