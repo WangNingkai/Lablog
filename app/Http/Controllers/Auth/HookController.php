@@ -24,7 +24,7 @@ class HookController extends Controller
         }
         if ($allow) {
             $basePath =base_path();
-            $command = "/usr/local/php/bin/php -m >> /root/push.log 2>&1 &";
+            $command = "sudo /usr/bin/bash /root/blog.sh update {$basePath} >> /data/wwwlogs/pull.log 2>&1 &";
             exec($command ,$log, $status);
             if ($status)
                 return response()->json(['code' => 403,'msg' => 'permission denied','data' => null]);
