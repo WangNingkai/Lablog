@@ -30,12 +30,49 @@ chown -R www:www *
 
 ### 注意事项
 
-因部分扩展要求需要安装相应php扩展
+##### 因部分扩展要求需要安装相应php扩展
 
-**`FileInfo`扩展**
-**`Imagick`扩展**
-**`GD库`扩展** 
-**`Redis`扩展** 
+- `FileInfo`扩展
+- `Imagick`扩展
+- `GD库`扩展
+- `Redis`扩展
+
+##### 博客加入push自动更新部署脚本，使用webhooks具体路由
+
+```
+http(s)://{host}/hook/(gogs/gitee)
+```
+
+##### 脚本文件
+
+```
+#!/usr/bin/env bash
+PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/php/bin:/usr/local/sbin:~/bin
+export PATH
+
+msg=$1
+path=$2
+
+cd ${path}
+
+case ${msg} in
+  pull)
+  git fetch --all
+  git reset --hard origin/master
+;;
+  clear)
+  /usr/local/php/bin/php artisan clear
+  /usr/local/php/bin/php artisan cache:clear
+  /usr/local/php/bin/php artisan config:clear
+;;
+  update)
+  git fetch --all
+  git reset --hard origin/master
+  /usr/local/bin/composer update
+;;
+esac
+```
+
 
 第三方配置在`.env`文件配置
 
