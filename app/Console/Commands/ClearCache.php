@@ -2,7 +2,9 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Config;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Cache;
 
 class ClearCache extends Command
 {
@@ -39,10 +41,14 @@ class ClearCache extends Command
     {
         $this->info('[' . date('Y-m-d H:i:s', time()) . ']开始清理');
         $this->call('view:clear');
-        $this->call('view:cache');
-        $this->call('cache:clear');
+        Cache::forget('cache:config');
         $this->call('config:clear');
+        $this->info('[' . date('Y-m-d H:i:s', time()) . ']开始重建缓存');
+        $this->call('view:cache');
         $this->call('config:cache');
+        Cache::remember('cache:config', 1440, function () {
+            return Config::query()->pluck('value', 'name');
+        });
         $this->info('[' . date('Y-m-d H:i:s', time()) . ']清理结束');
     }
 }
