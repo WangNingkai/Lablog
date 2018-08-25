@@ -3,6 +3,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Symfony\Component\Process\Process;
+use Symfony\Component\Process\Exception\ProcessFailedException;
 
 class HookController extends Controller
 {
@@ -24,12 +26,13 @@ class HookController extends Controller
         }
         if ($allow) {
             $basePath =base_path();
-            $command = "sudo /usr/bin/bash /root/blog.sh update {$basePath} >> /root/push.log 2>&1 &";
-            exec($command,$log,$status);
-            if ($status == 0)
-                return response()->json(['code' => 200,'msg' => 'ok','data' => $log]);
+            $command = "sudo nohup /usr/bin/bash /root/blog.sh update {$basePath} >> /root/push.log 2>&1 &";
+            $process = new Process($command);
+            $process ->run();
+            if (!$process->isSuccessful())
+                throw new ProcessFailedException($process);
             else
-                return response()->json(['code' => 500,'msg' => 'failed','data' => $log]);
+                return response()->json(['code' => 200,'msg' => 'ok','data' => $process->getOutput()]);
         } else {
             return response()->json(['code' => 403,'msg' => 'permission denied','data' => null]);
         }
