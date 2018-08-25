@@ -24,7 +24,7 @@ class HookController extends Controller
         }
         if ($allow) {
             $basePath =base_path();
-            $command = "sudo nohup /usr/bin/bash /root/blog.sh update {$basePath}  > /root/push.log 2>&1 &";
+            $command = "sudo /usr/bin/nohup /usr/bin/bash /root/blog.sh update {$basePath}  > /root/push.log 2>&1 &";
             exec($command,$log,$status);
             if ($status == 0)
                 return response()->json(['code' => 200,'msg' => 'ok','data' => $log]);
