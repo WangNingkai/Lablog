@@ -49,33 +49,4 @@ class UpdatePush extends Command
         $this->info('[' . date('Y-m-d H:i:s', time()) . '] 输出结果：'.$process->getOutput());
 
     }
-/* blog.sh 脚本
-
-#!/usr/bin/env bash
-PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/php/bin:/usr/local/sbin:~/bin
-export PATH
-
-msg=$1
-
-path=$2
-
-cd ${path}
-
-case ${msg} in
-  pull)
-  git fetch --all
-  git reset --hard origin/master
-;;
-  clear)
-  /usr/local/php/bin/php artisan clear
-/usr/local/php/bin/php artisan cache:clear
-/usr/local/php/bin/php artisan config:clear
-;;
-  update)
-  git pull
-/usr/local/bin/composer update
-;;
- esac
-
-*/
 }
