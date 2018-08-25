@@ -3,7 +3,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Artisan;
+use Symfony\Component\Process\Process;
+use Symfony\Component\Process\Exception\ProcessFailedException;
 
 class HookController extends Controller
 {
@@ -24,8 +25,14 @@ class HookController extends Controller
             $allow = $signature == $hash?:false;
         }
         if ($allow) {
-            Artisan::call('git:pull');
-            return response()->json(['code' => 200,'msg' => 'ok' ]);
+            $basePath =base_path();
+            $command = "sudo nohup /usr/local/php/bin/php {$basePath}/artisan git:pull >> /root/push.log 2>&1 &";
+            $process = new Process($command);
+            $process ->run();
+            if (!$process->isSuccessful())
+                throw new ProcessFailedException($process);
+            else
+                return response()->json(['code' => 200,'msg' => 'ok','data' => $process->getOutput()]);
         } else {
             return response()->json(['code' => 403,'msg' => 'permission denied','data' => null]);
         }
