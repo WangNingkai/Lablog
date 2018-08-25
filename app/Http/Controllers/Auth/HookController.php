@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 
 class HookController extends Controller
 {
+    /**
+     * @param Request $request
+     * @param $type
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function push(Request $request,$type)
     {
         $data = $request->getContent();
@@ -18,12 +23,45 @@ class HookController extends Controller
             $allow = $signature == $hash?:false;
         }
         if ($allow) {
-            $command = "sudo bash /root/blog.sh pull";
+            $basePath =base_path();
+            $command = "sudo nohup /usr/bin/bash /root/blog.sh update {$basePath}  > /root/push.log 2>&1 &";
             exec($command,$log,$status);
             if ($status == 0)
-                return response()->json(['code' => 'success','msg' => '更新成功','data' => $log]);
+                return response()->json(['code' => 200,'msg' => 'ok','data' => $log]);
+            else
+                return response()->json(['code' => 500,'msg' => 'failed','data' => $log]);
         } else {
-            return abort(403);
+            return response()->json(['code' => 403,'msg' => 'permission denied','data' => null]);
         }
     }
+/* blog.sh 脚本
+
+#!/usr/bin/env bash
+PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/php/bin:/usr/local/sbin:~/bin
+export PATH
+
+msg=$1
+
+path=$2
+
+cd ${path}
+
+case ${msg} in
+  pull)
+  git fetch --all
+  git reset --hard origin/master
+;;
+  clear)
+  /usr/local/php/bin/php artisan clear
+/usr/local/php/bin/php artisan cache:clear
+/usr/local/php/bin/php artisan config:clear
+;;
+  update)
+  git pull
+/usr/local/bin/composer update
+;;
+ esac
+
+*/
+
 }
