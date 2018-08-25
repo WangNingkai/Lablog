@@ -3,8 +3,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Symfony\Component\Process\Process;
-use Symfony\Component\Process\Exception\ProcessFailedException;
+use Illuminate\Support\Facades\Artisan;
 
 class HookController extends Controller
 {
@@ -25,46 +24,11 @@ class HookController extends Controller
             $allow = $signature == $hash?:false;
         }
         if ($allow) {
-            $basePath =base_path();
-            $command = "sudo /usr/bin/bash /root/blog.sh update {$basePath} >> /root/push.log 2>&1 &";
-            $process = new Process($command);
-            $process ->run();
-            if (!$process->isSuccessful())
-                throw new ProcessFailedException($process);
-            else
-                return response()->json(['code' => 200,'msg' => 'ok','data' => $process->getOutput()]);
+            Artisan::call('git:pull');
+            return response()->json(['code' => 200,'msg' => 'ok' ]);
         } else {
             return response()->json(['code' => 403,'msg' => 'permission denied','data' => null]);
         }
     }
-/* blog.sh 脚本
-
-#!/usr/bin/env bash
-PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/php/bin:/usr/local/sbin:~/bin
-export PATH
-
-msg=$1
-
-path=$2
-
-cd ${path}
-
-case ${msg} in
-  pull)
-  git fetch --all
-  git reset --hard origin/master
-;;
-  clear)
-  /usr/local/php/bin/php artisan clear
-/usr/local/php/bin/php artisan cache:clear
-/usr/local/php/bin/php artisan config:clear
-;;
-  update)
-  git pull
-/usr/local/bin/composer update
-;;
- esac
-
-*/
 
 }

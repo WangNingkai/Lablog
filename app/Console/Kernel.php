@@ -15,6 +15,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         Commands\SyncRank::class,
         Commands\GenerateSitemap::class,
+        Commands\UpdatePush::class,
     ];
 
     /**
