@@ -18,9 +18,10 @@ class HookController extends Controller
             $allow = $signature == $hash?:false;
         }
         if ($allow) {
-            $command = "sudo bash /root/blog.sh update";
+            $command = "sudo bash /root/blog.sh pull";
             exec($command,$log,$status);
-            print_r($log);
+            if ($status == 0)
+                return response()->json(['code' => 'success','msg' => '更新成功','data' => $log]);
         } else {
             return abort(403);
         }
