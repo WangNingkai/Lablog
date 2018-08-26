@@ -42,7 +42,6 @@ class ClearCache extends Command
         $this->info('[' . date('Y-m-d H:i:s', time()) . ']开始清理重建缓存');
         $this->call('view:clear');
         $this->call('view:cache');
-        $this->call('config:cache');
         Cache::forget('cache:config');
         Cache::remember('cache:config', 1440, function () {
             return Config::query()->pluck('value', 'name');
