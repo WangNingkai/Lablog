@@ -25,9 +25,9 @@
                     <div class="small m-b-xs">
                         <strong>{{$article->author}}</strong>&nbsp;&nbsp;<span class="text-muted"><i class="fa fa-clock-o"></i>&nbsp;最后更新于&nbsp;{{\App\Helpers\Extensions\Tool::transformTime($article->feed_updated_at)}}</span>
                     </div>
-                    <p>
-                        {{$article->description}}
-                    </p>
+                    <div class="description">
+                        <p style="word-wrap:break-word;">{{$article->description}}</p>
+                    </div>
                     <div class="row">
                         <div class="col-md-6">
                             <h5>标签：</h5>

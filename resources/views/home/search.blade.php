@@ -40,9 +40,9 @@
                                 <h3><a href="{{route('article',$article->id)}}" class="title-link">{{$article->title}}</a></h3>
                                 <a href="{{route('article',$article->id)}}"
                                 class="search-link">{{route('article',$article->id)}}</a>
-                                <p>
-                                    {{$article->description}}
-                                </p>
+                                <div class="description">
+                                    <p style="word-wrap:break-word;">{{$article->description}}</p>
+                                </div>
                             </div>
                         @endforeach
                         {{$articles->appends(['keyword' => request()->input('keyword')])->links()}}

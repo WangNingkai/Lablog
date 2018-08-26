@@ -30,7 +30,7 @@
                                 {{$article->title}}
                             </h2>
                         </div>
-                        <div class="content article-content" style="">
+                        <div class="content article-content" style="word-wrap:break-word;">
                             {!! $article->feed->html !!}
                         </div>
                         <div class="social-share text-center"

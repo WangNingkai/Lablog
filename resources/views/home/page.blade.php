@@ -23,7 +23,7 @@
                             </h3>
                             <div class="hr-line-dashed"></div>
                         </div>
-                        <div class="content" style="">
+                        <div class="content" style="word-wrap:break-word;">
                             {!! $page->feed->html !!}
                         </div>
                     </div>
