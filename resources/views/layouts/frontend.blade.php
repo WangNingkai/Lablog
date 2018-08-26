@@ -242,11 +242,11 @@
 @yield('js')
 <script>
     var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
-    document.write(unescape("%3Cspan id='cnzz_stat_icon_{{ env('CNZZ_ANALYTICS_ID') }}'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D{{ env('CNZZ_ANALYTICS_ID') }}' type='text/javascript'%3E%3C/script%3E"));
+    document.write(unescape("%3Cspan id='cnzz_stat_icon_{{ config('global.cnzz_analytics_id') }}'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D{{ config('global.cnzz_analytics_id') }}' type='text/javascript'%3E%3C/script%3E"));
     var _hmt = _hmt || [];
     (function() {
         var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?{{ env('BD_TONGJI_ID') }}";
+        hm.src = "https://hm.baidu.com/hm.js?{{ config('global.bd_tongji_id') }}";
         var s = document.getElementsByTagName("script")[0];
         s.parentNode.insertBefore(hm, s);
     })();
@@ -268,7 +268,7 @@
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-    ga('create', '{{ env("GOOGLE_ANALYTICS_ID") }}', 'auto');
+    ga('create', '{{ config("global.google_analytics_id") }}', 'auto');
     ga('send', 'pageview');
     <!-- End Google Analytics -->
 </script>

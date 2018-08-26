@@ -247,7 +247,7 @@ class Tool
         }else {
             $urls[]=route('article',$id);
         }
-        $api = 'http://data.zz.baidu.com/'.$type.'?site='.env('APP_URL').'&token='.env('BD_PUSH_TOKEN');
+        $api = 'http://data.zz.baidu.com/'.$type.'?site='.config('app.url').'&token='.config('global.bd_push_token');
         $ch = curl_init();
         $options=[
             CURLOPT_URL => $api,

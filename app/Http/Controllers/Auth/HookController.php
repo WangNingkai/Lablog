@@ -16,10 +16,10 @@ class HookController extends Controller
         $data = $request->getContent();
         $allow = false;
         if ($type =='gitee') {
-            $allow = $request->header('X-Gitee-Token') == env('GITEE_HOOK_PASSWORD') ?:false;
+            $allow = $request->header('X-Gitee-Token') == config('global.gitee_hook_password') ?:false;
         } elseif ($type =='gogs') {
             $signature = $request->header('X-Gogs-Signature');
-            $hash = hash_hmac ('sha256',$data,env('GOGS_HOOK_PASSWORD'));
+            $hash = hash_hmac ('sha256',$data,config('global.gogs_hook_password'));
             $allow = $signature == $hash?:false;
         }
         if ($allow) {
