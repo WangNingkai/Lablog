@@ -51,7 +51,7 @@ class Tool
                 'url' => $url
             ]
         ];
-        SendEmail::dispatch($param);
+        SendEmail::dispatch($param)->onConnection('beanstalkd');
     }
 
     /**
@@ -74,7 +74,7 @@ class Tool
                     'url' => $url,
                 ]
             ];
-            SendEmail::dispatch($param);
+            SendEmail::dispatch($param)->onConnection('beanstalkd');;
         }
     }
 
