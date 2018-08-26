@@ -143,7 +143,7 @@
                                 </div>
                                 <div class="form-group {{$errors->has('alipay')?'has-error':''}}">
                                     <label for="alipay">支付宝打赏二维码地址：</label>
-                                    <input type="text" class="form-control" name="alipay" id="alipay" value="{{ $config['site_title'] }}">
+                                    <input type="text" class="form-control" name="alipay" id="alipay" value="{{ $config['alipay'] }}">
                                     @if ($errors->has('alipay'))
                                         <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('alipay') }}</strong></span>
                                     @endif
