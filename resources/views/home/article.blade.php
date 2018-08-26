@@ -33,6 +33,21 @@
                         <div class="content article-content" style="word-wrap:break-word;">
                             {!! $article->feed->html !!}
                         </div>
+                        @if ($config['allow_reward'] == 1)
+                            <div class="text-center">
+                                <a class="btn bg-red" data-toggle="collapse" href="#reward" role="button" aria-expanded="false" aria-controls="reward">赏</a>
+                            </div>
+                            <div class="collapse text-center " id="reward">
+                                <div class="row">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-4"><img src="{{ $config['wepay'] }}" alt="微信打赏" class="img-responsive"></div>
+                                    <div class="col-md-4"><img src="{{ $config['alipay'] }}" alt="支付宝打赏" class="img-responsive"></div>
+                                    <div class="col-md-2"></div>
+                                </div>
+
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                        @endif
                         <div class="social-share text-center"
                              data-disabled="google,twitter, facebook, diandian,linkedin,douban"></div>
                         <div class="copyright_div">

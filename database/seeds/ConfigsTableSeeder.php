@@ -177,6 +177,30 @@ class ConfigsTableSeeder extends Seeder
                     'value' => '',
                     'created_at' => '2018-01-01 00:00:00',
                     'updated_at' => '2018-01-01 00:00:00',
+                ),
+            20 =>
+                array (
+                    'id' => 21,
+                    'name' => 'allow_reward',
+                    'value' => '0',
+                    'created_at' => '2018-01-01 00:00:00',
+                    'updated_at' => '2018-01-01 00:00:00',
+                ),
+            21 =>
+                array (
+                    'id' => 22,
+                    'name' => 'wepay',
+                    'value' => '1',
+                    'created_at' => '2018-01-01 00:00:00',
+                    'updated_at' => '2018-01-01 00:00:00',
+                ),
+            22 =>
+                array (
+                    'id' => 23,
+                    'name' => 'alipay',
+                    'value' => '',
+                    'created_at' => '2018-01-01 00:00:00',
+                    'updated_at' => '2018-01-01 00:00:00',
                 )
         ));
 

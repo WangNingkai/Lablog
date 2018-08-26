@@ -125,6 +125,36 @@
                                         <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('site_allow_subscribe') }}</strong></span>
                                     @endif
                                 </div>
+                                <div class="form-group {{$errors->has('allow_reward')?'has-error':''}}">
+                                    <label>是否开启文章打赏：</label>
+                                    <div class="radio">
+                                        <label class="i-checks">
+                                            <input type="radio" name="allow_reward" value="1"
+                                                   @if($config[ 'allow_reward']==1) checked @endif> &nbsp; 开启
+                                        </label>
+                                        <label class="i-checks">
+                                            <input type="radio" name="allow_reward" value="0"
+                                                   @if($config[ 'allow_reward']==0) checked @endif> &nbsp; 关闭
+                                        </label>
+                                    </div>
+                                    @if ($errors->has('allow_reward'))
+                                        <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('allow_reward') }}</strong></span>
+                                    @endif
+                                </div>
+                                <div class="form-group {{$errors->has('alipay')?'has-error':''}}">
+                                    <label for="alipay">支付宝打赏二维码地址：</label>
+                                    <input type="text" class="form-control" name="alipay" id="alipay" value="{{ $config['site_title'] }}">
+                                    @if ($errors->has('alipay'))
+                                        <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('alipay') }}</strong></span>
+                                    @endif
+                                </div>
+                                <div class="form-group {{$errors->has('wepay')?'has-error':''}}">
+                                    <label for="site_title">微信打赏二维码地址：</label>
+                                    <input type="text" class="form-control" name="wepay" id="wepay" value="{{ $config['wepay'] }}">
+                                    @if ($errors->has('wepay'))
+                                        <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('wepay') }}</strong></span>
+                                    @endif
+                                </div>
                             </div>
                         </div>
                         <div class="box box-default">
