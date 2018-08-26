@@ -195,7 +195,7 @@ class HomeController extends Controller
         $data = $request->all();
         $data['ip'] = request()->ip();
         $message->storeData($data);
-        Tool::pushMessage($this->config['site_mailto_admin'],'站长大大','您的博客现有新的留言，请注意查看审核',route('comment_manage'));
+        Tool::pushMessage($this->config['site_mailto_admin'],'站长大大','您的博客现有新的留言，请注意查看审核',route('message_manage'));
         return redirect()->back();
     }
 

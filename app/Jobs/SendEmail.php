@@ -25,7 +25,7 @@ class SendEmail implements ShouldQueue
      *
      * @var int
      */
-    public $timeout = 120;
+    public $timeout = 300;
 
     /**
      * 收件人邮箱地址
