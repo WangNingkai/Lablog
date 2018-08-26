@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\Extensions\UserExt;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Artisan;
 use App\Models\Article;
@@ -36,7 +37,7 @@ class DashboardController extends Controller
     {
         Artisan::call('flush:cache');
         Tool::showMessage('缓存清理成功');
-        Tool::recordOperation(auth()->user()->name,'缓存清理');
+        Tool::recordOperation(UserExt::getAttribute('name'),'缓存清理');
         return redirect()->back();
     }
 }
