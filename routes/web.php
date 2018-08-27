@@ -50,7 +50,7 @@ Route::group(['namespace' => 'Home', 'middleware' => ['check.status']], function
     Route::post('subscribe_store','HomeController@subscribe_store')->name('subscribe_store');
     Route::get('search', 'HomeController@search')->name('search');
 });
-Route::group(['namespace' => 'Api', 'middleware' => ['check.status']], function () {
+Route::group(['namespace' => 'Api', 'prefix'=>'api','middleware' => ['check.status','throttle:10']], function () {
     Route::get('qrcode', 'QrcodeController@generate');
 });
 // 后台
