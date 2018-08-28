@@ -28,19 +28,18 @@ class QrcodeGenerate implements ShouldQueue
     public $timeout = 300;
 
     /**
-     * 二维码大小
-     *
-     * @var
-     */
-    protected $size;
-
-    /**
      * 二维码内容
      *
      * @var
      */
     protected $text;
 
+    /**
+     * 二维码大小
+     *
+     * @var
+     */
+    protected $size;
 
     /**
      * 初始化二维码
@@ -50,8 +49,8 @@ class QrcodeGenerate implements ShouldQueue
      */
     public function __construct($param)
     {
-        $this->size = $param['size'];
         $this->text = $param['text'];
+        $this->size = $param['size'];
     }
 
     /**

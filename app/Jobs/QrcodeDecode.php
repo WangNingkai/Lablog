@@ -35,9 +35,9 @@ class QrcodeDecode implements ShouldQueue
     protected $img;
 
     /**
-     * Create a new job instance.
+     * QrcodeDecode constructor.
      *
-     * @return void
+     * @param string $img
      */
     public function __construct($img)
     {

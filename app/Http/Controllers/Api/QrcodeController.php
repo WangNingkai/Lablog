@@ -23,7 +23,7 @@ class QrcodeController extends Controller
         if ($token == config('global.qrcode_token')) {
             if(!$text) return response()->json(['code' => 400,'msg' => 'Param Error']);
             // 入队
-            QrcodeGenerate::dispatch(['size' => $size ,$text => 'text'])->onConnection('redis');
+            QrcodeGenerate::dispatch(['size' => $size ,'text' => $text])->onConnection('redis');
             $key = 'qrcode_'.$text;
             $url = Cache::get($key);
             if ($url)
@@ -48,7 +48,7 @@ class QrcodeController extends Controller
         if ($token == config('global.qrcode_token')) {
             if(!$img) return response()->json(['code' => 400,'msg' => 'Param Error']);
             // 入队
-            QrcodeDecode::dispatch(['img' => $img])->onConnection('redis');
+            QrcodeDecode::dispatch($img)->onConnection('redis');
             $key = 'qrcode_text'.$img;
             $text = Cache::get($key);
             if ($text)
