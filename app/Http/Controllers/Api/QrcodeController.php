@@ -22,14 +22,15 @@ class QrcodeController extends Controller
         $token = $request->get('token');
         if ($token == config('global.qrcode_token')) {
             if(!$text) return response()->json(['code' => 400,'msg' => 'Param Error']);
-            // 入队
-            QrcodeGenerate::dispatch(['size' => $size ,'text' => $text])->onConnection('redis');
             $key = 'qrcode_'.$text;
-            $url = Cache::get($key);
-            if ($url)
-                return response()->json(['code' => 200,'msg' => 'OK','data' => $url]);
-            else
+            if (!Cache::has($key)) {
+                // 入队处理
+                QrcodeGenerate::dispatch(['size' => $size ,'text' => $text])->onConnection('redis');
                 return response()->json(['code' => 202,'msg' => 'Waiting Response']);
+            } else {
+                $url = Cache::get($key);
+            }
+            if ($url) return response()->json(['code' => 200,'msg' => 'OK','data' => $url]);
         } else {
             return response()->json(['code' => 403,'msg' => 'Permission Denied']);
         }
@@ -47,14 +48,15 @@ class QrcodeController extends Controller
         $img = $request->get('img');
         if ($token == config('global.qrcode_token')) {
             if(!$img) return response()->json(['code' => 400,'msg' => 'Param Error']);
-            // 入队
-            QrcodeDecode::dispatch($img)->onConnection('redis');
             $key = 'qrcode_text'.$img;
-            $text = Cache::get($key);
-            if ($text)
-                return response()->json(['code' => 200,'msg' => 'OK','data' => $text]);
-            else
+            if (!Cache::has($key)) {
+                // 入队处理
+                QrcodeDecode::dispatch($img)->onConnection('redis');
                 return response()->json(['code' => 202,'msg' => 'Waiting Response']);
+            } else {
+                $text = Cache::get($key);
+            }
+            if ($text) return response()->json(['code' => 200,'msg' => 'OK','data' => $text]);
         } else {
             return response()->json(['code'=>403,'msg'=>'Permission Denied']);
         }
