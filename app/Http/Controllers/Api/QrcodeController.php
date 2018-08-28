@@ -25,7 +25,7 @@ class QrcodeController extends Controller
             $key = 'qrcode_'.$text;
             if (!Cache::has($key)) {
                 // 入队处理
-                QrcodeGenerate::dispatch(['size' => $size ,'text' => $text])->onConnection('redis');
+                QrcodeGenerate::dispatch(['size' => $size ,'text' => $text])->onConnection('beanstalkd');
                 return response()->json(['code' => 202,'msg' => 'Processing...Please refresh the page later.']);
             } else {
                 $url = Cache::get($key);
@@ -51,7 +51,7 @@ class QrcodeController extends Controller
             $key = 'qrcode_text'.$img;
             if (!Cache::has($key)) {
                 // 入队处理
-                QrcodeDecode::dispatch($img)->onConnection('redis');
+                QrcodeDecode::dispatch($img)->onConnection('beanstalkd');
                 return response()->json(['code' => 202,'msg' => 'Processing...Please refresh the page later.']);
             } else {
                 $text = Cache::get($key);
