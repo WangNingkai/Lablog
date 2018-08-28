@@ -475,6 +475,7 @@ class Tool
      */
     public static function qrcodeDecode($img)
     {
+        ini_set('memory_limit', '-1');
         if(!$img) return response()->json(['code' => 400,'msg' => 'Param Error']);
         $key = 'qrcode_text'.$img;
         if (!Cache::has($key)) {
