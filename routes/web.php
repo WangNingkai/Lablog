@@ -49,7 +49,6 @@ Route::group(['namespace' => 'Home', 'middleware' => ['check.status']], function
     Route::get('subscribe','HomeController@subscribe')->name('subscribe');
     Route::post('subscribe_store','HomeController@subscribe_store')->name('subscribe_store');
     Route::get('search', 'HomeController@search')->name('search');
-    Route::get('pay', 'HomeController@pay')->name('pay');
 });
 Route::group(['namespace' => 'Api', 'prefix'=>'api','middleware' => ['check.status','throttle:10']], function () {
     Route::get('qrcode', 'QrcodeController@generate');
