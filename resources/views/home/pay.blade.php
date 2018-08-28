@@ -22,12 +22,12 @@
 </head>
 <body class="{{ $type }}">
 <div class="container">
-    <div class="title">{{ $icon_img }}<h1>{{ $name }}</h1></div>
+    <div class="title">{!! $icon_img !!}<h1>{{ $name }}</h1></div>
     <div  class="content">
         @if ($type=='other')
-            {{ $qr_img }}<h3>请使用支付宝、微信客户端扫码付款</h3>'
+            {!! $qr_img !!}<h3>请使用支付宝、微信客户端扫码付款</h3>'
         @else
-            {{ $qr_img }}<h3>扫描或长按识别二维码，向TA付款</h3>'
+            {!! $qr_img !!}<h3>扫描或长按识别二维码，向TA付款</h3>'
         @endif
     </div>
 </div>
