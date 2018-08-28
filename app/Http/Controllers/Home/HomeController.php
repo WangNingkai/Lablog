@@ -240,4 +240,41 @@ class HomeController extends Controller
         $articles->count = $count;
         return view('home.search', compact('articles'));
     }
+
+    /**
+     * 打赏页
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function pay(Request $request)
+    {
+        if ($this->config['allow_reward']) {
+            $ua =$request->userAgent();
+            if (strpos($ua,'MicroMessenger')) {
+                $type = 'wepay';
+                $name = '微信支付';
+                //微信支付链接
+                $url = Tool::qrcodeDecode($this->config['wepay']);
+                $icon_img = '<img src="https://ww2.sinaimg.cn/large/005zWjpngy1fojrwgr20oj303k03kglg.jpg" width="48px" 
+height="48px" alt="'.$name.'">';
+            } elseif (strpos($ua, 'AlipayClient')) {
+                //支付宝链接
+                $url = Tool::qrcodeDecode($this->config['alipay']);
+                return redirect()->away($url);
+            } else {
+                $type = 'other';
+                $name = '打赏作者';
+                $url = route('pay');
+                $icon_img = '<img src="https://ww2.sinaimg.cn/large/005zWjpngy1fojs089x6tj303k03kjr6.jpg" width="48px" 
+height="48px" alt="'.$name.'">';
+            }
+            $img = Tool::qrcodeGenerate($url,300);
+            $qr_img = '<img src="'. $img.'">';
+            return view('home.pay',compact('name','type','icon_img','qr_img'));
+        } else {
+            return abort(404);
+        }
+    }
 }

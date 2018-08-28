@@ -88,6 +88,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
             Route::post('restore', 'UserController@restore')->name('user_restore');
             Route::post('destroy', 'UserController@destroy')->name('user_destroy');
             Route::get('search', 'UserController@search')->name('user_search');
+            Route::get('pay', 'UserController@pay')->name('pay');
         });
     });
     // 控制台
