@@ -452,11 +452,11 @@ class Tool
      * @param int $size 大小
      * @return string
      */
-    public static function qrcodeGenerate($text,$size = 200)
+    public static function qrcodeGenerate($text,$size = 300)
     {
         $key = 'qrcode_'.$text;
         if (!Cache::has($key)) {
-            $qrcode = QrCode::format('png')->size($size)->generate($text);
+            $qrcode = QrCode::format('png')->size($size)->margin(2)->generate($text);
             $data = base64_encode($qrcode);
             $url = "data:image/png;base64,".$data;
             Cache::add($key,$url,1440);
