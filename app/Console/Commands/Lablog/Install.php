@@ -18,7 +18,7 @@ class Install extends Command
      *
      * @var string
      */
-    protected $description = '设置基础配置';
+    protected $description = 'Lablog Init';
 
     /**
      * Create a new command instance.

@@ -454,7 +454,6 @@ class Tool
      */
     public static function qrcodeGenerate($text,$size = 200)
     {
-        if(!$text) return response()->json(['code' => 400,'msg' => 'Param Error']);
         $key = 'qrcode_'.$text;
         $url = Cache::remember($key,1440,function () use ($text,$size){
             $qrCode = new Qrcode();
@@ -463,7 +462,7 @@ class Tool
             $qrCode->setMargin(10);
             return $qrCode->writeDataUri();
         });
-        return response()->json(['code' => 200,'msg' => 'OK','data' => $url]);
+        return $url;
     }
 
     /**
@@ -476,7 +475,6 @@ class Tool
     public static function qrcodeDecode($img)
     {
         ini_set('memory_limit', '-1');
-        if(!$img) return response()->json(['code' => 400,'msg' => 'Param Error']);
         $key = 'qrcode_text'.$img;
         if (!Cache::has($key)) {
             $path = public_path('uploads/tmp/'.md5($img).'.png');
@@ -486,17 +484,16 @@ class Tool
                     'sink' => $path
                 ]);
             } catch (ClientException $e) {
-                return response()->json(['code' => 500,'msg' => 'Unknown Error']);
+                return null;
             }
-
             $text = Cache::remember($key,1440,function () use ($path){
                 $qrcode = new QrReader($path);
                 return $qrcode->text();
             });
             @unlink($path);
+            return $text;
         } else {
-            $text = Cache::get($key);
+            return Cache::get($key);
         }
-        return response()->json(['code' => 200,'msg' => 'OK','data' => $text]);
     }
 }

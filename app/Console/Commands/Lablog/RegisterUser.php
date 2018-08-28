@@ -21,7 +21,7 @@ class RegisterUser extends Command
      *
      * @var string
      */
-    protected $description = '注册一个后台用户';
+    protected $description = 'Register Admin';
 
     /**
      * Create a new command instance.

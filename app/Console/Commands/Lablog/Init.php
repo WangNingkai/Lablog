@@ -18,7 +18,7 @@ class Init extends Command
      *
      * @var string
      */
-    protected $description = '初始化文件';
+    protected $description = 'Lablog Config';
 
     /**
      * Create a new command instance.

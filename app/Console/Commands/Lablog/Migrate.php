@@ -18,7 +18,7 @@ class Migrate extends Command
      *
      * @var string
      */
-    protected $description = '初始化迁移文件';
+    protected $description = 'Lablog Migrate';
 
     /**
      * Create a new command instance.
