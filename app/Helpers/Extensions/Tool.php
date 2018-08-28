@@ -7,12 +7,14 @@ use App\Models\Subscribe;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
 use App\Events\OperationEvent;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use WangNingkai\SimpleDictionary\SimpleDictionary;
 use HyperDown\Parser;
 use Jenssegers\Agent\Agent;
 use Zhuzhichao\IpLocationZh\Ip;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
+use Zxing\QrReader;
 
 /**
  * 工具助手函数
@@ -454,11 +456,9 @@ class Tool
     {
         $key = 'qrcode_'.$text;
         if (!Cache::has($key)) {
-            $qrCode = new \Endroid\QrCode\QrCode();
-            $qrCode->setText($text);
-            $qrCode->setSize($size);
-            $qrCode->setMargin(10);
-            $url =  $qrCode->writeDataUri();
+            $qrcode = QrCode::format('png')->size($size)->generate($text);
+            $data = base64_encode($qrcode);
+            $url = "data:image/png;base64,".$data;
             Cache::add($key,$url,1440);
             return $url;
         } else {
@@ -487,7 +487,7 @@ class Tool
             } catch (ClientException $e) {
                 return null;
             }
-            $qrcode = new \Zxing\QrReader($path);
+            $qrcode = new QrReader($path);
             $text = $qrcode->text();
             Cache::add($key,$text,1440);
             @unlink($path);
