@@ -448,26 +448,29 @@ class Tool
      *
      * @param string $text 内容
      * @param int $size 大小
-     * @return \Illuminate\Http\JsonResponse
+     * @return string
      */
     public static function qrcodeGenerate($text,$size = 200)
     {
         $key = 'qrcode_'.$text;
-        $url = Cache::remember($key,1440,function () use ($text,$size){
+        if (!Cache::has($key)) {
             $qrCode = new \Endroid\QrCode\QrCode();
             $qrCode->setText($text);
             $qrCode->setSize($size);
             $qrCode->setMargin(10);
-            return $qrCode->writeDataUri();
-        });
-        return $url;
+            $url =  $qrCode->writeDataUri();
+            Cache::add($key,$url,1440);
+            return $url;
+        } else {
+            return Cache::get($key);
+        }
     }
 
     /**
      * 二维码解析
      *
      * @param string $img 图片原地址
-     * @return \Illuminate\Http\JsonResponse
+     * @return string
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public static function qrcodeDecode($img)
@@ -484,10 +487,9 @@ class Tool
             } catch (ClientException $e) {
                 return null;
             }
-            $text = Cache::remember($key,1440,function () use ($path){
-                $qrcode = new \Zxing\QrReader($path);
-                return $qrcode->text();
-            });
+            $qrcode = new \Zxing\QrReader($path);
+            $text = $qrcode->text();
+            Cache::add($key,$text,1440);
             @unlink($path);
             return $text;
         } else {
