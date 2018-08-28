@@ -11,8 +11,6 @@ use WangNingkai\SimpleDictionary\SimpleDictionary;
 use HyperDown\Parser;
 use Jenssegers\Agent\Agent;
 use Zhuzhichao\IpLocationZh\Ip;
-use Endroid\QrCode\QrCode;
-use Zxing\QrReader;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 
@@ -456,7 +454,7 @@ class Tool
     {
         $key = 'qrcode_'.$text;
         $url = Cache::remember($key,1440,function () use ($text,$size){
-            $qrCode = new Qrcode();
+            $qrCode = new \Endroid\QrCode\QrCode();
             $qrCode->setText($text);
             $qrCode->setSize($size);
             $qrCode->setMargin(10);
@@ -487,7 +485,7 @@ class Tool
                 return null;
             }
             $text = Cache::remember($key,1440,function () use ($path){
-                $qrcode = new QrReader($path);
+                $qrcode = new \Zxing\QrReader($path);
                 return $qrcode->text();
             });
             @unlink($path);
