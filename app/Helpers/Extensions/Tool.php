@@ -4,12 +4,17 @@ namespace App\Helpers\Extensions;
 use App\Jobs\SendEmail;
 use App\Models\Article;
 use App\Models\Subscribe;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
 use App\Events\OperationEvent;
 use WangNingkai\SimpleDictionary\SimpleDictionary;
 use HyperDown\Parser;
 use Jenssegers\Agent\Agent;
 use Zhuzhichao\IpLocationZh\Ip;
+use Endroid\QrCode\QrCode;
+use Zxing\QrReader;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 
 /**
  * 工具助手函数
@@ -425,7 +430,11 @@ class Tool
         return $html;
     }
 
-
+    /**
+     * 同步热度
+     *
+     * @param $id
+     */
     public static function syncRank($id)
     {
         $article = Article::query()->find($id);
@@ -434,5 +443,59 @@ class Tool
         $rank = $score - 1 / (pow(($t + 2),1.8));
         $article->rank = $rank;
         $article->save();
+    }
+
+    /**
+     * 二维码生成
+     *
+     * @param string $text 内容
+     * @param int $size 大小
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public static function qrcodeGenerate($text,$size = 200)
+    {
+        if(!$text) return response()->json(['code' => 400,'msg' => 'Param Error']);
+        $key = 'qrcode_'.$text;
+        $url = Cache::remember($key,1440,function () use ($text,$size){
+            $qrCode = new Qrcode();
+            $qrCode->setText($text);
+            $qrCode->setSize($size);
+            $qrCode->setMargin(10);
+            return $qrCode->writeDataUri();
+        });
+        return response()->json(['code' => 200,'msg' => 'OK','data' => $url]);
+    }
+
+    /**
+     * 二维码解析
+     *
+     * @param string $img 图片原地址
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public static function qrcodeDecode($img)
+    {
+        if(!$img) return response()->json(['code' => 400,'msg' => 'Param Error']);
+        $key = 'qrcode_text'.$img;
+        if (!Cache::has($key)) {
+            $path = public_path('uploads/tmp/'.md5($img).'.png');
+            try {
+                $client = new Client(['verify' => false]);
+                $client->request('GET', $img, [
+                    'sink' => $path
+                ]);
+            } catch (ClientException $e) {
+                return response()->json(['code' => 500,'msg' => 'Unknown Error']);
+            }
+
+            $text = Cache::remember($key,1440,function () use ($path){
+                $qrcode = new QrReader($path);
+                return $qrcode->text();
+            });
+            @unlink($path);
+        } else {
+            $text = Cache::get($key);
+        }
+        return response()->json(['code' => 200,'msg' => 'OK','data' => $text]);
     }
 }
