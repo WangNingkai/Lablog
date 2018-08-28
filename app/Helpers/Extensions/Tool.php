@@ -454,7 +454,7 @@ class Tool
      */
     public static function qrcodeGenerate($text,$size = 300)
     {
-        $key = 'qrcode_'.$text;
+        $key = 'qrcode:'.$text;
         if (!Cache::has($key)) {
             $qrcode = QrCode::format('png')->size($size)->margin(2)->generate($text);
             $data = base64_encode($qrcode);
@@ -476,7 +476,7 @@ class Tool
     public static function qrcodeDecode($img)
     {
         ini_set('memory_limit', '-1');
-        $key = 'qrcode_text'.$img;
+        $key = 'qrcode_text:'.$img;
         if (!Cache::has($key)) {
             $path = public_path('uploads/tmp/'.md5($img).'.png');
             try {

@@ -22,7 +22,7 @@ class QrcodeController extends Controller
         $token = $request->get('token');
         if ($token == config('global.qrcode_token')) {
             if(!$text) return response()->json(['code' => 400,'msg' => 'Param Error']);
-            $key = 'qrcode_'.$text;
+            $key = 'qrcode:'.$text;
             if (!Cache::has($key)) {
                 // 入队处理
                 QrcodeGenerate::dispatch(['size' => $size ,'text' => $text])->onConnection('beanstalkd');
@@ -48,7 +48,7 @@ class QrcodeController extends Controller
         $img = $request->get('img');
         if ($token == config('global.qrcode_token')) {
             if(!$img) return response()->json(['code' => 400,'msg' => 'Param Error']);
-            $key = 'qrcode_text'.$img;
+            $key = 'qrcode_text:'.$img;
             if (!Cache::has($key)) {
                 // 入队处理
                 QrcodeDecode::dispatch($img)->onConnection('beanstalkd');
