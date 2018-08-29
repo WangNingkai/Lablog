@@ -38,7 +38,7 @@ class UpdatePush extends Command
     public function handle()
     {
         $basePath =base_path();
-        $command = "sudo /usr/bin/bash /root/blog.sh update {$basePath} >> /data/wwwlogs/pull.log 2>&1 &";
+        $command = "sudo /usr/bin/bash /root/blog.sh update {$basePath} >> /data/wwwlogs/lablog/pull.log 2>&1 &";
         $this->info('[' . date('Y-m-d H:i:s', time()) . '] =====执行命令=====');
         $process = new Process($command);
         $process ->run();
