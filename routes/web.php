@@ -50,10 +50,6 @@ Route::group(['namespace' => 'Home', 'middleware' => ['check.status']], function
     Route::post('subscribe_store','HomeController@subscribe_store')->name('subscribe_store');
     Route::get('search', 'HomeController@search')->name('search');
 });
-Route::group(['namespace' => 'Api', 'prefix'=>'api','middleware' => ['check.status','throttle:10']], function () {
-    Route::get('qrcode', 'QrcodeController@generate');
-    Route::get('qrcode_decode', 'QrcodeController@decode');
-});
 // 后台
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['auth:web','check.timeout','check.permission']], function () {
     // 权限管理
