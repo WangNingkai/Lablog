@@ -35,9 +35,6 @@ class Install extends Command
      */
     public function handle()
     {
-        /**
-         * 获取并替换 .env 中的数据库账号密码
-         */
         $this->warn('========== 初始化配置 ==========');
         $this->call('lablog:init');
         $this->warn('========== 请手动执行 ==========');
