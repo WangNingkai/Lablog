@@ -23,8 +23,10 @@ class HookController extends Controller
             $allow = $signature == $hash?:false;
         }
         if ($allow) {
+            // 先给shell脚本执行权限 chmod +x laravel.sh
+            $shellPath = '/root/project/shell/laravel.sh';
             $basePath =base_path();
-            $command = "sudo /usr/bin/bash /root/blog.sh update {$basePath} >> /data/wwwlogs/lablog_pull.log 2>&1 &";
+            $command = "sudo /usr/bin/bash {$shellPath} update {$basePath} >> /data/wwwlogs/lablog_pull.log 2>&1 &";
             exec($command ,$log, $status);
             if ($status)
                 return response()->json(['code' => 403,'msg' => 'permission denied','data' => null]);

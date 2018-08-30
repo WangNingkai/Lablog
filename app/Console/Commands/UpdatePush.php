@@ -37,8 +37,10 @@ class UpdatePush extends Command
      */
     public function handle()
     {
+        // 先给shell脚本执行权限 chmod +x laravel.sh
+        $shellPath = '/root/project/shell/laravel.sh';
         $basePath =base_path();
-        $command = "sudo /usr/bin/bash /root/blog.sh update {$basePath} >> /data/wwwlogs/lablog_pull.log 2>&1 &";
+        $command = "sudo /usr/bin/bash {$shellPath} update {$basePath} >> /data/wwwlogs/lablog_pull.log 2>&1 &";
         $this->info('[' . date('Y-m-d H:i:s', time()) . '] =====执行命令=====');
         $process = new Process($command);
         $process ->run();
