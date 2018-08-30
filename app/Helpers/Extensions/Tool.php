@@ -4,6 +4,7 @@ namespace App\Helpers\Extensions;
 use App\Jobs\SendEmail;
 use App\Models\Article;
 use App\Models\Subscribe;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
 use App\Events\OperationEvent;
@@ -43,8 +44,9 @@ class Tool
      * @param string $name 用户名
      * @param string $content 内容
      * @param string $url 链接
+     * @param int $delay       延迟时间
      */
-    public static function pushMessage($who,$name,$content,$url)
+    public static function pushMessage($who,$name,$content,$url,$delay = 1)
     {
         $param = [
             'email' => $who,
@@ -56,7 +58,7 @@ class Tool
                 'url' => $url
             ]
         ];
-        SendEmail::dispatch($param)->onConnection('beanstalkd');
+        SendEmail::dispatch($param)->delay(Carbon::now()->addMinutes($delay))->onQueue('lablog')->onConnection('beanstalkd');
     }
 
     /**
@@ -64,8 +66,9 @@ class Tool
      *
      * @param string $content  内容
      * @param string $url      链接
+     * @param int $delay       延迟时间
      */
-    public static function pushSubscribe($content = '',$url = '')
+    public static function pushSubscribe($content = '',$url = '',$delay = 5)
     {
         $emails = Subscribe::query()->pluck('email');
         foreach ( $emails as $email ) {
@@ -79,7 +82,7 @@ class Tool
                     'url' => $url,
                 ]
             ];
-            SendEmail::dispatch($param)->onConnection('beanstalkd');;
+            SendEmail::dispatch($param)->delay(Carbon::now()->addMinutes($delay))->onQueue('lablog')->onConnection('beanstalkd');
         }
     }
 
