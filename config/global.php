@@ -10,5 +10,5 @@ return [
     'bd_tongji_id' => env('BD_TONGJI_ID'),
     'google_analytics_id' => env('GOOGLE_ANALYTICS_ID'),
     'cnzz_analytics_id' => env('CNZZ_ANALYTICS_ID'),
-    'qrcode_token' => env('API_TOKEN'),
+    'api_token' => env('API_TOKEN'),
 ];

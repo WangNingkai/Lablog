@@ -185,7 +185,6 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
         Route::get('manage', 'OperationLogsController@manage')->name('operation_logs_manage');
         Route::post('destroy', 'OperationLogsController@destroy')->name('operation_logs_destroy');
     });
-    Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
     // 图床
     Route::group(['prefix' => 'image'],function(){
         Route::get('list', 'ImageController@list')->name('image_list');
