@@ -35,7 +35,7 @@ Route::group(['namespace' => 'Auth'], function () {
 });
 
 // 前台
-Route::group(['namespace' => 'Home', 'middleware' => ['check.status']], function () {
+Route::group(['namespace' => 'Home', 'middleware' => ['check_status']], function () {
     Route::get('/', 'HomeController@index')->name('home');
     Route::get('about', 'HomeController@about')->name('about');
     Route::get('article/{id}', 'HomeController@article')->name('article');
@@ -51,7 +51,7 @@ Route::group(['namespace' => 'Home', 'middleware' => ['check.status']], function
     Route::get('search', 'HomeController@search')->name('search');
 });
 // 后台
-Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['auth:web','check.timeout','check.permission']], function () {
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['auth:web','check_timeout','check_permission']], function () {
     // 权限管理
     Route::group(['namespace' => 'Permission'],function(){
         // 角色
@@ -198,7 +198,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
     });
 });
 // 测试路由
-Route::get('/test', function () {
-    return '测试页面';
-})->name('test');
+//Route::get('/test', function () {
+//    return '测试页面';
+//})->name('test');
 

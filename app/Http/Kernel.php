@@ -59,8 +59,8 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'check.status' => \App\Http\Middleware\CheckStatus::class,
-        'check.timeout' => \App\Http\Middleware\CheckTimeout::class,
-        'check.permission' => \App\Http\Middleware\CheckPermission::class,
+        'check_status' => \App\Http\Middleware\CheckStatus::class,
+        'check_timeout' => \App\Http\Middleware\CheckTimeout::class,
+        'check_permission' => \App\Http\Middleware\CheckPermission::class,
     ];
 }
