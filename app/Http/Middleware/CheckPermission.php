@@ -20,6 +20,8 @@ class CheckPermission
      */
     public function handle($request, Closure $next)
     {
+        if (!UserExt::currentUser())
+            return redirect()->route('login');
         # 1)判断用户状态 2)判断用户权限
         if (UserExt::getAttribute('status') == User::FORBID) {
             UserExt::logout();

@@ -14,11 +14,12 @@ class UserExt
 {
     /**
      * 获取登录用户
-     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|bool
      */
     public static function currentUser()
     {
-        $uid = Auth::id();
+        $uid = Auth::id()?:null;
+        if (!$uid) return false;
         return User::query()->find($uid);
     }
 
