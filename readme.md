@@ -8,6 +8,7 @@ Lablog
 - 4.集成优秀的Markdown文本编辑器Editor.md；
 - 5.后台基于路由搭建完整的权限控制系统，支持多后台用户。
 - 6.后台集成SM.MS上传接口，方便用户上传图片
+- 7.后台日志查看
 
 ### 链接
 - 博客：[https://imwnk.cn](https://imwnk.cn)
@@ -30,12 +31,18 @@ chown -R www:www *
 
 ### 注意事项
 
-##### 因部分扩展要求需要安装相应php扩展
+##### 由于部分扩展的要求，需要安装以下php扩展
 
 - `FileInfo`扩展
 - `Imagick`扩展
 - `GD库`扩展
 - `Redis`扩展
+
+##### 可选扩展
+
+- `Beanstalkd`
+
+
 
 ##### 博客加入push自动更新部署脚本，使用webhooks具体路由
 
