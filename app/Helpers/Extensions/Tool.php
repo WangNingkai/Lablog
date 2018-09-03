@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
 use App\Events\OperationEvent;
+use Intervention\Image\Facades\Image;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use WangNingkai\SimpleDictionary\SimpleDictionary;
 use HyperDown\Parser;
@@ -116,7 +117,7 @@ class Tool
         $omit = mb_strlen($str) >= $length ? '...' : '';
         return $suffix ? $slice . $omit : $slice;
     }
-    
+
     /**
      * 文件大小转换
      *
@@ -447,5 +448,40 @@ class Tool
         $rank = $score - 1 / (pow(($t + 2),1.8));
         $article->rank = $rank;
         $article->save();
+    }
+
+    /**
+     * 给图片添加图片水印
+     *
+     * @param string $file 图片地址
+     * @param string $waterImage 水印图片地址
+     * @return mixed
+     */
+    public static function addImgWater($file, $waterImage) {
+        $image = Image::make($file);
+        $image->insert($waterImage, 'bottom-right',10,15);
+        $image->save($file);
+        return $image;
+    }
+
+    /**
+     * 给图片添加文字水印
+     *
+     * @param string $file 图片地址
+     * @param string $text 水印文字
+     * @param string $color 水印颜色
+     * @return mixed
+     */
+    public static function addTextWater($file, $text, $color = '#0B94C1') {
+        $image = Image::make($file);
+        $image->text($text, $image->width()-20, $image->height()-30, function($font) use($color) {
+            $font->file(public_path('vendor/editor.md/fonts/msyh.ttf'));
+            $font->size(20);
+            $font->color($color);
+            $font->align('right');
+            $font->valign('bottom');
+        });
+        $image->save($file);
+        return $image;
     }
 }
