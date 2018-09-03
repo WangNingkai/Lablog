@@ -1037,6 +1037,17 @@ $(function () {
             return false
         }
     });
+    $("#pushSelected").on("click", function () {
+        ids = new Array();
+        $("input[name='sid']:checked").each(function () {
+            ids.push($(this).val())
+        });
+        if (ids.length != 0) {
+            $("#pushSelectedUser").val(ids);
+            $("#subscribe-modal").modal("show");
+
+        }
+    });
 });
 
 function selectAll(id) {
@@ -1059,4 +1070,4 @@ function jumpTo(title, msg, url, type) {
             window.location.href = url
         }
     })
-};
+}

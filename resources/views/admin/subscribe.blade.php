@@ -31,6 +31,7 @@
                                             <form action="{{ route('subscribe_push') }}" method="post">
                                                 <div class="modal-body">
                                                     @csrf
+                                                    <input type="hidden" value="0" id="pushSelectedUser">
                                                     <div class="form-group {{$errors->has('push_method')?'has-error':''}}">
                                                         <label>推送方式：</label>
                                                         <div class="radio">
@@ -126,6 +127,7 @@
                                 <a href="javascript:void(0)" class="btn btn-primary btn-flat" onclick="selectEmpty('sid')">全不选</a>
                                 <a href="javascript:void(0)" class="btn btn-primary btn-flat" onclick="selectReverse('sid')">反选</a>
                                 <a href="javascript:void(0)" class="btn btn-danger btn-flat" id="delSelectedSubscribes">删除选定</a>
+                                <a href="javascript:void(0)" class="btn btn-danger btn-flat" id="pushSelected">推送选定用户</a>
                             </div>
                             {{ $subscribes->links('vendor.pagination.adminlte') }}
                         </div>
