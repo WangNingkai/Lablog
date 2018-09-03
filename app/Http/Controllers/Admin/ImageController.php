@@ -31,6 +31,7 @@ class ImageController extends Controller
     public function upload()
     {
         $rule = ['smfile' => 'required|max:5096|image'];
+        // 上传加水印
         $result = Tool::uploadFile('smfile',$rule,'uploads/tmp/');
         $file = $result['status_code'] == 200 ? $result['data'] : null;
         $file['path'] = public_path( $file['path']).$file['new_name'];

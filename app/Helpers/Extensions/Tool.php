@@ -236,6 +236,7 @@ class Tool
         if (!$file->move($path, $newName)) {
             return ['status_code' => 500, 'message' => '保存文件失败'];
         }
+        // 图片自动加水印设置
         return ['status_code' => 200, 'message' => '上传成功', 'data' => ['old_name' => $oldName, 'new_name' => $newName, 'path' => trim($path, '.')]];
     }
 
