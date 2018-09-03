@@ -35,7 +35,7 @@ class ImageController extends Controller
         $file = $result['status_code'] == 200 ? $result['data'] : null;
         $file['path'] = public_path( $file['path']).$file['new_name'];
         // 上传加水印
-        add_image_water($file['path'],config('editor.imageWaterPath'));
+        Tool::addImgWater($file['path'],config('editor.imageWaterPath'));
         try {
             $response = $this->uploadToSM($file);
             @unlink($file['path']);
