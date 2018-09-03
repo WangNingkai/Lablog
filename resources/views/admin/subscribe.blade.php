@@ -31,7 +31,7 @@
                                             <form action="{{ route('subscribe_push') }}" method="post">
                                                 <div class="modal-body">
                                                     @csrf
-                                                    <div class="form-group {{$errors->has('push_time')?'has-error':''}}">
+                                                    <div class="form-group {{$errors->has('push_method')?'has-error':''}}">
                                                         <label>推送方式：</label>
                                                         <div class="radio">
                                                             <label class="i-checks">
@@ -41,8 +41,8 @@
                                                                 <input type="radio" name="push_method" value="1" id="push_delay"> &nbsp; 定时推送
                                                             </label>
                                                         </div>
-                                                        @if ($errors->has('push_time'))
-                                                            <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('push_time') }}</strong></span>
+                                                        @if ($errors->has('push_method'))
+                                                            <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('push_method') }}</strong></span>
                                                         @endif
                                                     </div>
                                                     <div class="form-group" id="push_time" style="display: none">
@@ -161,9 +161,9 @@
                     swal('定时推送开始时间必须大于当前时间', ':(', 'error')
                 }
             });
-            let push_method =$("input[type=radio][name=push_method]");
             // 默认立即推送选中
             $("input[type=radio][name=push_method]#push_now").iCheck('check');
+            push_method =$("input[type=radio][name=push_method]");
             push_method.on('change',function() {
                 if (this.value == '0') {
                     $("div#push_time").hide();
