@@ -62,7 +62,7 @@ class SubscribeController extends Controller
         $content = $request->get('content');
         $method = $request->get('push_method');
         $push_time = $request->get('push_time');
-        if (blank($content) or !in_array([Subscribe::PUSH_NOW,Subscribe::PUSH_DELAY],$method) or empty($push_time)) {
+        if (blank($content) or !in_array(intval($method),[Subscribe::PUSH_NOW,Subscribe::PUSH_DELAY]) or empty($push_time)) {
             Tool::showMessage('请按要求填写相关内容',false);
             return redirect()->back();
         }

@@ -46,7 +46,7 @@ class Tool
      * @param string $url 链接
      * @param int $delay       延迟时间
      */
-    public static function pushMessage($who,$name,$content,$url,$delay = 1)
+    public static function pushMessage($who,$name,$content,$url,$delay = 60)
     {
         $param = [
             'email' => $who,
@@ -58,7 +58,7 @@ class Tool
                 'url' => $url
             ]
         ];
-        SendEmail::dispatch($param)->delay(Carbon::now()->addMinutes($delay))->onQueue('lablog')->onConnection('beanstalkd');
+        SendEmail::dispatch($param)->delay(Carbon::now()->addSeconds($delay))->onQueue('lablog')->onConnection('beanstalkd');
     }
 
     /**
@@ -68,7 +68,7 @@ class Tool
      * @param string $url      链接
      * @param int $delay       延迟时间
      */
-    public static function pushSubscribe($content = '',$url = '',$delay = 5)
+    public static function pushSubscribe($content = '',$url = '',$delay = 300)
     {
         $emails = Subscribe::query()->pluck('email');
         foreach ( $emails as $email ) {
@@ -82,7 +82,7 @@ class Tool
                     'url' => $url,
                 ]
             ];
-            SendEmail::dispatch($param)->delay(Carbon::now()->addMinutes($delay))->onQueue('lablog')->onConnection('beanstalkd');
+            SendEmail::dispatch($param)->delay(Carbon::now()->addSeconds($delay))->onQueue('lablog')->onConnection('beanstalkd');
         }
     }
 
