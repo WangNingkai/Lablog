@@ -31,10 +31,11 @@ class ImageController extends Controller
     public function upload()
     {
         $rule = ['smfile' => 'required|max:5096|image'];
-        // 上传加水印
         $result = Tool::uploadFile('smfile',$rule,'uploads/tmp/');
         $file = $result['status_code'] == 200 ? $result['data'] : null;
         $file['path'] = public_path( $file['path']).$file['new_name'];
+        // 上传加水印
+        add_image_water($file['path'],config('editor.imageWaterPath'));
         try {
             $response = $this->uploadToSM($file);
             @unlink($file['path']);
