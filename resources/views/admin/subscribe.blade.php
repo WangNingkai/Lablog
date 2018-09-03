@@ -2,7 +2,7 @@
 @section('title','控制台 - 订阅管理')
 @section('css')
     {!! icheck_css() !!}
-    <link href="https://lib.baomitu.com/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
+    <link href="{{ asset('adminlte/plugins/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet">
 @stop
 @section('content')
     <div class="content-wrapper">
@@ -45,7 +45,7 @@
                                                             <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('push_time') }}</strong></span>
                                                         @endif
                                                     </div>
-                                                    <div class="form-group push_time">
+                                                    <div class="form-group push_time" style="display: none">
                                                         <label>推送时间：</label>
                                                         <div class="input-group">
                                                             <div class="input-group-addon">
@@ -137,8 +137,8 @@
 @stop
 @section('js')
     {!! icheck_js() !!}
-    <script src="https://lib.baomitu.com/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
-    <script src="https://lib.baomitu.com/bootstrap-datepicker/1.8.0/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+    <script src="{{ asset('adminlte/plugins/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js') }}"></script>
+    <script src="{{ asset('adminlte/plugins/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.zh-CN.js') }}"></script>
     <script>
         $(function () {
             $(".i-checks").iCheck({
