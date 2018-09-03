@@ -2,6 +2,7 @@
 @section('title','控制台 - 订阅管理')
 @section('css')
     {!! icheck_css() !!}
+    <link href="https://lib.baomitu.com/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
 @stop
 @section('content')
     <div class="content-wrapper">
@@ -30,6 +31,30 @@
                                             <form action="{{ route('subscribe_push') }}" method="post">
                                                 <div class="modal-body">
                                                     @csrf
+                                                    <div class="form-group {{$errors->has('push_time')?'has-error':''}}">
+                                                        <label>推送方式：</label>
+                                                        <div class="radio">
+                                                            <label class="i-checks">
+                                                                <input type="radio" name="push_method" value="0" id="push_now" > &nbsp; 立即推送
+                                                            </label>
+                                                            <label class="i-checks">
+                                                                <input type="radio" name="push_method" value="1" id="push_delay"> &nbsp; 定时推送
+                                                            </label>
+                                                        </div>
+                                                        @if ($errors->has('push_time'))
+                                                            <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('push_time') }}</strong></span>
+                                                        @endif
+                                                    </div>
+                                                    <div class="form-group push_time">
+                                                        <label>推送时间：</label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-addon">
+                                                                <i class="fa fa-calendar"></i>
+                                                            </div>
+                                                            <input type="text" readonly class="form-control date" id="datetimepicker" name="push_time">
+                                                        </div>
+                                                        <!-- /.input group -->
+                                                    </div>
                                                     <div class="form-group {{$errors->has('content')?'has-error':''}}">
                                                         <label for="">订阅消息：</label>
                                                         <textarea class="form-control" rows="5" name="content" placeholder="输入 ..." style="resize: none;" required></textarea>
@@ -112,11 +137,39 @@
 @stop
 @section('js')
     {!! icheck_js() !!}
+    <script src="https://lib.baomitu.com/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://lib.baomitu.com/bootstrap-datepicker/1.8.0/locales/bootstrap-datepicker.zh-CN.min.js"></script>
     <script>
         $(function () {
             $(".i-checks").iCheck({
                 checkboxClass: "icheckbox_square-blue",
                 radioClass: "iradio_square-blue",
+            });
+            $('.date').datetimepicker({
+                language: 'zh-CN',
+                format: 'yyyy-mm-dd hh:ii ',
+                pickerPosition: "bottom-left",
+                todayBtn: 1,
+                todayHighlight : true,
+                minuteStep: 1,
+                initialDate: new Date(),
+                startDate:new Date(),
+                endDate: new Date(new Date().getTime() + 24 * 60 * 60 *3000),
+                autoclose: true,//选中自动关闭
+            }).on('changeDate', function(ev){
+                if(ev.date.valueOf() < (new Date()).valueOf()){
+                    swal('定时推送开始时间必须大于当前时间', ':(', 'error')
+                }
+            });
+            let push_method =$("input[type=radio][name=push_method]");
+            // 默认立即推送选中
+            $("input[type=radio][name=push_method]#push_now").iCheck('check');
+            push_method.on('change',function() {
+                if (this.value == '0') {
+                    $("div#push_time").hide();
+                }else if (this.value == '1') {
+                    $("div#push_time").show();
+                }
             });
         });
     </script>
