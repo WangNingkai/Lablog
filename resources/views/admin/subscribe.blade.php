@@ -164,7 +164,7 @@
             // 默认立即推送选中
             $("input[type=radio][name=push_method]#push_now").iCheck('check');
             push_method =$("input[type=radio][name=push_method]");
-            push_method.on('change',function() {
+            push_method.on('click',function() {
                 if (this.value == '0') {
                     $("div#push_time").hide();
                 }else if (this.value == '1') {
