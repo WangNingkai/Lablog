@@ -45,7 +45,7 @@
                                                             <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('push_time') }}</strong></span>
                                                         @endif
                                                     </div>
-                                                    <div class="form-group push_time" style="display: none">
+                                                    <div class="form-group" id="push_time" style="display: none">
                                                         <label>推送时间：</label>
                                                         <div class="input-group">
                                                             <div class="input-group-addon">
