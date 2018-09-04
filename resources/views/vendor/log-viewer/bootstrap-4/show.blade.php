@@ -96,7 +96,7 @@
                 @if ($entries->hasPages())
                     <div class="card-header">
                         <span class="badge badge-info float-right">
-                            1 {!! $entries->currentPage() !!} / {!! $entries->lastPage() !!}
+                            {!! $entries->currentPage() !!} / {!! $entries->lastPage() !!}
                         </span>
                     </div>
                 @endif
