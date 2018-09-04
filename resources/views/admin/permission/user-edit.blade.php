@@ -1,8 +1,5 @@
 @extends('layouts.backend')
 @section('title','控制台 - 用户详情')
-@section('before_css')
-    {!! select2_css() !!}
-@stop
 @section('content')
     <div class="content-wrapper">
         <section class="content-header">
@@ -77,7 +74,4 @@
             </div>
         </section>
     </div>
-@stop
-@section('js')
-    {!! select2_js() !!}
 @stop

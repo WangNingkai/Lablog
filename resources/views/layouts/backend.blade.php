@@ -14,14 +14,17 @@
     <!-- Ionicons -->
     <link rel="stylesheet" href="{{asset('adminlte/bower_components/Ionicons/css/ionicons.min.css')}}">
     <!-- Theme style -->
-    @yield('before_css')
+    <link href="https://lib.baomitu.com/select2/4.0.5/css/select2.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('adminlte/dist/css/AdminLTE.min.css')}}">
     <link rel="stylesheet" href="{{asset('adminlte/dist/css/skins/skin-blue.min.css')}}">
     <!-- OTHER stylesheet -->
-    {!! icheck_css() !!}
-    {!! pace_css('white') !!}
-    {!! sweetalert2_css() !!}
-@yield('css')
+    <link href="https://lib.baomitu.com/iCheck/1.0.2/skins/all.css" rel="stylesheet">
+    <link href="https://lib.baomitu.com/pace/1.0.2/themes/white/pace-theme-flash.min.css" rel="stylesheet">
+    <link href="https://lib.baomitu.com/limonte-sweetalert2/7.21.1/sweetalert2.min.css" rel="stylesheet">
+    <link href="{{ asset('adminlte/plugins/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet">
+    <link href="https://lib.baomitu.com/datatables/1.10.16/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="{{asset('backend.custom.css')}}" rel="stylesheet">
+    @yield('css')
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- 警告：Respond.js 不支持 file:// 方式查看（即本地方式查看）-->
     <!--[if lt IE 9]>
@@ -199,10 +202,17 @@
 <script src="{{asset('adminlte/dist/js/adminlte.min.js')}}"></script>
 <!-- OTHER JS SCRIPTS -->
 <script left="90%" bottom="5%" text="返回顶部" src="{{asset('js/x-return-top.min.js')}}"></script>
-{!! pace_js() !!}
-{!! sweetalert2_js() !!}
-{!! validate_js() !!}
-{!! icheck_js() !!}
+<script src="https://lib.baomitu.com/pace/1.0.2/pace.min.js"></script>
+<script src="https://lib.baomitu.com/limonte-sweetalert2/7.21.1/sweetalert2.min.js"></script>
+<script src="https://lib.baomitu.com/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+<script src="https://lib.baomitu.com/jquery-validate/1.17.0/localization/messages_zh.min.js"></script>
+<script src="https://lib.baomitu.com/iCheck/1.0.2/icheck.min.js"></script>
+<script src="https://lib.baomitu.com/select2/4.0.5/js/select2.full.min.js"></script>
+<script src="https://lib.baomitu.com/select2/4.0.5/js/i18n/zh-CN.js"></script>
+<script src="{{ asset('adminlte/plugins/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.zh-CN.js') }}"></script>
+<script src="https://lib.baomitu.com/datatables/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://lib.baomitu.com/datatables/1.10.16/js/dataTables.bootstrap.min.js"></script>
 @include('vendor.message')
 @yield('js')
 <script src="{{asset('js/validator.js')}}"></script>

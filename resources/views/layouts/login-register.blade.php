@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="{{asset('adminlte/dist/css/skins/_all-skins.min.css')}}">
     <!-- iCheck -->
     <link rel="stylesheet" href="{{asset('adminlte/plugins/iCheck/square/blue.css')}}">
-    {!! sweetalert2_css() !!}
+    <link href="https://lib.baomitu.com/limonte-sweetalert2/7.21.1/sweetalert2.min.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- 警告：Respond.js 不支持 file:// 方式查看（即本地方式查看）-->
@@ -45,7 +45,7 @@
 <script src="{{asset('adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 <!-- iCheck -->
 <script src="{{asset('adminlte/plugins/iCheck/icheck.min.js')}}"></script>
-{!! sweetalert2_js() !!}
+<script src="https://lib.baomitu.com/limonte-sweetalert2/7.21.1/sweetalert2.min.js"></script>
 <script>
     $(function () {
         $('input').iCheck({

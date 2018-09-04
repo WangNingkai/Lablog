@@ -1,8 +1,5 @@
 @extends('layouts.backend')
 @section('title','控制台 - 菜单编辑')
-@section('before_css')
-    {!! select2_css() !!}
-@stop
 @section('content')
     <div class="content-wrapper">
         <section class="content-header">
@@ -154,7 +151,6 @@
     </div>
 @stop
 @section('js')
-    {!! select2_js() !!}
     <script>
         $(function () {
             let type_empty = "{{ \App\Models\Nav::TYPE_EMPTY }}";
@@ -186,5 +182,4 @@
             });
         });
     </script>
-
 @stop

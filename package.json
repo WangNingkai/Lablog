@@ -21,6 +21,11 @@
     },
     "dependencies": {
         "sweetalert2": "^7.26.13",
-        "admin-lte": "^2.4.8"
+        "admin-lte": "^2.4.8",
+        "fancybox":"^3.0.1",
+        "highlight.js": "^9.12.0",
+        "social-share.js":"^1.0.16",
+        "html5shiv":"^3.7.3",
+        "respond":"^0.9.0"
     }
 }

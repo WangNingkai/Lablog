@@ -1,7 +1,54 @@
 $(function () {
+    Date.prototype.format = function (format) {
+        var date = {
+            "M+": this.getMonth() + 1,
+            "d+": this.getDate(),
+            "h+": this.getHours(),
+            "m+": this.getMinutes(),
+            "s+": this.getSeconds(),
+            "q+": Math.floor((this.getMonth() + 3) / 3),
+            "S": this.getMilliseconds()
+        };
+        if (/(y+)/i.test(format)) {
+            format = format.replace(RegExp.$1, (this.getFullYear() + '').substr(4 - RegExp.$1.length));
+        }
+        for (var k in date) {
+            if (new RegExp("(" + k + ")").test(format)) {
+                format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? date[k] : ("00" + date[k]).substr(("" + date[k]).length));
+            }
+        }
+        return format;
+    };
     $(".i-checks").iCheck({
         checkboxClass: "icheckbox_square-blue",
         radioClass: "iradio_square-blue",
+    });
+    $('.date').datetimepicker({
+        language: 'zh-CN',
+        format: 'yyyy-mm-dd hh:ii ',
+        pickerPosition: "bottom-left",
+        todayBtn: 1,
+        todayHighlight : true,
+        minuteStep: 1,
+        initialDate: new Date(),
+        startDate:new Date(),
+        endDate: new Date(new Date().getTime() + 24 * 60 * 60 *3000),
+        autoclose: true,//选中自动关闭
+    }).on('changeDate', function(ev){
+        if(ev.date.valueOf() < (new Date()).valueOf()){
+            swal('定时推送开始时间必须大于当前时间', ':(', 'error')
+        }
+    });
+    // 默认立即推送选中
+    $("input[type=radio][name=push_method]#push_now").iCheck('check');
+    $("input[type=text][name=push_time]").val(new Date().format("yyyy-MM-dd hh:mm"));
+    push_method =$("input[type=radio][name=push_method]");
+    push_method.on('ifChanged',function() {
+        if (this.value == '0') {
+            $("div#push_time").hide();
+        }else if (this.value == '1') {
+            $("div#push_time").show();
+        }
     });
     $(".editTag").on("click", function () {
         $('#editTagForm').removeAttr('style');

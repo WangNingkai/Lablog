@@ -1,12 +1,5 @@
 @extends('layouts.backend')
 @section('title','控制台 - 单页管理')
-@section('css')
-    <style>
-        .tag {
-            margin: .2em
-        }
-    </style>
-@stop
 @section('content')
     <div class="content-wrapper">
         <section class="content-header">

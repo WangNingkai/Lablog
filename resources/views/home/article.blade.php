@@ -2,11 +2,6 @@
 @section('title', $article->title)
 @section('keywords', $article->keywords)
 @section('description', $article->description)
-@section('css')
-    {!! social_css() !!}
-    {!! highlight_css() !!}
-    {!! fancybox_css() !!}
-@stop
 @section('content')
     <div class="col-md-8">
         <div class="box box-solid">
@@ -149,16 +144,11 @@
                         </div>
                     </div>
                 @endif
-
             </div>
-            <!-- /.box-body -->
         </div>
     </div>
 @stop
 @section('js')
-    {!! social_js() !!}
-    {!! highlight_js() !!}
-    {!! fancybox_js() !!}
     <script>
         $(function () {
             $("pre code").each(function(i, block) {

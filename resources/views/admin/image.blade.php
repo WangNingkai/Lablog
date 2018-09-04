@@ -1,7 +1,6 @@
 @extends('layouts.backend')
 @section('title','控制台 - 图床管理')
 @section('css')
-    {!! datatables_css() !!}
     {!! fancybox_css() !!}
     <link href="https://cdn.bootcss.com/bootstrap-fileinput/4.4.8/css/fileinput.min.css" rel="stylesheet">
 @stop
@@ -123,7 +122,6 @@
     </div>
 @stop
 @section('js')
-    {!! datatables_js() !!}
     {!! fancybox_js() !!}
     <script src="https://cdn.bootcss.com/bootstrap-fileinput/4.4.8/js/fileinput.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap-fileinput/4.4.8/js/locales/zh.min.js"></script>

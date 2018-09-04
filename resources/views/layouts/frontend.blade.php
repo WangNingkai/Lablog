@@ -18,10 +18,13 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('adminlte/dist/css/AdminLTE.min.css')}}">
     <link rel="stylesheet" href="{{asset('adminlte/dist/css/skins/_all-skins.min.css')}}">
-    <link href="{{asset('css/frontend.custome.css')}}" rel="stylesheet">
-{!! sweetalert2_css() !!}
-{!! pace_css('black') !!}
-@yield('css')
+    <link href="https://lib.baomitu.com/pace/1.0.2/themes/black/pace-theme-flash.min.css" rel="stylesheet">
+    <link href="https://lib.baomitu.com/limonte-sweetalert2/7.21.1/sweetalert2.min.css" rel="stylesheet">
+    <link href="https://lib.baomitu.com/highlight.js/9.12.0/styles/atom-one-dark.min.css" rel="stylesheet">
+    <link href="https://lib.baomitu.com/fancybox/3.3.5/jquery.fancybox.min.css" rel="stylesheet">
+    <link href="https://lib.baomitu.com/social-share.js/1.0.16/css/share.min.css" rel="stylesheet">
+    <link href="{{asset('css/frontend.custom.css')}}" rel="stylesheet">
+    @yield('css')
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- 警告：Respond.js 不支持 file:// 方式查看（即本地方式查看）-->
     <!--[if lt IE 9]>
@@ -236,8 +239,12 @@
 <script src="{{asset('adminlte/dist/js/adminlte.min.js')}}"></script>
 <!-- OTHER JS SCRIPTS -->
 <script left="90%" bottom="5%" text="返回顶部" src="{{asset('js/x-return-top.min.js')}}"></script>
-{!! pace_js() !!}
-{!! sweetalert2_js() !!}
+<script src="https://lib.baomitu.com/pace/1.0.2/pace.min.js"></script>
+<script src="https://lib.baomitu.com/limonte-sweetalert2/7.21.1/sweetalert2.min.js"></script>
+<script src="https://lib.baomitu.com/social-share.js/1.0.16/js/social-share.min.js"></script>
+<script src="https://lib.baomitu.com/fancybox/3.3.5/jquery.fancybox.min.js"></script>
+<script src="https://lib.baomitu.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>';
 @include('vendor.message')
 @yield('js')
 <script>

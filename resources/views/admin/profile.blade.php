@@ -2,23 +2,6 @@
 @section('title','控制台 - 个人信息')
 @section('css')
     <link href="https://cdn.bootcss.com/Dropify/0.2.2/css/dropify.min.css" rel="stylesheet">
-    <style>
-        .hr-line-dashed {
-            border-top: 1px dashed #e7eaec;
-            color: #fff;
-            background-color: #fff;
-            height: 1px;
-            margin: 20px 0
-        }
-        .avatar-view {
-            height: 100px;
-            width: 100px;
-            border: 3px solid #fff;
-            border-radius: 50px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, .15);
-            margin: 0 auto;
-        }
-    </style>
 @stop
 @section('content')
     <div class="content-wrapper">
