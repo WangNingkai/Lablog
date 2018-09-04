@@ -18,8 +18,9 @@
     <link rel="stylesheet" href="{{asset('adminlte/dist/css/AdminLTE.min.css')}}">
     <link rel="stylesheet" href="{{asset('adminlte/dist/css/skins/skin-blue.min.css')}}">
     <!-- OTHER stylesheet -->
-{!! pace_css('white') !!}
-{!! sweetalert2_css() !!}
+    {!! icheck_css() !!}
+    {!! pace_css('white') !!}
+    {!! sweetalert2_css() !!}
 @yield('css')
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- 警告：Respond.js 不支持 file:// 方式查看（即本地方式查看）-->
@@ -201,8 +202,18 @@
 {!! pace_js() !!}
 {!! sweetalert2_js() !!}
 {!! validate_js() !!}
-<script src="{{asset('js/validator.js')}}"></script>
+{!! icheck_js() !!}
 @include('vendor.message')
+<script>
+    $(function () {
+        $(".i-checks").iCheck({
+            checkboxClass: "icheckbox_square-blue",
+            radioClass: "iradio_square-blue",
+        });
+    });
+</script>
 @yield('js')
+<script src="{{asset('js/validator.js')}}"></script>
+<script src="{{ asset('js/admin.js') }}"></script>
 </body>
 </html>

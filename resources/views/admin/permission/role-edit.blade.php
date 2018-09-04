@@ -1,9 +1,5 @@
 @extends('layouts.backend')
 @section('title','控制台 - 角色管理')
-@section('css')
-    {!! icheck_css() !!}
-    <script></script>
-@stop
 @section('content')
     <div class="content-wrapper">
         <section class="content-header">
@@ -97,16 +93,4 @@
             </div>
         </section>
     </div>
-@stop
-@section('js')
-    {!! icheck_js() !!}
-    <script>
-        $(function () {
-            $(".i-checks").iCheck({
-                checkboxClass: "icheckbox_square-blue",
-                radioClass: "iradio_square-blue",
-            });
-        });
-    </script>
-    <script src="{{ asset('js/admin.js') }}"></script>
 @stop

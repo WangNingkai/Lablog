@@ -1,7 +1,6 @@
 @extends('layouts.backend')
 @section('title','控制台 - 单页管理')
 @section('css')
-    {!! icheck_css() !!}
     <style>
         .tag {
             margin: .2em
@@ -100,16 +99,4 @@
             </div>
         </section>
     </div>
-@stop
-@section('js')
-    {!! icheck_js() !!}
-    <script>
-        $(function () {
-            $(".i-checks").iCheck({
-                checkboxClass: "icheckbox_square-blue",
-                radioClass: "iradio_square-blue",
-            });
-        });
-    </script>
-    <script src="{{ asset('js/admin.js') }}"></script>
 @stop

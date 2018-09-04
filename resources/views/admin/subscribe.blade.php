@@ -1,7 +1,6 @@
 @extends('layouts.backend')
 @section('title','控制台 - 订阅管理')
 @section('css')
-    {!! icheck_css() !!}
     <link href="{{ asset('adminlte/plugins/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet">
 @stop
 @section('content')
@@ -138,7 +137,6 @@
     </div>
 @stop
 @section('js')
-    {!! icheck_js() !!}
     <script src="{{ asset('adminlte/plugins/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js') }}"></script>
     <script src="{{ asset('adminlte/plugins/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.zh-CN.js') }}"></script>
     <script>
@@ -163,10 +161,6 @@
                 }
                 return format;
             };
-            $(".i-checks").iCheck({
-                checkboxClass: "icheckbox_square-blue",
-                radioClass: "iradio_square-blue",
-            });
             $('.date').datetimepicker({
                 language: 'zh-CN',
                 format: 'yyyy-mm-dd hh:ii ',
@@ -196,5 +190,5 @@
             });
         });
     </script>
-    <script src="{{ asset('js/admin.js') }}"></script>
+
 @stop

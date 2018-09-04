@@ -1,7 +1,6 @@
 @extends('layouts.backend')
 @section('title','控制台 - 权限管理')
 @section('css')
-    {!! icheck_css() !!}
     <script>var editPermissionUrl = "{{route('permission_edit')}}"</script>
 @stop
 @section('content')
@@ -138,16 +137,4 @@
             </div>
         </section>
     </div>
-@stop
-@section('js')
-    {!! icheck_js() !!}
-    <script>
-        $(function () {
-            $(".i-checks").iCheck({
-                checkboxClass: "icheckbox_square-blue",
-                radioClass: "iradio_square-blue",
-            });
-        });
-    </script>
-    <script src="{{ asset('js/admin.js') }}"></script>
 @stop

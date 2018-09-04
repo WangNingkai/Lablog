@@ -1,7 +1,6 @@
 @extends('layouts.backend')
 @section('title','控制台 - 新建单页')
 @section('css')
-    {!! icheck_css() !!}
     {!! editor_css() !!}
 @stop
 @section('content')
@@ -91,16 +90,6 @@
     </div>
 @stop
 @section('js')
-    {!! icheck_js() !!}
     {!! editor_js() !!}
     {!! editor_config('editormd_id') !!}
-    <script>
-        $(function () {
-            $(".i-checks").iCheck({
-                checkboxClass: "icheckbox_square-blue",
-                radioClass: "iradio_square-blue",
-            });
-        });
-    </script>
-    <script src="{{ asset('js/admin.js') }}"></script>
 @stop

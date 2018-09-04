@@ -4,7 +4,6 @@
     {!! datatables_css() !!}
     {!! fancybox_css() !!}
     <link href="https://cdn.bootcss.com/bootstrap-fileinput/4.4.8/css/fileinput.min.css" rel="stylesheet">
-
 @stop
 @section('content')
     <div class="content-wrapper">
@@ -247,5 +246,4 @@
         });
 
     </script>
-    <script src="{{ asset('js/admin.js') }}"></script>
 @stop

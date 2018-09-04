@@ -177,5 +177,5 @@
     </div>
 @stop
 @section('js')
-    <script src="{{ asset('js/admin.js') }}"></script>
+
 @stop

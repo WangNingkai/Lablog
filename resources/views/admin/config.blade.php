@@ -1,9 +1,5 @@
 @extends('layouts.backend')
 @section('title','控制台 - 站点设置')
-@section('css')
-{!! icheck_css() !!}
-
-@stop
 @section('content')
     <div class="content-wrapper">
         <section class="content-header">
@@ -283,15 +279,4 @@
             </form>
         </section>
     </div>
-@stop
-@section('js')
-{!! icheck_js() !!}
-<script>
-    $(function () {
-        $(".i-checks").iCheck({
-            checkboxClass: "icheckbox_square-blue",
-            radioClass: "iradio_square-blue",
-        });
-    });
-</script>
 @stop

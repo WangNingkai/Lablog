@@ -4,7 +4,6 @@
     {!! select2_css() !!}
 @stop
 @section('css')
-    {!! icheck_css() !!}
     <style>
         .tag {
             margin: .2em
@@ -107,15 +106,4 @@
 @stop
 @section('js')
     {!! select2_js() !!}
-    {!! icheck_js() !!}
-    <script>
-        $(function () {
-            $(".i-checks").iCheck({
-                checkboxClass: "icheckbox_square-blue",
-                radioClass: "iradio_square-blue",
-            });
-            $('.select2').select2();
-        });
-    </script>
-    <script src="{{ asset('js/admin.js') }}"></script>
 @stop

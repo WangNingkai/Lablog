@@ -3,9 +3,6 @@
 @section('before_css')
     {!! select2_css() !!}
 @stop
-@section('css')
-    {!! icheck_css() !!}
-@stop
 @section('content')
     <div class="content-wrapper">
         <section class="content-header">
@@ -158,13 +155,8 @@
 @stop
 @section('js')
     {!! select2_js() !!}
-    {!! icheck_js() !!}
     <script>
         $(function () {
-            $(".i-checks").iCheck({
-                checkboxClass: "icheckbox_square-blue",
-                radioClass: "iradio_square-blue",
-            });
             let type_empty = "{{ \App\Models\Nav::TYPE_EMPTY }}";
             let type_menu = "{{ \App\Models\Nav::TYPE_MENU }}";
             let type_page = "{{ \App\Models\Nav::TYPE_PAGE }}";
@@ -194,5 +186,5 @@
             });
         });
     </script>
-    <script src="{{ asset('js/admin.js') }}"></script>
+
 @stop
