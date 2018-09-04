@@ -6,6 +6,7 @@ use App\Helpers\Extensions\Tool;
 use App\Models\Subscribe;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class SubscribeController extends Controller
 {
@@ -76,11 +77,13 @@ class SubscribeController extends Controller
             $push_time = strtotime($push_time);
             $time = $push_time - time();
         }
+        $user_arr = [];
         if ($target_user != 0) {
             $user_arr = explode(',', $target_user);
-            Tool::pushSubscribe($content,'',$user_arr,$time);
         }
-        Tool::pushSubscribe($content,'',[],$time);
+        Tool::pushSubscribe($content,'',$user_arr,$time);
+        // 记录日志
+        Log::info('Send Message To Subscribe',['to' => $user_arr ? : 'all', 'message' => $content]);
         Tool::showMessage('推送消息成功');
         return redirect()->back();
     }
