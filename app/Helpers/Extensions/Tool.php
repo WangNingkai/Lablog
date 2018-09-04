@@ -5,18 +5,13 @@ use App\Jobs\SendEmail;
 use App\Models\Article;
 use App\Models\Subscribe;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
 use App\Events\OperationEvent;
 use Intervention\Image\Facades\Image;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use WangNingkai\SimpleDictionary\SimpleDictionary;
 use HyperDown\Parser;
 use Jenssegers\Agent\Agent;
 use Zhuzhichao\IpLocationZh\Ip;
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException;
-use Zxing\QrReader;
 
 /**
  * 工具助手函数
