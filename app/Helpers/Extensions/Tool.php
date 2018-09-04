@@ -62,11 +62,15 @@ class Tool
      *
      * @param string $content  内容
      * @param string $url      链接
+     * @param array $target    指定用户
      * @param int $delay       延迟时间
      */
-    public static function pushSubscribe($content = '',$url = '',$delay = 300)
+    public static function pushSubscribe($content = '',$url = '',$target = [],$delay = 300)
     {
-        $emails = Subscribe::query()->pluck('email');
+        if (blank($target))
+            $emails = Subscribe::query()->pluck('email');
+        else
+            $emails = Subscribe::query()->whereIn('id',$target)->pluck('email');
         foreach ( $emails as $email ) {
             $param = [
                 'email' => $email,

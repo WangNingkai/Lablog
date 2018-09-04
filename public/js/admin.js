@@ -1045,7 +1045,6 @@ $(function () {
         if (ids.length != 0) {
             $("#pushSelectedUser").val(ids);
             $("#subscribe-modal").modal("show");
-
         }
     });
 });

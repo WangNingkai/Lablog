@@ -62,6 +62,7 @@ class SubscribeController extends Controller
         $content = $request->get('content');
         $method = $request->get('push_method');
         $push_time = $request->get('push_time');
+        $target_user = $request->get('target_user');
         if (blank($content) or !in_array(intval($method),[Subscribe::PUSH_NOW,Subscribe::PUSH_DELAY]) or empty($push_time)) {
             Tool::showMessage('请按要求填写相关内容',false);
             return redirect()->back();
@@ -75,8 +76,11 @@ class SubscribeController extends Controller
             $push_time = strtotime($push_time);
             $time = $push_time - time();
         }
-        // todo:保存订阅推送信息
-        Tool::pushSubscribe($content,'',$time);
+        if ($target_user != 0) {
+            $user_arr = explode(',', $target_user);
+            Tool::pushSubscribe($content,'',$user_arr,$time);
+        }
+        Tool::pushSubscribe($content,'',[],$time);
         Tool::showMessage('推送消息成功');
         return redirect()->back();
     }
