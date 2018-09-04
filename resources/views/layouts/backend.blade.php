@@ -204,14 +204,6 @@
 {!! validate_js() !!}
 {!! icheck_js() !!}
 @include('vendor.message')
-<script>
-    $(function () {
-        $(".i-checks").iCheck({
-            checkboxClass: "icheckbox_square-blue",
-            radioClass: "iradio_square-blue",
-        });
-    });
-</script>
 @yield('js')
 <script src="{{asset('js/validator.js')}}"></script>
 <script src="{{ asset('js/admin.js') }}"></script>

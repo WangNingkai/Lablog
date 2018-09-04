@@ -1,4 +1,8 @@
 $(function () {
+    $(".i-checks").iCheck({
+        checkboxClass: "icheckbox_square-blue",
+        radioClass: "iradio_square-blue",
+    });
     $(".editTag").on("click", function () {
         $('#editTagForm').removeAttr('style');
         tid = $(this).parent().siblings().eq(0).find("input[name=tid]").val();

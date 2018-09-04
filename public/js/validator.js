@@ -17,10 +17,9 @@ $.validator.addMethod("regex", function (value, element, params) {
     exp = new RegExp(params);
     return exp.test(value);
 }, "格式错误");
-
 $(function() {
     e = "<i class='fa fa-times-circle'></i> &nbsp;";
-    $("#createTagForm").validate({
+    $("#createTagForm,#editTagForm").validate({
         rules: {
             name: {
                 required: !0,
@@ -38,25 +37,7 @@ $(function() {
             }
         }
     });
-    $("#editTagForm").validate({
-        rules: {
-            name: {
-                required: !0,
-            },
-            flag: {
-                required: !0,
-            }
-        },
-        messages: {
-            name: {
-                required: e + "请输入标签名",
-            },
-            flag: {
-                required: e + "请输入标签标识",
-            }
-        }
-    });
-    $("#createCategoryForm").validate({
+    $("#createCategoryForm,#editCategoryForm").validate({
         rules: {
             name: {
                 required: !0,
@@ -98,51 +79,7 @@ $(function() {
             }
         }
     });
-    $("#editCategoryForm").validate({
-        rules: {
-            name: {
-                required: !0,
-            },
-            flag: {
-                required: !0,
-            },
-            keywords: {
-                required: !0,
-            },
-            description: {
-                required: !0,
-            },
-            parent_id: {
-                required: !0,
-            },
-            sort: {
-                required: !0,
-                number:true
-            }
-        },
-        messages: {
-            name: {
-                required: e + "请输入栏目名",
-            },
-            flag: {
-                required: e + "请输入栏目标识",
-            },
-            keywords: {
-                required: e + "请输入关键词",
-            },
-            description: {
-                required: e + "请输入描述",
-            },
-            parent_id: {
-                required: e + "请选择父级栏目",
-            },
-            sort: {
-                required: e + "请输入排序权重",
-                number: e + "请输入合法的数字"
-            }
-        }
-    });
-    $("#createNavForm").validate({
+    $("#createNavForm,#editNavForm").validate({
         rules: {
             name: {
                 required: !0,
@@ -180,45 +117,7 @@ $(function() {
             },
         }
     });
-    $("#editNavForm").validate({
-        rules: {
-            name: {
-                required: !0,
-            },
-            type: {
-                required: !0,
-            },
-            parent_id: {
-                required: !0,
-            },
-            sort: {
-                required: !0,
-                number: true
-            },
-            status: {
-                required: !0,
-            }
-        },
-        messages: {
-            name: {
-                required: e + "请输入菜单名",
-            },
-            type: {
-                required: e + "请输入菜单类型",
-            },
-            parent_id: {
-                required: e + "请选择父级菜单",
-            },
-            sort: {
-                required: e + "请输入排序权重",
-                number: e + "请输入合法的数字"
-            },
-            status: {
-                required: e + "请选择状态",
-            },
-        }
-    });
-    $("#createArticleForm").validate({
+    $("#createArticleForm,#editArticleForm").validate({
         rules: {
             title: {
                 required: !0,
@@ -272,61 +171,7 @@ $(function() {
             }
         }
     });
-    $("#editArticleForm").validate({
-        rules: {
-            title: {
-                required: !0,
-            },
-            tag_ids: {
-                required: !0,
-            },
-            category_id: {
-                required: !0,
-            },
-            author: {
-                required: !0,
-            },
-            content: {
-                required: !0,
-            },
-            keywords: {
-                required: !0,
-            },
-            status: {
-                required: !0,
-            },
-            allow_comment: {
-                required: !0,
-            }
-        },
-        messages: {
-            title: {
-                required: e + "请输入标签名",
-            },
-            category_id: {
-                required: e + "请选择栏目",
-            },
-            tag_ids: {
-                required: e + "请至少选择一个标签",
-            },
-            author: {
-                required: e + "请输入作者",
-            },
-            content: {
-                required: e + "请输入内容",
-            },
-            keywords: {
-                required: e + "请输入关键词",
-            },
-            status: {
-                required: e + "是否发布",
-            },
-            allow_comment: {
-                required: e + "是否允许评论",
-            }
-        }
-    });
-    $("#createPageForm").validate({
+    $("#createPageForm,#editPageForm").validate({
         rules: {
             title: {
                 required: !0,
@@ -357,38 +202,7 @@ $(function() {
             }
         }
     });
-    $("#editPageForm").validate({
-        rules: {
-            title: {
-                required: !0,
-            },
-            author: {
-                required: !0,
-            },
-            content: {
-                required: !0,
-            },
-            status: {
-                required: !0,
-            }
-
-        },
-        messages: {
-            title: {
-                required: e + "请输入标签名",
-            },
-            author: {
-                required: e + "请输入作者",
-            },
-            content: {
-                required: e + "请输入内容",
-            },
-            status: {
-                required: e + "是否发布",
-            }
-        }
-    });
-    $("#createLinkForm").validate({
+    $("#createLinkForm,#editLinkForm").validate({
         rules: {
             name: {
                 required: !0,
@@ -405,24 +219,6 @@ $(function() {
             url: {
                 required: e + "请输入友链地址",
                 url: e + "请输入正确的链接"
-            }
-        }
-    });
-    $("#editLinkForm").validate({
-        rules: {
-            name: {
-                required: !0,
-            },
-            url: {
-                required: !0,
-            }
-        },
-        messages: {
-            name: {
-                required: e + "请输入友链名",
-            },
-            url: {
-                required: e + "请输入友链地址",
             }
         }
     });
@@ -472,7 +268,7 @@ $(function() {
             }
         }
     });
-    $("#createPermissionForm").validate({
+    $("#createPermissionForm,#editPermissionForm").validate({
         rules: {
             name: {
                 required: !0,
@@ -490,25 +286,7 @@ $(function() {
             }
         }
     });
-    $("#editPermissionForm").validate({
-        rules: {
-            name: {
-                required: !0,
-            },
-            flag: {
-                required: !0,
-            }
-        },
-        messages: {
-            name: {
-                required: e + "请输入权限名称",
-            },
-            flag: {
-                required: e + "请输入权限路由",
-            }
-        }
-    });
-    $("#createRoleForm").validate({
+    $("#createRoleForm,#editRoleForm").validate({
         rules: {
             name: {
                 required: !0,
@@ -520,19 +298,7 @@ $(function() {
             }
         }
     });
-    $("#editRoleForm").validate({
-        rules: {
-            name: {
-                required: !0,
-            }
-        },
-        messages: {
-            name: {
-                required: e + "请输入角色名称",
-            }
-        }
-    });
-    $("#createUserForm").validate({
+    $("#createUserForm,#editUserForm").validate({
         rules: {
             roles: {
                 required: !0,
@@ -572,38 +338,6 @@ $(function() {
             password_confirmation: {
                 required: e + "请确认密码",
                 equalTo: e + "两次密码不一致"
-            },
-            status: {
-                required: e + "请选择状态",
-            },
-        }
-    });
-    $("#editUserForm").validate({
-        rules: {
-            roles: {
-                required: !0,
-            },
-            name: {
-                required: !0,
-            },
-            email: {
-                required: !0,
-                email: true
-            },
-            status : {
-                required: !0,
-            }
-        },
-        messages: {
-            roles: {
-                required: e + "请至少选择一个角色",
-            },
-            name: {
-                required: e + "请输入用户名",
-            },
-            email: {
-                required: e + "请输入邮箱",
-                email:  e + "请输入正确的邮箱地址"
             },
             status: {
                 required: e + "请选择状态",
