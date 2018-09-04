@@ -169,8 +169,9 @@
                         <li class="{{ \App\Helpers\Extensions\Tool::setActive('admin/permission') }}"><a href="{{ route('permission_manage') }}"><i class="fa fa-lock"></i> 权限管理</a></li>
                     </ul>
                 </li>
-                @endrole
                 <li class="{{ \App\Helpers\Extensions\Tool::setActive('admin/operation_logs/manage') }}"><a href="{{ route('operation_logs_manage') }}"><i class="fa fa-history"></i> <span> 日志查看</span></a></li>
+                <li class=""><a href="{{ url('admin/debug-log') }}"><i class="fa fa-bug"></i> <span> 调试日志</span></a></li>
+                @endrole
                 <li class="{{ \App\Helpers\Extensions\Tool::setActive('admin/image/list') }}"><a href="{{ route('image_list') }}"><i class="fa fa-image"></i> <span>图床</span></a></li>
             </ul>
         </section>
