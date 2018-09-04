@@ -3,9 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="LogViewer">
-    <meta name="author" content="ARCANEDEV">
-    <title>LogViewer - Created by ARCANEDEV</title>
+    <meta name="description" content="调试日志">
+    <title>调试日志</title>
     {{-- Styles --}}
     <link href="https://lib.baomitu.com/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -215,7 +214,7 @@
 <body>
     <nav class="navbar navbar-expand-md navbar-dark sticky-top bg-dark p-0">
         <a href="{{ route('log-viewer::dashboard') }}" class="navbar-brand mr-0">
-            <i class="fa fa-fw fa-book"></i> LogViewer
+            <i class="fa fa-fw fa-book"></i> 调试日志
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -224,12 +223,12 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item {{ Route::is('log-viewer::dashboard') ? 'active' : '' }}">
                     <a href="{{ route('log-viewer::dashboard') }}" class="nav-link">
-                        <i class="fa fa-dashboard"></i> Dashboard
+                        <i class="fa fa-dashboard"></i> 控制台
                     </a>
                 </li>
                 <li class="nav-item {{ Route::is('log-viewer::logs.list') ? 'active' : '' }}">
                     <a href="{{ route('log-viewer::logs.list') }}" class="nav-link">
-                        <i class="fa fa-archive"></i> Logs
+                        <i class="fa fa-archive"></i> 目录
                     </a>
                 </li>
             </ul>
