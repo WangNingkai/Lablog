@@ -2,10 +2,6 @@
 @section('title', $page->title)
 @section('keywords', $config['site_keywords'])
 @section('description', $config['site_description'])
-@section('css')
-    {!! highlight_css() !!}
-    {!! fancybox_css() !!}
-@stop
 @section('content')
     <div class="col-md-8">
         <div class="box box-default">
@@ -33,8 +29,6 @@
     </div>
 @stop
 @section('js')
-    {!! highlight_js() !!}
-    {!! fancybox_js() !!}
     <script>
         $(function () {
             $("pre code").each(function(i, block) {
