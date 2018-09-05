@@ -51,6 +51,114 @@ $(function () {
             $("div#push_time").show();
         }
     });
+    $('.dropify').dropify({
+        messages: {
+            'default': '点击或拖拽图片到这里',
+            'replace': '点击或拖拽图片到这里来替换图片',
+            'remove': '移除',
+            'error': '对不起，你上传的图片太大了'
+        }
+    });
+    $(".unbind-btn").on("click", function () {
+        bindType = $(this).data('type');
+        $("#bindType").val(bindType);
+        swal({
+            title: "确定解除关联吗？",
+            text: "解除后需重新关联才能登陆",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                $("#unbindForm").submit()
+            } else if (result.dismiss === swal.DismissReason.cancel) {
+                swal('已取消', ':)', 'error')
+            }
+        })
+    });
+    $('#image-list').DataTable({
+        'language': {
+            "sProcessing": "处理中...",
+            "sLengthMenu": "显示 _MENU_ 项结果",
+            "sZeroRecords": "没有匹配结果",
+            "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+            "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+            "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+            "sInfoPostFix": "",
+            "sSearch": "搜索:",
+            "sUrl": "",
+            "sEmptyTable": "表中数据为空",
+            "sLoadingRecords": "载入中...",
+            "sInfoThousands": ",",
+            "oPaginate": {
+                "sFirst": "首页",
+                "sPrevious": "上页",
+                "sNext": "下页",
+                "sLast": "末页"
+            },
+            "oAria": {
+                "sSortAscending": ": 以升序排列此列",
+                "sSortDescending": ": 以降序排列此列"
+            }
+        },
+        'paging'      : true,
+        'lengthChange': false,
+        'searching'   : false,
+        'ordering'    : true,
+        'info'        : true,
+        'autoWidth'   : false
+    });
+    $("[data-fancybox]").fancybox();
+    $(".delete-item").on("click",function(){
+        hash = $(this).attr("data-hash");
+        swal({
+            title: '确定删除吗?',
+            text: "你将删除此文件的上传地址!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '确定',
+            cancelButtonText: '取消'
+        }).then((result) => {
+            if (result.value) {
+                $.get("https://sm.ms/api/delete/"+ hash);
+                swal('已删除！','链接将会失效','success');location.reload();
+            }else if (
+                result.dismiss === swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons('已取消！',':)','error')
+            }
+        });
+    });
+    $("#clear-list").on("click",function(){
+        swal({
+            title: '确定清空吗?',
+            text: "你将清空上传历史列表!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '确定',
+            cancelButtonText: '取消'
+        }).then((result) => {
+            if (result.value) {
+                $.get("https://sm.ms/api/clear",{},
+                    function(data){
+                        console.log(data);
+                        swal('已清空！','请刷新列表','success');location.reload();
+                    },'json');
+            }else if (
+                result.dismiss === swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons('已取消！',':)','error')
+            }
+        });
+    });
     $(".editTag").on("click", function () {
         $('#editTagForm').removeAttr('style');
         tid = $(this).parent().siblings().eq(0).find("input[name=tid]").val();
@@ -1122,3 +1230,29 @@ function jumpTo(title, msg, url, type) {
         }
     })
 }
+$("#smfile").on("fileuploaded", function (event, data, previewId, index) {
+    var form = data.form,
+        files = data.files,
+        extra = data.extra,
+        response = data.response,
+        reader = data.reader;
+    if (response.code == "success") {
+        if ($("showurl").css("display")) {
+            $("#urlcode").append(response.data.url + "\n");
+            $("#htmlcode").append("&lt;img src=\"" + response.data.url + "\" alt=\"" + files[index].name + "\" title=\"" + files[index].name + "\" /&gt;" + "\n");
+            $("#bbcode").append("[img]" + response.data.url + "[/img]" + "\n");
+            $("#markdown").append("![" + files[index].name + "](" + response.data.url + ")" + "\n");
+            $("#markdownlinks").append("[![" + files[index].name + "](" + response.data.url + ")]" + "(" + response.data.url + ")" + "\n");
+            $("#deletecode").append(response.data.delete + "\n");
+
+        } else if (response.data.url) {
+            $("#showurl").show();
+            $("#urlcode").append(response.data.url + "\n");
+            $("#htmlcode").append("&lt;img src=\"" + response.data.url + "\" alt=\"" + files[index].name + "\" title=\"" + files[index].name + "\" /&gt;" + "\n");
+            $("#bbcode").append("[img]" + response.data.url + "[/img]" + "\n");
+            $("#markdown").append("![" + files[index].name + "](" + response.data.url + ")" + "\n");
+            $("#markdownlinks").append("[![" + files[index].name + "](" + response.data.url + ")]" + "(" + response.data.url + ")" + "\n");
+            $("#deletecode").append(response.data.delete + "\n");
+        }
+    }
+});

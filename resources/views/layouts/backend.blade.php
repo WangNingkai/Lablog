@@ -16,6 +16,9 @@
     <link href="https://lib.baomitu.com/pace/1.0.2/themes/white/pace-theme-flash.min.css" rel="stylesheet">
     <link href="https://lib.baomitu.com/limonte-sweetalert2/7.21.1/sweetalert2.min.css" rel="stylesheet">
     <link href="https://lib.baomitu.com/datatables/1.10.16/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="https://lib.baomitu.com/fancybox/3.3.5/jquery.fancybox.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/Dropify/0.2.2/css/dropify.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/bootstrap-fileinput/4.4.8/css/fileinput.min.css" rel="stylesheet">
     <link href="{{ asset('adminlte/plugins/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet">
     <link href="{{asset('css/backend.custom.css')}}" rel="stylesheet">
     @yield('css')
@@ -196,6 +199,10 @@
 <script src="https://lib.baomitu.com/select2/4.0.5/js/i18n/zh-CN.js"></script>
 <script src="https://lib.baomitu.com/datatables/1.10.16/js/jquery.dataTables.min.js"></script>
 <script src="https://lib.baomitu.com/datatables/1.10.16/js/dataTables.bootstrap.min.js"></script>
+<script src="https://lib.baomitu.com/fancybox/3.3.5/jquery.fancybox.min.js"></script>
+<script src="https://cdn.bootcss.com/Dropify/0.2.2/js/dropify.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-fileinput/4.4.8/js/fileinput.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-fileinput/4.4.8/js/locales/zh.min.js"></script>
 <script src="{{ asset('adminlte/plugins/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js') }}"></script>
 <script src="{{ asset('adminlte/plugins/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.zh-CN.js') }}"></script>
 <script left="90%" bottom="5%" text="返回顶部" src="{{asset('js/x-return-top.min.js')}}"></script>

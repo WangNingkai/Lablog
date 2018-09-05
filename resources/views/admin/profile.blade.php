@@ -1,8 +1,5 @@
 @extends('layouts.backend')
 @section('title','控制台 - 个人信息')
-@section('css')
-    <link href="https://cdn.bootcss.com/Dropify/0.2.2/css/dropify.min.css" rel="stylesheet">
-@stop
 @section('content')
     <div class="content-wrapper">
         <section class="content-header">
@@ -154,40 +151,4 @@
             </div>
         </div>
     </div>
-@stop
-@section('js')
-    <script src="https://cdn.bootcss.com/Dropify/0.2.2/js/dropify.min.js"></script>
-<script>
-$(function () {
-    $('.dropify').dropify({
-        messages: {
-            'default': '点击或拖拽图片到这里',
-            'replace': '点击或拖拽图片到这里来替换图片',
-            'remove': '移除',
-            'error': '对不起，你上传的图片太大了'
-        }
-    });
-    $(".unbind-btn").on("click", function () {
-        bindType = $(this).data('type');
-        $("#bindType").val(bindType);
-        swal({
-            title: "确定解除关联吗？",
-            text: "解除后需重新关联才能登陆",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "确定",
-            cancelButtonText: "取消",
-            reverseButtons: true
-        }).then((result) => {
-            if (result.value) {
-                $("#unbindForm").submit()
-            } else if (result.dismiss === swal.DismissReason.cancel) {
-                swal('已取消', ':)', 'error')
-            }
-        })
-    });
-});
-</script>
 @stop
