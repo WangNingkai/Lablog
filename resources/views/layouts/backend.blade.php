@@ -3,36 +3,28 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <title>@yield('title')</title>
-    <!-- Bootstrap 3.3.7 -->
-    <link rel="stylesheet" href="{{asset('adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css')}}">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{asset('adminlte/bower_components/font-awesome/css/font-awesome.min.css')}}">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="{{asset('adminlte/bower_components/Ionicons/css/ionicons.min.css')}}">
-    <!-- Theme style -->
+    <link href="https://lib.baomitu.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://lib.baomitu.com/ionicons/3.0.0/css/ionicons.min.css" rel="stylesheet">
     <link href="https://lib.baomitu.com/select2/4.0.5/css/select2.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('adminlte/dist/css/AdminLTE.min.css')}}">
     <link rel="stylesheet" href="{{asset('adminlte/dist/css/skins/skin-blue.min.css')}}">
-    <!-- OTHER stylesheet -->
     <link href="https://lib.baomitu.com/iCheck/1.0.2/skins/all.css" rel="stylesheet">
     <link href="https://lib.baomitu.com/pace/1.0.2/themes/white/pace-theme-flash.min.css" rel="stylesheet">
     <link href="https://lib.baomitu.com/limonte-sweetalert2/7.21.1/sweetalert2.min.css" rel="stylesheet">
-    <link href="{{ asset('adminlte/plugins/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet">
     <link href="https://lib.baomitu.com/datatables/1.10.16/css/dataTables.bootstrap.min.css" rel="stylesheet">
-    <link href="{{asset('backend.custom.css')}}" rel="stylesheet">
+    <link href="{{ asset('adminlte/plugins/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet">
+    <link href="{{asset('css/backend.custom.css')}}" rel="stylesheet">
     @yield('css')
-<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- 警告：Respond.js 不支持 file:// 方式查看（即本地方式查看）-->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-    <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.lug.ustc.edu.cn/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
@@ -190,18 +182,11 @@
         <strong>Copyright &copy; {{ date('Y') }} <a href="#">LABLOG</a>.</strong> All rights reserved.
     </footer>
 </div>
-<!-- jQuery 3 -->
-<script src="{{asset('adminlte/bower_components/jquery/dist/jquery.min.js')}}"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="{{asset('adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
-<!-- Slimscroll -->
-<script src="{{asset('adminlte/bower_components/jquery-slimscroll/jquery.slimscroll.min.js')}}"></script>
-<!-- FastClick -->
-<script src="{{asset('adminlte/bower_components/fastclick/lib/fastclick.js')}}"></script>
-<!-- AdminLTE App -->
+<script src="https://lib.baomitu.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://lib.baomitu.com/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://lib.baomitu.com/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js"></script>
+<script src="https://lib.baomitu.com/fastclick/1.0.6/fastclick.min.js"></script>
 <script src="{{asset('adminlte/dist/js/adminlte.min.js')}}"></script>
-<!-- OTHER JS SCRIPTS -->
-<script left="90%" bottom="5%" text="返回顶部" src="{{asset('js/x-return-top.min.js')}}"></script>
 <script src="https://lib.baomitu.com/pace/1.0.2/pace.min.js"></script>
 <script src="https://lib.baomitu.com/limonte-sweetalert2/7.21.1/sweetalert2.min.js"></script>
 <script src="https://lib.baomitu.com/jquery-validate/1.17.0/jquery.validate.min.js"></script>
@@ -209,13 +194,14 @@
 <script src="https://lib.baomitu.com/iCheck/1.0.2/icheck.min.js"></script>
 <script src="https://lib.baomitu.com/select2/4.0.5/js/select2.full.min.js"></script>
 <script src="https://lib.baomitu.com/select2/4.0.5/js/i18n/zh-CN.js"></script>
-<script src="{{ asset('adminlte/plugins/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js') }}"></script>
-<script src="{{ asset('adminlte/plugins/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.zh-CN.js') }}"></script>
 <script src="https://lib.baomitu.com/datatables/1.10.16/js/jquery.dataTables.min.js"></script>
 <script src="https://lib.baomitu.com/datatables/1.10.16/js/dataTables.bootstrap.min.js"></script>
+<script src="{{ asset('adminlte/plugins/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.zh-CN.js') }}"></script>
+<script left="90%" bottom="5%" text="返回顶部" src="{{asset('js/x-return-top.min.js')}}"></script>
 @include('vendor.message')
 @yield('js')
-<script src="{{asset('js/validator.js')}}"></script>
-<script src="{{ asset('js/admin.js') }}"></script>
+<script src="{{asset('js/admin-validator.js')}}"></script>
+<script src="{{ asset('js/admin-all.js') }}"></script>
 </body>
 </html>

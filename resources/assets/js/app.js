@@ -14,8 +14,6 @@ require('admin-lte/plugins/pace/pace');
 
 require('sweetalert2/dist/sweetalert2');
 
-require('sweetalert2/dist/sweetalert2');
-
 require('social-share.js/src/js/social-share');
 
 require('fancybox/dist/js/jquery.fancybox');
