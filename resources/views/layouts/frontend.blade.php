@@ -27,8 +27,6 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <link rel="stylesheet" href="https://fonts.lug.ustc.edu.cn/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-
 </head>
 
 <body class="hold-transition skin-black layout-top-nav">
@@ -234,7 +232,7 @@
 <script src="https://lib.baomitu.com/fancybox/3.3.5/jquery.fancybox.min.js"></script>
 <script src="https://lib.baomitu.com/highlight.js/9.12.0/highlight.min.js"></script>
 <script left="90%" bottom="5%" text="返回顶部" src="{{asset('js/x-return-top.min.js')}}"></script>
-<script>hljs.initHighlightingOnLoad();</script>';
+<script>hljs.initHighlightingOnLoad();</script>
 @include('vendor.message')
 @yield('js')
 <script>
