@@ -474,7 +474,7 @@ class Tool
     public static function addTextWater($file, $text, $color = '#0B94C1') {
         $image = Image::make($file);
         $image->text($text, $image->width()-20, $image->height()-30, function($font) use($color) {
-            $font->file(public_path('fonts/consya.ttf')); // 雅黑console
+//            $font->file(public_path('fonts/consya.ttf')); // 雅黑console 可自定义字体
             $font->size(20);
             $font->color($color);
             $font->align('right');

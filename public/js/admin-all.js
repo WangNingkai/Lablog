@@ -40,7 +40,7 @@ $(function () {
             swal('定时推送开始时间必须大于当前时间', ':(', 'error')
         }
     });
-    // 默认立即推送选中
+    // 默认立即推送
     $("input[type=radio][name=push_method]#push_now").iCheck('check');
     $("input[type=text][name=push_time]").val(new Date().format("yyyy-MM-dd hh:mm"));
     push_method =$("input[type=radio][name=push_method]");
