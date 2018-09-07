@@ -9,15 +9,15 @@
     <link href="https://lib.baomitu.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://lib.baomitu.com/ionicons/3.0.0/css/ionicons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{asset('adminlte/dist/css/AdminLTE.min.css')}}">
-    <link rel="stylesheet" href="{{asset('adminlte/dist/css/skins/_all-skins.min.css')}}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@2.4.8/dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@2.4.8/dist/css/skins/_all-skins.min.css">
     <link href="https://lib.baomitu.com/iCheck/1.0.2/skins/all.css" rel="stylesheet">
     <link href="https://lib.baomitu.com/limonte-sweetalert2/7.21.1/sweetalert2.min.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- 警告：Respond.js 不支持 file:// 方式查看（即本地方式查看）-->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.3/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
 <body class="hold-transition @yield('name')-page">

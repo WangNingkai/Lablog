@@ -10,23 +10,23 @@
     <link href="https://lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://lib.baomitu.com/ionicons/3.0.0/css/ionicons.min.css" rel="stylesheet">
     <link href="https://lib.baomitu.com/select2/4.0.5/css/select2.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{asset('adminlte/dist/css/AdminLTE.min.css')}}">
-    <link rel="stylesheet" href="{{asset('adminlte/dist/css/skins/skin-blue.min.css')}}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@2.4.8/dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@2.4.8/dist/css/skins/_all-skins.min.css">
     <link href="https://lib.baomitu.com/iCheck/1.0.2/skins/all.css" rel="stylesheet">
     <link href="https://lib.baomitu.com/pace/1.0.2/themes/white/pace-theme-flash.min.css" rel="stylesheet">
     <link href="https://lib.baomitu.com/limonte-sweetalert2/7.21.1/sweetalert2.min.css" rel="stylesheet">
     <link href="https://lib.baomitu.com/datatables/1.10.16/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <link href="https://lib.baomitu.com/fancybox/3.3.5/jquery.fancybox.min.css" rel="stylesheet">
-    <link href="https://cdn.bootcss.com/Dropify/0.2.2/css/dropify.min.css" rel="stylesheet">
-    <link href="https://cdn.bootcss.com/bootstrap-fileinput/4.4.8/css/fileinput.min.css" rel="stylesheet">
-    <link href="{{ asset('adminlte/plugins/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dropify@0.2.2/dist/css/dropify.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-fileinput@4.5.0/css/fileinput.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-datetime-picker@2.4.4/css/bootstrap-datetimepicker.min.css">
     <link href="{{asset('css/backend.custom.css')}}" rel="stylesheet">
     @yield('css')
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- 警告：Respond.js 不支持 file:// 方式查看（即本地方式查看）-->
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.3/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -187,7 +187,7 @@
 <script src="https://lib.baomitu.com/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://lib.baomitu.com/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js"></script>
 <script src="https://lib.baomitu.com/fastclick/1.0.6/fastclick.min.js"></script>
-<script src="{{asset('adminlte/dist/js/adminlte.min.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/admin-lte@2.4.8/dist/js/adminlte.min.js"></script>
 <script src="https://lib.baomitu.com/pace/1.0.2/pace.min.js"></script>
 <script src="https://lib.baomitu.com/limonte-sweetalert2/7.21.1/sweetalert2.min.js"></script>
 <script src="https://lib.baomitu.com/jquery-validate/1.17.0/jquery.validate.min.js"></script>
@@ -198,11 +198,11 @@
 <script src="https://lib.baomitu.com/datatables/1.10.16/js/jquery.dataTables.min.js"></script>
 <script src="https://lib.baomitu.com/datatables/1.10.16/js/dataTables.bootstrap.min.js"></script>
 <script src="https://lib.baomitu.com/fancybox/3.3.5/jquery.fancybox.min.js"></script>
-<script src="https://cdn.bootcss.com/Dropify/0.2.2/js/dropify.min.js"></script>
-<script src="https://cdn.bootcss.com/bootstrap-fileinput/4.4.8/js/fileinput.min.js"></script>
-<script src="https://cdn.bootcss.com/bootstrap-fileinput/4.4.8/js/locales/zh.min.js"></script>
-<script src="{{ asset('adminlte/plugins/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js') }}"></script>
-<script src="{{ asset('adminlte/plugins/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.zh-CN.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/dropify@0.2.2/dist/js/dropify.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-fileinput@4.5.0/js/fileinput.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-fileinput@4.5.0/js/locales/zh.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-datetime-picker@2.4.4/js/bootstrap-datetimepicker.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-datetime-picker@2.4.4/js/locales/bootstrap-datetimepicker.zh-CN.min.js"></script>
 <script left="90%" bottom="5%" text="返回顶部" src="{{asset('js/x-return-top.min.js')}}"></script>
 @include('vendor.message')
 @yield('js')
