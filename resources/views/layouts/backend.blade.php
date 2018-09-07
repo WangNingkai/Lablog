@@ -6,17 +6,17 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <title>@yield('title')</title>
-    <link href="https://lib.baomitu.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="https://lib.baomitu.com/ionicons/3.0.0/css/ionicons.min.css" rel="stylesheet">
-    <link href="https://lib.baomitu.com/select2/4.0.5/css/select2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ionicons@4/dist/css/ionicons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4/dist/css/select2.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@2.4.8/dist/css/AdminLTE.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@2.4.8/dist/css/skins/_all-skins.min.css">
-    <link href="https://lib.baomitu.com/iCheck/1.0.2/skins/all.css" rel="stylesheet">
-    <link href="https://lib.baomitu.com/pace/1.0.2/themes/white/pace-theme-flash.min.css" rel="stylesheet">
-    <link href="https://lib.baomitu.com/limonte-sweetalert2/7.21.1/sweetalert2.min.css" rel="stylesheet">
-    <link href="https://lib.baomitu.com/datatables/1.10.16/css/dataTables.bootstrap.min.css" rel="stylesheet">
-    <link href="https://lib.baomitu.com/fancybox/3.3.5/jquery.fancybox.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/icheck@1/skins/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-pace-progress@1/themes/white/pace-theme-flash.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@7/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/datatables.net-bs@1/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dropify@0.2.2/dist/css/dropify.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-fileinput@4.5.0/css/fileinput.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-datetime-picker@2.4.4/css/bootstrap-datetimepicker.min.css">
@@ -183,27 +183,29 @@
         <strong>Copyright &copy; {{ date('Y') }} <a href="#">LABLOG</a>.</strong> All rights reserved.
     </footer>
 </div>
-<script src="https://lib.baomitu.com/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://lib.baomitu.com/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="https://lib.baomitu.com/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js"></script>
-<script src="https://lib.baomitu.com/fastclick/1.0.6/fastclick.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/admin-lte@2.4.8/dist/js/adminlte.min.js"></script>
-<script src="https://lib.baomitu.com/pace/1.0.2/pace.min.js"></script>
-<script src="https://lib.baomitu.com/limonte-sweetalert2/7.21.1/sweetalert2.min.js"></script>
-<script src="https://lib.baomitu.com/jquery-validate/1.17.0/jquery.validate.min.js"></script>
-<script src="https://lib.baomitu.com/jquery-validate/1.17.0/localization/messages_zh.min.js"></script>
-<script src="https://lib.baomitu.com/iCheck/1.0.2/icheck.min.js"></script>
-<script src="https://lib.baomitu.com/select2/4.0.5/js/select2.full.min.js"></script>
-<script src="https://lib.baomitu.com/select2/4.0.5/js/i18n/zh-CN.js"></script>
-<script src="https://lib.baomitu.com/datatables/1.10.16/js/jquery.dataTables.min.js"></script>
-<script src="https://lib.baomitu.com/datatables/1.10.16/js/dataTables.bootstrap.min.js"></script>
-<script src="https://lib.baomitu.com/fancybox/3.3.5/jquery.fancybox.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-slimscroll@1/jquery.slimscroll.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fastclick@1/lib/fastclick.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/admin-lte@2/dist/js/adminlte.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/node-pace-progress@1/pace.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@9/lib/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1/dist/js/jquery.share.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4/dist/js/select2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4/dist/js/i18n/zh-CN.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/icheck@1/icheck.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1/dist/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1/dist/localization/messages_zh.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/datatables@1/media/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/datatables.net-bs@1/js/dataTables.bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/dropify@0.2.2/dist/js/dropify.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-fileinput@4.5.0/js/fileinput.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-fileinput@4.5.0/js/locales/zh.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-datetime-picker@2.4.4/js/bootstrap-datetimepicker.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-datetime-picker@2.4.4/js/locales/bootstrap-datetimepicker.zh-CN.min.js"></script>
-<script left="90%" bottom="5%" text="返回顶部" src="{{asset('js/x-return-top.min.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/return-top@1/dist/x-return-top.min.js" left="90%" bottom="5%" text="返回顶部"></script>
 @include('vendor.message')
 @yield('js')
 <script src="{{asset('js/admin-validator.js')}}"></script>

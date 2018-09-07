@@ -9,16 +9,16 @@
     <meta name="description" content="@yield('description')" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <link href="https://lib.baomitu.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="https://lib.baomitu.com/ionicons/3.0.0/css/ionicons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@2.4.8/dist/css/AdminLTE.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@2.4.8/dist/css/skins/_all-skins.min.css">
-    <link href="https://lib.baomitu.com/pace/1.0.2/themes/black/pace-theme-flash.min.css" rel="stylesheet">
-    <link href="https://lib.baomitu.com/limonte-sweetalert2/7.21.1/sweetalert2.min.css" rel="stylesheet">
-    <link href="https://lib.baomitu.com/highlight.js/9.12.0/styles/atom-one-dark.min.css" rel="stylesheet">
-    <link href="https://lib.baomitu.com/fancybox/3.3.5/jquery.fancybox.min.css" rel="stylesheet">
-    <link href="https://lib.baomitu.com/social-share.js/1.0.16/css/share.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ionicons@4/dist/css/ionicons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@2/dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@2/dist/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-pace-progress@1/themes/white/pace-theme-flash.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@7/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9/styles/atom-one-dark.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1/dist/css/share.min.css">
     <link href="{{asset('css/frontend.custom.css')}}" rel="stylesheet">
     @yield('css')
 
@@ -222,17 +222,15 @@
         </div>
     </footer>
 </div>
-<script src="https://lib.baomitu.com/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://lib.baomitu.com/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="https://lib.baomitu.com/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js"></script>
-<script src="https://lib.baomitu.com/fastclick/1.0.6/fastclick.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/admin-lte@2.4.8/dist/js/adminlte.min.js"></script>
-<script src="https://lib.baomitu.com/pace/1.0.2/pace.min.js"></script>
-<script src="https://lib.baomitu.com/limonte-sweetalert2/7.21.1/sweetalert2.min.js"></script>
-<script src="https://lib.baomitu.com/social-share.js/1.0.16/js/social-share.min.js"></script>
-<script src="https://lib.baomitu.com/fancybox/3.3.5/jquery.fancybox.min.js"></script>
-<script src="https://lib.baomitu.com/highlight.js/9.12.0/highlight.min.js"></script>
-<script left="90%" bottom="5%" text="返回顶部" src="{{asset('js/x-return-top.min.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/admin-lte@2/dist/js/adminlte.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/node-pace-progress@1/pace.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@9/lib/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1/dist/js/jquery.share.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/return-top@1/dist/x-return-top.min.js" left="90%" bottom="5%" text="返回顶部"></script>
 @include('vendor.message')
 @yield('js')
 <script>
