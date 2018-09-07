@@ -4,13 +4,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/inscrybmde@1/dist/inscrybmde.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9/styles/github.min.css">
     <style>
-        .editor-preview img,
-        .editor-preview-side img {
-            max-width: 100%;
-            max-height: 100%;
-            box-sizing: border-box;
-            vertical-align: middle;
-        }
+
     </style>
 @stop
 @section('content')
@@ -233,7 +227,7 @@
             mdeditor.codemirror.on('optionChange', (item) => {
                 let fullscreen = item.getOption('fullScreen');
                 if (fullscreen)
-                    $(".editor-toolbar,.fullscreen,.CodeMirror-fullscreen").css('z-index','9999');
+                    $(".editor-toolbar,.fullscreen,.CodeMirror-fullscreen").css('z-index','9998');
             });
         });
     </script>

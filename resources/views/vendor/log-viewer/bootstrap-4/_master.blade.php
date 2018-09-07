@@ -231,6 +231,11 @@
                         <i class="fa fa-archive"></i> 目录
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('dashboard_home') }}" class="nav-link">
+                        <i class="fa fa-home"></i> 返回
+                    </a>
+                </li>
             </ul>
         </div>
     </nav>
