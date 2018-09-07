@@ -110,8 +110,6 @@ class Article extends Base
             $description = preg_replace(array('/[~*>#-]*/', '/!?\[.*\]\(.*\)/', '/\[.*\]/'), '', $data['content']);
             $data['description'] = Tool::subStr($description, 0, 150, true);
         }
-
-        unset($data['editormd_id-html-code']);
         unset($data['tag_ids']);
         unset($data['content']);
         //添加数据
@@ -151,7 +149,6 @@ class Article extends Base
             $data['description'] = Tool::subStr($description, 0, 150, true);
         }
         unset($data['tag_ids']);
-        unset($data['editormd_id-html-code']);
         unset($data['content']);
         $result = parent::updateData(['id'=>$id],$data);
         if ($result) {

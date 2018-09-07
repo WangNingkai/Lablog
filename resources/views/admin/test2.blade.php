@@ -137,7 +137,9 @@
                                     @if ($errors->has('content'))
                                         <span class="help-block"><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('content') }}</strong></span>
                                     @endif
-                                    <textarea name="content" id="mde" style="display:none;">{{old('content')?old('content'):$article->feed->content}}</textarea>
+                                    <div id="editormd_id">
+                                        <textarea name="content" id="mde" style="display:none;">{{old('content')?old('content'):$article->feed->content}}</textarea>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -157,6 +159,11 @@
             });
             var mdeditor = new InscrybMDE({
                 autofocus: true,
+                autosave: {
+                    enabled: false,
+                    uniqueId: "article_edit_mde",
+                    delay: 500,
+                },
                 blockStyles: {
                     bold: "__",
                     italic: "_"
@@ -185,7 +192,7 @@
                 },
                 showIcons: ["code", "table"],
                 spellChecker: false,
-                status: false,
+                status: ["autosave", "lines", "words", "cursor"],
                 styleSelectedText: true,
                 syncSideBySidePreviewScroll: true,
                 tabSize: 4,

@@ -1,5 +1,9 @@
 @extends('layouts.backend')
 @section('title','控制台 - 订阅管理')
+@section('css')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/inscrybmde@1.11.4/dist/inscrybmde.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/github.min.css">
+@stop
 @section('content')
     <div class="content-wrapper">
         <section class="content-header">
@@ -54,14 +58,14 @@
                                                     </div>
                                                     <div class="form-group {{$errors->has('content')?'has-error':''}}">
                                                         <label for="">订阅消息：</label>
-                                                        <textarea class="form-control" rows="5" name="content" placeholder="输入 ..." style="resize: none;" required></textarea>
+                                                        <textarea class="form-control" rows="5" name="content" id="message_mde" placeholder="输入 ..." style="resize: none;" required></textarea>
                                                         @if ($errors->has('content'))
                                                             <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('content') }}</strong></span>
                                                         @endif
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="submit" class="btn btn-primary btn-flat">推送</button>
+                                                    <button type="submit" id="push_btn" class="btn btn-primary btn-flat">推送</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -132,4 +136,64 @@
             </div>
         </section>
     </div>
+@stop
+@section('js')
+    <script src="https://cdn.jsdelivr.net/npm/inscrybmde@1.11.4/dist/inscrybmde.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
+    <script>
+        $(function () {
+            $('pre code').each(function (i, block) {
+                hljs.highlightBlock(block);
+            });
+            var mdeditor = new InscrybMDE({
+                autofocus: true,
+                autosave: {
+                    enabled: true,
+                    uniqueId: "message_mde",
+                    delay: 500,
+                },
+                blockStyles: {
+                    bold: "__",
+                    italic: "_"
+                },
+                element: $("#message_mde")[0],
+                forceSync: true,
+                indentWithTabs: false,
+                insertTexts: {
+                    horizontalRule: ["", "\n\n-----\n\n"],
+                    image: ["![](http://", ")"],
+                    link: ["[", "](http://)"],
+                    table: ["",
+                        "\n\n| Column 1 | Column 2 | Column 3 |\n| -------- | -------- | -------- |\n| Text | Text | Text |\n\n"
+                    ],
+                },
+                minHeight: "300px",
+                parsingConfig: {
+                    allowAtxHeaderWithoutSpace: true,
+                    strikethrough: true,
+                    underscoresBreakWords: true,
+                },
+                placeholder: "在此输入内容...",
+                renderingConfig: {
+                    singleLineBreaks: true,
+                    codeSyntaxHighlighting: true,
+                },
+                showIcons: ["code", "table"],
+                spellChecker: false,
+                status: false,
+                styleSelectedText: true,
+                syncSideBySidePreviewScroll: true,
+                tabSize: 4,
+                toolbar: [
+                    "bold", "italic", "strikethrough", "heading", "|", "quote", "code", "table",
+                    "horizontal-rule", "unordered-list", "ordered-list", "|",
+                    "link", "image", "|", "preview"
+                ],
+                toolbarTips: true,
+            });
+            $("#push_btn").on("click",function(){
+                mdeditor.clearAutosavedValue();
+            })
+        });
+    </script>
 @stop

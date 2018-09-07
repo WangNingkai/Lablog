@@ -86,6 +86,17 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
             Route::get('search', 'UserController@search')->name('user_search');
         });
     });
+    Route::get('/test', function () {
+        $category = \App\Helpers\Extensions\Tool::getSelect(\App\Models\Category::all()->toArray());
+        $tag = \App\Models\Tag::all();
+        return view('admin.test', compact('category', 'tag'));
+    });
+    Route::get('/test2/{id}', function ($id) {
+        $article = \App\Models\Article::query()->find($id);
+        $category = \App\Helpers\Extensions\Tool::getSelect(\App\Models\Category::all()->toArray(), $article->getAttributeValue('category_id'));
+        $tag = \App\Models\Tag::all();
+        return view('admin.test2', compact('article','category', 'tag'));
+    });
     // 控制台
     Route::get('/', function(){
         return redirect()->route('dashboard_home');
