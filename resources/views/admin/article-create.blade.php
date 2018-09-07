@@ -165,7 +165,7 @@
                 autofocus: true,
                 autosave: {
                     enabled: true,
-                    uniqueId: "article_mde",
+                    uniqueId: "newArticleContent",
                     delay: 1000,
                 },
                 blockStyles: {
@@ -175,7 +175,6 @@
                 element: $("#mde")[0],
                 forceSync: true,
                 indentWithTabs: false,
-                // initialValue: "",
                 insertTexts: {
                     horizontalRule: ["", "\n\n-----\n\n"],
                     image: ["![](http://", ")"],
@@ -184,7 +183,7 @@
                         "\n\n| Column 1 | Column 2 | Column 3 |\n| -------- | -------- | -------- |\n| Text | Text | Text |\n\n"
                     ],
                 },
-                minHeight: "640px",
+                minHeight: "480px",
                 parsingConfig: {
                     allowAtxHeaderWithoutSpace: true,
                     strikethrough: true,
@@ -195,7 +194,6 @@
                     singleLineBreaks: true,
                     codeSyntaxHighlighting: true,
                 },
-                showIcons: ["code", "table"],
                 spellChecker: false,
                 status: ["autosave", "lines", "words", "cursor"],
                 styleSelectedText: true,

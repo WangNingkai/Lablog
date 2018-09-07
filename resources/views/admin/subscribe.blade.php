@@ -65,7 +65,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="submit" id="push_btn" class="btn btn-primary btn-flat">推送</button>
+                                                    <button type="submit" id="submit_btn" class="btn btn-primary btn-flat">推送</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -191,7 +191,7 @@
                 ],
                 toolbarTips: true,
             });
-            $("#push_btn").on("click",function(){
+            $("#submit_btn").on("click",function(){
                 mdeditor.clearAutosavedValue();
             })
         });

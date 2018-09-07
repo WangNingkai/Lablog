@@ -1,7 +1,17 @@
 @extends('layouts.backend')
 @section('title','控制台 - 新建单页')
 @section('css')
-    {!! editor_css() !!}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/inscrybmde@1/dist/inscrybmde.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9/styles/github.min.css">
+    <style>
+        .editor-preview img,
+        .editor-preview-side img {
+            max-width: 100%;
+            max-height: 100%;
+            box-sizing: border-box;
+            vertical-align: middle;
+        }
+    </style>
 @stop
 @section('content')
     <div class="content-wrapper">
@@ -21,7 +31,7 @@
                         <div class="box box-solid">
                             <div class="box-body">
                                 <div class="pull-left">
-                                    <button type="submit" class="btn btn-success btn-flat"><i class="fa fa-check"></i>&nbsp;保存</button>
+                                    <button type="submit" class="btn btn-success btn-flat" id="submit_btn"><i class="fa fa-check"></i>&nbsp;保存</button>
                                 </div>
                             </div>
                         </div>
@@ -77,9 +87,7 @@
                                     @if ($errors->has('content'))
                                         <span class="help-block"><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('content') }}</strong></span>
                                     @endif
-                                    <div id="editormd_id">
-                                        <textarea name="content" style="display:none;">{{old('content')}}</textarea>
-                                    </div>
+                                    <textarea name="content" id="mde" style="display:none;">{{old('content')}}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -90,6 +98,87 @@
     </div>
 @stop
 @section('js')
-    {!! editor_js() !!}
-    {!! editor_config('editormd_id') !!}
+    <script src="https://cdn.jsdelivr.net/npm/inscrybmde@1/dist/inscrybmde.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/highlight.js@9/lib/highlight.min.js"></script>
+    <script>
+        $(function () {
+            $('pre code').each(function (i, block) {
+                hljs.highlightBlock(block);
+            });
+            var mdeditor = new InscrybMDE({
+                autofocus: true,
+                autosave: {
+                    enabled: true,
+                    uniqueId: "newPageContent",
+                    delay: 1000,
+                },
+                blockStyles: {
+                    bold: "__",
+                    italic: "_"
+                },
+                element: $("#mde")[0],
+                forceSync: true,
+                indentWithTabs: false,
+                insertTexts: {
+                    horizontalRule: ["", "\n\n-----\n\n"],
+                    image: ["![](http://", ")"],
+                    link: ["[", "](http://)"],
+                    table: ["",
+                        "\n\n| Column 1 | Column 2 | Column 3 |\n| -------- | -------- | -------- |\n| Text | Text | Text |\n\n"
+                    ],
+                },
+                minHeight: "480px",
+                parsingConfig: {
+                    allowAtxHeaderWithoutSpace: true,
+                    strikethrough: true,
+                    underscoresBreakWords: true,
+                },
+                placeholder: "在此输入内容...",
+                renderingConfig: {
+                    singleLineBreaks: true,
+                    codeSyntaxHighlighting: true,
+                },
+                spellChecker: false,
+                status: ["autosave", "lines", "words", "cursor"],
+                styleSelectedText: true,
+                syncSideBySidePreviewScroll: true,
+                tabSize: 4,
+                toolbar: [
+                    "bold", "italic", "strikethrough", "heading", "|", "quote", "code", "table",
+                    "horizontal-rule", "unordered-list", "ordered-list", "|",
+                    "link", "image", "|", "side-by-side", 'fullscreen', "|",
+                    {
+                        name: "guide",
+                        action: function customFunction(editor) {
+                            var win = window.open(
+                                'https://github.com/riku/Markdown-Syntax-CN/blob/master/syntax.md',
+                                '_blank');
+                            if (win) {
+                                win.focus();
+                            } else {
+                                alert('Please allow popups for this website');
+                            }
+                        },
+                        className: "fa fa-info-circle",
+                        title: "Markdown 语法！",
+                    },
+                    {
+                        name: "publish",
+                        action: function customFunction(editor) {
+                            $('#submit_btn').click();
+                            editor.clearAutosavedValue();
+                        },
+                        className: "fa fa-paper-plane",
+                        title: "提交",
+                    }
+                ],
+                toolbarTips: true,
+            });
+            mdeditor.codemirror.on('optionChange', (item) => {
+                let fullscreen = item.getOption('fullScreen');
+                if (fullscreen)
+                    $(".editor-toolbar,.fullscreen,.CodeMirror-fullscreen").css('z-index','9999');
+            });
+        });
+    </script>
 @stop

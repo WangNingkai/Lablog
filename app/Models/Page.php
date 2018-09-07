@@ -42,7 +42,6 @@ class Page extends Base
     {
         $feed['content'] = $data['content'];
         $feed['html'] = Tool::markdown2Html($data['content']);
-        unset($data['editormd_id-html-code']);
         unset( $data['content']);
         $result = parent::storeData($data);
         if ($result) {
@@ -67,7 +66,6 @@ class Page extends Base
     {
         $feed['content'] = $data['content'];
         $feed['html'] = Tool::markdown2Html($data['content']);
-        unset($data['editormd_id-html-code']);
         unset($data['content']);
         $result = parent::updateData(['id'=>$id],$data);
         if ($result) {

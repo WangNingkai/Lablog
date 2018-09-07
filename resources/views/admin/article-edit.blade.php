@@ -157,6 +157,11 @@
             });
             var mdeditor = new InscrybMDE({
                 autofocus: true,
+                autosave: {
+                    enabled: true,
+                    uniqueId: "editArticleContent",
+                    delay: 1000,
+                },
                 blockStyles: {
                     bold: "__",
                     italic: "_"
@@ -172,7 +177,7 @@
                         "\n\n| Column 1 | Column 2 | Column 3 |\n| -------- | -------- | -------- |\n| Text | Text | Text |\n\n"
                     ],
                 },
-                minHeight: "640px",
+                minHeight: "480px",
                 parsingConfig: {
                     allowAtxHeaderWithoutSpace: true,
                     strikethrough: true,
@@ -183,9 +188,8 @@
                     singleLineBreaks: true,
                     codeSyntaxHighlighting: true,
                 },
-                showIcons: ["code", "table"],
                 spellChecker: false,
-                status: false,
+                status: ["autosave", "lines", "words", "cursor"],
                 styleSelectedText: true,
                 syncSideBySidePreviewScroll: true,
                 tabSize: 4,

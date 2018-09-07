@@ -162,7 +162,6 @@ return [
         /*
          * 第三方
          */
-        WangNingkai\Editor\EditorServiceProvider::class,
         Overtrue\LaravelLang\TranslationServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Jenssegers\Agent\AgentServiceProvider::class,
