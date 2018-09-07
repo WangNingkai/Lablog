@@ -11,4 +11,5 @@ return [
     'google_analytics_id' => env('GOOGLE_ANALYTICS_ID'),
     'cnzz_analytics_id' => env('CNZZ_ANALYTICS_ID'),
     'api_token' => env('API_TOKEN'),
+    'image_water_mark' => public_path('img/water_mark.png')
 ];

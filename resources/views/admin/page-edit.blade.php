@@ -109,7 +109,7 @@
                 autofocus: true,
                 autosave: {
                     enabled: true,
-                    uniqueId: "editPageContent",
+                    uniqueId: "editPageContent" + "{{ $page->id }}",
                     delay: 1000,
                 },
                 blockStyles: {
