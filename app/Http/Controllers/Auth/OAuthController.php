@@ -122,7 +122,7 @@ class OAuthController extends Controller
             'last_login_ip' => $request->getClientIp(),
             'login_times'   => $user->login_times + 1,
         ]);
-        Tool::showMessage('登陆成功，欢迎使用'.$service.'登录');
+//        Tool::showMessage('登陆成功，欢迎使用'.$service.'登录');
         return redirect()->route('dashboard_home');
     }
 
