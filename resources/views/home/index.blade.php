@@ -54,6 +54,6 @@
                 </div>
             </div>
         @endforeach
-        {{$articles->links()}}
+        {{ $articles->links() }}
     </div>
 @stop
