@@ -64,7 +64,7 @@
                                         <td>{{ \App\Helpers\Extensions\Tool::transformTime($article->created_at) }}</td>
                                         <td>{!! $article->status_tag !!}</td>
                                         <td>
-                                            <a href="{{ route('article_edit',$article->id) }}" target="_blank" class="text-green">
+                                            <a href="{{ route('article_edit',$article->id) }}" class="text-green">
                                                 <i class="fa fa-pencil-square-o"></i>
                                             </a>&nbsp;&nbsp;
                                             <a href="javascript:void(0)" class="text-red delArticle">
