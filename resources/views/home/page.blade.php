@@ -43,9 +43,7 @@
             article_pre.each(function(){
                 let class_val = $(this).attr('class');
                 if (!class_val) {
-                    let lan_class = 'language-code';
-                    let pre_content = '<code class="' + lan_class + '">'+$(this).html()+'</code>';
-                    $(this).html(pre_content);
+                    $(this).addClass('language-code');
                 }
             });
             let article_img = $(".article-content  img");
