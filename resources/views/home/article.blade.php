@@ -31,6 +31,11 @@
                                 {{$article->title}}
                             </h2>
                         </div>
+                        <div class="text-center article-meta">
+                            <i class="fa fa-clock-o"></i> {{\App\Helpers\Extensions\Tool::transformTime($article->feed_updated_at)}}  ⋅
+                            <i class="fa fa-eye"> </i> {{$article->click}}  ⋅
+                            <i class="fa fa-comments-o"> </i> {{ $article->comment_count }}
+                        </div>
                         <div class="markdown-body article-content" style="word-wrap:break-word;">
                             {!! $article->feed->html !!}
                         </div>

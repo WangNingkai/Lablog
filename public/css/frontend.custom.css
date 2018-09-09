@@ -101,3 +101,8 @@ ul.copyright li {
 .article-body {
     padding: 1em 20px 10px;
 }
+.article-meta {
+    margin: 20px 0 32px;
+    color: #aaa;
+    font-size: 13px;
+}
