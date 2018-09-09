@@ -95,3 +95,9 @@ ul.copyright li {
     margin-left: 30px;
     border-left: 1px dashed #e5e5e5
 }
+.article-content  {
+    padding: 1em 30px 0;
+}
+.article-body {
+    padding: 1em 20px 10px;
+}

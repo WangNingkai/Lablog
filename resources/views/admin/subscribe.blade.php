@@ -2,7 +2,8 @@
 @section('title','控制台 - 订阅管理')
 @section('css')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/inscrybmde@1.11.4/dist/inscrybmde.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/github.min.css">
+    <link rel="stylesheet" href="{{ asset('css/markdown.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/editor.custom.css') }}">
 @stop
 @section('content')
     <div class="content-wrapper">
@@ -139,12 +140,8 @@
 @stop
 @section('js')
     <script src="https://cdn.jsdelivr.net/npm/inscrybmde@1.11.4/dist/inscrybmde.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
     <script>
         $(function () {
-            $('pre code').each(function (i, block) {
-                hljs.highlightBlock(block);
-            });
             var mdeditor = new InscrybMDE({
                 autofocus: true,
                 autosave: {

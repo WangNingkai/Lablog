@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/prismjs@1/themes/prism-okaidia.min.css,npm/prismjs@1/plugins/toolbar/prism-toolbar.min.css,npm/prismjs@1/plugins/previewers/prism-previewers.min.css,npm/prismjs@1/plugins/command-line/prism-command-line.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1/dist/css/share.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="{{ asset('css/markdown.css') }}">
 @stop
 @section('content')
     <div class="col-md-8">
@@ -30,7 +31,7 @@
                                 {{$article->title}}
                             </h2>
                         </div>
-                        <div class="content article-content" style="word-wrap:break-word;">
+                        <div class="markdown-body article-content" style="word-wrap:break-word;">
                             {!! $article->feed->html !!}
                         </div>
                         @if ($config['allow_reward'] == 1)
@@ -172,7 +173,7 @@
             if (article_img.parent().is("a")) {
                 article_img.parent().attr("data-fancybox","article-content");
             }
-            $(".article-content  table").addClass("table table-hover table-bordered");
+            // $(".article-content  table").addClass("table table-hover table-bordered");
             $("[data-fancybox]").fancybox();
         });
     </script>

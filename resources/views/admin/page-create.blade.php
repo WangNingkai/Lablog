@@ -2,7 +2,8 @@
 @section('title','控制台 - 新建单页')
 @section('css')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/inscrybmde@1/dist/inscrybmde.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9/styles/github.min.css">
+    <link rel="stylesheet" href="{{ asset('css/markdown.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/editor.custom.css') }}">
 @stop
 @section('content')
     <div class="content-wrapper">
@@ -93,9 +94,6 @@
     <script src="https://cdn.jsdelivr.net/npm/highlight.js@9/lib/highlight.min.js"></script>
     <script>
         $(function () {
-            $('pre code').each(function (i, block) {
-                hljs.highlightBlock(block);
-            });
             var mdeditor = new InscrybMDE({
                 autofocus: true,
                 autosave: {
@@ -127,7 +125,7 @@
                 placeholder: "在此输入内容...",
                 renderingConfig: {
                     singleLineBreaks: true,
-                    codeSyntaxHighlighting: true,
+                    codeSyntaxHighlighting: false,
                 },
                 spellChecker: false,
                 status: ["autosave", "lines", "words", "cursor"],

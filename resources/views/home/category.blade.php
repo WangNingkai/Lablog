@@ -20,7 +20,7 @@
         </div>
         @foreach($articles as $article)
             <div class="box box-solid">
-                <div class="box-body">
+                <div class="box-body article-body">
                     <a href="{{route('article',$article->id)}}" class="title-link">
                         <h3>
                             {{$article->title}}

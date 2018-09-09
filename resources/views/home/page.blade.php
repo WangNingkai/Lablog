@@ -24,7 +24,7 @@
                             </h3>
                             <div class="hr-line-dashed"></div>
                         </div>
-                        <div class="content article-content" style="word-wrap:break-word;">
+                        <div class="markdown-body article-content" style="word-wrap:break-word;">
                             {!! $page->feed->html !!}
                         </div>
                     </div>
