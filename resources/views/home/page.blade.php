@@ -24,7 +24,7 @@
                             </h3>
                             <div class="hr-line-dashed"></div>
                         </div>
-                        <div class="content" style="word-wrap:break-word;">
+                        <div class="content article-content" style="word-wrap:break-word;">
                             {!! $page->feed->html !!}
                         </div>
                     </div>
@@ -39,11 +39,20 @@
     <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
     <script>
         $(function () {
-            $(".article-content  img").addClass("img-responsive");
+            let article_pre = $(".article-content pre");
+            article_pre.each(function(){
+                let class_val = $(this).attr('class');
+                if (!class_val) {
+                    let lan_class = 'language-code';
+                    let pre_content = '<code class="' + lan_class + '">'+$(this).html()+'</code>';
+                    $(this).html(pre_content);
+                }
+            });
+            let article_img = $(".article-content  img");
+            article_img.addClass("img-responsive");
             // 判断父类是否是a标签 是添加data属性 否添加a标签
-            if($(".article-content  img").parent().is("a"))
-            {
-                $(".article-content  img").parent().attr("data-fancybox","article-content");
+            if (article_img.parent().is("a")) {
+                article_img.parent().attr("data-fancybox","article-content");
             }
             $(".article-content  table").addClass("table table-hover table-bordered");
             $("[data-fancybox]").fancybox();
