@@ -96,7 +96,7 @@
     </header>
     <div class="blank-div"></div>
     <div class="content-wrapper">
-        <div class="container">
+        <div class="container" id="main">
             <section class="content">
                 <div class="row">
                     @yield('content')
@@ -228,34 +228,40 @@
 @include('vendor.message')
 @yield('js')
 <script>
-    var _hmt = _hmt || [];
-    (function() {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?{{ config('global.bd_tongji_id') }}";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-    })();
-    (function(){
-        var bp = document.createElement('script');
-        var curProtocol = window.location.protocol.split(':')[0];
-        if (curProtocol === 'https'){
-            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    // 兼容小屏幕
+    $(function (){
+        if (screen.width < 768) {
+            $("div#main").removeClass("container");
         }
-        else{
-            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-        }
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(bp, s);
-    })();
-    <!-- Google Analytics -->
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+        let _hmt = _hmt || [];
+        (function() {
+            let hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?{{ config('global.bd_tongji_id') }}";
+            let s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+        (function(){
+            let bp = document.createElement('script');
+            let curProtocol = window.location.protocol.split(':')[0];
+            if (curProtocol === 'https'){
+                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+            }
+            else{
+                bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+            }
+            let s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+        <!-- Google Analytics -->
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-    ga('create', '{{ config("global.google_analytics_id") }}', 'auto');
-    ga('send', 'pageview');
-    <!-- End Google Analytics -->
+        ga('create', '{{ config("global.google_analytics_id") }}', 'auto');
+        ga('send', 'pageview');
+        <!-- End Google Analytics -->
+    });
 </script>
 </body>
 
