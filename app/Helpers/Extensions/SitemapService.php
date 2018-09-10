@@ -54,7 +54,7 @@ class SitemapService
         $sitemap = App::make("sitemap");
         $sitemap->add(route('home'), date(DATE_RFC3339, time()), '1.0', 'daily');
         $info = $sitemap->store('xml', 'home', public_path('sitemap'));
-        Log::info($info);
+        Log::info($info,'Sitemap:Home generate OK!');
         return true;
     }
 
@@ -67,7 +67,7 @@ class SitemapService
         $sitemap = App::make("sitemap");
         $sitemap->add(route('archive'), date(DATE_RFC3339, time()), '1.0', 'daily');
         $info = $sitemap->store('xml', 'archive', public_path('sitemap'));
-        Log::info($info);
+        Log::info($info,'Sitemap:Archive generate OK!');
         return true;
     }
 
@@ -99,7 +99,7 @@ class SitemapService
             }
             $info = $sitemap->store('xml','articles-' . $name, public_path('sitemap'));
             $lastModTimes[$name] = $lastModTime;
-            Log::info($info);
+            Log::info($info,'Sitemap:Aticle generate OK!');
             $sitemap->model->resetItems();
         }
         return $lastModTimes;
@@ -124,7 +124,7 @@ class SitemapService
             $sitemap->add($url, date(DATE_RFC3339, strtotime($page->feed->updated_at)), '0.6', 'weekly');
         }
         $info = $sitemap->store('xml','pages', public_path('sitemap'));
-        Log::info($info);
+        Log::info($info,'Sitemap:Page generate OK!');
         return $lastModTime;
 
     }
@@ -150,7 +150,7 @@ class SitemapService
         });
 
         $info = $sitemap->store('xml','tags', public_path('sitemap'));
-        Log::info($info);
+        Log::info($info,'Sitemap:Tag generate OK!');
         return $lastModTime;
 
     }
@@ -176,7 +176,7 @@ class SitemapService
         });
 
         $info = $sitemap->store('xml','categories', public_path('sitemap'));
-        Log::info($info);
+        Log::info($info,'Sitemap:Category generate OK!');
         return $lastModTime;
     }
 }
