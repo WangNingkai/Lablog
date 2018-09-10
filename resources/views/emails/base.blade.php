@@ -1,30 +1,53 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="{{ app()->getLocale() }}">
 
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ config('app.name') }}邮件通知</title>
+    <style type="text/css">
+        @media only screen and (max-width: 600px) {
+            .inner-body {
+                width: 100% !important;
+            }
+
+            .footer {
+                width: 100% !important;
+            }
+        }
+
+        @media only screen and (max-width: 500px) {
+            .button {
+                width: 100% !important;
+            }
+        }
+        .article {
+            font-family: Avenir, Helvetica, sans-serif;
+            box-sizing: border-box;
+            color: #74787E;
+            font-size: 16px;
+            line-height: 1.5em;
+            margin-top: 0;
+            text-align: left;
+        }
+        .article table {
+            text-align: center;
+            border-collapse: collapse;
+            border-spacing: 0;
+            min-height: 25px;
+            line-height: 30px;
+        }
+        .article table, .article table tr th, .article table tr td{
+            margin: 0 auto;
+            border:1px solid #ddd;
+            padding: 5px;
+        }
+    </style>
 </head>
 
 <body style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; background-color: #f5f8fa; color: #74787E; height: 100%; hyphens: auto; line-height: 1.4; margin: 0; -moz-hyphens: auto; -ms-word-break: break-all; width: 100% !important; -webkit-hyphens: auto; -webkit-text-size-adjust: none; word-break: break-word;">
-<style>
-    @media only screen and (max-width: 600px) {
-        .inner-body {
-            width: 100% !important;
-        }
 
-        .footer {
-            width: 100% !important;
-        }
-    }
-
-    @media only screen and (max-width: 500px) {
-        .button {
-            width: 100% !important;
-        }
-    }
-</style>
 
 <table class="wrapper" width="100%" cellpadding="0" cellspacing="0" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; background-color: #f5f8fa; margin: 0; padding: 0; width: 100%; -premailer-cellpadding: 0; -premailer-cellspacing: 0; -premailer-width: 100%;">
     <tr>
@@ -43,7 +66,7 @@
                             <tr>
                                 <td class="content-cell" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; padding: 35px;">
                                     <h1 style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #2F3133; font-size: 19px; font-weight: bold; margin-top: 0; text-align: left;">{{ $name }}，您好！</h1>
-                                    <p style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #74787E; font-size: 16px; line-height: 1.5em; margin-top: 0; text-align: left;">{{ $content }}</p>
+                                    <div class="article">{!! $content !!}</div>
                                     @if(!blank($url))
                                     <table class="action" align="center" width="100%" cellpadding="0" cellspacing="0" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; margin: 30px auto; padding: 0; text-align: center; width: 100%; -premailer-cellpadding: 0; -premailer-cellspacing: 0; -premailer-width: 100%;">
                                         <tr>
@@ -65,9 +88,7 @@
                                         </tr>
                                     </table>
                                     @endif
-                                    <p style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #74787E; font-size: 16px; line-height: 1.5em; margin-top: 0; text-align: left;">谢谢.
-                                        <br>
-                                    </p>
+                                    <br>
                                     <p style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; line-height: 1.5em; margin-top: 0; color: #AEAEAE; font-size: 12px; text-align: center;">此邮件用为系统自动发送，请勿直接回复<br>如需帮助请前往
                                         <a href="{{ config('app.url') }}" style="text-decoration: underline; color: #999999; font-size: 12px; text-align: center;">{{ config('app.name') }}</a></p>
                                 </td>

@@ -76,7 +76,8 @@ class ArticleController extends Controller
         $id = $this->article->storeData($request->all());
         if ($request->get('status') == $this->article::PUBLISHED) {
             // 推送订阅
-            Tool::pushSubscribe('',route('article',$id));
+            $title = $request->get('title');
+            Tool::pushSubscribe('新文章发布：' . $title .'，快来瞧瞧吧',route('article',$id));
         }
         Tool::recordOperation(auth()->user()->name,'添加文章');
         // 更新缓存
@@ -113,7 +114,8 @@ class ArticleController extends Controller
         $this->article->updateData($id, $data);
         if (($data['status'] - $oldStatus) > 0) {
             // 推送订阅 草稿状态文章发布
-            Tool::pushSubscribe('',route('article',$id));
+            $title = $request->get('title');
+            Tool::pushSubscribe('新文章发布：' . $title .'，快来瞧瞧吧',route('article',$id));
         }
         Tool::recordOperation(auth()->user()->name,'编辑文章');
         // 更新缓存

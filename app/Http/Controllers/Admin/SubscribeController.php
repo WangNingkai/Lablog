@@ -25,6 +25,7 @@ class SubscribeController extends Controller
     }
 
     /**
+     *  订阅列表.
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -81,6 +82,8 @@ class SubscribeController extends Controller
         if ($target_user != 0) {
             $user_arr = explode(',', $target_user);
         }
+        // 转换接收的Markdown文本
+        $content = Tool::markdown2Html($content);
         Tool::pushSubscribe($content,'',$user_arr,$time);
         // 记录日志
         Log::info('Send Message To Subscribe',['to' => $user_arr ? : 'all', 'message' => $content]);
