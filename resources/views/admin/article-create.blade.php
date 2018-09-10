@@ -149,9 +149,6 @@
     <script src="https://cdn.jsdelivr.net/npm/inscrybmde@1/dist/inscrybmde.min.js"></script>
     <script>
         $(function () {
-            $('pre code').each(function (i, block) {
-                hljs.highlightBlock(block);
-            });
             var mdeditor = new InscrybMDE({
                 autofocus: true,
                 autosave: {
