@@ -46,14 +46,15 @@
                     $(this).addClass('language-code');
                 }
             });
-            let article_img = $(".article-content  img");
-            article_img.addClass("img-responsive");
-            // 判断父类是否是a标签 是添加data属性 否添加a标签
-            if (article_img.parent().is("a")) {
-                article_img.parent().attr("data-fancybox","article-content");
-            }
-            $(".article-content  table").addClass("table table-hover table-bordered");
-            $("[data-fancybox]").fancybox();
+            let article_img = $(".article-content img");
+            article_img.each(function () {
+                $(this).addClass("img-responsive");
+                let src = $(this).attr("src");
+                if (!$(this).parent().is("a")) {
+                    $(this).wrap("<a href='"+ src +"'></a>")
+                }
+                $(this).parent().attr("data-fancybox","article-content");
+            });
         });
     </script>
 @stop
