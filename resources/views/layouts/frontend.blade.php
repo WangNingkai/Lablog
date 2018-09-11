@@ -233,16 +233,16 @@
         if (screen.width < 768) {
             $("div#main").removeClass("container");
         }
-        let _hmt = _hmt || [];
+        var _hmt = _hmt || [];
         (function() {
-            let hm = document.createElement("script");
+            var hm = document.createElement("script");
             hm.src = "https://hm.baidu.com/hm.js?{{ config('global.bd_tongji_id') }}";
-            let s = document.getElementsByTagName("script")[0];
+            var s = document.getElementsByTagName("script")[0];
             s.parentNode.insertBefore(hm, s);
         })();
         (function(){
-            let bp = document.createElement('script');
-            let curProtocol = window.location.protocol.split(':')[0];
+            var bp = document.createElement('script');
+            var curProtocol = window.location.protocol.split(':')[0];
             if (curProtocol === 'https'){
                 bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
             }
