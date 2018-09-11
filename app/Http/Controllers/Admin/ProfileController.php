@@ -54,7 +54,7 @@ class ProfileController extends Controller
         $avatarPath = '/uploads/avatar' . $avatarName.'.png';
         if (200 === $response['status_code'])
         {
-            $avatarPath = $response['data']['path'].$response['data']['new_name'];
+            $avatarPath = $response['data']['publicPath'];
             Tool::showMessage('头像上传成功');
         }else{
             Tool::showMessage($response['message'],false);

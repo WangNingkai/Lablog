@@ -222,19 +222,19 @@ class ArticleController extends Controller
         return redirect()->back();
     }
 
-    public function getByCategory(Request $request)
+    public function uploadImage()
     {
-        $category = $request->get('category');
-        $articles = $this->article
-            ->query()
-            ->select('id', 'category_id', 'title','status','click', 'created_at')
-            ->with(['category'=> function ($query) use($category) {
-                $query->where('name', $category);
-            }])
-            ->orderBy('created_at', 'desc')
-            ->paginate(10);
-        $categories = Category::query()->select('id','name')->get();
-        return view('admin.article', compact('articles','categories'));
+        $field = 'mde-image-file';
+        $rule = [$field => 'required|max:2048|image|dimensions:max_width=1920,max_height=1080'];
+        $uploadPath = 'uploads/content';
+        $result = Tool::uploadFile($field,$rule,$uploadPath,false,true);
+        if ($result['status_code'] == 200) {
+            $file = $result['data'];
+            Tool::addImgWater($file['absolutePath'],config('global.image_water_mark')); // 上传自动加水印
+            return response()->json(['code' => 200, 'filename' => $file['publicPath']]);
+        } else {
+            return response()->json(['code' => $result['status_code'],'filename' => $result['message']]);
+        }
 
     }
 }

@@ -143,6 +143,8 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
         Route::get('trash', 'ArticleController@trash')->name('article_trash');
         Route::post('restore', 'ArticleController@restore')->name('article_restore');
         Route::post('destroy', 'ArticleController@destroy')->name('article_destroy');
+        Route::post('upload-image', 'ArticleController@uploadImage')->name('article_image_upload');
+
     });
     // 单页
     Route::group(['prefix' => 'page'], function () {

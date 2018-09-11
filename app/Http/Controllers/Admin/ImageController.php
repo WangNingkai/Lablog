@@ -33,12 +33,12 @@ class ImageController extends Controller
         $rule = ['smfile' => 'required|max:5096|image'];
         $result = Tool::uploadFile('smfile',$rule,'uploads/tmp/');
         $file = $result['status_code'] == 200 ? $result['data'] : null;
-        $file['path'] = public_path( $file['path']).$file['new_name'];
+        $filePath = $file['absolutePath'];
         // 上传加水印
-        Tool::addImgWater($file['path'],config('global.image_water_mark'));
+        Tool::addImgWater($filePath,config('global.image_water_mark'));
         try {
             $response = $this->uploadToSM($file);
-            @unlink($file['path']);
+            @unlink($filePath);
             return $response;
         } catch (\Exception $e) {
             return response()->json(['code' => 'error' ,'msg' => $e->getMessage()]);

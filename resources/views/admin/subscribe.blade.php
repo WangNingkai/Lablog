@@ -140,6 +140,7 @@
 @stop
 @section('js')
     <script src="https://cdn.jsdelivr.net/npm/inscrybmde@1.11.4/dist/inscrybmde.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/combine/npm/inline-attachment@2/src/inline-attachment.min.js,npm/inline-attachment@2/src/codemirror-4.inline-attachment.min.js"></script>
     <script>
         $(function () {
             var mdeditor = new InscrybMDE({
@@ -188,9 +189,36 @@
                 ],
                 toolbarTips: true,
             });
+            inlineAttachment.editors.codemirror4.attach(mdeditor.codemirror, {
+                uploadUrl: '{{ route('article_image_upload') }}',
+                uploadFieldName: 'mde-image-file',
+                progressText: '![正在上传文件...]()',
+                urlText: "\n ![未命名]({filename}) \n\n",
+                extraParams: {
+                    "_token": '{{ csrf_token() }}'
+                },
+                onFileUploadResponse: function(xhr) {
+                    var result = JSON.parse(xhr.responseText),
+                        filename = result[this.settings.jsonFieldName];
+
+                    if (result && filename) {
+                        var newValue;
+                        if (typeof this.settings.urlText === 'function') {
+                            newValue = this.settings.urlText.call(this, filename, result);
+                        } else {
+                            newValue = this.settings.urlText.replace(this.filenameTag, filename);
+                        }
+                        var text = this.editor.getValue().replace(this.lastValue, newValue);
+                        this.editor.setValue(text);
+                        this.settings.onFileUploaded.call(this, filename);
+                    }
+                    return false;
+                }
+            });
             $("#submit_btn").on("click",function(){
                 mdeditor.clearAutosavedValue();
-            })
+            });
+
         });
     </script>
 @stop

@@ -232,12 +232,25 @@ class Tool
             mkdir($path, 0755, true);
         }
         $oldName = $file->getClientOriginalName();
-        $newName =  $isRandName ? $isRandName.'.' . 'png' : uniqid() . '.' . 'png';
+        $newName =  $isRandName ? $isRandName . '.png' : 'image_' . time() . '_' . str_random(10) . '.png';
         if (!$file->move($path, $newName)) {
             return ['status_code' => 500, 'message' => '保存文件失败'];
         }
+        $filePath = trim($path, '.');
+        $absolutePath = public_path($filePath).$newName;
+        $publicPath = $filePath.$newName;
         // 图片自动加水印设置
-        return ['status_code' => 200, 'message' => '上传成功', 'data' => ['old_name' => $oldName, 'new_name' => $newName, 'path' => trim($path, '.')]];
+        return [
+            'status_code' => 200,
+            'message' => '上传成功',
+            'data' => [
+                'old_name' => $oldName,
+                'new_name' => $newName,
+                'path' => $filePath,
+                'absolutePath' => $absolutePath,
+                'publicPath' => $publicPath
+            ]
+        ];
     }
 
     /**
