@@ -165,7 +165,7 @@
                         "\n\n| Column 1 | Column 2 | Column 3 |\n| -------- | -------- | -------- |\n| Text | Text | Text |\n\n"
                     ],
                 },
-                minHeight: "300px",
+                minHeight: "320px",
                 parsingConfig: {
                     allowAtxHeaderWithoutSpace: true,
                     strikethrough: true,
@@ -189,6 +189,7 @@
                 ],
                 toolbarTips: true,
             });
+            mdeditor.codemirror.setSize('auto', '480px');
             inlineAttachment.editors.codemirror4.attach(mdeditor.codemirror, {
                 uploadUrl: '{{ route('article_image_upload') }}',
                 uploadFieldName: 'mde-image-file',

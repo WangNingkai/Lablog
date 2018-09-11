@@ -213,6 +213,7 @@
                 ],
                 toolbarTips: true,
             });
+            mdeditor.codemirror.setSize('auto', '640px');
             mdeditor.codemirror.on('optionChange', (item) => {
                 let fullscreen = item.getOption('fullScreen');
                 if (fullscreen)
