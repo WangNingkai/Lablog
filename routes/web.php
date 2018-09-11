@@ -204,6 +204,6 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
 //    return '测试页面';
 //})->name('test');
 Route::get('/mde', function () {
-    return view('v');
+    return view('mde');
 });
 
