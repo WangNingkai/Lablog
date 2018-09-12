@@ -96,6 +96,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
     Route::group(['prefix' => 'config'], function () {
         Route::get('manage', 'ConfigController@manage')->name('config_manage');
         Route::post('update', 'ConfigController@update')->name('config_update');
+        Route::post('upload-image','ConfigController@uploadImage')->name('water_mark_upload');
     });
     // 个人资料
     Route::group(['prefix' => 'profile'], function () {
@@ -190,7 +191,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
     // 图床
     Route::group(['prefix' => 'image'],function(){
         Route::get('list', 'ImageController@list')->name('image_list');
-        Route::post('upload', 'ImageController@upload')->name('image_upload');
+        Route::post('upload-image', 'ImageController@upload')->name('image_upload');
     });
     // 订阅
     Route::group(['prefix' => 'subscribe'], function () {

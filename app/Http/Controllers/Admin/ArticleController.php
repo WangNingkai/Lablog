@@ -222,6 +222,10 @@ class ArticleController extends Controller
         return redirect()->back();
     }
 
+    /**
+     * 上传图片
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function uploadImage()
     {
         $field = 'mde-image-file';
@@ -230,7 +234,8 @@ class ArticleController extends Controller
         $result = Tool::uploadFile($field,$rule,$uploadPath,false,true);
         if ($result['status_code'] == 200) {
             $file = $result['data'];
-            Tool::addImgWater($file['absolutePath'],config('global.image_water_mark')); // 上传自动加水印
+            if (Tool::config('water_mark_status')) // 加水印
+                Tool::addImgWater($file['absolutePath'],config('global.image_water_mark'));
             return response()->json(['code' => 200, 'filename' => $file['publicPath']]);
         } else {
             return response()->json(['code' => $result['status_code'],'filename' => $result['message']]);

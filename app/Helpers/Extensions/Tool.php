@@ -4,7 +4,9 @@ namespace App\Helpers\Extensions;
 use App\Jobs\SendEmail;
 use App\Models\Article;
 use App\Models\Subscribe;
+use App\Models\Config;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
 use App\Events\OperationEvent;
 use Intervention\Image\Facades\Image;
@@ -202,7 +204,7 @@ class Tool
      * @param string $file           表单的name名
      * @param array  $rule           验证规则
      * @param string $path           上传的路径
-     * @param mixed  $isRandName     是否自定义名
+     * @param mixed  $isRandName     是否自定义名 存在则命名
      * @param bool $childPath        是否根据日期生成子目录
      * @return array                 上传的状态
      */
@@ -495,5 +497,19 @@ class Tool
         });
         $image->save($file);
         return $image;
+    }
+
+    /**
+     * 自定义配置获取
+     * @param string $key
+     * @return mixed
+     */
+    public static function config($key = '')
+    {
+        // 读取配置缓存
+        $config = Cache::remember('cache:config', 1440, function () {
+            return Config::query()->pluck('value', 'name');
+        });
+        return $key ? $config[$key] : $config;
     }
 }

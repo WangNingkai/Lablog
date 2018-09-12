@@ -34,8 +34,8 @@ class ImageController extends Controller
         $result = Tool::uploadFile('smfile',$rule,'uploads/tmp/');
         $file = $result['status_code'] == 200 ? $result['data'] : null;
         $filePath = $file['absolutePath'];
-        // 上传加水印
-        Tool::addImgWater($filePath,config('global.image_water_mark'));
+        if (Tool::config('water_mark_status')) // 加水印
+            Tool::addImgWater($filePath,config('global.image_water_mark'));
         try {
             $response = $this->uploadToSM($file);
             @unlink($filePath);
@@ -57,7 +57,7 @@ class ImageController extends Controller
             'multipart' => [
                 [
                     'name' => 'smfile',
-                    'contents' => fopen($file['path'], 'r'),
+                    'contents' => fopen($file['absolutePath'], 'r'),
                     'filename' => $file['old_name']
                 ]
             ]

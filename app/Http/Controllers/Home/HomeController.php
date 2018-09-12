@@ -26,19 +26,6 @@ class HomeController extends Controller
     const CACHE_EXPIRE = 1440;
 
     /**
-     * @var mixed
-     */
-    public $config;
-
-    /**
-     * HomeController constructor.
-     */
-    public function __construct()
-    {
-        $this->config = Cache::get('cache:config');
-    }
-
-    /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
@@ -111,7 +98,7 @@ class HomeController extends Controller
         $data = $request->all();
         $data['ip'] = request()->ip();
         $comment->storeData($data);
-        Tool::pushMessage($this->config['site_mailto_admin'],'站长大大','您的博客现有新的评论，请注意查看审核',route('comment_manage'));
+        Tool::pushMessage(Tool::config('site_mailto_admin'),'站长大大','您的博客现有新的评论，请注意查看审核',route('comment_manage'));
         return redirect()->back();
 
     }
@@ -195,7 +182,7 @@ class HomeController extends Controller
         $data = $request->all();
         $data['ip'] = request()->ip();
         $message->storeData($data);
-        Tool::pushMessage($this->config['site_mailto_admin'],'站长大大','您的博客现有新的留言，请注意查看审核',route('message_manage'));
+        Tool::pushMessage(Tool::config('site_mailto_admin'),'站长大大','您的博客现有新的留言，请注意查看审核',route('message_manage'));
         return redirect()->back();
     }
 

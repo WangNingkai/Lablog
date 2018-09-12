@@ -123,6 +123,7 @@
             language: 'zh',
             uploadUrl: '{{ route("image_upload") }}',
             allowedFileExtensions: ["jpeg", "jpg", "png", "gif", "bmp"],
+            uploadExtraData:{"_token": "{{ csrf_token() }}"},
             overwriteInitial: false,
             maxFileSize: 5120,
             maxFilesNum: 10,

@@ -2,10 +2,8 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Config;
+use App\Helpers\Extensions\Tool;
 use Closure;
-
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 
 class CheckStatus
@@ -19,20 +17,15 @@ class CheckStatus
      */
     public function handle($request, Closure $next)
     {
-        $status = Cache::remember('cache:config:site_status', 1440, function () {
-            return Config::query()->where('name', 'site_status')->value('value');
-        });
-        # 判断是否关站
+        $status = Tool::config('site_status');
+        // 判断是否关站
         if ($status == 0) {
             return response()->view('home.close');
         }
         $route = Route::currentRouteName();
-        $allowMessage = Cache::remember('cache:config:site_allow_message', 1440, function () {
-            return  Config::query()->where('name', 'site_allow_message')->value('value');
-        });
-        $allowSubscribe = Cache::remember('cache:config:site_allow_subscribe', 1440, function () {
-            return  Config::query()->where('name', 'site_allow_subscribe')->value('value');
-        });
+        // 是否开启订阅或留言
+        $allowMessage =  Tool::config('site_allow_message');
+        $allowSubscribe = Tool::config('site_allow_subscribe');
         if ($route == 'message' && $allowMessage == 0) {
             return abort(404);
         }

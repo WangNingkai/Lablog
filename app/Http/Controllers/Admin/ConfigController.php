@@ -45,4 +45,18 @@ class ConfigController extends Controller
         Cache::forget('cache:config:site_allow_subscribe');
         return redirect()->back();
     }
+
+    /**
+     * 上传水印图片
+     */
+    public function uploadImage()
+    {
+        $field = 'water_mark';
+        $rule = [$field => 'required|max:1024|image|dimensions:max_width=200,max_height=200'];
+        $uploadPath = 'img';
+        $fileName = 'water_mark';
+        $result = Tool::uploadFile($field,$rule,$uploadPath,$fileName,false);
+        $result['status_code'] == 200 ? Tool::showMessage('水印上传成功'): Tool::showMessage($result['message'],false);
+        return redirect()->back();
+    }
 }

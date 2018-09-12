@@ -201,6 +201,14 @@ class ConfigsTableSeeder extends Seeder
                     'value' => '',
                     'created_at' => '2018-01-01 00:00:00',
                     'updated_at' => '2018-01-01 00:00:00',
+                ),
+            23 =>
+                array (
+                    'id' => 24,
+                    'name' => 'water_mark_status',
+                    'value' => '1',
+                    'created_at' => '2018-01-01 00:00:00',
+                    'updated_at' => '2018-01-01 00:00:00',
                 )
         ));
 

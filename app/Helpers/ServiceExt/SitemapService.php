@@ -1,5 +1,5 @@
 <?php
-namespace App\Helpers\Extensions;
+namespace App\Helpers\ServiceExt;
 
 use App\Models\Article;
 use App\Models\Category;

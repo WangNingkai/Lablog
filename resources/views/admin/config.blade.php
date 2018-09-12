@@ -181,6 +181,7 @@
                             <ul class="nav nav-tabs">
                                 <li class="active"><a href="#tab_4" data-toggle="tab">站长设置</a></li>
                                 <li><a href="#tab_5" data-toggle="tab">备案设置</a></li>
+                                <li><a href="#tab_6" data-toggle="tab">其它设置</a></li>
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane active" id="tab_4">
@@ -264,11 +265,57 @@
                                         @endif
                                     </div>
                                 </div>
+                                <div class="tab-pane" id="tab_6">
+                                    <div class="form-group {{$errors->has('water_mark_status')?'has-error':''}}">
+                                        <label>开启图片水印：</label>
+                                        <div class="radio">
+                                            <label class="i-checks">
+                                                <input type="radio" name="water_mark_status" value="1"
+                                                       @if($config[ 'water_mark_status']==1) checked @endif> &nbsp; 开启
+                                            </label>
+                                            <label class="i-checks">
+                                                <input type="radio" name="water_mark_status" value="0"
+                                                       @if($config[ 'water_mark_status']==0) checked @endif> &nbsp; 关闭
+                                            </label>
+                                        </div>
+                                        @if ($errors->has('water_mark_status'))
+                                            <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('water_mark_status') }}</strong></span>
+                                        @endif
+                                    </div>
+                                    <div class="form-group">
+                                        <label>上传水印(默认图片右下角)：</label>
+                                        <div class="water-mark">
+                                            <a data-toggle="modal" href='#water-mark-modal'>
+                                                <img class="img-responsive" src="{{ asset('img/water_mark.png') }}" width="100" height="100"/>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </form>
+            <div class="modal fade" id="water-mark-modal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">上传水印</h4>
+                        </div>
+                        <form action="{{ route('water_mark_upload') }}" method="post" enctype="multipart/form-data">
+                            <div class="modal-body">
+                                @csrf
+                                <input type="file" name="water_mark" class="dropify" data-max-height="200" data-allowed-file-extensions="png jpg jpeg" data-max-file-size="1M"/>
+                                <span class="help-block">水印支持png、jpg、jepg 格式小于1M的图片.为保证头像质量请上传等比例的图片。并保证宽度小于200像素</span>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary btn-flat">上传</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </section>
     </div>
 @stop
