@@ -62,7 +62,7 @@ class PushController extends Controller
         $push_time = $request->get('started_at');
         $content = $request->get('content');
         $target_user = $request->get('target');
-        $content = Tool::markdown2Html($content);
+        $content = Tool::markdown2Html($content); // 转换接收的Markdown文本
         $data = [
             'subject' => $subject,
             'method' => $method,
@@ -78,7 +78,7 @@ class PushController extends Controller
             $time = $push_time - time();
             if ($time < 0) $time = 0;
         }
-        // 转换接收的Markdown文本
+        if (count($target_user) == 1 and $target_user[0] == 1) $target_user=[]; // 发送全体
         Tool::pushSubscribe($subject ,$content,'',$target_user,$time);
         // 记录日志
         Tool::recordOperation(auth()->user()->name,'推送消息');

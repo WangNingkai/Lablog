@@ -182,7 +182,7 @@
             var mdeditor = new InscrybMDE({
                 autofocus: true,
                 autosave: {
-                    enabled: true,
+                    enabled: false,
                     uniqueId: "push_mde",
                     delay: 500,
                 },
