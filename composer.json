@@ -11,12 +11,14 @@
         "ext-json": "*",
         "arcanedev/log-viewer": "^4.5",
         "doctrine/dbal": "^2.8",
+        "erusev/parsedown": "^1.7",
         "fideloper/proxy": "^4.0",
         "intervention/image": "^2.4",
         "jenssegers/agent": "^2.6",
         "joyqi/hyper-down": "dev-master",
         "laravel/framework": "5.7.*",
         "laravel/tinker": "^1.0",
+        "laravelium/sitemap": "3.0.*",
         "mews/captcha": "^2.2",
         "orangehill/iseed": "^2.5",
         "overtrue/laravel-lang": "^3.0",
@@ -26,8 +28,7 @@
         "recca0120/laravel-tracy": "^1.8",
         "spatie/laravel-permission": "^2.12",
         "wangningkai/simple-dictionary": "dev-master",
-        "zhuzhichao/ip-location-zh": "^2.4",
-        "laravelium/sitemap": "3.0.*"
+        "zhuzhichao/ip-location-zh": "^2.4"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

@@ -199,6 +199,12 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
         Route::post('destroy', 'SubscribeController@destroy')->name('subscribe_destroy');
         Route::post('push', 'SubscribeController@push')->name('subscribe_push');
     });
+    // 推送
+    Route::group(['prefix' => 'push'], function () {
+        Route::get('list', 'PushController@list')->name('push_list');
+        Route::post('store', 'PushController@store')->name('push_store');
+        Route::post('info', 'PushController@info')->name('push_info');
+    });
 });
 // 测试路由
 //Route::get('/test', function () {

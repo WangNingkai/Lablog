@@ -219,7 +219,6 @@
             $("#submit_btn").on("click",function(){
                 mdeditor.clearAutosavedValue();
             });
-
         });
     </script>
 @stop
