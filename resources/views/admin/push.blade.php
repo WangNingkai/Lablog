@@ -4,6 +4,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/inscrybmde@1/dist/inscrybmde.min.css">
     <link rel="stylesheet" href="{{ asset('css/markdown.css') }}">
     <link rel="stylesheet" href="{{ asset('css/editor.custom.css') }}">
+    <script>var showPushUrl = "{{route('push_info')}}"</script>
 @stop
 @section('content')
     <div class="content-wrapper">
@@ -50,14 +51,14 @@
                                 @if (!blank($pushes))
                                     @foreach($pushes as $push)
                                         <tr>
-                                            <td><label><input type="checkbox" value="{{$push->id}}" name="pid" class="i-checks"></label></td>
-                                            <td>{{$push->id}}</td>
-                                            <td>{{$push->subject}}</td>
-                                            <td>{{$push->status_tag}}</td>
-                                            <td>{{$push->method_tag}}</td>
-                                            <td>{{ \App\Helpers\Extensions\Tool::transformTime($push->started_at) }}</td>
+                                            <td></td>
+                                            <td>{{ $push->id }}</td>
+                                            <td>{{ $push->subject }}</td>
+                                            <td>{!! $push->status_tag !!}</td>
+                                            <td>{{ $push->method_tag }}</td>
+                                            <td>{{ $push->started_at }}</td>
                                             <td>
-                                                <a href="{{ route('push_info',$push->id) }}" class="text-mute">
+                                                <a href="javascript:void(0)" class="text-green showPush">
                                                     <i class="fa fa-eye"></i> 查看
                                                 </a>
                                             </td>
@@ -79,7 +80,6 @@
                 <form role="form"  method="POST" action="{{route('push_store')}}" id="createPushForm">
                     @csrf
                     <div class="col-md-4">
-                        @csrf
                         <div class="box box-default">
                             <div class="box-header with-border">
                                 <h3 class="box-title">创建推送</h3>
@@ -89,6 +89,7 @@
                                     <label for="roles">选择用户：</label>
                                     <select class="form-control select2" id="target" multiple="multiple" data-placeholder="选择用户"
                                             name="target[]" style="width: 100%;">
+                                        <option value="1" >@全体用户</option>
                                         @foreach($subscribes as $subscribe)
                                             <option value="{{ $subscribe->email }}" @if(in_array($subscribe->email,old('target',[]))) selected @endif>{{ $subscribe->email }}</option>
                                         @endforeach
@@ -151,7 +152,25 @@
                     </div>
                 </form>
             </div>
-
+            <div class="modal fade" id="pushModal" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="show_subject"></h4>
+                        </div>
+                        <div class="modal-body">
+                            <strong>接收邮箱: </strong><br>
+                            <p id="show_target"></p>
+                            <strong>接收内容：</strong><br>
+                            <div class="markdown-body" id="show_content"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">关闭</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
     </div>
 @stop
@@ -195,7 +214,7 @@
                 },
                 showIcons: ["code", "table"],
                 spellChecker: false,
-                status: false,
+                status: ["autosave", "lines", "words", "cursor"],
                 styleSelectedText: true,
                 syncSideBySidePreviewScroll: true,
                 tabSize: 4,
@@ -207,6 +226,9 @@
                 toolbarTips: true,
             });
             mdeditor.codemirror.setSize('auto', '480px');
+            $("#submit_btn").on("click",function(){
+                mdeditor.clearAutosavedValue();
+            });
             inlineAttachment.editors.codemirror4.attach(mdeditor.codemirror, {
                 uploadUrl: '{{ route('article_image_upload') }}',
                 uploadFieldName: 'mde-image-file',
@@ -232,9 +254,6 @@
                     }
                     return false;
                 }
-            });
-            $("#submit_btn").on("click",function(){
-                mdeditor.clearAutosavedValue();
             });
         });
     </script>

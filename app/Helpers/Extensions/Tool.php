@@ -62,22 +62,20 @@ class Tool
     /**
      * 推送订阅
      *
+     * @param string $subject  主题
      * @param string $content  内容
      * @param string $url      链接
      * @param array $target    指定用户
      * @param int $delay       延迟时间
      */
-    public static function pushSubscribe($content = '',$url = '',$target = [],$delay = 300)
+    public static function pushSubscribe($subject, $content = '',$url = '',$target = [],$delay = 300)
     {
-        if (blank($target))
-            $emails = Subscribe::query()->pluck('email');
-        else
-            $emails = Subscribe::query()->whereIn('id',$target)->pluck('email');
-        foreach ( $emails as $email ) {
+        if (blank($target)) $target = Subscribe::query()->pluck('email');
+        foreach ( $target as $email ) {
             $param = [
                 'email' => $email,
                 'name' => '亲爱的订阅用户',
-                'subject' => config('app.name').'站点订阅提醒',
+                'subject' => blank($subject) ? config('app.name') . '站点订阅提醒' : $subject,
                 'data' => [
                     'name' => '亲爱的订阅用户',
                     'content' => blank($content) ? config('app.name').'有新文章发布了，快来瞧瞧吧': $content,

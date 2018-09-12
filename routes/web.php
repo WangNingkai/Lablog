@@ -203,7 +203,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
     Route::group(['prefix' => 'push'], function () {
         Route::get('list', 'PushController@list')->name('push_list');
         Route::post('store', 'PushController@store')->name('push_store');
-        Route::post('info', 'PushController@info')->name('push_info');
+        Route::get('info/{id?}', 'PushController@info')->name('push_info');
     });
 });
 // 测试路由

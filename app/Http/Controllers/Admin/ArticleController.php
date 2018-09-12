@@ -77,7 +77,7 @@ class ArticleController extends Controller
         if ($request->get('status') == $this->article::PUBLISHED) {
             // 推送订阅
             $title = $request->get('title');
-            Tool::pushSubscribe('新文章发布：' . $title .'，快来瞧瞧吧',route('article',$id));
+            Tool::pushSubscribe('Lablog 站点提醒','新文章发布：' . $title .'，快来瞧瞧吧',route('article',$id));
         }
         Tool::recordOperation(auth()->user()->name,'添加文章');
         // 更新缓存
@@ -115,7 +115,7 @@ class ArticleController extends Controller
         if (($data['status'] - $oldStatus) > 0) {
             // 推送订阅 草稿状态文章发布
             $title = $request->get('title');
-            Tool::pushSubscribe('新文章发布：' . $title .'，快来瞧瞧吧',route('article',$id));
+            Tool::pushSubscribe('Lablog 站点提醒','新文章发布：' . $title .'，快来瞧瞧吧',route('article',$id));
         }
         Tool::recordOperation(auth()->user()->name,'编辑文章');
         // 更新缓存
