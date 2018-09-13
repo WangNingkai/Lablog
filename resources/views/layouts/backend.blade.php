@@ -10,16 +10,14 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ionicons@4/dist/css/ionicons.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4/dist/css/select2.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@2.4.8/dist/css/AdminLTE.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@2.4.8/dist/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@2/dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@2/dist/css/skins/_all-skins.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/icheck@1/skins/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-pace-progress@1/themes/white/pace-theme-flash.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@7/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/datatables.net-bs@1/css/dataTables.bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dropify@0.2.2/dist/css/dropify.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-fileinput@4.5.0/css/fileinput.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-datetime-picker@2.4.4/css/bootstrap-datetimepicker.min.css">
     <link href="{{asset('css/backend.custom.css')}}" rel="stylesheet">
     @yield('css')
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -181,21 +179,14 @@
 <script src="https://cdn.jsdelivr.net/npm/admin-lte@2/dist/js/adminlte.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/node-pace-progress@1/pace.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7/dist/sweetalert2.all.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/highlight.js@9/lib/highlight.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/social-share.js@1/dist/js/jquery.share.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4/dist/js/select2.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4/dist/js/i18n/zh-CN.min.js"></script>
+<script src="https://cdn.jsdelivr.net/combine/npm/select2@4,npm/select2@4/dist/js/i18n/zh-CN.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/icheck@1/icheck.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1/dist/jquery.validate.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1/dist/localization/messages_zh.min.js"></script>
+<script src="https://cdn.jsdelivr.net/combine/npm/jquery-validation@1,npm/jquery-validation@1/dist/localization/messages_zh.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/datatables@1/media/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/datatables.net-bs@1/js/dataTables.bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/dropify@0.2.2/dist/js/dropify.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap-fileinput@4.5.0/js/fileinput.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap-fileinput@4.5.0/js/locales/zh.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap-datetime-picker@2.4.4/js/bootstrap-datetimepicker.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap-datetime-picker@2.4.4/js/locales/bootstrap-datetimepicker.zh-CN.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/return-top@1/dist/x-return-top.min.js" left="90%" bottom="5%" text="返回顶部"></script>
 @include('vendor.message')
 @yield('js')

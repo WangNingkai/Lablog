@@ -1,6 +1,7 @@
 @extends('layouts.backend')
 @section('title','控制台 - 推送管理')
 @section('css')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-datetime-picker@2/css/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/inscrybmde@1/dist/inscrybmde.min.css">
     <link rel="stylesheet" href="{{ asset('css/markdown.css') }}">
     <link rel="stylesheet" href="{{ asset('css/editor.custom.css') }}">
@@ -175,10 +176,27 @@
     </div>
 @stop
 @section('js')
+    <script src="https://cdn.jsdelivr.net/combine/npm/bootstrap-datetime-picker@2,npm/bootstrap-datetime-picker@2/js/locales/bootstrap-datetimepicker.zh-CN.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/inscrybmde@1.11.4/dist/inscrybmde.min.js"></script>
     <script src="https://cdn.jsdelivr.net/combine/npm/inline-attachment@2/src/inline-attachment.min.js,npm/inline-attachment@2/src/codemirror-4.inline-attachment.min.js"></script>
     <script>
         $(function () {
+            $('.date').datetimepicker({
+                language: 'zh-CN',
+                format: 'yyyy-mm-dd hh:ii ',
+                pickerPosition: "bottom-left",
+                todayBtn: 1,
+                todayHighlight: true,
+                minuteStep: 1,
+                initialDate: new Date(),
+                startDate: new Date(),
+                endDate: new Date(new Date().getTime() + 24 * 60 * 60 * 3000),
+                autoclose: true,
+            }).on('changeDate', function (ev) {
+                if (ev.date.valueOf() < (new Date()).valueOf()) {
+                    swal('定时推送开始时间必须大于当前时间', ':(', 'error')
+                }
+            });
             var mdeditor = new InscrybMDE({
                 autofocus: true,
                 autosave: {

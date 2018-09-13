@@ -1,5 +1,8 @@
 @extends('layouts.backend')
 @section('title','控制台 - 图床管理')
+@section('css')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-fileinput@4.5.0/css/fileinput.min.css">
+@stop
 @section('content')
     <div class="content-wrapper">
         <section class="content-header">
@@ -18,7 +21,7 @@
                             <span>(最近一小时上传历史)</span>
                         </div>
                         <div class="box-body table-responsive no-padding">
-                            <table id="image-list" class="table table-bordered table-striped">
+                            <table class="table table-bordered table-striped data-table">
                                 <thead>
                                 <tr>
                                     <th>缩略图</th>
@@ -41,7 +44,7 @@
                                         <td>{{ \App\Helpers\Extensions\Tool::transformSize($item['size']) }}</td>
                                         <td>{{ \App\Helpers\Extensions\Tool::transformTime($item['timestamp']) }}</td>
                                         <td>{{ $item['url'] }}</td>
-                                        <td><a href="javascript:void(0)" class="delete-item" data-hash="{{ $item['hash'] }}"><span class="text-red">删除链接</span></a></td>
+                                        <td><a href="javascript:void(0)" class="delete-image-btn" data-hash="{{ $item['hash'] }}"><span class="text-red">删除链接</span></a></td>
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -60,7 +63,7 @@
                         </div>
                         <div class="box-footer clearfix">
                             <div class="pull-left">
-                                <a href="javascript:void(0)" id="clear-list" class="btn btn-danger btn-flat">清空历史</a>
+                                <a href="javascript:void(0)" id="empty-image-btn" class="btn btn-danger btn-flat">清空历史</a>
                             </div>
                         </div>
                     </div>
@@ -118,6 +121,8 @@
     </div>
 @stop
 @section('js')
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-fileinput@4.5.0/js/fileinput.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-fileinput@4.5.0/js/locales/zh.min.js"></script>
     <script>
         $("#smfile").fileinput({
             language: 'zh',
@@ -128,6 +133,27 @@
             maxFileSize: 5120,
             maxFilesNum: 10,
             maxFileCount: 10,
+        });
+        $("#smfile").on("fileuploaded", function (event, data, previewId, index) {
+            var form = data.form, files = data.files, extra = data.extra, response = data.response, reader = data.reader;
+            if (response.code == "success") {
+                if ($("showurl").css("display")) {
+                    $("#urlcode").append(response.data.url + "\n");
+                    $("#htmlcode").append("&lt;img src=\"" + response.data.url + "\" alt=\"" + files[index].name + "\" title=\"" + files[index].name + "\" /&gt;" + "\n");
+                    $("#bbcode").append("[img]" + response.data.url + "[/img]" + "\n");
+                    $("#markdown").append("![" + files[index].name + "](" + response.data.url + ")" + "\n");
+                    $("#markdownlinks").append("[![" + files[index].name + "](" + response.data.url + ")]" + "(" + response.data.url + ")" + "\n");
+                    $("#deletecode").append(response.data.delete + "\n")
+                } else if (response.data.url) {
+                    $("#showurl").show();
+                    $("#urlcode").append(response.data.url + "\n");
+                    $("#htmlcode").append("&lt;img src=\"" + response.data.url + "\" alt=\"" + files[index].name + "\" title=\"" + files[index].name + "\" /&gt;" + "\n");
+                    $("#bbcode").append("[img]" + response.data.url + "[/img]" + "\n");
+                    $("#markdown").append("![" + files[index].name + "](" + response.data.url + ")" + "\n");
+                    $("#markdownlinks").append("[![" + files[index].name + "](" + response.data.url + ")]" + "(" + response.data.url + ")" + "\n");
+                    $("#deletecode").append(response.data.delete + "\n")
+                }
+            }
         });
     </script>
 @stop
