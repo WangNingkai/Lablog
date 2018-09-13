@@ -77,7 +77,7 @@
                                         </td>
                                     </tr>
                                 @endforeach
-                                    @else
+                                @else
                                     <tr><td valign="top" colspan="7">表中数据为空</td></tr>
                                 @endif
                                 </tbody>

@@ -20,23 +20,31 @@
                         </div>
                         <div class="box-body table-responsive no-padding">
                             <table class="table table-hover">
+                                <thead>
                                 <tr>
-                                    <th style="">#</th>
+                                    <th>#</th>
                                     <th>标题</th>
                                     <th>删除时间</th>
-                                    <th style="">操作</th>
+                                    <th>操作</th>
                                 </tr>
-                                @foreach($articles as $article)
-                                <tr>
-                                    <td><input type="checkbox" value="{{$article->id}}" name="aid" class="i-checks"></td>
-                                    <td>{{$article->title}}</td>
-                                    <td>{{$article->deleted_at}}</td>
-                                    <td>
-                                       <a class="text-green restoreArticle"><i class="fa fa-recycle"></i></a>&nbsp;&nbsp;
-                                        <a class="text-red destroyArticle"><i class="fa fa-trash"></i></a>
-                                    </td>
-                                </tr>
-                                @endforeach
+                                </thead>
+                                <tbody>
+                                @if(!blank($articles))
+                                    @foreach($articles as $article)
+                                        <tr>
+                                            <td><input type="checkbox" value="{{$article->id}}" name="aid" class="i-checks"></td>
+                                            <td>{{$article->title}}</td>
+                                            <td>{{$article->deleted_at}}</td>
+                                            <td>
+                                                <a class="text-green restoreArticle"><i class="fa fa-recycle"></i></a>&nbsp;&nbsp;
+                                                <a class="text-red destroyArticle"><i class="fa fa-trash"></i></a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                    <tr><td valign="top" colspan="4">表中数据为空</td></tr>
+                                @endif
+                                </tbody>
                             </table>
                             <form id="restoreForm" style="display: none;" method="POST" action="{{route('article_restore')}}">
                                 @csrf
