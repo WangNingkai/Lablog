@@ -19,33 +19,42 @@
                         </div>
                         <div class="box-body table-responsive no-padding">
                             <table class="table table-hover">
-                                <tr>
-                                    <th style="">#</th>
-                                    <th>栏目名</th>
-                                    <th>排序权重</th>
-                                    <th>文章数</th>
-                                    <th style="">操作</th>
-                                </tr>
-                                @foreach($categories as $category)
-                                <tr>
-                                    <td><input type="checkbox" value="{{$category->id}}" name="cid" class="i-checks"></td>
-                                    <td>{!! $category->name !!}</td>
-                                    <td>
-                                        {{$category->sort}}
-                                    </td>
-                                    <td>
-                                        {{$category->article_count}}
-                                    </td>
-                                    <td>
-                                        <a href="{{route('category_edit',$category->id)}}" class="text-green">
-                                            <i class="fa fa-pencil-square-o"></i>
-                                        </a>&nbsp;&nbsp;
-                                        <a href="javascript:void(0)" class="text-red delCategory">
-                                            <i class="fa fa-trash"></i>
-                                        </a>
-                                    </td>
-                                </tr>
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>栏目名</th>
+                                        <th>排序权重</th>
+                                        <th>文章数</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                @if(!blank($categories))
+                                    @foreach($categories as $category)
+                                    <tr>
+                                        <td><input type="checkbox" value="{{$category->id}}" name="cid" class="i-checks"></td>
+                                        <td>{!! $category->name !!}</td>
+                                        <td>
+                                            {{$category->sort}}
+                                        </td>
+                                        <td>
+                                            {{$category->article_count}}
+                                        </td>
+                                        <td>
+                                            <a href="{{route('category_edit',$category->id)}}" class="text-green">
+                                                <i class="fa fa-pencil-square-o"></i>
+                                            </a>&nbsp;&nbsp;
+                                            <a href="javascript:void(0)" class="text-red delCategory">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
                                 @endforeach
+                                @else
+                                    <tr><td valign="top" colspan="5">表中数据为空</td></tr>
+                                @endif
+                                </tbody>
+
                             </table>
                             <form id="deleteForm" style="display: none;" action="{{route('category_destroy')}}" method="post">
                                 @csrf

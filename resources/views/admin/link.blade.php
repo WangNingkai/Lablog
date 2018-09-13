@@ -25,33 +25,42 @@
                         </div>
                         <div class="box-body ">
                             <table class="table table-hover">
-                                <tr>
-                                    <th style="">#</th>
-                                    <th>友链名</th>
-                                    <th>地址</th>
-                                    <th>排序权重</th>
-                                    <th style="">操作</th>
-                                </tr>
-                                @foreach ($links as $link)
-                                <tr>
-                                    <td><input type="checkbox" value="{{$link->id}}" name="lid" class="i-checks"></td>
-                                    <td>{{$link->name}}</td>
-                                    <td>
-                                        {{$link->url}}
-                                    </td>
-                                    <td>
-                                        {{$link->sort}}
-                                    </td>
-                                    <td>
-                                        <a href="javascript:void(0)" class="text-green editLink">
-                                            <i class="fa fa-pencil-square-o"></i>
-                                        </a>&nbsp;&nbsp;
-                                        <a href="javascript:void(0)" class="text-red delLink">
-                                            <i class="fa fa-trash"></i>
-                                        </a>
-                                    </td>
-                                </tr>
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>友链名</th>
+                                        <th>地址</th>
+                                        <th>排序权重</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                @if(!blank($links))
+                                    @foreach ($links as $link)
+                                    <tr>
+                                        <td><input type="checkbox" value="{{$link->id}}" name="lid" class="i-checks"></td>
+                                        <td>{{$link->name}}</td>
+                                        <td>
+                                            {{$link->url}}
+                                        </td>
+                                        <td>
+                                            {{$link->sort}}
+                                        </td>
+                                        <td>
+                                            <a href="javascript:void(0)" class="text-green editLink">
+                                                <i class="fa fa-pencil-square-o"></i>
+                                            </a>&nbsp;&nbsp;
+                                            <a href="javascript:void(0)" class="text-red delLink">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
                                 @endforeach
+                               @else
+                                    <tr><td valign="top" colspan="5">表中数据为空</td></tr>
+                               @endif
+                                </tbody>
+
                             </table>
                             <form id="deleteForm" style="display: none;" action="{{route('link_destroy')}}" method="post">
                                 @csrf

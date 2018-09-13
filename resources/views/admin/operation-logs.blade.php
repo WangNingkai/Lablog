@@ -20,34 +20,42 @@
                         </div>
                         <div class="box-body table-responsive no-padding">
                             <table class="table table-hover">
-                                <tr>
-                                    <th>#</th>
-                                    <th>id</th>
-                                    <th>操作者</th>
-                                    <th>行为</th>
-                                    <th>IP</th>
-                                    <th>地址</th>
-                                    <th>UA</th>
-                                    <th>时间</th>
-                                    <th>操作</th>
-                                </tr>
-                                @foreach($operation_logs as $operation_log)
-                                <tr>
-                                    <td><input type="checkbox" value="{{$operation_log->id}}" name="opid" class="i-checks"></td>
-                                    <td>{{$operation_log->id}}</td>
-                                    <td>{{$operation_log->operator}}</td>
-                                    <td>{{$operation_log->operation}}</td>
-                                    <td>{{$operation_log->ip}}</td>
-                                    <td>{{$operation_log->address}}</td>
-                                    <td>{{$operation_log->device."-".$operation_log->browser."-".$operation_log->platform ."-".$operation_log->device_type."-".$operation_log->language}}</td>
-                                    <td>{{date('Y-m-d H:i:s',$operation_log->operation_time)}}</td>
-                                    <td>
-                                        <a href="javascript:void(0)" class="text-red delOperationLogs">
-                                            <i class="fa fa-trash"></i>
-                                        </a>
-                                    </td>
-                                </tr>
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>id</th>
+                                        <th>操作者</th>
+                                        <th>行为</th>
+                                        <th>IP</th>
+                                        <th>地址</th>
+                                        <th>UA</th>
+                                        <th>时间</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                @if(!blank($operation_logs))
+                                    @foreach($operation_logs as $operation_log)
+                                    <tr>
+                                        <td><input type="checkbox" value="{{$operation_log->id}}" name="opid" class="i-checks"></td>
+                                        <td>{{$operation_log->id}}</td>
+                                        <td>{{$operation_log->operator}}</td>
+                                        <td>{{$operation_log->operation}}</td>
+                                        <td>{{$operation_log->ip}}</td>
+                                        <td>{{$operation_log->address}}</td>
+                                        <td>{{$operation_log->device."-".$operation_log->browser."-".$operation_log->platform ."-".$operation_log->device_type."-".$operation_log->language}}</td>
+                                        <td>{{date('Y-m-d H:i:s',$operation_log->operation_time)}}</td>
+                                        <td>
+                                            <a href="javascript:void(0)" class="text-red delOperationLogs">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
                                 @endforeach
+                                @else
+                                    <tr><td valign="top" colspan="9">表中数据为空</td></tr>
+                                @endif
+                                </tbody>
                             </table>
                             <form id="deleteForm" style="display: none;" action="{{route('operation_logs_destroy')}}" method="post">
                                 @csrf

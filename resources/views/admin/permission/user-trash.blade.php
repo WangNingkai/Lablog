@@ -20,31 +20,39 @@
                         </div>
                         <div class="box-body table-responsive no-padding">
                             <table class="table table-hover">
-                                <tr>
-                                    <th>#</th>
-                                    <th>ID</th>
-                                    <th>用户名</th>
-                                    <th>角色</th>
-                                    <th>邮箱</th>
-                                    <th>用户状态</th>
-                                    <th>删除时间</th>
-                                    <th>操作</th>
-                                </tr>
-                                @foreach($users as $user)
+                                <thead>
                                     <tr>
-                                        <td><input type="checkbox" value="{{$user->id}}" name="uid" class="i-checks"></td>
-                                        <td>{{ $user->id }}</td>
-                                        <td>{{ $user->name }}</td>
-                                        <td>{!! $user->all_roles_tag !!}</td>
-                                        <td>{{ $user->email }}</td>
-                                        <td>{!! $user->status_tag !!}</td>
-                                        <td>{{ $user->deleted_at }}</td>
-                                        <td>
-                                            <a class="text-green restoreUser"><i class="fa fa-recycle"></i></a>&nbsp;&nbsp;
-                                            <a class="text-red destroyUser"><i class="fa fa-trash"></i></a>
-                                        </td>
+                                        <th>#</th>
+                                        <th>ID</th>
+                                        <th>用户名</th>
+                                        <th>角色</th>
+                                        <th>邮箱</th>
+                                        <th>用户状态</th>
+                                        <th>删除时间</th>
+                                        <th>操作</th>
                                     </tr>
-                                @endforeach
+                                </thead>
+                                <tbody>
+                                @if(!blank($users))
+                                    @foreach($users as $user)
+                                        <tr>
+                                            <td><input type="checkbox" value="{{$user->id}}" name="uid" class="i-checks"></td>
+                                            <td>{{ $user->id }}</td>
+                                            <td>{{ $user->name }}</td>
+                                            <td>{!! $user->all_roles_tag !!}</td>
+                                            <td>{{ $user->email }}</td>
+                                            <td>{!! $user->status_tag !!}</td>
+                                            <td>{{ $user->deleted_at }}</td>
+                                            <td>
+                                                <a class="text-green restoreUser"><i class="fa fa-recycle"></i></a>&nbsp;&nbsp;
+                                                <a class="text-red destroyUser"><i class="fa fa-trash"></i></a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                    <tr><td valign="top" colspan="8">表中数据为空</td></tr>
+                                @endif
+                                </tbody>
                             </table>
                             <form id="restoreForm" style="display: none;" method="POST" action="{{route('user_restore')}}">
                                 @csrf

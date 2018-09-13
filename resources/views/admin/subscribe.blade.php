@@ -41,6 +41,7 @@
                         </div>
                         <div class="box-body table-responsive no-padding">
                             <table class="table table-hover">
+                                <thead>
                                 <tr>
                                     <th>#</th>
                                     <th>id</th>
@@ -48,19 +49,26 @@
                                     <th>时间</th>
                                     <th>操作</th>
                                 </tr>
-                                @foreach($subscribes as $subscribe)
-                                    <tr>
-                                        <td><label><input type="checkbox" value="{{$subscribe->id}}" name="sid" class="i-checks"></label></td>
-                                        <td>{{$subscribe->id}}</td>
-                                        <td>{{$subscribe->email}}</td>
-                                        <td>{{ \App\Helpers\Extensions\Tool::transformTime($subscribe->created_at) }}</td>
-                                        <td>
-                                            <a href="javascript:void(0)" class="text-red delSubscribes">
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                @endforeach
+                                </thead>
+                                <tbody>
+                                @if(!blank($subscribes))
+                                    @foreach($subscribes as $subscribe)
+                                        <tr>
+                                            <td><label><input type="checkbox" value="{{$subscribe->id}}" name="sid" class="i-checks"></label></td>
+                                            <td>{{$subscribe->id}}</td>
+                                            <td>{{$subscribe->email}}</td>
+                                            <td>{{ \App\Helpers\Extensions\Tool::transformTime($subscribe->created_at) }}</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-red delSubscribes">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                    <tr><td valign="top" colspan="4">表中数据为空</td></tr>
+                                @endif
+                                </tbody>
                             </table>
                             <form id="deleteForm" style="display: none;" action="{{route('subscribe_destroy')}}" method="post">
                                 @csrf

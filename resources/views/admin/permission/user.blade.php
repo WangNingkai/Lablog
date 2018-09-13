@@ -41,18 +41,22 @@
                         </div>
                         <div class="box-body table-responsive no-padding">
                             <table class="table table-hover">
-                                <tr>
-                                    <th>#</th>
-                                    <th>ID</th>
-                                    <th>用户名</th>
-                                    <th>角色</th>
-                                    <th>邮箱</th>
-                                    <th>用户状态</th>
-                                    <th>最后登录</th>
-                                    <th>添加时间</th>
-                                    <th>操作</th>
-                                </tr>
-                                @foreach($users as $user)
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>ID</th>
+                                        <th>用户名</th>
+                                        <th>角色</th>
+                                        <th>邮箱</th>
+                                        <th>用户状态</th>
+                                        <th>最后登录</th>
+                                        <th>添加时间</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                @if(!blank($users))
+                                    @foreach($users as $user)
                                     <tr>
                                         <td><input type="checkbox" value="{{$user->id}}" name="uid" class="i-checks"></td>
                                         <td>{{ $user->id }}</td>
@@ -72,6 +76,10 @@
                                         </td>
                                     </tr>
                                 @endforeach
+                                    @else
+                                    <tr><td valign="top" colspan="8">表中数据为空</td></tr>
+                                @endif
+                                </tbody>
                             </table>
                             <form id="deleteForm" style="display: none;" action="{{ route('user_delete') }}" method="post">
                                 @csrf

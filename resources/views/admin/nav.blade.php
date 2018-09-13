@@ -19,15 +19,19 @@
                         </div>
                         <div class="box-body table-responsive no-padding">
                             <table class="table table-hover">
-                                <tr>
-                                    <th>#</th>
-                                    <th>菜单名</th>
-                                    <th>类型</th>
-                                    <th>排序权重</th>
-                                    <th>状态</th>
-                                    <th>操作</th>
-                                </tr>
-                                @foreach($navs as $nav)
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>菜单名</th>
+                                        <th>类型</th>
+                                        <th>排序权重</th>
+                                        <th>状态</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                @if(!blank($navs))
+                                    @foreach($navs as $nav)
                                     <tr>
                                         <td><label><input type="checkbox" value="{{$nav->id}}" name="nid" class="i-checks"></label></td>
                                         <td>{!! $nav->name !!}</td>
@@ -50,6 +54,10 @@
                                         </td>
                                     </tr>
                                 @endforeach
+                                @else
+                                    <tr><td valign="top" colspan="6">表中数据为空</td></tr>
+                                @endif
+                                </tbody>
                             </table>
                             <form id="deleteForm" style="display: none;" action="{{route('nav_destroy')}}" method="post">
                                 @csrf

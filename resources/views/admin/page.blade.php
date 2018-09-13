@@ -45,33 +45,42 @@
                         </div>
                         <div class="box-body table-responsive no-padding">
                             <table class="table table-hover">
-                                <tr>
-                                    <th>#</th>
-                                    <th>标题</th>
-                                    <th>链接</th>
-                                    <th>点击量</th>
-                                    <th>创建时间</th>
-                                    <th>状态</th>
-                                    <th>操作</th>
-                                </tr>
-                                @foreach($pages as $page)
+                                <thead>
                                     <tr>
-                                        <td><label><input type="checkbox" value="{{$page->id}}" name="pid" class="i-checks"></label></td>
-                                        <td><a class="text-black" href="{{ route('page',$page->id) }}">{{ $page->title }}</a></td>
-                                        <td>{{ route('page',$page->id) }}</td>
-                                        <td>{{$page->click}}</td>
-                                        <td>{{ \App\Helpers\Extensions\Tool::transformTime($page->created_at) }}</td>
-                                        <td>{!! $page->status_tag !!}</td>
-                                        <td>
-                                            <a href="{{ route('page_edit',$page->id) }}" class="text-green">
-                                                <i class="fa fa-pencil-square-o"></i>
-                                            </a>&nbsp;&nbsp;
-                                            <a href="javascript:void(0)" class="text-red delPage">
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                        </td>
+                                        <th>#</th>
+                                        <th>标题</th>
+                                        <th>链接</th>
+                                        <th>点击量</th>
+                                        <th>创建时间</th>
+                                        <th>状态</th>
+                                        <th>操作</th>
                                     </tr>
-                                @endforeach
+                                </thead>
+                                <tbody>
+                                @if(!blank($pages))
+                                    @foreach($pages as $page)
+                                        <tr>
+                                            <td><label><input type="checkbox" value="{{$page->id}}" name="pid" class="i-checks"></label></td>
+                                            <td><a class="text-black" href="{{ route('page',$page->id) }}">{{ $page->title }}</a></td>
+                                            <td>{{ route('page',$page->id) }}</td>
+                                            <td>{{$page->click}}</td>
+                                            <td>{{ \App\Helpers\Extensions\Tool::transformTime($page->created_at) }}</td>
+                                            <td>{!! $page->status_tag !!}</td>
+                                            <td>
+                                                <a href="{{ route('page_edit',$page->id) }}" class="text-green">
+                                                    <i class="fa fa-pencil-square-o"></i>
+                                                </a>&nbsp;&nbsp;
+                                                <a href="javascript:void(0)" class="text-red delPage">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                    <tr><td valign="top" colspan="7">表中数据为空</td></tr>
+                                @endif
+                                </tbody>
+
                             </table>
                             <form id="deleteForm" style="display: none;" action="{{ route('page_delete') }}" method="post">
                                 @csrf

@@ -25,35 +25,44 @@
                         </div>
                         <div class="box-body table-responsive no-padding">
                             <table class="table table-hover">
-                                <tr>
-                                    <th>#</th>
-                                    <th>文章</th>
-                                    <th>昵称</th>
-                                    <th>邮箱</th>
-                                    <th>内容</th>
-                                    <th>时间</th>
-                                    <th>状态</th>
-                                    <th>操作</th>
-                                </tr>
-                                @foreach ($comments as $comment)
+                                <thead>
                                     <tr>
-                                        <td><input type="checkbox" value="{{$comment->id}}" name="cid" class="i-checks"></td>
-                                        <td>{{$comment->article->title}}</td>
-                                        <td>{{$comment->nickname}}</td>
-                                        <td>{{$comment->email}}</td>
-                                        <td>{{ \App\Helpers\Extensions\Tool::subStr($comment->content, 0, 20, true) }}</td>
-                                        <td>{{$comment->created_at}}</td>
-                                        <td>{!! $comment->status_tag !!}</td>
-                                        <td>
-                                            <a href="javascript:void(0)" class="text-green showComment">
-                                                查看
-                                            </a>&nbsp;&nbsp;
-                                            <a href="javascript:void(0)" class="text-red delComment">
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                        </td>
+                                        <th>#</th>
+                                        <th>文章</th>
+                                        <th>昵称</th>
+                                        <th>邮箱</th>
+                                        <th>内容</th>
+                                        <th>时间</th>
+                                        <th>状态</th>
+                                        <th>操作</th>
                                     </tr>
-                                @endforeach
+                                </thead>
+                                <tbody>
+                                    @if(!blank($comments))
+                                        @foreach ($comments as $comment)
+                                            <tr>
+                                                <td><input type="checkbox" value="{{$comment->id}}" name="cid" class="i-checks"></td>
+                                                <td>{{$comment->article->title}}</td>
+                                                <td>{{$comment->nickname}}</td>
+                                                <td>{{$comment->email}}</td>
+                                                <td>{{ \App\Helpers\Extensions\Tool::subStr($comment->content, 0, 20, true) }}</td>
+                                                <td>{{$comment->created_at}}</td>
+                                                <td>{!! $comment->status_tag !!}</td>
+                                                <td>
+                                                    <a href="javascript:void(0)" class="text-green showComment">
+                                                        查看
+                                                    </a>&nbsp;&nbsp;
+                                                    <a href="javascript:void(0)" class="text-red delComment">
+                                                        <i class="fa fa-trash"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @else
+                                        <tr><td valign="top" colspan="8">表中数据为空</td></tr>
+                                    @endif
+                                </tbody>
+
                             </table>
                             <form id="deleteForm" style="display: none;" method="POST" action="{{route('comment_destroy')}}">
                                 @csrf

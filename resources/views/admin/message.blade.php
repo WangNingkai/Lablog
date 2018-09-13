@@ -25,16 +25,20 @@
                         </div>
                         <div class="box-body table-responsive no-padding">
                             <table class="table table-hover">
-                                <tr>
-                                    <th>#</th>
-                                    <th>昵称</th>
-                                    <th>邮箱</th>
-                                    <th>内容</th>
-                                    <th>时间</th>
-                                    <th>状态</th>
-                                    <th>操作</th>
-                                </tr>
-                                @foreach ($messages as $message)
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>昵称</th>
+                                        <th>邮箱</th>
+                                        <th>内容</th>
+                                        <th>时间</th>
+                                        <th>状态</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                @if(!blank($messages))
+                                    @foreach ($messages as $message)
                                     <tr>
                                         <td><input type="checkbox" value="{{$message->id}}" name="mid" class="i-checks"></td>
                                         <td>{{$message->nickname}}</td>
@@ -52,6 +56,10 @@
                                         </td>
                                     </tr>
                                 @endforeach
+                                @else
+                                    <tr><td valign="top" colspan="7">表中数据为空</td></tr>
+                                @endif
+                                </tbody>
                             </table>
                             <form id="deleteForm" style="display: none;" method="POST" action="{{route('message_destroy')}}">
                                 @csrf

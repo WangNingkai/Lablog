@@ -46,16 +46,20 @@
                         </div>
                         <div class="box-body table-responsive no-padding">
                             <table class="table table-hover">
-                                <tr>
-                                    <th style="">#</th>
-                                    <th>标题</th>
-                                    <th>栏目</th>
-                                    <th>点击量</th>
-                                    <th>创建时间</th>
-                                    <th>状态</th>
-                                    <th style="">操作</th>
-                                </tr>
-                                @foreach($articles as $article)
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>标题</th>
+                                        <th>栏目</th>
+                                        <th>点击量</th>
+                                        <th>创建时间</th>
+                                        <th>状态</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                @if(!blank($articles))
+                                    @foreach($articles as $article)
                                     <tr>
                                         <td><input type="checkbox" value="{{$article->id}}" name="aid" class="i-checks"></td>
                                         <td><a class="text-black" href="{{ route('article',$article->id) }}">{{ $article->title }}</a></td>
@@ -73,6 +77,10 @@
                                         </td>
                                     </tr>
                                 @endforeach
+                                    @else
+                                    <tr><td valign="top" colspan="7">表中数据为空</td></tr>
+                                @endif
+                                </tbody>
                             </table>
                             <form id="deleteForm" style="display: none;" action="{{ route('article_delete') }}" method="post">
                                 @csrf

@@ -34,33 +34,43 @@
                         </div>
                         <div class="box-body table-responsive no-padding">
                             <table class="table table-hover">
+                                <thead>
                                 <tr>
-                                    <th style="">#</th>
+                                    <th>#</th>
                                     <th>标签名</th>
                                     <th>标识</th>
                                     <th>文章数</th>
-                                    <th style="">操作</th>
+                                    <th>操作</th>
                                 </tr>
-                                @foreach ($tags as $tag)
-                                <tr>
-                                    <td><input type="checkbox" value="{{$tag->id}}" name="tid" class="i-checks"></td>
-                                    <td>{{$tag->name}}</td>
-                                    <td>
-                                        {{$tag->flag}}
-                                    </td>
-                                    <td>
-                                        {{$tag->article_count}}
-                                    </td>
-                                    <td>
-                                        <a href="javascript:void(0)" class="text-green editTag">
-                                            <i class="fa fa-pencil-square-o"></i>
-                                        </a>&nbsp;&nbsp;
-                                        <a href="javascript:void(0)" class="text-red delTag">
-                                            <i class="fa fa-trash"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                @endforeach
+                                </thead>
+                                <tbody>
+                                @if(!blank($tags))
+                                    @foreach ($tags as $tag)
+                                        <tr>
+                                            <td><input type="checkbox" value="{{$tag->id}}" name="tid" class="i-checks"></td>
+                                            <td>{{$tag->name}}</td>
+                                            <td>
+                                                {{$tag->flag}}
+                                            </td>
+                                            <td>
+                                                {{$tag->article_count}}
+                                            </td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-green editTag">
+                                                    <i class="fa fa-pencil-square-o"></i>
+                                                </a>&nbsp;&nbsp;
+                                                <a href="javascript:void(0)" class="text-red delTag">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                    <tr><td valign="top" colspan="4">表中数据为空</td></tr>
+                                @endif
+                                </tbody>
+
+
                             </table>
                             <form id="deleteForm" style="display: none;" action="{{route('tag_destroy')}}" method="post">
                                 @csrf

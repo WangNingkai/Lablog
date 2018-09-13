@@ -34,27 +34,35 @@
                         </div>
                         <div class="box-body table-responsive no-padding">
                             <table class="table table-hover">
-                                <tr>
-                                    <th>#</th>
-                                    <th>权限</th>
-                                    <th>路由</th>
-                                    <th>操作</th>
-                                </tr>
-                                @foreach($permissions as $permission)
+                                <thead>
                                     <tr>
-                                        <td><input type="checkbox" value="{{$permission->id}}" name="pid" class="i-checks"></td>
-                                        <td>{{ $permission->name }}</td>
-                                        <td>{{ $permission->route }}</td>
-                                        <td>
-                                            <a href="javascript:void(0)" class="text-green editPermission">
-                                                <i class="fa fa-pencil-square-o"></i>
-                                            </a>&nbsp;&nbsp;
-                                            <a href="javascript:void(0)" class="text-red delPermission">
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                        </td>
+                                        <th>#</th>
+                                        <th>权限</th>
+                                        <th>路由</th>
+                                        <th>操作</th>
                                     </tr>
-                                @endforeach
+                                </thead>
+                                <tbody>
+                                @if(!blank($permissions))
+                                    @foreach($permissions as $permission)
+                                        <tr>
+                                            <td><input type="checkbox" value="{{$permission->id}}" name="pid" class="i-checks"></td>
+                                            <td>{{ $permission->name }}</td>
+                                            <td>{{ $permission->route }}</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-green editPermission">
+                                                    <i class="fa fa-pencil-square-o"></i>
+                                                </a>&nbsp;&nbsp;
+                                                <a href="javascript:void(0)" class="text-red delPermission">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    @else
+                                    <tr><td valign="top" colspan="4">表中数据为空</td></tr>
+                                @endif
+                                </tbody>
                             </table>
                             <form id="deleteForm" style="display: none;" action="{{ route('permission_destroy') }}" method="post">
                                 @csrf

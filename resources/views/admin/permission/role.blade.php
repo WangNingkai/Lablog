@@ -31,12 +31,16 @@
                         </div>
                         <div class="box-body table-responsive no-padding">
                             <table class="table table-hover">
-                                <tr>
-                                    <th>#</th>
-                                    <th>角色名</th>
-                                    <th>操作</th>
-                                </tr>
-                                @foreach($roles as $role)
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>角色名</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                @if(!blank($roles))
+                                    @foreach($roles as $role)
                                     <tr>
                                         <td><input type="checkbox" value="{{$role->id}}" name="rid" class="i-checks"></td>
                                         <td>{{ $role->name }}</td>
@@ -50,6 +54,10 @@
                                         </td>
                                     </tr>
                                 @endforeach
+                                    @else
+                                    <tr><td valign="top" colspan="3">表中数据为空</td></tr>
+                                @endif
+                                </tbody>
                             </table>
                             <form id="deleteForm" style="display: none;" action="{{ route('role_destroy') }}" method="post">
                                 @csrf
