@@ -79,6 +79,7 @@ $(function () {
         }, 'paging': true, 'lengthChange': false, 'searching': false, 'ordering': true, 'info': true, 'autoWidth': false
     });
     $("[data-fancybox]").fancybox();
+    $("img.lazy").lazyload({effect: "fadeIn"});
     $(".delete-image-btn").on("click", function () {
         hash = $(this).attr("data-hash");
         swal({
