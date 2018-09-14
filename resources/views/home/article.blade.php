@@ -184,6 +184,7 @@
                 $(this).parent().attr("data-fancybox","article-content");
                 $(this).attr("data-original",src);
             });
+            $("img.lazy").lazyload({effect: "fadeIn"});
         });
     </script>
 @stop
