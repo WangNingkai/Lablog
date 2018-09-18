@@ -59,19 +59,22 @@ class HomeController extends Controller
             Cache::put($key,$request->ip(), 60);
             $article->increment('click');
         }
-        // 获取上一篇
-        $prev = Article::query()->select('id', 'title')
-            ->orderBy('created_at', 'asc')
-            ->where([['id', '>', $id],['status','=',Article::PUBLISHED]])
-            ->limit(1)
-            ->first();
+        $prev = Cache::remember('cache:article'.$id.':prev', self::CACHE_EXPIRE, function () use ($id){
+            return Article::query()->select('id', 'title')
+                ->orderBy('created_at', 'asc')
+                ->where([['id', '>', $id],['status','=',Article::PUBLISHED]])
+                ->limit(1)
+                ->first();
+        });
 
-        // 获取下一篇
-        $next = Article::query()->select('id', 'title')
-            ->orderBy('created_at', 'desc')
-            ->where([['id', '<', $id],['status','=',Article::PUBLISHED]])
-            ->limit(1)
-            ->first();
+        $next = Cache::remember('cache:article'.$id.':next', self::CACHE_EXPIRE, function () use ($id){
+            return Article::query()->select('id', 'title')
+                ->orderBy('created_at', 'desc')
+                ->where([['id', '<', $id],['status','=',Article::PUBLISHED]])
+                ->limit(1)
+                ->first();
+        });
+
         return view('home.article', compact('article', 'prev', 'next'));
     }
 
