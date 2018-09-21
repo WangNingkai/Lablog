@@ -42,5 +42,6 @@ class Migrate extends Command
         $this->warn('========== 正在执行迁移文件 ==========');
         $this->call('db:seed');
         $this->warn('========== 安装完成 ==========');
+        $this->warn('更多配置项请访问根目录.env文件');
     }
 }
