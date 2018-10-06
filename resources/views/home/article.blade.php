@@ -35,9 +35,6 @@
                             <i class="fa fa-clock-o"></i> {{\App\Helpers\Extensions\Tool::transformTime($article->created_at)}}  ⋅
                             <i class="fa fa-eye"> </i> {{$article->click}}  ⋅
                             <i class="fa fa-comments-o"> </i> {{ $article->comment_count }}
-                            @auth
-                                <a href="{{ route('article_edit',$article->id) }}" class="title-link"> <i class="fa fa-pencil-square-o"></i></a>
-                            @endauth
                         </div>
                         <div class="markdown-body article-content" style="word-wrap:break-word;">
                             {!! $article->feed->html !!}
