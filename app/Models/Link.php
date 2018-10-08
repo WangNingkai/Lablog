@@ -42,8 +42,8 @@ class Link extends Base
      */
     public function setUrlAttribute($value)
     {
-        // 如果没有http 则补上http
-        if (strpos($value, 'http') === false) {
+        // 如果没有http或者https 则补上http
+        if (strpos($value, 'http') === false || strpos($value, 'https') === false) {
             $value = 'http://' . $value;
         }
         // 删除右侧的/
