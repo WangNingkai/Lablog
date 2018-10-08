@@ -80,7 +80,7 @@ class LinkController extends Controller
         $name=$request->get('edit_name');
         $url=$request->get('edit_url');
         $sort=$request->get('edit_sort');
-        $this->link->updateData(['id' => $id], ['name' => $name, 'url' => $url, 'sort '=> $sort,]);
+        $this->link->updateData(['id' => $id], ['name' => $name, 'url' => $url, 'sort' => $sort,]);
         Tool::recordOperation(auth()->user()->name,'编辑标签');
         // 更新缓存
         Cache::forget('cache:link_list');
