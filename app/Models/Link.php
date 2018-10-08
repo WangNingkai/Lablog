@@ -5,6 +5,7 @@ namespace App\Models;
 
 class Link extends Base
 {
+    protected $fillable = ['name', 'url', 'sort'];
     /**
      * 添加数据
      *
