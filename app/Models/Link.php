@@ -15,8 +15,6 @@ class Link extends Base
      */
     public function storeData($data)
     {
-        // 如果排序是空；则设置为null
-        $data['sort'] = empty($data['sort']) ? null : $data['sort'];
         return parent::storeData($data);
     }
 
@@ -29,8 +27,6 @@ class Link extends Base
      */
     public function updateData($map, $data)
     {
-        // 如果排序是空；则设置为null
-        $data['sort'] = empty($data['sort']) ? null : $data['sort'];
         return parent::updateData($map, $data);
     }
 
