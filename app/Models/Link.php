@@ -6,6 +6,7 @@ namespace App\Models;
 class Link extends Base
 {
     protected $fillable = ['name', 'url', 'sort'];
+
     /**
      * 添加数据
      *
@@ -28,10 +29,8 @@ class Link extends Base
      */
     public function updateData($map, $data)
     {
-        // 如果要修改sort；且sort是空；则设置为null
-        if (isset($data['sort']) && empty($data['sort'])) {
-            $data['sort'] = null;
-        }
+        // 如果排序是空；则设置为null
+        $data['sort'] = empty($data['sort']) ? null : $data['sort'];
         return parent::updateData($map, $data);
     }
 
