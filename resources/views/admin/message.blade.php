@@ -116,9 +116,9 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-2 control-label">回复</label>
+                                                <label class="col-sm-2 control-label" for="reply">回复</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" name="reply" id="reply" class="form-control" placeholder="在此输入回复内容">
+                                                    <textarea class="form-control" style="resize: none;" rows="3" cols="4" name="reply" id="reply"></textarea>
                                                 </div>
                                             </div>
                                         </div>
