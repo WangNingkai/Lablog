@@ -5,6 +5,8 @@ namespace App\Models;
 
 class Link extends Base
 {
+    protected $fillable = ['name', 'url', 'sort'];
+
     /**
      * 添加数据
      *
@@ -13,8 +15,6 @@ class Link extends Base
      */
     public function storeData($data)
     {
-        // 如果排序是空；则设置为null
-        $data['sort'] = empty($data['sort']) ? null : $data['sort'];
         return parent::storeData($data);
     }
 
@@ -27,10 +27,6 @@ class Link extends Base
      */
     public function updateData($map, $data)
     {
-        // 如果要修改sort；且sort是空；则设置为null
-        if (isset($data['sort']) && empty($data['sort'])) {
-            $data['sort'] = null;
-        }
         return parent::updateData($map, $data);
     }
 
@@ -42,8 +38,8 @@ class Link extends Base
      */
     public function setUrlAttribute($value)
     {
-        // 如果没有http 则补上http
-        if (strpos($value, 'http') === false) {
+        // 如果没有http或者https 则补上http
+        if (strpos($value, 'http') === false || strpos($value, 'https') === false) {
             $value = 'http://' . $value;
         }
         // 删除右侧的/
