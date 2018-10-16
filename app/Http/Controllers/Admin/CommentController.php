@@ -6,6 +6,7 @@ use App\Helpers\Extensions\Tool;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
+use Illuminate\Support\Facades\Cache;
 
 class CommentController extends Controller
 {
@@ -63,6 +64,12 @@ class CommentController extends Controller
         ];
         $this->comment->checkData($map);
         Tool::recordOperation(auth()->user()->name,'审核评论');
+        $article_ids=$this->comment->query()->whereIn('id',$arr)->pluck('article_id');
+        foreach ($article_ids as $article_id) {
+            if (Cache::has('cache:article'.$article_id)) {
+                Cache::forget('cache:article'.$article_id);
+            }
+        }
         return redirect()->route('comment_manage');
     }
 
@@ -81,6 +88,9 @@ class CommentController extends Controller
         $article_id=$this->comment->query()->where('id',$id)->value('article_id');
         Tool::recordOperation(auth()->user()->name,'回复评论');
         Tool::pushMessage($emailTo,$emailTo,'您在我站的评论，站长已经回复，请注意查看',route('article',$article_id));
+        if (Cache::has('cache:article'.$article_id)) {
+            Cache::forget('cache:article'.$article_id);
+        }
         return redirect()->route('comment_manage');
     }
 
@@ -99,6 +109,12 @@ class CommentController extends Controller
         ];
         $this->comment->destroyData($map);
         Tool::recordOperation(auth()->user()->name,'删除评论');
+        $article_ids=$this->comment->query()->whereIn('id',$arr)->pluck('article_id');
+        foreach ($article_ids as $article_id) {
+            if (Cache::has('cache:article'.$article_id)) {
+                Cache::forget('cache:article'.$article_id);
+            }
+        }
         return redirect()->back();
     }
 
