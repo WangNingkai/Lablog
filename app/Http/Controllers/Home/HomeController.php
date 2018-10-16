@@ -17,6 +17,8 @@ use App\Models\Article;
 use App\Models\Comment;
 use App\Models\ArticleTag;
 use App\Models\Message;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
@@ -51,8 +53,20 @@ class HomeController extends Controller
                 $query->where('status', Comment::CHECKED);
             }])->where('id',$id)->first();
         });
+        $article_comments = $article->comments;
+
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+
+        $collection = new Collection($article_comments);
+
+        $perPage = 5;
+
+        $currentPageCommentsResults = $collection->slice($currentPage * $perPage, $perPage)->all();
+
+        $comments= new LengthAwarePaginator($currentPageCommentsResults, count($collection), $perPage);
+
         if ( is_null($article) || 0 === $article->status || !is_null($article->deleted_at) ) {
-            return abort(404);
+            abort(404);
         }
         $key = 'articleRequestList:'.$id.':'.$request->ip();
         if (!Cache::has($key)) {
@@ -74,8 +88,7 @@ class HomeController extends Controller
                 ->limit(1)
                 ->first();
         });
-
-        return view('home.article', compact('article', 'prev', 'next'));
+        return view('home.article', compact('article', 'prev', 'next','comments'));
     }
 
     public function page($id, Request $request)

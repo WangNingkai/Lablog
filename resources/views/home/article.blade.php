@@ -124,7 +124,7 @@
                                     </div>
                                 </form>
                             </div>
-                            @foreach($article->comments as $comment)
+                            @foreach($comments as $comment)
                                 <div class="post">
                                     <div class="user-block">
                                         <img class="img-circle img-bordered-sm" src="{{asset('img/user_avatar.png')}}" alt="{{$comment->nickname}}">
@@ -152,6 +152,9 @@
                                     @endisset
                                 </div>
                             @endforeach
+                            <div class="text-center" >
+                                {{ $comments->links() }}
+                            </div>
                         </div>
                     </div>
                 @endif
