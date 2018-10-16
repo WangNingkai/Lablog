@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/prismjs@1/themes/prism-okaidia.min.css,npm/prismjs@1/plugins/toolbar/prism-toolbar.min.css,npm/prismjs@1/plugins/previewers/prism-previewers.min.css,npm/prismjs@1/plugins/command-line/prism-command-line.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1/dist/css/share.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
-    <link rel="stylesheet" href="{{ asset('css/markdown.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/editor.custom.css') }}">
 @stop
 @section('content')
     <div class="col-md-8">
@@ -128,9 +128,7 @@
                                 <div class="post">
                                     <div class="user-block">
                                         <img class="img-circle img-bordered-sm" src="{{asset('img/user_avatar.png')}}" alt="{{$comment->nickname}}">
-                                        <span class="username">
-                                <a href="#">{{ $comment->nickname }}</a>
-                                </span>
+                                        <span class="username"><a href="#">{{ $comment->nickname }}</a></span>
                                         <span class="description">{{ $comment->created_at }}</span>
                                     </div>
                                     <p>

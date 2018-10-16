@@ -3,7 +3,6 @@
 @section('css')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-datetime-picker@2/css/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/inscrybmde@1/dist/inscrybmde.min.css">
-    <link rel="stylesheet" href="{{ asset('css/markdown.css') }}">
     <link rel="stylesheet" href="{{ asset('css/editor.custom.css') }}">
     <script>var showPushUrl = "{{route('push_info')}}"</script>
 @stop

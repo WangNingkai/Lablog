@@ -2,7 +2,6 @@
 @section('title','控制台 - 新建单页')
 @section('css')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/inscrybmde@1/dist/inscrybmde.min.css">
-    <link rel="stylesheet" href="{{ asset('css/markdown.css') }}">
     <link rel="stylesheet" href="{{ asset('css/editor.custom.css') }}">
 @stop
 @section('content')
