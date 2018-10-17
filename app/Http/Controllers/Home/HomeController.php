@@ -57,7 +57,7 @@ class HomeController extends Controller
         $currentPage = LengthAwarePaginator::resolveCurrentPage();
         $collection = new Collection($article_comments);
         $perPage = 5;
-        $currentPageCommentsResults = $collection->slice($currentPage * $perPage, $perPage)->all();
+        $currentPageCommentsResults = $collection->slice(($currentPage - 1) * $perPage, $perPage)->all();
         $comments= new LengthAwarePaginator($currentPageCommentsResults, count($collection), $perPage);
         $comments = $comments->setPath('/article/'.$id);
         if ( is_null($article) || 0 === $article->status || !is_null($article->deleted_at) ) {

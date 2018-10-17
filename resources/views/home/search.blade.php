@@ -45,7 +45,7 @@
                                 </div>
                             </div>
                         @endforeach
-                        {{$articles->appends(['keyword' => request()->input('keyword')])->links()}}
+                        {{ $articles->appends(['keyword' => request()->input('keyword')])->links() }}
                     </div>
                 </div>
 
