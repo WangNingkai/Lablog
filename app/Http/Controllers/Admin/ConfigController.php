@@ -55,7 +55,7 @@ class ConfigController extends Controller
         $rule = [$field => 'required|max:1024|image|dimensions:max_width=200,max_height=200'];
         if (file_exists($file = public_path('img/water_mark.png'))) {
             @unlink($file);
-        }
+        } // TODO：水印问题
         $uploadPath = 'img';
         $fileName = 'water_mark';
         $result = Tool::uploadFile($field,$rule,$uploadPath,$fileName,false);

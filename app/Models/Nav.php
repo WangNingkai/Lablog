@@ -2,16 +2,8 @@
 
 namespace App\Models;
 
-class
-Nav extends Base
+class Nav extends Base
 {
-    # todo:
-    # 1.用户添加菜单，选择菜单类型。
-    # 2.用户编辑菜单 ,可编辑名称、类型、内容
-    # 3.菜单为单页和链接类型可以，存在父级菜单，其他菜单父级为0 全局只支持最多二级菜单
-    # 4.后台添加单页。在菜单中可以选择显示、也可分享页面给用户
-
-
     const TYPE = [
         0 => '空菜单',
         1 => '分类菜单',
@@ -35,7 +27,8 @@ Nav extends Base
      * @param integer
      * @return array 角色数组
      */
-    public function getTreeIndex($id = 0, $deep = 0) {
+    public function getTreeIndex($id = 0, $deep = 0)
+    {
         static $tempArr = [];
         $data = $this->query()->where('parent_id', $id)->orderBy('sort', 'asc')->get();
         foreach ($data as $k => $v) {
@@ -50,10 +43,8 @@ Nav extends Base
     public function getTypeNameAttribute()
     {
         $result = "";
-        foreach (self::TYPE as $key => $type)
-        {
-            if($this->attributes['type'] == $key)
-            {
+        foreach (self::TYPE as $key => $type) {
+            if ($this->attributes['type'] == $key) {
                 $result = $type;
             }
         }
