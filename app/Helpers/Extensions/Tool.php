@@ -7,6 +7,8 @@ use App\Models\Article;
 use App\Models\Subscribe;
 use App\Models\Config;
 use Carbon\Carbon;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
 use App\Events\OperationEvent;
