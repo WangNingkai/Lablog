@@ -11,6 +11,11 @@ use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use App\Helpers\Extensions\Tool;
 
+/**
+ * 角色管理
+ * Class RoleController
+ * @package App\Http\Controllers\Admin\Permission
+ */
 class RoleController extends Controller
 {
     /**

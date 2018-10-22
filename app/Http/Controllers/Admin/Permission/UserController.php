@@ -14,6 +14,11 @@ use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 use App\Helpers\Extensions\Tool;
 
+/**
+ * 用户管理
+ * Class UserController
+ * @package App\Http\Controllers\Admin\Permission
+ */
 class UserController extends Controller
 {
 

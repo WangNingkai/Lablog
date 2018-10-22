@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use App\Helpers\Extensions\Tool;
 
+/**权限管理
+ * Class PermissionController
+ * @package App\Http\Controllers\Admin\Permission
+ */
 class PermissionController extends Controller
 {
 
