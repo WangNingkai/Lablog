@@ -11,7 +11,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use Notifiable,HasRoles,SoftDeletes;
+    use Notifiable, HasRoles, SoftDeletes;
 
     const ACTIVE = 1;
     const FORBID = 0;
@@ -26,7 +26,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'avatar','email', 'password', 'status', 'last_login_at','last_login_ip'
+        'name', 'avatar', 'email', 'password', 'status', 'last_login_at', 'last_login_ip'
     ];
 
     /**
@@ -41,7 +41,7 @@ class User extends Authenticatable
     /**
      * Send the password reset notification.
      *
-     * @param  string  $token
+     * @param  string $token
      * @return void
      */
     public function sendPasswordResetNotification($token)
@@ -68,7 +68,7 @@ class User extends Authenticatable
         $roles = Role::all();
         foreach ($roles as $role) {
             if ($this->hasRole($role->name)) {
-                $role_tags.='&nbsp;<a href="javascript:void(0)" class="btn btn-sm btn-success btn-flat">'.$role->name.'</a>';
+                $role_tags .= '&nbsp;<a href="javascript:void(0)" class="btn btn-sm btn-success btn-flat">' . $role->name . '</a>';
             }
         }
         return $role_tags;

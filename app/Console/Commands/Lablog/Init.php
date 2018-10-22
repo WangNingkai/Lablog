@@ -52,11 +52,11 @@ class Init extends Command
             'DB_PASSWORD=secret'
         ];
         $replace_db = [
-            'APP_NAME='.$app_name,
-            'APP_URL='.$app_url,
-            'DB_DATABASE='.$database,
-            'DB_USERNAME='.$username,
-            'DB_PASSWORD='.$password,
+            'APP_NAME=' . $app_name,
+            'APP_URL=' . $app_url,
+            'DB_DATABASE=' . $database,
+            'DB_USERNAME=' . $username,
+            'DB_PASSWORD=' . $password,
         ];
         $env = str_replace($search_db, $replace_db, $envExample);
         file_put_contents(base_path('.env'), $env);

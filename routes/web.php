@@ -31,7 +31,7 @@ Route::group(['namespace' => 'Auth'], function () {
         // 退出登录
         Route::get('logout', 'OAuthController@logout');
     });
-    Route::post('hook/{type}','HookController@push');
+    Route::post('hook/{type}', 'HookController@push');
 });
 
 // 前台
@@ -40,22 +40,22 @@ Route::group(['namespace' => 'Home', 'middleware' => ['check_status']], function
     Route::get('about', 'HomeController@about')->name('about');
     Route::get('article/{id}', 'HomeController@article')->name('article');
     Route::get('page/{id}', 'HomeController@page')->name('page');
-    Route::post('comment_store','HomeController@comment_store')->name('comment_store');
+    Route::post('comment_store', 'HomeController@comment_store')->name('comment_store');
     Route::get('category/{id}', 'HomeController@category')->name('category');
     Route::get('tag/{id}', 'HomeController@tag')->name('tag');
     Route::get('archive', 'HomeController@archive')->name('archive');
-    Route::get('message','HomeController@message')->name('message');
-    Route::post('message_store','HomeController@message_store')->name('message_store');
-    Route::get('subscribe','HomeController@subscribe')->name('subscribe');
-    Route::post('subscribe_store','HomeController@subscribe_store')->name('subscribe_store');
+    Route::get('message', 'HomeController@message')->name('message');
+    Route::post('message_store', 'HomeController@message_store')->name('message_store');
+    Route::get('subscribe', 'HomeController@subscribe')->name('subscribe');
+    Route::post('subscribe_store', 'HomeController@subscribe_store')->name('subscribe_store');
     Route::get('search', 'HomeController@search')->name('search');
 });
 // 后台
-Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['auth:web','check_timeout','check_permission']], function () {
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['auth:web', 'check_timeout', 'check_permission']], function () {
     // 权限管理
-    Route::group(['namespace' => 'Permission'],function(){
+    Route::group(['namespace' => 'Permission'], function () {
         // 角色
-        Route::group(['prefix' => 'role'],function(){
+        Route::group(['prefix' => 'role'], function () {
             Route::get('manage', 'RoleController@manage')->name('role_manage');
             Route::post('store', 'RoleController@store')->name('role_store');
             Route::get('edit/{id}', 'RoleController@edit')->name('role_edit');
@@ -64,7 +64,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
             Route::get('search', 'RoleController@search')->name('role_search');
         });
         // 权限
-        Route::group(['prefix' => 'permission'],function(){
+        Route::group(['prefix' => 'permission'], function () {
             Route::get('manage', 'PermissionController@manage')->name('permission_manage');
             Route::post('store', 'PermissionController@store')->name('permission_store');
             Route::get('edit/{id?}', 'PermissionController@edit')->name('permission_edit');
@@ -73,7 +73,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
             Route::get('search', 'PermissionController@search')->name('permission_search');
         });
         // 用户
-        Route::group(['prefix' => 'user'],function(){
+        Route::group(['prefix' => 'user'], function () {
             Route::get('manage', 'UserController@manage')->name('user_manage');
             Route::get('create', 'UserController@create')->name('user_create');
             Route::post('store', 'UserController@store')->name('user_store');
@@ -87,7 +87,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
         });
     });
     // 控制台
-    Route::get('/', function(){
+    Route::get('/', function () {
         return redirect()->route('dashboard_home');
     });
     Route::get('home', 'DashboardController@home')->name('dashboard_home');
@@ -96,7 +96,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
     Route::group(['prefix' => 'config'], function () {
         Route::get('manage', 'ConfigController@manage')->name('config_manage');
         Route::post('update', 'ConfigController@update')->name('config_update');
-        Route::post('upload-image','ConfigController@uploadImage')->name('water_mark_upload');
+        Route::post('upload-image', 'ConfigController@uploadImage')->name('water_mark_upload');
     });
     // 个人资料
     Route::group(['prefix' => 'profile'], function () {
@@ -189,7 +189,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
         Route::post('destroy', 'OperationLogsController@destroy')->name('operation_logs_destroy');
     });
     // 图床
-    Route::group(['prefix' => 'image'],function(){
+    Route::group(['prefix' => 'image'], function () {
         Route::get('list', 'ImageController@list')->name('image_list');
         Route::post('upload-image', 'ImageController@upload')->name('image_upload');
     });
@@ -210,7 +210,4 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
 //Route::get('/test', function () {
 //    return '测试页面';
 //})->name('test');
-Route::get('/mde', function () {
-    return view('mde');
-});
 

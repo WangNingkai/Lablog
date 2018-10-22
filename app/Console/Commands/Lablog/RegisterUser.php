@@ -45,7 +45,7 @@ class RegisterUser extends Command
         event(new Registered($createOrFail = User::create([
             'name' => $username,
             'email' => $email,
-            'password' => Hash::make($password ),
+            'password' => Hash::make($password),
             'status' => 1,
             'avatar' => '\uploads\avatar\default.png'
         ])));

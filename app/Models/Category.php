@@ -22,7 +22,8 @@ class Category extends Base
      * @param integer
      * @return array 角色数组
      */
-    public function getTreeIndex($id = 0, $deep = 0) {
+    public function getTreeIndex($id = 0, $deep = 0)
+    {
         static $tempArr = [];
         $data = $this->query()->where('parent_id', $id)->orderBy('sort', 'asc')->get();
         foreach ($data as $k => $v) {
@@ -33,6 +34,7 @@ class Category extends Base
         }
         return $tempArr;
     }
+
     /**
      * 删除数据
      *
@@ -59,7 +61,7 @@ class Category extends Base
         // 获取分类下的文章数
         $articleCount = Article::query()->whereIn('category_id', $categoryIdArray)->count();
         // 如果分类下存在文章；则需要下删除文章
-        if (0 !==$articleCount) {
+        if (0 !== $articleCount) {
             Tool::showMessage('请先删除所选分类下的文章', false);
             return false;
         }

@@ -24,7 +24,7 @@ class CheckStatus
         }
         $route = Route::currentRouteName();
         // 是否开启订阅或留言
-        $allowMessage =  Tool::config('site_allow_message');
+        $allowMessage = Tool::config('site_allow_message');
         $allowSubscribe = Tool::config('site_allow_subscribe');
         if ($route == 'message' && $allowMessage == 0) {
             return abort(404);

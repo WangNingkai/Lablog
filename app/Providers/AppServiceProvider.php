@@ -31,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
             $nav_list = Cache::remember('cache:nav_list', 1440, function () {
                 // 获取导航栏
                 $data = Nav::query()
-                    ->where('status' , Nav::STATUS_DISPLAY)
+                    ->where('status', Nav::STATUS_DISPLAY)
                     ->orderBy('sort', 'asc')
                     ->get();
                 return Tool::getRecursiveData($data);
@@ -66,11 +66,11 @@ class AppServiceProvider extends ServiceProvider
             $config = Cache::remember('cache:config', 1440, function () {
                 return Config::query()->pluck('value', 'name');
             });
-            $assign = compact('nav_list','category_list', 'tag_list', 'top_article_list', 'link_list','config');
+            $assign = compact('nav_list', 'category_list', 'tag_list', 'top_article_list', 'link_list', 'config');
             $view->with($assign);
         });
         # 获取各种统计
-        view()->composer('admin.index', function($view){
+        view()->composer('admin.index', function ($view) {
             $articlesCount = Cache::remember('count:article', 1440, function () {
                 // 统计文章总数
                 return Article::query()->count('id');

@@ -14,16 +14,16 @@ class CheckTimeout
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Closure $next
      * @return mixed
      */
     public function handle($request, Closure $next)
     {
         $isLoggedIn = $request->path() != 'logout';
-        if(!$lastActivityTime = Session::get('lastActivityTime')) {
-            Session::put('lastActivityTime',time());
-        } elseif(time() - $lastActivityTime > $this->timeout) {
+        if (!$lastActivityTime = Session::get('lastActivityTime')) {
+            Session::put('lastActivityTime', time());
+        } elseif (time() - $lastActivityTime > $this->timeout) {
             Session::forget('lastActivityTime');
             $cookie = cookie('intend', $isLoggedIn ? url()->current() : 'admin');
             $email = $request->user()->email;

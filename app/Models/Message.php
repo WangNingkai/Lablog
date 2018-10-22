@@ -6,8 +6,8 @@ use App\Helpers\Extensions\Tool;
 
 class Message extends Base
 {
-    const CHECKED    = 1;
-    const UNCHECKED  = 0;
+    const CHECKED = 1;
+    const UNCHECKED = 0;
 
     public function getStatusTagAttribute()
     {
@@ -28,10 +28,11 @@ class Message extends Base
             Tool::showMessage('留言成功，等待审核');
             return $result->id;
         } else {
-            Tool::showMessage('留言失败',false);
+            Tool::showMessage('留言失败', false);
             return false;
         }
     }
+
     /**
      * 审核数据
      *
@@ -55,14 +56,15 @@ class Message extends Base
             Tool::showMessage('操作成功');
             return $result;
         } else {
-            Tool::showMessage('操作失败',false);
+            Tool::showMessage('操作失败', false);
             return false;
         }
     }
+
     /**
      * 回复数据
      *
-     * @param  int $id  id
+     * @param  int $id id
      * @param  mixed $reply 回复的数据
      * @return bool        是否成功
      */
@@ -76,12 +78,12 @@ class Message extends Base
             Tool::showMessage('数据为空，回复失败', false);
             return false;
         }
-        $result = $model->forceFill(['reply' =>$reply,'status' => self::CHECKED])->save();
+        $result = $model->forceFill(['reply' => $reply, 'status' => self::CHECKED])->save();
         if ($result) {
             Tool::showMessage('回复成功');
             return $result;
         } else {
-            Tool::showMessage('回复失败',false);
+            Tool::showMessage('回复失败', false);
             return false;
         }
     }

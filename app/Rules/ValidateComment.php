@@ -9,6 +9,7 @@ use App\Models\Comment;
 class ValidateComment implements Rule
 {
     private $message;
+
     /**
      * Create a new rule instance.
      *
@@ -22,8 +23,8 @@ class ValidateComment implements Rule
     /**
      * Determine if the validation rule passes.
      *
-     * @param  string  $attribute
-     * @param  mixed  $value
+     * @param  string $attribute
+     * @param  mixed $value
      * @return bool
      */
     public function passes($attribute, $value)
@@ -41,14 +42,14 @@ class ValidateComment implements Rule
         $lastCommentTime = strtotime($lastCommentDate);
         // 限制1分钟内只许评论1次
         $time = time();
-        if ($time-$lastCommentTime < 60) {
+        if ($time - $lastCommentTime < 60) {
             $this->message = '评论太过频繁,请稍后再试.';
             return false;
         }
         // 限制同一IP一天评论数
         $date = date('Y-m-d', $time);
         $count = Comment::query()->where('ip', $commentIp)
-            ->whereBetween('created_at', [$date.' 00:00:00', $date.' 23:59:59'])
+            ->whereBetween('created_at', [$date . ' 00:00:00', $date . ' 23:59:59'])
             ->count();
         if ($count > 10) {
             $this->message = '今天已经评论太多了，明天再来吧.';

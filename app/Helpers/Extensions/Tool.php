@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Helpers\Extensions;
 
 use App\Jobs\SendEmail;
@@ -42,14 +43,14 @@ class Tool
      * @param string $name 用户名
      * @param string $content 内容
      * @param string $url 链接
-     * @param int $delay       延迟时间
+     * @param int $delay 延迟时间
      */
-    public static function pushMessage($who,$name,$content,$url,$delay = 60)
+    public static function pushMessage($who, $name, $content, $url, $delay = 60)
     {
         $param = [
             'email' => $who,
             'name' => $name,
-            'subject' => config('app.name').'站点推送消息',
+            'subject' => config('app.name') . '站点推送消息',
             'data' => [
                 'name' => $name,
                 'content' => $content,
@@ -62,23 +63,23 @@ class Tool
     /**
      * 推送订阅
      *
-     * @param string $subject  主题
-     * @param string $content  内容
-     * @param string $url      链接
-     * @param array $target    指定用户
-     * @param int $delay       延迟时间
+     * @param string $subject 主题
+     * @param string $content 内容
+     * @param string $url 链接
+     * @param array $target 指定用户
+     * @param int $delay 延迟时间
      */
-    public static function pushSubscribe($subject, $content = '',$url = '',$target = [],$delay = 300)
+    public static function pushSubscribe($subject, $content = '', $url = '', $target = [], $delay = 300)
     {
         if (blank($target)) $target = Subscribe::query()->pluck('email');
-        foreach ( $target as $email ) {
+        foreach ($target as $email) {
             $param = [
                 'email' => $email,
                 'name' => '亲爱的订阅用户',
                 'subject' => blank($subject) ? config('app.name') . '站点订阅提醒' : $subject,
                 'data' => [
                     'name' => '亲爱的订阅用户',
-                    'content' => blank($content) ? config('app.name').'有新文章发布了，快来瞧瞧吧': $content,
+                    'content' => blank($content) ? config('app.name') . '有新文章发布了，快来瞧瞧吧' : $content,
                     'url' => $url,
                 ]
             ];
@@ -94,7 +95,7 @@ class Tool
      */
     public static function hasFilter($content)
     {
-        $filterFile = storage_path('app/data').'/dict.bin';
+        $filterFile = storage_path('app/data') . '/dict.bin';
         $dict = new SimpleDictionary($filterFile);
         $re = $dict->search($content);
         return count($re) > 0 ? 1 : 0;
@@ -136,53 +137,54 @@ class Tool
      * @param int $format
      * @return false|string
      */
-    public static function transformTime($sTime,$format = 0)
+    public static function transformTime($sTime, $format = 0)
     {
         # 如果是日期格式的时间;则先转为时间戳
         if (!is_integer($sTime)) {
             $sTime = strtotime($sTime);
         }
         //sTime=源时间，cTime=当前时间，dTime=时间差
-        $cTime        =    time();
-        $dTime        =    $cTime - $sTime;
+        $cTime = time();
+        $dTime = $cTime - $sTime;
         // 计算两个时间之间的日期差
-        $date1 = date_create(date("Y-m-d",$cTime));
-        $date2 = date_create(date("Y-m-d",$sTime));
-        $diff = date_diff($date1,$date2);
+        $date1 = date_create(date("Y-m-d", $cTime));
+        $date2 = date_create(date("Y-m-d", $sTime));
+        $diff = date_diff($date1, $date2);
         $dDay = $diff->days;
 
         if ($dTime == 0) {
             return "1秒前";
         } elseif ($dTime < 60 && $dTime > 0) {
-            return $dTime."秒前";
+            return $dTime . "秒前";
         } elseif ($dTime < 3600 && $dTime > 0) {
-            return intval($dTime/60)."分钟前";
+            return intval($dTime / 60) . "分钟前";
         } elseif ($dTime >= 3600 && $dDay == 0) {
-            return intval($dTime/3600)."小时前";
-        }elseif($dDay == 1) {
-            return date("昨天 H:i",$sTime);
-        } elseif($dDay == 2) {
-            return date("前天 H:i",$sTime);
-        } elseif($format == 1) {
-            return date("m-d H:i",$sTime);
+            return intval($dTime / 3600) . "小时前";
+        } elseif ($dDay == 1) {
+            return date("昨天 H:i", $sTime);
+        } elseif ($dDay == 2) {
+            return date("前天 H:i", $sTime);
+        } elseif ($format == 1) {
+            return date("m-d H:i", $sTime);
         } else {
-            if (date('Y',$cTime)!=date('Y',$sTime)) // 不是今年
-                return date("Y-n-j",$sTime);
+            if (date('Y', $cTime) != date('Y', $sTime)) // 不是今年
+                return date("Y-n-j", $sTime);
             else
-                return date("n-j",$sTime);
+                return date("n-j", $sTime);
         }
     }
+
     /**
      * 发送邮件函数
      *
-     * @param  string $email           邮箱  如果群发 则传入数组
-     * @param string $name             名称
-     * @param string $subject          标题
-     * @param array $data              邮件模板中用的变量 示例：['name'=>'xxx','content'=>'xxx']
-     * @param string $template         邮件模板
+     * @param  string $email 邮箱  如果群发 则传入数组
+     * @param string $name 名称
+     * @param string $subject 标题
+     * @param array $data 邮件模板中用的变量 示例：['name'=>'xxx','content'=>'xxx']
+     * @param string $template 邮件模板
      * @return array                   发送状态
      */
-    public static  function sendEmail($email, $name, $subject, $data = [], $template = 'emails.base')
+    public static function sendEmail($email, $name, $subject, $data = [], $template = 'emails.base')
     {
         Mail::send($template, $data, function ($message) use ($email, $name, $subject) {
             if (is_array($email)) {
@@ -193,20 +195,20 @@ class Tool
                 $message->to($email, $name)->subject($subject);
             }
         });
-        return (count(Mail::failures()) > 0)?['status_code' => 500, 'message' => '邮件发送失败']:['status_code' => 200, 'message' => '邮件发送成功'];
+        return (count(Mail::failures()) > 0) ? ['status_code' => 500, 'message' => '邮件发送失败'] : ['status_code' => 200, 'message' => '邮件发送成功'];
     }
 
     /**
      * 上传文件函数
      *
-     * @param string $file           表单的name名
-     * @param array  $rule           验证规则
-     * @param string $path           上传的路径
-     * @param mixed  $isRandName     是否自定义名 存在则命名
-     * @param bool $childPath        是否根据日期生成子目录
+     * @param string $file 表单的name名
+     * @param array $rule 验证规则
+     * @param string $path 上传的路径
+     * @param mixed $isRandName 是否自定义名 存在则命名
+     * @param bool $childPath 是否根据日期生成子目录
      * @return array                 上传的状态
      */
-    public static function uploadFile($file, $rule ,$path = 'upload', $isRandName = null, $childPath = false)
+    public static function uploadFile($file, $rule, $path = 'upload', $isRandName = null, $childPath = false)
     {
         if (!request()->hasFile($file)) {
             $data = ['status_code' => 500, 'message' => '上传文件为空'];
@@ -232,13 +234,13 @@ class Tool
             mkdir($path, 0755, true);
         }
         $oldName = $file->getClientOriginalName();
-        $newName =  $isRandName ? $isRandName . '.png' : 'image_' . time() . '_' . str_random(10) . '.png';
+        $newName = $isRandName ? $isRandName . '.png' : 'image_' . time() . '_' . str_random(10) . '.png';
         if (!$file->move($path, $newName)) {
             return ['status_code' => 500, 'message' => '保存文件失败'];
         }
         $filePath = trim($path, '.');
-        $absolutePath = public_path($filePath).$newName;
-        $publicPath = $filePath.$newName;
+        $absolutePath = public_path($filePath) . $newName;
+        $publicPath = $filePath . $newName;
         // 图片自动加水印设置
         return [
             'status_code' => 200,
@@ -259,19 +261,19 @@ class Tool
      * @param string|array $id 文章id
      * @param string $type 推送类型 添加urls 1更新update 2删除del
      */
-    public static function bdPush($id,$type = 'urls')
+    public static function bdPush($id, $type = 'urls')
     {
         $urls = [];
         if (is_array($id)) {
-            foreach ( $id as $value ) {
-                $urls[]=route('article',$value);
+            foreach ($id as $value) {
+                $urls[] = route('article', $value);
             }
-        }else {
-            $urls[]=route('article',$id);
+        } else {
+            $urls[] = route('article', $id);
         }
-        $api = 'http://data.zz.baidu.com/'.$type.'?site='.config('app.url').'&token='.config('global.bd_push_token');
+        $api = 'http://data.zz.baidu.com/' . $type . '?site=' . config('app.url') . '&token=' . config('global.bd_push_token');
         $ch = curl_init();
-        $options=[
+        $options = [
             CURLOPT_URL => $api,
             CURLOPT_POST => true,
             CURLOPT_RETURNTRANSFER => true,
@@ -281,7 +283,7 @@ class Tool
         curl_setopt_array($ch, $options);
         $result = curl_exec($ch);
         $msg = json_decode($result, true);
-        if ( array_key_exists('error',$msg) ) {
+        if (array_key_exists('error', $msg)) {
             curl_exec($ch);
         }
         curl_close($ch);
@@ -297,9 +299,9 @@ class Tool
     {
         $status = '';
         if (is_array($route)) {
-            foreach($route as $item) {
-                if(request()->is($item . '/*') || request()->is($item)) {
-                    $status =  'active';
+            foreach ($route as $item) {
+                if (request()->is($item . '/*') || request()->is($item)) {
+                    $status = 'active';
                     break;
                 }
             }
@@ -327,13 +329,15 @@ class Tool
         }
         return response()->json($data, $code);
     }
+
     /**
      * 记录操作日志事件
      * @param $operator
      * @param $operation
      */
-    public static function recordOperation($operator,$operation){
-        event(new OperationEvent($operator,$operation,request()->getClientIp(), time()));
+    public static function recordOperation($operator, $operation)
+    {
+        event(new OperationEvent($operator, $operation, request()->getClientIp(), time()));
     }
 
     /**
@@ -346,13 +350,13 @@ class Tool
     public static function getRecursiveData($data, $parent_id = 0)
     {
         $new_arr = [];
-        foreach($data as $k => $v){
+        foreach ($data as $k => $v) {
             if ($v['parent_id'] == $parent_id) {
                 $new_arr[] = $v;
                 unset($data[$k]);
             }
         }
-        foreach($new_arr as &$a){
+        foreach ($new_arr as &$a) {
             $a['children'] = self::getRecursiveData($data, $a['id']);
             if (count($a['children']) === 0) {
                 unset($a['children']);
@@ -381,7 +385,7 @@ class Tool
      */
     public static function getUA()
     {
-        $agent=new Agent;
+        $agent = new Agent;
         $ua_info['device'] = $agent->device() ? $agent->device() : 'desktop';
         $browser = $agent->browser();
         $ua_info['browser'] = $browser . ' ' . $agent->version($browser);
@@ -410,7 +414,7 @@ class Tool
     public static function ip2City($ip)
     {
         $data = Ip::find($ip);
-        return $data[0].$data[1].$data[2];
+        return $data[0] . $data[1] . $data[2];
     }
 
     /**
@@ -455,9 +459,9 @@ class Tool
     public static function syncRank($id)
     {
         $article = Article::query()->find($id);
-        $score = pow(intval($article->getAttributeValue('comment_count')),2) + intval($article->getAttributeValue('click')) + 2;
+        $score = pow(intval($article->getAttributeValue('comment_count')), 2) + intval($article->getAttributeValue('click')) + 2;
         $t = intval((time() - strtotime($article->getAttributeValue('feed_updated_at'))) / 3600);
-        $rank = $score - 1 / (pow(($t + 2),1.8));
+        $rank = $score - 1 / (pow(($t + 2), 1.8));
         $article->rank = $rank;
         $article->save();
     }
@@ -469,9 +473,10 @@ class Tool
      * @param string $waterImage 水印图片地址
      * @return mixed
      */
-    public static function addImgWater($file, $waterImage) {
+    public static function addImgWater($file, $waterImage)
+    {
         $image = Image::make($file);
-        $image->insert($waterImage, 'bottom-right',10,15);
+        $image->insert($waterImage, 'bottom-right', 10, 15);
         $image->save($file);
         return $image;
     }
@@ -484,9 +489,10 @@ class Tool
      * @param string $color 水印颜色
      * @return mixed
      */
-    public static function addTextWater($file, $text, $color = '#0B94C1') {
+    public static function addTextWater($file, $text, $color = '#0B94C1')
+    {
         $image = Image::make($file);
-        $image->text($text, $image->width()-20, $image->height()-30, function($font) use($color) {
+        $image->text($text, $image->width() - 20, $image->height() - 30, function ($font) use ($color) {
 //            $font->file(public_path('fonts/consya.ttf')); // 雅黑console 可自定义字体
             $font->size(20);
             $font->color($color);
@@ -529,7 +535,7 @@ class Tool
         //获取当前需要显示的数据列表$currentPage * $perPage
         $currentPageDataResults = $collection->slice(($currentPage - 1) * $perPage, $perPage)->all();
         //创建一个新的分页方法
-        $paginatedDataResults= new LengthAwarePaginator($currentPageDataResults, count($collection), $perPage);
+        $paginatedDataResults = new LengthAwarePaginator($currentPageDataResults, count($collection), $perPage);
         //给分页加自定义url
         $paginatedDataResults = $paginatedDataResults->setPath($path);
         return $paginatedDataResults;

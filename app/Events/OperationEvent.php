@@ -9,7 +9,6 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use App\Models\User;
 
 
-
 class OperationEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
@@ -47,10 +46,10 @@ class OperationEvent
      */
     public function __construct($operator, $operation, $ip = '', $timestamp = '')
     {
-            $this->operator = $operator;
-            $this->operation = $operation;
-            $this->ip = $ip;
-            $this->timestamp = $timestamp;
+        $this->operator = $operator;
+        $this->operation = $operation;
+        $this->ip = $ip;
+        $this->timestamp = $timestamp;
     }
 
     /**

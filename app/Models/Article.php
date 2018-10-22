@@ -9,7 +9,7 @@ class Article extends Base
 {
     use SoftDeletes;
 
-    const PUBLISHED   = 1;
+    const PUBLISHED = 1;
     const UNPUBLISHED = 0;
     const ALLOW_COMMENT = 1;
     const FORBID_COMMENT = 0;
@@ -28,7 +28,7 @@ class Article extends Base
      */
     public function tags()
     {
-        return $this->belongsToMany(Tag::class,'article_tags');
+        return $this->belongsToMany(Tag::class, 'article_tags');
     }
 
     /**
@@ -63,7 +63,7 @@ class Article extends Base
      */
     public function getCommentCountAttribute()
     {
-        return Comment::query()->where(['article_id' => $this->attributes['id'],'status'=> Comment::CHECKED])->count();
+        return Comment::query()->where(['article_id' => $this->attributes['id'], 'status' => Comment::CHECKED])->count();
     }
 
     /**
@@ -71,7 +71,7 @@ class Article extends Base
      */
     public function getFeedUpdatedAtAttribute()
     {
-        return Feed::query()->where(['target_type' => Feed::TYPE_ARTICLE,'target_id'=>$this->attributes['id']])->value('updated_at');
+        return Feed::query()->where(['target_type' => Feed::TYPE_ARTICLE, 'target_id' => $this->attributes['id']])->value('updated_at');
     }
 
     /**
@@ -86,7 +86,7 @@ class Article extends Base
     /**
      * 过滤描述中的换行。
      *
-     * @param  string  $value
+     * @param  string $value
      * @return string
      */
     public function getDescriptionAttribute($value)
@@ -150,7 +150,7 @@ class Article extends Base
         }
         unset($data['tag_ids']);
         unset($data['content']);
-        $result = parent::updateData(['id'=>$id],$data);
+        $result = parent::updateData(['id' => $id], $data);
         if ($result) {
             $articleTagModel = new ArticleTag;
             $articleTagModel->addTagIds($id, $tag_ids);
@@ -163,7 +163,7 @@ class Article extends Base
                 'html' => $feed['html'],
             ]);
             return $result;
-        }else {
+        } else {
             return false;
         }
     }

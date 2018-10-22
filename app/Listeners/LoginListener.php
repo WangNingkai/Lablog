@@ -22,7 +22,7 @@ class LoginListener
     /**
      * Handle the event.
      *
-     * @param  Login  $event
+     * @param  Login $event
      * @return void
      */
     public function handle(Login $event)
@@ -31,6 +31,6 @@ class LoginListener
         $user->last_login_at = Carbon::now();
         $user->last_login_ip = request()->ip();
         $user->save();
-        event(new OperationEvent(UserExt::getAttribute('name'),'管理员登录', request()->ip(), time()));
+        event(new OperationEvent(UserExt::getAttribute('name'), '管理员登录', request()->ip(), time()));
     }
 }

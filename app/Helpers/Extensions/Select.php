@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Helpers\Extensions;
 
 /**
@@ -50,7 +51,8 @@ class Select
      *
      * @return array
      */
-    public function make_tree(){
+    public function make_tree()
+    {
         return $this->init_tree($this->arr);
     }
 
@@ -84,15 +86,16 @@ class Select
      * @param int $parent_id
      * @return array
      */
-    public function init_tree($arr, $parent_id = 0){
+    public function init_tree($arr, $parent_id = 0)
+    {
         $new_arr = [];
-        foreach($arr as $k => $v){
-            if($v[$this->parent_id] == $parent_id){
+        foreach ($arr as $k => $v) {
+            if ($v[$this->parent_id] == $parent_id) {
                 $new_arr[] = $v;
                 unset($arr[$k]);
             }
         }
-        foreach($new_arr as &$a){
+        foreach ($new_arr as &$a) {
             $a['children'] = $this->init_tree($arr, $a[$this->id]);
         }
         return $new_arr;
@@ -105,14 +108,15 @@ class Select
      * @param string $prefix
      * @return array
      */
-    public function add_prefix($arr, $prefix = '') {
+    public function add_prefix($arr, $prefix = '')
+    {
         $new_arr = [];
         foreach ($arr as $v) {
             if ($prefix) {
                 if ($v == end($arr)) {
-                    $v[$this->name]= $prefix.$this->icon[2].$v[$this->name];
+                    $v[$this->name] = $prefix . $this->icon[2] . $v[$this->name];
                 } else {
-                    $v[$this->name] = $prefix.$this->icon[1].$v[$this->name];
+                    $v[$this->name] = $prefix . $this->icon[1] . $v[$this->name];
                 }
             }
 
@@ -120,9 +124,9 @@ class Select
                 $prefix_for_children = '　 ';
             } else {
                 if ($v == end($arr)) {
-                    $prefix_for_children = $prefix.'　　 ';
+                    $prefix_for_children = $prefix . '　　 ';
                 } else {
-                    $prefix_for_children = $prefix.$this->icon[0].'　 ';
+                    $prefix_for_children = $prefix . $this->icon[0] . '　 ';
                 }
             }
             $v['children'] = $this->add_prefix($v['children'], $prefix_for_children);
@@ -142,17 +146,18 @@ class Select
      * @param string $ancestor_ids
      * @return string
      */
-    public function make_options($arr, $selected_id = 0, $depth = 0, $recursion_count = 0, $ancestor_ids = '') {
+    public function make_options($arr, $selected_id = 0, $depth = 0, $recursion_count = 0, $ancestor_ids = '')
+    {
         $recursion_count++;
         $str = '';
         foreach ($arr as $v) {
-            $selected = ($v[$this->id] == $selected_id) ? 'selected' : '' ;
-            $str .= "<option value='{$v[$this->id]}' data-depth='{$recursion_count}' data-ancestor_ids='".ltrim($ancestor_ids,',')."' {$selected} >{$v[$this->name]}</option>". PHP_EOL;
+            $selected = ($v[$this->id] == $selected_id) ? 'selected' : '';
+            $str .= "<option value='{$v[$this->id]}' data-depth='{$recursion_count}' data-ancestor_ids='" . ltrim($ancestor_ids, ',') . "' {$selected} >{$v[$this->name]}</option>" . PHP_EOL;
             if ($v[$this->parent_id] == 0) {
                 $recursion_count = 1;
             }
-            if ($depth==0 || $recursion_count<$depth) {
-                $str .= $this->make_options($v['children'], $selected_id, $depth, $recursion_count, $ancestor_ids.','.$v[$this->id]);
+            if ($depth == 0 || $recursion_count < $depth) {
+                $str .= $this->make_options($v['children'], $selected_id, $depth, $recursion_count, $ancestor_ids . ',' . $v[$this->id]);
             }
 
         }

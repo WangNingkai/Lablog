@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Helpers\ServiceExt;
 
 use App\Models\Article;
@@ -20,7 +21,7 @@ class SitemapService
      */
     public function init()
     {
-        $sitemap = App::make ("sitemap");
+        $sitemap = App::make("sitemap");
         if ($this->createHome()) {
             $sitemap->addSitemap(config('app.url') . '/sitemap/home.xml', date(DATE_RFC3339, time()));
         }
@@ -54,7 +55,7 @@ class SitemapService
         $sitemap = App::make("sitemap");
         $sitemap->add(route('home'), date(DATE_RFC3339, time()), '1.0', 'daily');
         $info = $sitemap->store('xml', 'home', public_path('sitemap'));
-        Log::info($info,['Sitemap:Home generate OK!']);
+        Log::info($info, ['Sitemap:Home generate OK!']);
         return true;
     }
 
@@ -67,7 +68,7 @@ class SitemapService
         $sitemap = App::make("sitemap");
         $sitemap->add(route('archive'), date(DATE_RFC3339, time()), '1.0', 'daily');
         $info = $sitemap->store('xml', 'archive', public_path('sitemap'));
-        Log::info($info,['Sitemap:Archive generate OK!']);
+        Log::info($info, ['Sitemap:Archive generate OK!']);
         return true;
     }
 
@@ -75,11 +76,12 @@ class SitemapService
      * 初始化文章页
      * @return array
      */
-    public function createArticles(){
+    public function createArticles()
+    {
         $sitemap = App::make("sitemap");
         $sitemapName = '';
         $articlesData = [];
-        Article::query()->select('id', 'created_at', 'updated_at')->chunk(100,function ($articles) use (&$articlesData, &$sitemapName) {
+        Article::query()->select('id', 'created_at', 'updated_at')->chunk(100, function ($articles) use (&$articlesData, &$sitemapName) {
             foreach ($articles as $article) {
                 $sitemapName = date('Y-m', strtotime($article->feed->created_at));
                 $articlesData[$sitemapName][] = [
@@ -97,9 +99,9 @@ class SitemapService
                 }
                 $sitemap->add($_data['url'], date(DATE_RFC3339, $_data['lastmod']), '0.8', 'daily');
             }
-            $info = $sitemap->store('xml','articles-' . $name, public_path('sitemap'));
+            $info = $sitemap->store('xml', 'articles-' . $name, public_path('sitemap'));
             $lastModTimes[$name] = $lastModTime;
-            Log::info($info,['Sitemap:Aticle generate OK!']);
+            Log::info($info, ['Sitemap:Aticle generate OK!']);
 
             $sitemap->model->resetItems();
         }
@@ -115,7 +117,7 @@ class SitemapService
         $sitemap = App::make("sitemap");
         $lastModTime = 0;
 
-        $pages = Page::query()->select('id','title','updated_at')->get();
+        $pages = Page::query()->select('id', 'title', 'updated_at')->get();
         foreach ($pages as $page) {
             $pageLastModTime = strtotime($page->feed->updated_at);
             if ($pageLastModTime > $lastModTime) {
@@ -124,8 +126,8 @@ class SitemapService
             $url = route('page', ['id' => $page->id]);
             $sitemap->add($url, date(DATE_RFC3339, strtotime($page->feed->updated_at)), '0.6', 'weekly');
         }
-        $info = $sitemap->store('xml','pages', public_path('sitemap'));
-        Log::info($info,['Sitemap:Page generate OK!']);
+        $info = $sitemap->store('xml', 'pages', public_path('sitemap'));
+        Log::info($info, ['Sitemap:Page generate OK!']);
         return $lastModTime;
 
     }
@@ -139,7 +141,7 @@ class SitemapService
         $sitemap = App::make("sitemap");
         $lastModTime = 0;
 
-        Tag::query()->select('id','name','updated_at')->chunk(100, function ($tags) use ($sitemap, &$lastModTime) {
+        Tag::query()->select('id', 'name', 'updated_at')->chunk(100, function ($tags) use ($sitemap, &$lastModTime) {
             foreach ($tags as $tag) {
                 $tagLastModTime = strtotime($tag->updated_at);
                 if ($tagLastModTime > $lastModTime) {
@@ -150,8 +152,8 @@ class SitemapService
             }
         });
 
-        $info = $sitemap->store('xml','tags', public_path('sitemap'));
-        Log::info($info,['Sitemap:Tag generate OK!']);
+        $info = $sitemap->store('xml', 'tags', public_path('sitemap'));
+        Log::info($info, ['Sitemap:Tag generate OK!']);
         return $lastModTime;
 
     }
@@ -165,7 +167,7 @@ class SitemapService
         $sitemap = App::make("sitemap");
         $lastModTime = 0;
 
-        Category::query()->select('id','name','updated_at')->chunk(100, function ($categories) use ($sitemap, &$lastModTime) {
+        Category::query()->select('id', 'name', 'updated_at')->chunk(100, function ($categories) use ($sitemap, &$lastModTime) {
             foreach ($categories as $category) {
                 $tagLastModTime = strtotime($category->updated_at);
                 if ($tagLastModTime > $lastModTime) {
@@ -176,8 +178,8 @@ class SitemapService
             }
         });
 
-        $info = $sitemap->store('xml','categories', public_path('sitemap'));
-        Log::info($info,['Sitemap:Category generate OK!']);
+        $info = $sitemap->store('xml', 'categories', public_path('sitemap'));
+        Log::info($info, ['Sitemap:Category generate OK!']);
         return $lastModTime;
     }
 }

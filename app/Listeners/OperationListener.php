@@ -21,7 +21,7 @@ class OperationListener
     /**
      * Handle the event.
      *
-     * @param  OperationEvent  $event
+     * @param  OperationEvent $event
      * @return void
      */
     public function handle(OperationEvent $event)
@@ -32,17 +32,17 @@ class OperationListener
         $ip = $event->getIp();
         $timestamp = $event->getTimestamp();
 
-        $basic_info=[
+        $basic_info = [
             'operator' => $operator,
             'operation' => $operation,
             'ip' => $ip,
             'operation_time' => $timestamp,
         ];
 
-        $basic_info['address']=Tool::ip2City($ip);
+        $basic_info['address'] = Tool::ip2City($ip);
         // 提取agent信息
-        $ua_info=Tool::getUA();
-        $operation_info=array_merge($basic_info,$ua_info);
+        $ua_info = Tool::getUA();
+        $operation_info = array_merge($basic_info, $ua_info);
         //插入到数据库
         DB::table('operation_logs')->insert($operation_info);
 

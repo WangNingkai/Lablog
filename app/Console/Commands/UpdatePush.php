@@ -39,16 +39,16 @@ class UpdatePush extends Command
     {
         // 先给shell脚本执行权限 chmod +x laravel.sh
         $shellPath = '/root/project/shell/laravel.sh';
-        $basePath =base_path();
+        $basePath = base_path();
         $command = "sudo /usr/bin/bash {$shellPath} update {$basePath} >> /data/wwwlogs/lablog_pull.log 2>&1 &";
         $this->info('[' . date('Y-m-d H:i:s', time()) . '] =====执行命令=====');
         $process = new Process($command);
-        $process ->run();
+        $process->run();
         $this->info('[' . date('Y-m-d H:i:s', time()) . '] [' . $command . ']');
         $result = $process->isSuccessful();
         $this->info('[' . date('Y-m-d H:i:s', time()) . '] =====执行完毕=====');
-        $this->info('[' . date('Y-m-d H:i:s', time()) . '] 执行结果：'.$result);
-        $this->info('[' . date('Y-m-d H:i:s', time()) . '] 输出结果：'.$process->getOutput());
+        $this->info('[' . date('Y-m-d H:i:s', time()) . '] 执行结果：' . $result);
+        $this->info('[' . date('Y-m-d H:i:s', time()) . '] 输出结果：' . $process->getOutput());
 
     }
 }

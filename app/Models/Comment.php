@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\Cache;
 class Comment extends Base
 {
 
-    const CHECKED    = 1;
-    const UNCHECKED  = 0;
+    const CHECKED = 1;
+    const UNCHECKED = 0;
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -38,7 +38,7 @@ class Comment extends Base
             Tool::showMessage('评论成功，等待审核');
             return $result->id;
         } else {
-            Tool::showMessage('评论失败',false);
+            Tool::showMessage('评论失败', false);
             return false;
         }
     }
@@ -64,13 +64,13 @@ class Comment extends Base
             if (Cache::has('cache:article' . $article_id)) {
                 Cache::forget('cache:article' . $article_id);
             }
-            $result = $v->forceFill(['status'=> abs(1 - $oldStatus)])->save();
+            $result = $v->forceFill(['status' => abs(1 - $oldStatus)])->save();
         }
         if ($result) {
             Tool::showMessage('操作成功');
             return $result;
         } else {
-            Tool::showMessage('操作失败',false);
+            Tool::showMessage('操作失败', false);
             return false;
         }
     }
@@ -78,7 +78,7 @@ class Comment extends Base
     /**
      * 回复数据
      *
-     * @param  int $id  id
+     * @param  int $id id
      * @param  mixed $reply 回复的数据
      * @return bool        是否成功
      */
@@ -92,12 +92,12 @@ class Comment extends Base
             Tool::showMessage('数据为空，回复失败', false);
             return false;
         }
-        $result = $model->forceFill(['reply' => $reply,'status' => self::CHECKED])->save();
+        $result = $model->forceFill(['reply' => $reply, 'status' => self::CHECKED])->save();
         if ($result) {
             Tool::showMessage('回复成功');
             return $result;
         } else {
-            Tool::showMessage('回复失败',false);
+            Tool::showMessage('回复失败', false);
             return false;
         }
     }

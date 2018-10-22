@@ -42,7 +42,7 @@ class Page extends Base
     {
         $feed['content'] = $data['content'];
         $feed['html'] = Tool::markdown2Html($data['content']);
-        unset( $data['content']);
+        unset($data['content']);
         $result = parent::storeData($data);
         if ($result) {
             Feed::query()->create([
@@ -67,7 +67,7 @@ class Page extends Base
         $feed['content'] = $data['content'];
         $feed['html'] = Tool::markdown2Html($data['content']);
         unset($data['content']);
-        $result = parent::updateData(['id'=>$id],$data);
+        $result = parent::updateData(['id' => $id], $data);
         if ($result) {
             Feed::query()->where([
                 ['target_type', '=', Feed::TYPE_PAGE],
@@ -77,7 +77,7 @@ class Page extends Base
                 'html' => $feed['html'],
             ]);
             return $result;
-        }else {
+        } else {
             return false;
         }
     }

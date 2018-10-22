@@ -14,7 +14,7 @@ class ArticleTag extends Base
     public function addTagIds($article_id, $tag_ids)
     {
         // 先删除此文章下的所有标签
-        $this->query()->where('article_id' ,$article_id)->forceDelete();
+        $this->query()->where('article_id', $article_id)->forceDelete();
         // 组合批量插入的数据
         $data = [];
         foreach ($tag_ids as $k => $v) {

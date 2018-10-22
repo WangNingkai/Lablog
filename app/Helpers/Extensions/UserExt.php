@@ -18,7 +18,7 @@ class UserExt
      */
     public static function currentUser()
     {
-        $uid = Auth::id()?:null;
+        $uid = Auth::id() ?: null;
         if (!$uid) return false;
         return User::query()->find($uid);
     }
