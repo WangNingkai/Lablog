@@ -7,7 +7,9 @@
 @section('content')
     <div class="content-wrapper">
         <section class="content-header">
-            <h1>新建单页<small>LABLOG</small></h1>
+            <h1>新建单页
+                <small>LABLOG</small>
+            </h1>
             <ol class="breadcrumb">
                 <li><a href="{{ route('dashboard_home') }}"><i class="fa fa-dashboard"></i> 首页</a></li>
                 <li><a href="{{ route('page_manage') }}">单页管理</a></li>
@@ -15,14 +17,16 @@
             </ol>
         </section>
         <section class="content container-fluid">
-            <form role="form"  method="POST" action="{{ route('page_store') }}" id="createPageForm">
+            <form role="form" method="POST" action="{{ route('page_store') }}" id="createPageForm">
                 @csrf
                 <div class="row">
                     <div class="col-md-12">
                         <div class="box box-solid">
                             <div class="box-body">
                                 <div class="pull-left">
-                                    <button type="submit" class="btn btn-success btn-flat" id="submit_btn"><i class="fa fa-check"></i>&nbsp;保存</button>
+                                    <button type="submit" class="btn btn-success btn-flat" id="submit_btn"><i
+                                            class="fa fa-check"></i>&nbsp;保存
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -37,32 +41,42 @@
                             <div class="box-body">
                                 <div class="form-group {{$errors->has('title')?'has-error':''}}">
                                     <label for="title">标题：</label>
-                                    <input type="text" class="form-control" name="title" id="title" placeholder="请输入标题"  value="{{old('title')}}">
+                                    <input type="text" class="form-control" name="title" id="title" placeholder="请输入标题"
+                                           value="{{old('title')}}">
                                     @if ($errors->has('title'))
-                                        <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('title') }}</strong></span>
+                                        <span class="help-block "><strong><i
+                                                    class="fa fa-times-circle-o"></i>{{ $errors->first('title') }}</strong></span>
                                     @endif
                                 </div>
                                 <div class="form-group {{$errors->has('author')?'has-error':''}}">
                                     <label for="author">作者：</label>
-                                    <input type="text" class="form-control" name="author" id="author" placeholder="在此输入作者"  value="{{old('author')?old('author'):Auth::user()->name}}">
+                                    <input type="text" class="form-control" name="author" id="author"
+                                           placeholder="在此输入作者"
+                                           value="{{old('author')?old('author'):Auth::user()->name}}">
                                     @if ($errors->has('author'))
-                                        <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('author') }}</strong></span>
+                                        <span class="help-block "><strong><i
+                                                    class="fa fa-times-circle-o"></i>{{ $errors->first('author') }}</strong></span>
                                     @endif
                                 </div>
                                 <div class="form-group {{$errors->has('status')?'has-error':''}}">
                                     <label>发布：</label>
                                     <div class="radio">
                                         <label class="i-checks">
-                                            <input type="radio" name="status" value="{{ \App\Models\Page::STATUS_DISPLAY }}"
-                                                   @if(old( 'status', \App\Models\Page::STATUS_DISPLAY)==\App\Models\Page::STATUS_DISPLAY ) checked="checked" @endif> &nbsp;是
+                                            <input type="radio" name="status"
+                                                   value="{{ \App\Models\Page::STATUS_DISPLAY }}"
+                                                   @if(old( 'status', \App\Models\Page::STATUS_DISPLAY)==\App\Models\Page::STATUS_DISPLAY ) checked="checked" @endif>
+                                            &nbsp;是
                                         </label>
                                         <label class="i-checks">
-                                            <input type="radio" name="status" value="{{ \App\Models\Page::STATUS_HIDE }}"
-                                                   @if(old( 'status', \App\Models\Page::STATUS_HIDE)==\App\Models\Page::STATUS_HIDE ) checked="checked" @endif> &nbsp;否
+                                            <input type="radio" name="status"
+                                                   value="{{ \App\Models\Page::STATUS_HIDE }}"
+                                                   @if(old( 'status', \App\Models\Page::STATUS_HIDE)==\App\Models\Page::STATUS_HIDE ) checked="checked" @endif>
+                                            &nbsp;否
                                         </label>
                                     </div>
                                     @if ($errors->has('status'))
-                                        <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('status') }}</strong></span>
+                                        <span class="help-block "><strong><i
+                                                    class="fa fa-times-circle-o"></i>{{ $errors->first('status') }}</strong></span>
                                     @endif
                                 </div>
                             </div>
@@ -76,9 +90,11 @@
                             <div class="box-body">
                                 <div class=" form-group {{$errors->has('content')?'has-error':''}}">
                                     @if ($errors->has('content'))
-                                        <span class="help-block"><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('content') }}</strong></span>
+                                        <span class="help-block"><strong><i
+                                                    class="fa fa-times-circle-o"></i>{{ $errors->first('content') }}</strong></span>
                                     @endif
-                                    <textarea name="content" id="mde" style="display:none;">{{old('content')}}</textarea>
+                                    <textarea name="content" id="mde"
+                                              style="display:none;">{{old('content')}}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -90,11 +106,12 @@
 @stop
 @section('js')
     <script src="https://cdn.jsdelivr.net/npm/inscrybmde@1/dist/inscrybmde.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/combine/npm/inline-attachment@2/src/inline-attachment.min.js,npm/inline-attachment@2/src/codemirror-4.inline-attachment.min.js"></script>
+    <script
+        src="https://cdn.jsdelivr.net/combine/npm/inline-attachment@2/src/inline-attachment.min.js,npm/inline-attachment@2/src/codemirror-4.inline-attachment.min.js"></script>
     <script>
         $(function () {
             var mdeditor = new InscrybMDE({
-                autoDownloadFontAwesome:false,
+                autoDownloadFontAwesome: false,
                 autofocus: true,
                 autosave: {
                     enabled: true,
@@ -167,7 +184,7 @@
             mdeditor.codemirror.on('optionChange', (item) => {
                 let fullscreen = item.getOption('fullScreen');
                 if (fullscreen)
-                    $(".editor-toolbar,.fullscreen,.CodeMirror-fullscreen").css('z-index','9998');
+                    $(".editor-toolbar,.fullscreen,.CodeMirror-fullscreen").css('z-index', '9998');
             });
             inlineAttachment.editors.codemirror4.attach(mdeditor.codemirror, {
                 uploadUrl: '{{ route('article_image_upload') }}',
@@ -177,7 +194,7 @@
                 extraParams: {
                     "_token": '{{ csrf_token() }}'
                 },
-                onFileUploadResponse: function(xhr) {
+                onFileUploadResponse: function (xhr) {
                     var result = JSON.parse(xhr.responseText),
                         filename = result[this.settings.jsonFieldName];
 

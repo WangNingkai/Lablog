@@ -12,7 +12,8 @@
         <form action="{{ route('password.email') }}" method="post">
             @csrf
             <div class="form-group {{$errors->has('email')?'has-error':'has-feedback'}}">
-                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="邮箱" required autofocus>
+                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}"
+                       placeholder="邮箱" required autofocus>
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                 @if ($errors->has('email'))
                     <span class="help-block"><strong>{{ $errors->first('email') }}</strong></span>

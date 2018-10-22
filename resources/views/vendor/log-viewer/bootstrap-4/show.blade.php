@@ -18,7 +18,8 @@
                                 <span class="badge empty">{{ $item['count'] }}</span>
                             </a>
                         @else
-                            <a href="{{ $item['url'] }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center level-{{ $levelKey }}{{ $level === $levelKey ? ' active' : ''}}">
+                            <a href="{{ $item['url'] }}"
+                               class="list-group-item list-group-item-action d-flex justify-content-between align-items-center level-{{ $levelKey }}{{ $level === $levelKey ? ' active' : ''}}">
                                 <span class="level-name">{!! $item['icon'] !!} {{ $item['name'] }}</span>
                                 <span class="badge badge-level-{{ $levelKey }}">{{ $item['count'] }}</span>
                             </a>
@@ -44,28 +45,28 @@
                 <div class="table-responsive">
                     <table class="table table-condensed mb-0">
                         <tbody>
-                            <tr>
-                                <td>文件路径 :</td>
-                                <td colspan="7">{{ $log->getPath() }}</td>
-                            </tr>
-                            <tr>
-                                <td>日志 条目 : </td>
-                                <td>
-                                    <span class="badge badge-primary">{{ $entries->total() }}</span>
-                                </td>
-                                <td>大小 :</td>
-                                <td>
-                                    <span class="badge badge-primary">{{ $log->size() }}</span>
-                                </td>
-                                <td>创建时间 :</td>
-                                <td>
-                                    <span class="badge badge-primary">{{ $log->createdAt() }}</span>
-                                </td>
-                                <td>更新时间 :</td>
-                                <td>
-                                    <span class="badge badge-primary">{{ $log->updatedAt() }}</span>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td>文件路径 :</td>
+                            <td colspan="7">{{ $log->getPath() }}</td>
+                        </tr>
+                        <tr>
+                            <td>日志 条目 :</td>
+                            <td>
+                                <span class="badge badge-primary">{{ $entries->total() }}</span>
+                            </td>
+                            <td>大小 :</td>
+                            <td>
+                                <span class="badge badge-primary">{{ $log->size() }}</span>
+                            </td>
+                            <td>创建时间 :</td>
+                            <td>
+                                <span class="badge badge-primary">{{ $log->createdAt() }}</span>
+                            </td>
+                            <td>更新时间 :</td>
+                            <td>
+                                <span class="badge badge-primary">{{ $log->updatedAt() }}</span>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -74,10 +75,12 @@
                     <form action="{{ route('log-viewer::logs.search', [$log->date, $level]) }}" method="GET">
                         <div class=form-group">
                             <div class="input-group">
-                                <input id="query" name="query" class="form-control"  value="{!! request('query') !!}" placeholder="Type here to search">
+                                <input id="query" name="query" class="form-control" value="{!! request('query') !!}"
+                                       placeholder="Type here to search">
                                 <div class="input-group-append">
                                     @if (request()->has('query'))
-                                        <a href="{{ route('log-viewer::logs.show', [$log->date]) }}" class="btn btn-secondary">
+                                        <a href="{{ route('log-viewer::logs.show', [$log->date]) }}"
+                                           class="btn btn-secondary">
                                             <i class="fa fa-fw fa-times"></i>
                                         </a>
                                     @endif
@@ -104,57 +107,60 @@
                 <div class="table-responsive">
                     <table id="entries" class="table mb-0">
                         <thead>
-                            <tr>
-                                <th>环境(env)</th>
-                                <th style="width: 120px;">级别</th>
-                                <th style="width: 65px;">时间</th>
-                                <th>概要</th>
-                                <th class="text-right">操作</th>
-                            </tr>
+                        <tr>
+                            <th>环境(env)</th>
+                            <th style="width: 120px;">级别</th>
+                            <th style="width: 65px;">时间</th>
+                            <th>概要</th>
+                            <th class="text-right">操作</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            @forelse($entries as $key => $entry)
-                                <tr>
-                                    <td>
-                                        <span class="badge badge-env">{{ $entry->env }}</span>
-                                    </td>
-                                    <td>
+                        @forelse($entries as $key => $entry)
+                            <tr>
+                                <td>
+                                    <span class="badge badge-env">{{ $entry->env }}</span>
+                                </td>
+                                <td>
                                         <span class="badge badge-level-{{ $entry->level }}">
                                             {!! $entry->level() !!}
                                         </span>
-                                    </td>
-                                    <td>
+                                </td>
+                                <td>
                                         <span class="badge badge-secondary">
                                             {{ $entry->datetime->format('H:i:s') }}
                                         </span>
-                                    </td>
-                                    <td>
-                                        {{ $entry->header }}
-                                    </td>
-                                    <td class="text-right">
-                                        @if ($entry->hasStack())
-                                            <a class="btn btn-sm btn-light" role="button" data-toggle="collapse" href="#log-stack-{{ $key }}" aria-expanded="false" aria-controls="log-stack-{{ $key }}">
-                                                <i class="fa fa-toggle-on"></i> 详情
-                                            </a>
-                                        @endif
-                                    </td>
-                                </tr>
-                                @if ($entry->hasStack())
-                                    <tr>
-                                        <td colspan="5" class="stack py-0">
-                                            <div class="stack-content collapse" id="log-stack-{{ $key }}">
-                                                {!! $entry->stack() !!}
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endif
-                            @empty
+                                </td>
+                                <td>
+                                    {{ $entry->header }}
+                                </td>
+                                <td class="text-right">
+                                    @if ($entry->hasStack())
+                                        <a class="btn btn-sm btn-light" role="button" data-toggle="collapse"
+                                           href="#log-stack-{{ $key }}" aria-expanded="false"
+                                           aria-controls="log-stack-{{ $key }}">
+                                            <i class="fa fa-toggle-on"></i> 详情
+                                        </a>
+                                    @endif
+                                </td>
+                            </tr>
+                            @if ($entry->hasStack())
                                 <tr>
-                                    <td colspan="5" class="text-center">
-                                        <span class="badge badge-secondary">{{ trans('log-viewer::general.empty-logs') }}</span>
+                                    <td colspan="5" class="stack py-0">
+                                        <div class="stack-content collapse" id="log-stack-{{ $key }}">
+                                            {!! $entry->stack() !!}
+                                        </div>
                                     </td>
                                 </tr>
-                            @endforelse
+                            @endif
+                        @empty
+                            <tr>
+                                <td colspan="5" class="text-center">
+                                    <span
+                                        class="badge badge-secondary">{{ trans('log-viewer::general.empty-logs') }}</span>
+                                </td>
+                            </tr>
+                        @endforelse
                         </tbody>
                     </table>
                 </div>
@@ -181,11 +187,13 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p>你确定 <span class="badge badge-danger">删除</span> 此日志文件吗 <span class="badge badge-primary">{{ $log->date }}</span> ?</p>
+                        <p>你确定 <span class="badge badge-danger">删除</span> 此日志文件吗 <span
+                                class="badge badge-primary">{{ $log->date }}</span> ?</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-sm btn-secondary mr-auto" data-dismiss="modal">取消</button>
-                        <button type="submit" class="btn btn-sm btn-danger" data-loading-text="Loading&hellip;">删除</button>
+                        <button type="submit" class="btn btn-sm btn-danger" data-loading-text="Loading&hellip;">删除
+                        </button>
                     </div>
                 </div>
             </form>
@@ -197,19 +205,19 @@
     <script>
         $(function () {
             var deleteLogModal = $('div#delete-log-modal'),
-                deleteLogForm  = $('form#delete-log-form'),
-                submitBtn      = deleteLogForm.find('button[type=submit]');
+                deleteLogForm = $('form#delete-log-form'),
+                submitBtn = deleteLogForm.find('button[type=submit]');
 
-            deleteLogForm.on('submit', function(event) {
+            deleteLogForm.on('submit', function (event) {
                 event.preventDefault();
                 submitBtn.button('loading');
 
                 $.ajax({
-                    url:      $(this).attr('action'),
-                    type:     $(this).attr('method'),
+                    url: $(this).attr('action'),
+                    type: $(this).attr('method'),
                     dataType: 'json',
-                    data:     $(this).serialize(),
-                    success: function(data) {
+                    data: $(this).serialize(),
+                    success: function (data) {
                         submitBtn.button('reset');
                         if (data.result === 'success') {
                             deleteLogModal.modal('hide');
@@ -219,7 +227,7 @@
                             alert('OOPS ! This is a lack of coffee exception !')
                         }
                     },
-                    error: function(xhr, textStatus, errorThrown) {
+                    error: function (xhr, textStatus, errorThrown) {
                         alert('AJAX ERROR ! Check the console !');
                         console.error(errorThrown);
                         submitBtn.button('reset');
@@ -230,7 +238,7 @@
             });
 
             @unless (empty(log_styler()->toHighlight()))
-            $('.stack-content').each(function() {
+            $('.stack-content').each(function () {
                 var $this = $(this);
                 var html = $this.html().trim()
                     .replace(/({!! join(log_styler()->toHighlight(), '|') !!})/gm, '<strong>$1</strong>');

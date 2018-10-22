@@ -6,7 +6,9 @@
 @section('content')
     <div class="content-wrapper">
         <section class="content-header">
-            <h1>权限管理<small>LABLOG</small></h1>
+            <h1>权限管理
+                <small>LABLOG</small>
+            </h1>
             <ol class="breadcrumb">
                 <li><a href="{{ route('dashboard_home') }}"><i class="fa fa-dashboard"></i> 首页</a></li>
                 <li><a href="#">权限管理</a></li>
@@ -20,13 +22,15 @@
                         <div class="box-header">
                             <h3 class="box-title">全部权限</h3>
                             <span>共 {{ $permissions->total() }}个</span>
-                            <form action="{{ route('permission_search') }}" method="get" style="display: inline-flex" class="pull-right">
+                            <form action="{{ route('permission_search') }}" method="get" style="display: inline-flex"
+                                  class="pull-right">
                                 <div class="box-tools">
                                     <div class="input-group input-group-sm" style="width: 150px;">
                                         <input type="text" name="keyword" class="form-control" placeholder="搜索">
 
                                         <span class="input-group-btn">
-                                            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                            <button type="submit" class="btn btn-default"><i
+                                                    class="fa fa-search"></i></button>
                                         </span>
                                     </div>
                                 </div>
@@ -35,18 +39,19 @@
                         <div class="box-body table-responsive no-padding">
                             <table class="table table-hover">
                                 <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>权限</th>
-                                        <th>路由</th>
-                                        <th>操作</th>
-                                    </tr>
+                                <tr>
+                                    <th>#</th>
+                                    <th>权限</th>
+                                    <th>路由</th>
+                                    <th>操作</th>
+                                </tr>
                                 </thead>
                                 <tbody>
                                 @if(!blank($permissions))
                                     @foreach($permissions as $permission)
                                         <tr>
-                                            <td><input type="checkbox" value="{{$permission->id}}" name="pid" class="i-checks"></td>
+                                            <td><input type="checkbox" value="{{$permission->id}}" name="pid"
+                                                       class="i-checks"></td>
                                             <td>{{ $permission->name }}</td>
                                             <td>{{ $permission->route }}</td>
                                             <td>
@@ -59,21 +64,27 @@
                                             </td>
                                         </tr>
                                     @endforeach
-                                    @else
-                                    <tr><td valign="top" colspan="4">表中数据为空</td></tr>
+                                @else
+                                    <tr>
+                                        <td valign="top" colspan="4">表中数据为空</td>
+                                    </tr>
                                 @endif
                                 </tbody>
                             </table>
-                            <form id="deleteForm" style="display: none;" action="{{ route('permission_destroy') }}" method="post">
+                            <form id="deleteForm" style="display: none;" action="{{ route('permission_destroy') }}"
+                                  method="post">
                                 @csrf
                                 <input type="hidden" name="pid" id="deleteId">
                             </form>
                         </div>
                         <div class="box-footer clearfix">
                             <div class="pull-left">
-                                <a href="javascript:void(0)" class="btn btn-primary btn-flat" onclick="selectAll('pid')">全选</a>
-                                <a href="javascript:void(0)" class="btn btn-primary btn-flat" onclick="selectEmpty('pid')">全不选</a>
-                                <a href="javascript:void(0)" class="btn btn-primary btn-flat" onclick="selectReverse('pid')">反选</a>
+                                <a href="javascript:void(0)" class="btn btn-primary btn-flat"
+                                   onclick="selectAll('pid')">全选</a>
+                                <a href="javascript:void(0)" class="btn btn-primary btn-flat"
+                                   onclick="selectEmpty('pid')">全不选</a>
+                                <a href="javascript:void(0)" class="btn btn-primary btn-flat"
+                                   onclick="selectReverse('pid')">反选</a>
                                 <a href="javascript:void(0)" class="btn btn-danger btn-flat" id="delSelectedPermission">删除选定</a>
                             </div>
                             @if(request()->has('keyword'))
@@ -86,7 +97,8 @@
                 </div>
                 <div class="col-md-6">
                     @include('errors.validator')
-                    <form role="form"  method="POST" action="{{ route('permission_update') }}" id="editPermissionForm" style="display: none">
+                    <form role="form" method="POST" action="{{ route('permission_update') }}" id="editPermissionForm"
+                          style="display: none">
                         @csrf
                         <div class="box box-default">
                             <div class="box-header with-border">
@@ -96,16 +108,20 @@
                                 <input type="hidden" name="id" id="editId">
                                 <div class="form-group {{$errors->has('edit_name')?'has-error':''}}">
                                     <label for="name">权限名：</label>
-                                    <input type="text" class="form-control" name="edit_name" id="editName" placeholder="请输入权限名"  value="{{ old('edit_name')?old('edit_name'):'' }}">
+                                    <input type="text" class="form-control" name="edit_name" id="editName"
+                                           placeholder="请输入权限名" value="{{ old('edit_name')?old('edit_name'):'' }}">
                                     @if ($errors->has('edit_name'))
-                                        <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('edit_name') }}</strong></span>
+                                        <span class="help-block "><strong><i
+                                                    class="fa fa-times-circle-o"></i>{{ $errors->first('edit_name') }}</strong></span>
                                     @endif
                                 </div>
                                 <div class="form-group {{$errors->has('edit_route')?'has-error':''}}">
                                     <label for="flag">路由：</label>
-                                    <input type="text" class="form-control" name="edit_route" id="editRoute" placeholder="请输入路由名称"  value="{{ old('edit_route')?old('edit_route'):'' }}">
+                                    <input type="text" class="form-control" name="edit_route" id="editRoute"
+                                           placeholder="请输入路由名称" value="{{ old('edit_route')?old('edit_route'):'' }}">
                                     @if ($errors->has('edit_route'))
-                                        <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('edit_route') }}</strong></span>
+                                        <span class="help-block "><strong><i
+                                                    class="fa fa-times-circle-o"></i>{{ $errors->first('edit_route') }}</strong></span>
                                     @endif
                                 </div>
                             </div>
@@ -114,7 +130,7 @@
                             </div>
                         </div>
                     </form>
-                    <form role="form"  method="POST" action="{{ route('permission_store') }}" id="createPermissionForm">
+                    <form role="form" method="POST" action="{{ route('permission_store') }}" id="createPermissionForm">
                         @csrf
                         <div class="box box-default">
                             <div class="box-header with-border">
@@ -123,16 +139,20 @@
                             <div class="box-body">
                                 <div class="form-group {{$errors->has('name')?'has-error':''}}">
                                     <label for="name">权限名：</label>
-                                    <input type="text" class="form-control" name="name" id="name" placeholder="请输入权限名"  value="{{old('name')}}">
+                                    <input type="text" class="form-control" name="name" id="name" placeholder="请输入权限名"
+                                           value="{{old('name')}}">
                                     @if ($errors->has('name'))
-                                        <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('name') }}</strong></span>
+                                        <span class="help-block "><strong><i
+                                                    class="fa fa-times-circle-o"></i>{{ $errors->first('name') }}</strong></span>
                                     @endif
                                 </div>
                                 <div class="form-group {{$errors->has('route')?'has-error':''}}">
                                     <label for="flag">路由：</label>
-                                    <input type="text" class="form-control" name="route" id="route" placeholder="请输入路由名称"  value="{{old('route')}}">
+                                    <input type="text" class="form-control" name="route" id="route"
+                                           placeholder="请输入路由名称" value="{{old('route')}}">
                                     @if ($errors->has('route'))
-                                        <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('route') }}</strong></span>
+                                        <span class="help-block "><strong><i
+                                                    class="fa fa-times-circle-o"></i>{{ $errors->first('route') }}</strong></span>
                                     @endif
                                 </div>
                             </div>

@@ -8,7 +8,8 @@
             @csrf
             <input type="hidden" name="token" value="{{ $token }}">
             <div class="form-group {{$errors->has('email')?'has-error':'has-feedback'}}">
-                <input id="email" type="email" class="form-control" name="email" value="{{ $email or old('email') }}" placeholder="邮箱"
+                <input id="email" type="email" class="form-control" name="email" value="{{ $email or old('email') }}"
+                       placeholder="邮箱"
                        required autofocus>
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                 @if ($errors->has('email'))
@@ -23,7 +24,8 @@
                 @endif
             </div>
             <div class="form-group {{$errors->has('password_confirmation')?'has-error':'has-feedback'}}">
-                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="再次输入密码" required>
+                <input id="password-confirm" type="password" class="form-control" name="password_confirmation"
+                       placeholder="再次输入密码" required>
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 @if ($errors->has('password_confirmation'))
                     <span class="help-block"><strong>{{ $errors->first('password_confirmation') }}</strong></span>

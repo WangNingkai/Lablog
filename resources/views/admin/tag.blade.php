@@ -6,7 +6,9 @@
 @section('content')
     <div class="content-wrapper">
         <section class="content-header">
-            <h1>标签管理<small>LABLOG</small></h1>
+            <h1>标签管理
+                <small>LABLOG</small>
+            </h1>
             <ol class="breadcrumb">
                 <li><a href="{{ route('dashboard_home') }}"><i class="fa fa-dashboard"></i> 首页</a></li>
                 <li><a href="#">内容管理</a></li>
@@ -20,13 +22,15 @@
                         <div class="box-header with-border">
                             <h3 class="box-title">全部标签</h3>
                             <span>共{{ $tags->total() }}个</span>
-                            <form action="{{ route('tag_search') }}" method="get" style="display: inline-flex" class="pull-right">
+                            <form action="{{ route('tag_search') }}" method="get" style="display: inline-flex"
+                                  class="pull-right">
                                 <div class="box-tools">
                                     <div class="input-group input-group-sm" style="width: 150px;">
                                         <input type="text" name="keyword" class="form-control" placeholder="搜索">
 
                                         <span class="input-group-btn">
-                                            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                            <button type="submit" class="btn btn-default"><i
+                                                    class="fa fa-search"></i></button>
                                         </span>
                                     </div>
                                 </div>
@@ -47,7 +51,8 @@
                                 @if(!blank($tags))
                                     @foreach ($tags as $tag)
                                         <tr>
-                                            <td><input type="checkbox" value="{{$tag->id}}" name="tid" class="i-checks"></td>
+                                            <td><input type="checkbox" value="{{$tag->id}}" name="tid" class="i-checks">
+                                            </td>
                                             <td>{{$tag->name}}</td>
                                             <td>
                                                 {{$tag->flag}}
@@ -66,23 +71,30 @@
                                         </tr>
                                     @endforeach
                                 @else
-                                    <tr><td valign="top" colspan="5">表中数据为空</td></tr>
+                                    <tr>
+                                        <td valign="top" colspan="5">表中数据为空</td>
+                                    </tr>
                                 @endif
                                 </tbody>
 
 
                             </table>
-                            <form id="deleteForm" style="display: none;" action="{{route('tag_destroy')}}" method="post">
+                            <form id="deleteForm" style="display: none;" action="{{route('tag_destroy')}}"
+                                  method="post">
                                 @csrf
                                 <input type="hidden" name="tid" id="deleteId">
                             </form>
                         </div>
                         <div class="box-footer clearfix">
                             <div class="pull-left">
-                                <a href="javascript:void(0)" class="btn btn-primary btn-flat" onclick="selectAll('tid')">全选</a>
-                                <a href="javascript:void(0)" class="btn btn-primary btn-flat" onclick="selectEmpty('tid')">全不选</a>
-                                <a href="javascript:void(0)" class="btn btn-primary btn-flat" onclick="selectReverse('tid')">反选</a>
-                                <a href="javascript:void(0)" class="btn btn-danger btn-flat" id="delSelectedTag">删除选定</a>
+                                <a href="javascript:void(0)" class="btn btn-primary btn-flat"
+                                   onclick="selectAll('tid')">全选</a>
+                                <a href="javascript:void(0)" class="btn btn-primary btn-flat"
+                                   onclick="selectEmpty('tid')">全不选</a>
+                                <a href="javascript:void(0)" class="btn btn-primary btn-flat"
+                                   onclick="selectReverse('tid')">反选</a>
+                                <a href="javascript:void(0)" class="btn btn-danger btn-flat"
+                                   id="delSelectedTag">删除选定</a>
                             </div>
                             @if(request()->has('keyword'))
                                 {{ $tags->appends(['keyword' => request()->input('keyword')])->links('vendor.pagination.adminlte') }}
@@ -94,7 +106,8 @@
                 </div>
                 <div class="col-md-6">
                     @include('errors.validator')
-                    <form role="form"  method="POST" action="{{route('tag_update')}}" id="editTagForm" style="display:none;">
+                    <form role="form" method="POST" action="{{route('tag_update')}}" id="editTagForm"
+                          style="display:none;">
                         @csrf
                         <div class="box box-default">
                             <div class="box-header with-border">
@@ -104,16 +117,20 @@
                                 <input type="hidden" name="id" id="editId">
                                 <div class="form-group {{$errors->has('edit_name')?'has-error':''}}">
                                     <label for="editName">标签名：</label>
-                                    <input type="text" class="form-control" name="edit_name" id="editName" placeholder="请输入标签名" value="{{ old('edit_name')?old('edit_name'):'' }}">
+                                    <input type="text" class="form-control" name="edit_name" id="editName"
+                                           placeholder="请输入标签名" value="{{ old('edit_name')?old('edit_name'):'' }}">
                                     @if ($errors->has('edit_name'))
-                                        <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('edit_name') }}</strong></span>
+                                        <span class="help-block "><strong><i
+                                                    class="fa fa-times-circle-o"></i>{{ $errors->first('edit_name') }}</strong></span>
                                     @endif
                                 </div>
                                 <div class="form-group {{$errors->has('edit_flag')?'has-error':''}}">
                                     <label for="flag">标识：</label>
-                                    <input type="editFlag" class="form-control" name="edit_flag" id="editFlag" placeholder="请输入标签标识" value="{{ old('edit_flag')?old('edit_flag'):'' }}">
+                                    <input type="editFlag" class="form-control" name="edit_flag" id="editFlag"
+                                           placeholder="请输入标签标识" value="{{ old('edit_flag')?old('edit_flag'):'' }}">
                                     @if ($errors->has('edit_flag'))
-                                        <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('edit_flag') }}</strong></span>
+                                        <span class="help-block "><strong><i
+                                                    class="fa fa-times-circle-o"></i>{{ $errors->first('edit_flag') }}</strong></span>
                                     @endif
                                 </div>
                             </div>
@@ -122,7 +139,7 @@
                             </div>
                         </div>
                     </form>
-                    <form role="form"  method="POST" action="{{route('tag_store')}}" id="createTagForm">
+                    <form role="form" method="POST" action="{{route('tag_store')}}" id="createTagForm">
                         @csrf
                         <div class="box box-default">
                             <div class="box-header with-border">
@@ -131,16 +148,20 @@
                             <div class="box-body">
                                 <div class="form-group {{$errors->has('name')?'has-error':''}}">
                                     <label for="name">标签名：</label>
-                                    <input type="text" class="form-control" name="name" id="name" placeholder="请输入标签名"  value="{{old('name')}}">
+                                    <input type="text" class="form-control" name="name" id="name" placeholder="请输入标签名"
+                                           value="{{old('name')}}">
                                     @if ($errors->has('name'))
-                                        <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('name') }}</strong></span>
+                                        <span class="help-block "><strong><i
+                                                    class="fa fa-times-circle-o"></i>{{ $errors->first('name') }}</strong></span>
                                     @endif
                                 </div>
                                 <div class="form-group {{$errors->has('flag')?'has-error':''}}">
                                     <label for="flag">标识：</label>
-                                    <input type="text" class="form-control" name="flag" id="flag" placeholder="请输入标签标识"  value="{{old('flag')}}">
+                                    <input type="text" class="form-control" name="flag" id="flag" placeholder="请输入标签标识"
+                                           value="{{old('flag')}}">
                                     @if ($errors->has('flag'))
-                                        <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('flag') }}</strong></span>
+                                        <span class="help-block "><strong><i
+                                                    class="fa fa-times-circle-o"></i>{{ $errors->first('flag') }}</strong></span>
                                     @endif
                                 </div>
                             </div>

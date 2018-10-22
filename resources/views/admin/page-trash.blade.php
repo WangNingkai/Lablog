@@ -3,7 +3,9 @@
 @section('content')
     <div class="content-wrapper">
         <section class="content-header">
-            <h1>回收站<small>LABLOG</small></h1>
+            <h1>回收站
+                <small>LABLOG</small>
+            </h1>
             <ol class="breadcrumb">
                 <li><a href="{{ route('dashboard_home') }}"><i class="fa fa-dashboard"></i> 首页</a></li>
                 <li><a href="{{ route('page_manage') }}">单页管理</a></li>
@@ -32,7 +34,8 @@
                                 @if(!blank($pages))
                                     @foreach($pages as $page)
                                         <tr>
-                                            <td><input type="checkbox" value="{{$page->id}}" name="pid" class="i-checks"></td>
+                                            <td><input type="checkbox" value="{{$page->id}}" name="pid"
+                                                       class="i-checks"></td>
                                             <td>{{$page->title}}</td>
                                             <td>{{$page->deleted_at}}</td>
                                             <td>
@@ -42,25 +45,32 @@
                                         </tr>
                                     @endforeach
                                 @else
-                                    <tr><td valign="top" colspan="4">表中数据为空</td></tr>
+                                    <tr>
+                                        <td valign="top" colspan="4">表中数据为空</td>
+                                    </tr>
                                 @endif
                                 </tbody>
 
                             </table>
-                            <form id="restoreForm" style="display: none;" method="POST" action="{{route('page_restore')}}">
+                            <form id="restoreForm" style="display: none;" method="POST"
+                                  action="{{route('page_restore')}}">
                                 @csrf
                                 <input type="hidden" name="pid" id="restoreId">
                             </form>
-                            <form id="destroyForm" style="display: none;" method="POST" action="{{route('page_destroy')}}">
+                            <form id="destroyForm" style="display: none;" method="POST"
+                                  action="{{route('page_destroy')}}">
                                 @csrf
                                 <input type="hidden" name="pid" id="destroyId">
                             </form>
                         </div>
                         <div class="box-footer clearfix">
                             <div class="pull-left">
-                                <a href="javascript:void(0)" class="btn btn-primary btn-flat" onclick="selectAll('pid')">全选</a>
-                                <a href="javascript:void(0)" class="btn btn-primary btn-flat" onclick="selectEmpty('pid')">全不选</a>
-                                <a href="javascript:void(0)" class="btn btn-primary btn-flat" onclick="selectReverse('pid')">反选</a>
+                                <a href="javascript:void(0)" class="btn btn-primary btn-flat"
+                                   onclick="selectAll('pid')">全选</a>
+                                <a href="javascript:void(0)" class="btn btn-primary btn-flat"
+                                   onclick="selectEmpty('pid')">全不选</a>
+                                <a href="javascript:void(0)" class="btn btn-primary btn-flat"
+                                   onclick="selectReverse('pid')">反选</a>
                                 <a href="javascript:void(0)" class="btn btn-danger btn-flat" id="destroySelectedPage">彻底删除选定</a>
                                 <a href="javascript:void(0)" class="btn btn-success btn-flat" id="restoreSelectedPage">恢复选定</a>
                             </div>

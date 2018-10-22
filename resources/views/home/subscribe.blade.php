@@ -26,7 +26,10 @@
                             <form action="{{ route('subscribe_store') }}" method="post">
                                 @csrf
                                 <div class="input-group">
-                                    <input type="email" class="form-control" name="email" id="subscribe-email" placeholder="请输入订阅邮箱" required><span class="input-group-btn"><button type="submit" class="btn btn-success btn-flat"><i class="fa fa-check"></i></button></span>
+                                    <input type="email" class="form-control" name="email" id="subscribe-email"
+                                           placeholder="请输入订阅邮箱" required><span class="input-group-btn"><button
+                                            type="submit" class="btn btn-success btn-flat"><i
+                                                class="fa fa-check"></i></button></span>
                                 </div>
                                 <span class="help-block text-red">如需解除订阅请联系站长</span>
                             </form>

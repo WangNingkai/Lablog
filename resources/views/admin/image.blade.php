@@ -6,7 +6,9 @@
 @section('content')
     <div class="content-wrapper">
         <section class="content-header">
-            <h1>图床管理<small>LABLOG</small></h1>
+            <h1>图床管理
+                <small>LABLOG</small>
+            </h1>
             <ol class="breadcrumb">
                 <li><a href="{{ route('dashboard_home') }}"><i class="fa fa-dashboard"></i> 首页</a></li>
                 <li class="active">图床管理</li>
@@ -36,15 +38,19 @@
                                 <tbody>
                                 @foreach($list as $item)
                                     <tr>
-                                        <td><a href="{{ $item['url'] }}" data-fancybox="image-list" data-caption="{{ $item['url'] }}">
-                                                <img src="{{ $item['url'] }}" alt="{{ $item['url'] }}" width="30" height="30"/>
+                                        <td><a href="{{ $item['url'] }}" data-fancybox="image-list"
+                                               data-caption="{{ $item['url'] }}">
+                                                <img src="{{ $item['url'] }}" alt="{{ $item['url'] }}" width="30"
+                                                     height="30"/>
                                             </a></td>
                                         <td>{{ $item['filename'] }}</td>
                                         <td>{{ $item['storename'] }}</td>
                                         <td>{{ \App\Helpers\Extensions\Tool::transformSize($item['size']) }}</td>
                                         <td>{{ \App\Helpers\Extensions\Tool::transformTime($item['timestamp']) }}</td>
                                         <td>{{ $item['url'] }}</td>
-                                        <td><a href="javascript:void(0)" class="delete-image-btn" data-hash="{{ $item['hash'] }}"><span class="text-red">删除链接</span></a></td>
+                                        <td><a href="javascript:void(0)" class="delete-image-btn"
+                                               data-hash="{{ $item['hash'] }}"><span class="text-red">删除链接</span></a>
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -63,7 +69,8 @@
                         </div>
                         <div class="box-footer clearfix">
                             <div class="pull-left">
-                                <a href="javascript:void(0)" id="empty-image-btn" class="btn btn-danger btn-flat">清空历史</a>
+                                <a href="javascript:void(0)" id="empty-image-btn"
+                                   class="btn btn-danger btn-flat">清空历史</a>
                             </div>
                         </div>
                     </div>
@@ -80,7 +87,9 @@
 
                             <form enctype="multipart/form-data">
                                 <div class="form-group">
-                                    <input id="smfile" type="file" multiple class="file" data-overwrite-initial="false" data-min-file-count="1" data-max-file-count="10" name="smfile" accept="image/*">
+                                    <input id="smfile" type="file" multiple class="file" data-overwrite-initial="false"
+                                           data-min-file-count="1" data-max-file-count="10" name="smfile"
+                                           accept="image/*">
                                 </div>
                             </form>
                             <div id="showurl" style="display: none;">
@@ -128,14 +137,15 @@
             language: 'zh',
             uploadUrl: '{{ route("image_upload") }}',
             allowedFileExtensions: ["jpeg", "jpg", "png", "gif", "bmp"],
-            uploadExtraData:{"_token": "{{ csrf_token() }}"},
+            uploadExtraData: {"_token": "{{ csrf_token() }}"},
             overwriteInitial: false,
             maxFileSize: 5120,
             maxFilesNum: 10,
             maxFileCount: 10,
         });
         $("#smfile").on("fileuploaded", function (event, data, previewId, index) {
-            var form = data.form, files = data.files, extra = data.extra, response = data.response, reader = data.reader;
+            var form = data.form, files = data.files, extra = data.extra, response = data.response,
+                reader = data.reader;
             if (response.code == "success") {
                 if ($("showurl").css("display")) {
                     $("#urlcode").append(response.data.url + "\n");

@@ -7,14 +7,16 @@
         <form action="{{ route('register') }}" method="post">
             @csrf
             <div class="form-group {{$errors->has('name')?'has-error':'has-feedback'}}">
-                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="姓名" required autofocus>
+                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="姓名"
+                       required autofocus>
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
                 @if ($errors->has('name'))
                     <span class="help-block"><strong>{{ $errors->first('name') }}</strong></span>
                 @endif
             </div>
             <div class="form-group {{$errors->has('email')?'has-error':'has-feedback'}}">
-                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="邮箱"
+                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}"
+                       placeholder="邮箱"
                        required autofocus>
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                 @if ($errors->has('email'))
@@ -29,7 +31,8 @@
                 @endif
             </div>
             <div class="form-group has-feedback">
-                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="再次输入密码" required>
+                <input id="password-confirm" type="password" class="form-control" name="password_confirmation"
+                       placeholder="再次输入密码" required>
                 <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
             </div>
             <div class="row">

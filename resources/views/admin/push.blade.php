@@ -1,7 +1,8 @@
 @extends('layouts.backend')
 @section('title','控制台 - 推送管理')
 @section('css')
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-datetime-picker@2/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-datetime-picker@2/css/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/inscrybmde@1/dist/inscrybmde.min.css">
     <link rel="stylesheet" href="{{ asset('css/editor.custom.css') }}">
     <script>var showPushUrl = "{{route('push_info')}}"</script>
@@ -9,7 +10,9 @@
 @section('content')
     <div class="content-wrapper">
         <section class="content-header">
-            <h1>推送管理<small>LABLOG</small></h1>
+            <h1>推送管理
+                <small>LABLOG</small>
+            </h1>
             <ol class="breadcrumb">
                 <li><a href="{{ route('dashboard_home') }}"><i class="fa fa-dashboard"></i> 首页</a></li>
                 <li><a href="#">其他模块</a></li>
@@ -23,12 +26,14 @@
                         <div class="box-header with-border">
                             <h3 class="box-title">全部推送</h3>
                             <span>共 {{ $pushes->total() }}条</span>
-                            <form action="{{ route('push_list') }}" method="get" style="display: inline-flex" class="pull-right">
+                            <form action="{{ route('push_list') }}" method="get" style="display: inline-flex"
+                                  class="pull-right">
                                 <div class="box-tools">
                                     <div class="input-group input-group-sm" style="width: 150px;">
                                         <input type="text" name="keyword" class="form-control" placeholder="主题">
                                         <span class="input-group-btn">
-                                            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                            <button type="submit" class="btn btn-default"><i
+                                                    class="fa fa-search"></i></button>
                                         </span>
                                     </div>
                                 </div>
@@ -65,7 +70,9 @@
                                         </tr>
                                     @endforeach
                                 @else
-                                    <tr><td valign="top" colspan="7">表中数据为空</td></tr>
+                                    <tr>
+                                        <td valign="top" colspan="7">表中数据为空</td>
+                                    </tr>
                                 @endif
                                 </tbody>
                             </table>
@@ -77,7 +84,7 @@
                 </div>
             </div>
             <div class="row">
-                <form role="form"  method="POST" action="{{route('push_store')}}" id="createPushForm">
+                <form role="form" method="POST" action="{{route('push_store')}}" id="createPushForm">
                     @csrf
                     <div class="col-md-4">
                         <div class="box box-default">
@@ -87,36 +94,42 @@
                             <div class="box-body">
                                 <div class="form-group {{$errors->has('target')?'has-error':''}}">
                                     <label for="roles">选择用户：</label>
-                                    <select class="form-control select2" id="target" multiple="multiple" data-placeholder="选择用户"
+                                    <select class="form-control select2" id="target" multiple="multiple"
+                                            data-placeholder="选择用户"
                                             name="target[]" style="width: 100%;">
-                                        <option value="1" >@全体用户</option>
+                                        <option value="1">@全体用户</option>
                                         @foreach($subscribes as $subscribe)
-                                            <option value="{{ $subscribe->email }}" @if(in_array($subscribe->email,old('target',[]))) selected @endif>{{ $subscribe->email }}</option>
+                                            <option value="{{ $subscribe->email }}"
+                                                    @if(in_array($subscribe->email,old('target',[]))) selected @endif>{{ $subscribe->email }}</option>
                                         @endforeach
                                     </select>
                                     @if ($errors->has('target'))
-                                        <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('target') }}</strong></span>
+                                        <span class="help-block "><strong><i
+                                                    class="fa fa-times-circle-o"></i>{{ $errors->first('target') }}</strong></span>
                                     @endif
                                 </div>
                                 <div class="form-group {{$errors->has('subject')?'has-error':''}}">
                                     <label for="subject">推送主题：</label>
-                                    <input type="subject" class="form-control" name="subject" id="subject" placeholder="请输入主题" value="{{ old('subject')}}">
+                                    <input type="subject" class="form-control" name="subject" id="subject"
+                                           placeholder="请输入主题" value="{{ old('subject')}}">
                                     @if ($errors->has('subject'))
-                                        <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('subject') }}</strong></span>
+                                        <span class="help-block "><strong><i
+                                                    class="fa fa-times-circle-o"></i>{{ $errors->first('subject') }}</strong></span>
                                     @endif
                                 </div>
                                 <div class="form-group {{$errors->has('method')?'has-error':''}}">
                                     <label>推送方式：</label>
                                     <div class="radio">
                                         <label class="i-checks">
-                                            <input type="radio" name="method" value="0" id="push_now" > &nbsp; 立即推送
+                                            <input type="radio" name="method" value="0" id="push_now"> &nbsp; 立即推送
                                         </label>
                                         <label class="i-checks">
                                             <input type="radio" name="method" value="1" id="push_delay"> &nbsp; 定时推送
                                         </label>
                                     </div>
                                     @if ($errors->has('method'))
-                                        <span class="help-block "><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('method') }}</strong></span>
+                                        <span class="help-block "><strong><i
+                                                    class="fa fa-times-circle-o"></i>{{ $errors->first('method') }}</strong></span>
                                     @endif
                                 </div>
                                 <div class="form-group" id="push_time" style="display: none">
@@ -125,7 +138,8 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-calendar"></i>
                                         </div>
-                                        <input type="text" readonly class="form-control date" id="datetimepicker" name="started_at">
+                                        <input type="text" readonly class="form-control date" id="datetimepicker"
+                                               name="started_at">
                                     </div>
                                 </div>
                             </div>
@@ -143,9 +157,11 @@
                             <div class="box-body">
                                 <div class="form-group {{$errors->has('content')?'has-error':''}}">
                                     @if ($errors->has('content'))
-                                        <span class="help-block"><strong><i class="fa fa-times-circle-o"></i>{{ $errors->first('content') }}</strong></span>
+                                        <span class="help-block"><strong><i
+                                                    class="fa fa-times-circle-o"></i>{{ $errors->first('content') }}</strong></span>
                                     @endif
-                                    <textarea name="content" id="mde" style="display:none;">{{old('content')}}</textarea>
+                                    <textarea name="content" id="mde"
+                                              style="display:none;">{{old('content')}}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -175,9 +191,11 @@
     </div>
 @stop
 @section('js')
-    <script src="https://cdn.jsdelivr.net/combine/npm/bootstrap-datetime-picker@2,npm/bootstrap-datetime-picker@2/js/locales/bootstrap-datetimepicker.zh-CN.min.js"></script>
+    <script
+        src="https://cdn.jsdelivr.net/combine/npm/bootstrap-datetime-picker@2,npm/bootstrap-datetime-picker@2/js/locales/bootstrap-datetimepicker.zh-CN.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/inscrybmde@1.11.4/dist/inscrybmde.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/combine/npm/inline-attachment@2/src/inline-attachment.min.js,npm/inline-attachment@2/src/codemirror-4.inline-attachment.min.js"></script>
+    <script
+        src="https://cdn.jsdelivr.net/combine/npm/inline-attachment@2/src/inline-attachment.min.js,npm/inline-attachment@2/src/codemirror-4.inline-attachment.min.js"></script>
     <script>
         $(function () {
             $('.date').datetimepicker({
@@ -197,7 +215,7 @@
                 }
             });
             var mdeditor = new InscrybMDE({
-                autoDownloadFontAwesome:false,
+                autoDownloadFontAwesome: false,
                 autofocus: true,
                 autosave: {
                     enabled: false,
@@ -244,7 +262,7 @@
                 toolbarTips: true,
             });
             mdeditor.codemirror.setSize('auto', '480px');
-            $("#submit_btn").on("click",function(){
+            $("#submit_btn").on("click", function () {
                 mdeditor.clearAutosavedValue();
             });
             inlineAttachment.editors.codemirror4.attach(mdeditor.codemirror, {
@@ -255,7 +273,7 @@
                 extraParams: {
                     "_token": '{{ csrf_token() }}'
                 },
-                onFileUploadResponse: function(xhr) {
+                onFileUploadResponse: function (xhr) {
                     var result = JSON.parse(xhr.responseText),
                         filename = result[this.settings.jsonFieldName];
 

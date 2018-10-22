@@ -3,7 +3,9 @@
 @section('content')
     <div class="content-wrapper">
         <section class="content-header">
-            <h1>首页<small>LABLOG</small></h1>
+            <h1>首页
+                <small>LABLOG</small>
+            </h1>
         </section>
         <section class="content container-fluid">
             @if (session('status'))
@@ -100,7 +102,9 @@
                                 @foreach ($newArticles as $article)
                                     <tr>
                                         <td>{{$article->id}}.</td>
-                                        <td><a class="text-black" href="{{route('article_edit',$article->id)}}">{{$article->title}}</a></td>
+                                        <td><a class="text-black"
+                                               href="{{route('article_edit',$article->id)}}">{{$article->title}}</a>
+                                        </td>
                                         <td>
                                             {{$article->created_at}}
                                         </td>
@@ -128,7 +132,8 @@
                             @else
                                 @foreach($newMessages as $message)
                                     <div class="item">
-                                        <img src="{{asset('img/user_avatar.png')}}" alt="{{$message->nickname}}" class="online">
+                                        <img src="{{asset('img/user_avatar.png')}}" alt="{{$message->nickname}}"
+                                             class="online">
                                         <p class="message">
                                             <a href="#" class="name">
                                                 <small class="text-muted pull-right">
@@ -156,7 +161,8 @@
                             @else
                                 @foreach($newComments as $comment)
                                     <div class="item">
-                                        <img src="{{asset('img/user_avatar.png')}}" alt="{{$comment->nickname}}" class="online">
+                                        <img src="{{asset('img/user_avatar.png')}}" alt="{{$comment->nickname}}"
+                                             class="online">
                                         <p class="message">
                                             <a href="#" class="name">
                                                 <small class="text-muted pull-right">
