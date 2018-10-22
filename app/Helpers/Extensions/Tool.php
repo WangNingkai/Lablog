@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Mail;
 use App\Events\OperationEvent;
 use Intervention\Image\Facades\Image;
 use WangNingkai\SimpleDictionary\SimpleDictionary;
-use HyperDown\Parser;
 use Jenssegers\Agent\Agent;
 use Zhuzhichao\IpLocationZh\Ip;
 
@@ -443,8 +442,8 @@ class Tool
             }, $iframe[0]);
         }
         // markdown转html
-        $parser = new Parser();
-        $html = $parser->makeHtml($markdown);
+        $parser = new \Parsedown();
+        $html = $parser->text($markdown);
         $html = str_replace('<code class="', '<code class="lang-', $html);
         // 将临时字符串替换为 i_frame
         if (!empty($iframe[0])) {
