@@ -144,6 +144,7 @@
     <script>
         $(function () {
             var mdeditor = new InscrybMDE({
+                autoDownloadFontAwesome:false,
                 autofocus: true,
                 autosave: {
                     enabled: true,
