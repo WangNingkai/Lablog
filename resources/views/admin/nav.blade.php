@@ -64,7 +64,7 @@
                                 @endif
                                 </tbody>
                             </table>
-                            <form id="deleteForm" style="display: none;" action="{{route(' nav_destroy' )}}"
+                            <form id="deleteForm" style="display: none;" action="{{ route('nav_destroy' )}}"
                                   method="post">
                                 @csrf
                                 <input type="hidden" name="nid" id="deleteId">
