@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Home;
 
 use App\Helpers\Extensions\Tool;
-use App\Models\Config;
+use App\Models\Link;
 use App\Models\Page;
 use App\Models\Subscribe;
+use Doctrine\DBAL\Query\QueryBuilder;
 use Illuminate\Http\Request;
 use App\Http\Requests\Message\Store as MessageStore;
 use App\Http\Requests\Comment\Store as CommentStore;
@@ -21,7 +22,6 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\App;
 
 class HomeController extends Controller
 {
@@ -33,7 +33,7 @@ class HomeController extends Controller
     public function index()
     {
 
-        $articles = Article::query()->select('id', 'category_id', 'title', 'author', 'description','click')
+        $articles = Article::query()->select('id', 'category_id', 'title', 'author', 'description', 'click')
             ->where('status', 1)
             ->orderBy('created_at', 'desc')
             ->with(['category', 'tags'])
@@ -48,55 +48,56 @@ class HomeController extends Controller
      */
     public function article($id, Request $request)
     {
-        $article = Cache::remember('cache:article'.$id, self::CACHE_EXPIRE, function () use ($id) {
-            return Article::query()->with(['category', 'tags','comments' => function ($query) {
+        $article = Cache::remember('cache:article' . $id, self::CACHE_EXPIRE, function () use ($id) {
+            return Article::query()->with(['category', 'tags', 'comments' => function ($query) {
+                /* @var $query QueryBuilder */
                 $query->where('status', Comment::CHECKED);
-            }])->where('id',$id)->first();
+            }])->where('id', $id)->first();
         });
         $article_comments = $article->comments;
         $currentPage = LengthAwarePaginator::resolveCurrentPage();
         $collection = new Collection($article_comments);
         $perPage = 5;
         $currentPageCommentsResults = $collection->slice(($currentPage - 1) * $perPage, $perPage)->all();
-        $comments= new LengthAwarePaginator($currentPageCommentsResults, count($collection), $perPage);
-        $comments = $comments->setPath('/article/'.$id);
-        if ( is_null($article) || 0 === $article->status || !is_null($article->deleted_at) ) {
+        $comments = new LengthAwarePaginator($currentPageCommentsResults, count($collection), $perPage);
+        $comments = $comments->setPath('/article/' . $id);
+        if (is_null($article) || 0 === $article->status || !is_null($article->deleted_at)) {
             abort(404);
         }
-        $key = 'articleRequestList:'.$id.':'.$request->ip();
+        $key = 'articleRequestList:' . $id . ':' . $request->ip();
         if (!Cache::has($key)) {
-            Cache::put($key,$request->ip(), 60);
+            Cache::put($key, $request->ip(), 60);
             $article->increment('click');
         }
-        $prev = Cache::remember('cache:article'.$id.':prev', self::CACHE_EXPIRE, function () use ($id){
+        $prev = Cache::remember('cache:article' . $id . ':prev', self::CACHE_EXPIRE, function () use ($id) {
             return Article::query()->select('id', 'title')
                 ->orderBy('created_at', 'asc')
-                ->where([['id', '>', $id],['status','=',Article::PUBLISHED]])
+                ->where([['id', '>', $id], ['status', '=', Article::PUBLISHED]])
                 ->limit(1)
                 ->first();
         });
 
-        $next = Cache::remember('cache:article'.$id.':next', self::CACHE_EXPIRE, function () use ($id){
+        $next = Cache::remember('cache:article' . $id . ':next', self::CACHE_EXPIRE, function () use ($id) {
             return Article::query()->select('id', 'title')
                 ->orderBy('created_at', 'desc')
-                ->where([['id', '<', $id],['status','=',Article::PUBLISHED]])
+                ->where([['id', '<', $id], ['status', '=', Article::PUBLISHED]])
                 ->limit(1)
                 ->first();
         });
-        return view('home.article', compact('article', 'prev', 'next','comments'));
+        return view('home.article', compact('article', 'prev', 'next', 'comments'));
     }
 
     public function page($id, Request $request)
     {
-        $page = Cache::remember('cache:page'.$id, self::CACHE_EXPIRE, function () use ($id) {
-            return Page::query()->where('id',$id)->first();
+        $page = Cache::remember('cache:page' . $id, self::CACHE_EXPIRE, function () use ($id) {
+            return Page::query()->where('id', $id)->first();
         });
-        $key = 'pageRequestList:'.$id.':'.$request->ip();
+        $key = 'pageRequestList:' . $id . ':' . $request->ip();
         if (!Cache::has($key)) {
-            Cache::put($key,$request->ip(), 60);
+            Cache::put($key, $request->ip(), 60);
             $page->increment('click');
         }
-        return view('home.page',compact('page'));
+        return view('home.page', compact('page'));
     }
 
     /**
@@ -104,12 +105,12 @@ class HomeController extends Controller
      * @param Comment $comment
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function comment_store(CommentStore $request,Comment $comment)
+    public function comment_store(CommentStore $request, Comment $comment)
     {
         $data = $request->all();
         $data['ip'] = request()->ip();
         $comment->storeData($data);
-        Tool::pushMessage(Tool::config('site_mailto_admin'),'站长大大','您的博客现有新的评论，请注意查看审核',route('comment_manage'));
+        Tool::pushMessage(Tool::config('site_mailto_admin'), '站长大大', '您的博客现有新的评论，请注意查看审核', route('comment_manage'));
         return redirect()->back();
 
     }
@@ -121,13 +122,13 @@ class HomeController extends Controller
     public function category($id)
     {
         $category = Category::query()->findOrFail($id);
-        $childCategoryList=Category::query()->where(['parent_id'=>$id])->get();
-        $articles = Article::query()->select('id', 'category_id', 'title', 'author', 'description','click')
-            ->where(['status' => Article::PUBLISHED,'category_id' => $id])
+        $childCategoryList = Category::query()->where(['parent_id' => $id])->get();
+        $articles = Article::query()->select('id', 'category_id', 'title', 'author', 'description', 'click')
+            ->where(['status' => Article::PUBLISHED, 'category_id' => $id])
             ->orderBy('created_at', 'desc')
             ->with(['category', 'tags'])
             ->simplePaginate(10);
-        return view('home.category', compact('articles', 'category','childCategoryList'));
+        return view('home.category', compact('articles', 'category', 'childCategoryList'));
     }
 
     /**
@@ -139,8 +140,8 @@ class HomeController extends Controller
         $tag = Tag::query()->findOrFail($id);
         $ids = ArticleTag::query()->where('tag_id', $id)->pluck('article_id')->toArray();
 
-        $articles = Article::query()->select('id', 'category_id', 'title', 'author', 'description','click')
-            ->where('status',Article::PUBLISHED)
+        $articles = Article::query()->select('id', 'category_id', 'title', 'author', 'description', 'click')
+            ->where('status', Article::PUBLISHED)
             ->whereIn('id', $ids)
             ->orderBy('created_at', 'desc')
             ->with(['category', 'tags'])
@@ -154,9 +155,9 @@ class HomeController extends Controller
     public function archive()
     {
         $archive = Article::query()->select(DB::raw('DATE_FORMAT(created_at, \'%Y-%m\') as time, count(*) as posts'))
-            ->where('status',Article::PUBLISHED)
+            ->where('status', Article::PUBLISHED)
             ->groupBy('time')
-            ->orderBy('time','desc')
+            ->orderBy('time', 'desc')
             ->simplePaginate(3);
         foreach ($archive as $v) {
             $start = date('Y-m-d', strtotime($v->time));
@@ -164,7 +165,7 @@ class HomeController extends Controller
             $articles = Article::query()->select('id', 'title')
                 ->where('status', Article::PUBLISHED)
                 ->whereBetween('created_at', [$start, $end])
-                ->orderBy('created_at','desc')
+                ->orderBy('created_at', 'desc')
                 ->get();
             $v->articles = $articles;
         }
@@ -177,10 +178,10 @@ class HomeController extends Controller
     public function message()
     {
         $messages = Message::query()
-            ->where('status',Message::CHECKED)
+            ->where('status', Message::CHECKED)
             ->orderBy('created_at', 'desc')
             ->get();
-        return view('home.message',compact('messages'));
+        return view('home.message', compact('messages'));
     }
 
     /**
@@ -188,12 +189,12 @@ class HomeController extends Controller
      * @param Message $message
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function message_store(MessageStore $request,Message $message)
+    public function message_store(MessageStore $request, Message $message)
     {
         $data = $request->all();
         $data['ip'] = request()->ip();
         $message->storeData($data);
-        Tool::pushMessage(Tool::config('site_mailto_admin'),'站长大大','您的博客现有新的留言，请注意查看审核',route('message_manage'));
+        Tool::pushMessage(Tool::config('site_mailto_admin'), '站长大大', '您的博客现有新的留言，请注意查看审核', route('message_manage'));
         return redirect()->back();
     }
 
@@ -229,7 +230,7 @@ class HomeController extends Controller
             ['title', 'like', '%' . $keyword . '%'],
             ['status', '=', Article::PUBLISHED]
         ];
-        $articles = Article::query()->select('id', 'category_id', 'title', 'author', 'description','click')
+        $articles = Article::query()->select('id', 'category_id', 'title', 'author', 'description', 'click')
             ->where($map)
             ->orderBy('created_at', 'desc')
             ->with(['category', 'tags'])
@@ -237,5 +238,16 @@ class HomeController extends Controller
         $count = Article::query()->where($map)->count();
         $articles->count = $count;
         return view('home.search', compact('articles'));
+    }
+
+    public function link()
+    {
+        $links = Cache::remember('cache:link_list', 1440, function () {
+            // 获取友链
+            return Link::query()->select('id', 'name', 'url')
+                ->orderBy('sort', 'asc')
+                ->get();
+        });
+        return view('home.link', compact('links'));
     }
 }

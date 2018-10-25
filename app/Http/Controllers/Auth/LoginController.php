@@ -42,6 +42,7 @@ class LoginController extends Controller
      * DESC: 重写 AuthenticatesUsers 登录验证方法，并自定义提示信息;
      * 原验证方法 Illuminate\Foundation\Auth\AuthenticatesUsers
      * @param Request $request
+     * @throws \Illuminate\Validation\ValidationException
      */
     protected function validateLogin(Request $request)
     {
