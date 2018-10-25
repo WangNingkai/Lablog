@@ -49,6 +49,7 @@ Route::group(['namespace' => 'Home', 'middleware' => ['check_status']], function
     Route::get('subscribe', 'HomeController@subscribe')->name('subscribe');
     Route::post('subscribe_store', 'HomeController@subscribe_store')->name('subscribe_store');
     Route::get('search', 'HomeController@search')->name('search');
+    Route::get('link', 'HomeController@link')->name('link');
 });
 // 后台
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['auth:web', 'check_timeout', 'check_permission']], function () {

@@ -2,6 +2,9 @@
 @section('title', '分享站点')
 @section('keywords', $config['site_keywords'])
 @section('description', $config['site_description'])
+@section('css')
+    <link rel="stylesheet" href="{{ asset('css/markdown.css') }}">
+@stop
 @section('content')
     <div class="col-md-8">
         <div class="box box-default">
@@ -20,9 +23,13 @@
                             </h3>
                             <div class="hr-line-dashed"></div>
                         </div>
-                        {{--<div class="" style="word-wrap:break-word;">
-                            {!! $page->feed->html !!}
-                        </div>--}}
+                        <div class="markdown-body" style="word-wrap:break-word;">
+                            <ul>
+                                @foreach($links as $link)
+                                    <li><a href="{{ $link->url }}">{{ $link->name }}</a></li>
+                                @endforeach
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
