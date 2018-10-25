@@ -26,7 +26,7 @@
                         <div class="markdown-body" style="word-wrap:break-word;">
                             <ul>
                                 @foreach($links as $link)
-                                    <li><a href="{{ $link->url }}">{{ $link->name }}</a></li>
+                                    <li><a href="{{ $link->url }}" target="_blank">{{ $link->name }}</a></li>
                                 @endforeach
                             </ul>
                         </div>

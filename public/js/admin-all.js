@@ -137,55 +137,55 @@ $(function () {
         return false
     });
     $(".delTag").on("click", function () {
-        alertSubmit('tid');
+        alertSubmit(this,'tid');
     });
     $("#delSelectedTag").on("click", function () {
         alertSelectedSubmit('tid');
     });
     $(".delCategory").on("click", function () {
-        alertSubmit('cid');
+        alertSubmit(this,'cid');
     });
     $("#delSelectedCategory").on("click", function () {
         alertSelectedSubmit('cid');
     });
     $(".delNav").on("click", function () {
-        alertSubmit('nid');
+        alertSubmit(this,'nid');
     });
     $("#delSelectedNav").on("click", function () {
         alertSelectedSubmit('nid');
     });
     $(".delArticle").on("click", function () {
-        alertSubmit('aid');
+        alertSubmit(this,'aid');
     });
     $("#delSelectedArticle").on("click", function () {
         alertSelectedSubmit('aid');
     });
     $(".restoreArticle").on("click", function () {
-        alertSubmit('aid','restore');
+        alertSubmit(this,'aid','restore');
     });
     $("#restoreSelectedArticle").on("click", function () {
         alertSelectedSubmit('aid','restore')
     });
     $(".destroyArticle").on("click", function () {
-        alertSubmit('aid','destroy');
+        alertSubmit(this,'aid','destroy');
     });
     $("#destroySelectedArticle").on("click", function () {
         alertSelectedSubmit('aid','destroy')
     });
     $(".delPage").on("click", function () {
-        alertSubmit('pid');
+        alertSubmit(this,'pid');
     });
     $("#delSelectedPage").on("click", function () {
         alertSelectedSubmit('pid');
     });
     $(".restorePage").on("click", function () {
-        alertSubmit('pid','restore');
+        alertSubmit(this,'pid','restore');
     });
     $("#restoreSelectedPage").on("click", function () {
         alertSelectedSubmit('pid','restore')
     });
     $(".destroyPage").on("click", function () {
-        alertSubmit('pid','destroy');
+        alertSubmit(this,'pid','destroy');
     });
     $("#destroySelectedPage").on("click", function () {
         alertSelectedSubmit('pid','destroy')
@@ -216,7 +216,7 @@ $(function () {
         alertSelectedSubmit('cid','check');
     });
     $(".delComment").on("click", function () {
-        alertSubmit('cid');
+        alertSubmit(this,'cid');
     });
     $("#delSelectedComment").on("click", function () {
         alertSelectedSubmit('cid');
@@ -237,7 +237,7 @@ $(function () {
         return false
     });
     $(".delLink").on("click", function () {
-        alertSubmit('lid');
+        alertSubmit(this,'lid');
     });
     $("#delSelectedLink").on("click", function () {
         alertSelectedSubmit('lid');
@@ -268,13 +268,13 @@ $(function () {
         alertSelectedSubmit('mid','check');
     });
     $(".delMessage").on("click", function () {
-        alertSubmit('mid');
+        alertSubmit(this,'mid');
     });
     $("#delSelectedMessage").on("click", function () {
         alertSelectedSubmit('mid');
     });
     $(".delOperationLogs").on("click", function () {
-        alertSubmit('opid');
+        alertSubmit(this,'opid');
     });
     $("#delSelectedOperationLogs").on("click", function () {
         alertSelectedSubmit('opid');
@@ -294,37 +294,37 @@ $(function () {
         return false
     });
     $(".delPermission").on("click", function () {
-        alertSubmit('pid');
+        alertSubmit(this,'pid');
     });
     $("#delSelectedPermission").on("click", function () {
         alertSelectedSubmit('pid');
     });
     $(".delRole").on("click", function () {
-        alertSubmit('rid');
+        alertSubmit(this,'rid');
     });
     $("#delSelectedRole").on("click", function () {
         alertSelectedSubmit('rid');
     });
     $(".delUser").on("click", function () {
-        alertSubmit('uid');
+        alertSubmit(this,'uid');
     });
     $("#delSelectedUser").on("click", function () {
         alertSelectedSubmit('uid');
     });
     $(".restoreUser").on("click", function () {
-        alertSubmit('uid','restore');
+        alertSubmit(this,'uid','restore');
     });
     $("#restoreSelectedUser").on("click", function () {
         alertSelectedSubmit('uid','restore');
     });
     $(".destroyUser").on("click", function () {
-        alertSubmit('uid','destroy');
+        alertSubmit(this,'uid','destroy');
     });
     $("#destroySelectedUser").on("click", function () {
         alertSelectedSubmit('uid','destroy');
     });
     $(".delSubscribes").on("click", function () {
-        alertSubmit('sid');
+        alertSubmit(this,'sid');
     });
     $("#delSelectedSubscribes").on("click", function () {
         alertSelectedSubmit('sid');
@@ -344,9 +344,9 @@ $(function () {
         return false
     });
 });
-function alertSubmit(id,method){
+function alertSubmit(element,id,method){
     method = typeof method !== 'undefined' ?  method : 'delete';
-    target_id = $(this).parent().siblings().eq(0).find("input[name="+ id +"]").val();
+    target_id = $(element).parent().siblings().eq(0).find("input[name="+ id +"]").val();
     $("#"+ method +"Id").val(target_id);
     swal({
         title: "确定操作吗？",
