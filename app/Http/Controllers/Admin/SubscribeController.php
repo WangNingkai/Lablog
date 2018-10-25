@@ -6,7 +6,6 @@ use App\Helpers\Extensions\Tool;
 use App\Models\Subscribe;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class SubscribeController extends Controller
 {
