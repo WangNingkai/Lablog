@@ -193,6 +193,9 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
     Route::group(['prefix' => 'image'], function () {
         Route::get('list', 'ImageController@list')->name('image_list');
         Route::post('upload-image', 'ImageController@upload')->name('image_upload');
+        Route::get('sm_ms', function (){
+            return view('admin.sm_ms');
+        });
     });
     // 订阅
     Route::group(['prefix' => 'subscribe'], function () {
@@ -208,7 +211,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
     });
 });
 // 测试路由
-//Route::get('/test', function () {
-//    return '测试页面';
-//})->name('test');
+Route::post('t', function (){
+    return '测试页面';
+})->name('t');
 
