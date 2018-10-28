@@ -166,7 +166,7 @@
                                         </span>
                                                 <span class="description">{{ $comment->updated_at }}</span>
                                             </div>
-                                            <p>
+                                            <p style="word-wrap:break-word;">
                                                 {{ $comment->reply }}
                                             </p>
                                         </div>
