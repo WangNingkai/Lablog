@@ -51,7 +51,7 @@ class HomeController extends Controller
         $article = Cache::remember('cache:article' . $id, self::CACHE_EXPIRE, function () use ($id) {
             return Article::query()->with(['category', 'tags', 'comments' => function ($query) {
                 /* @var $query QueryBuilder */
-                $query->where('status', Comment::CHECKED);
+                $query->where('status', Comment::CHECKED)->orderBy('created_at','desc');
             }])->where('id', $id)->first();
         });
         $article_comments = $article->comments;
