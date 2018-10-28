@@ -61,12 +61,14 @@ class AppServiceProvider extends ServiceProvider
                 return Article::query()->select('id', 'title')
                     ->orderBy('rank', 'desc')
                     ->limit(10)
+                    ->inRandomOrder()
                     ->get();
             });
             $config = Cache::remember('cache:config', 1440, function () {
                 return Config::query()->pluck('value', 'name');
             });
             $assign = compact('nav_list', 'category_list', 'tag_list', 'top_article_list', 'link_list', 'config');
+            /* @var $view \Illuminate\View\View */
             $view->with($assign);
         });
         # 获取各种统计
@@ -91,6 +93,7 @@ class AppServiceProvider extends ServiceProvider
                 return Page::query()->count('id');
             });
             $assign = compact('articlesCount', '', 'commentsCount', 'messagesCount', 'pagesCount');
+            /* @var $view \Illuminate\View\View */
             $view->with($assign);
         });
         Schema::defaultStringLength(191);
