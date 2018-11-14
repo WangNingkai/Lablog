@@ -19,8 +19,12 @@
                 <div class="box-body article-body">
                     <a href="{{route('article',$article->id)}}" class="title-link">
                         <h3>
-                            {{ $article->title }} @if($article->is_top)
-                                <small class="label bg-red"> 置顶</small> @endif
+                            @if($article->is_top)
+                                <small class="text-danger">
+                                    <i class="fa fa-fire"></i><i class="fa fa-fire"></i><i class="fa fa-fire"></i> 置顶 &nbsp;&nbsp;
+                                </small>
+                            @endif
+                            {{ $article->title }}
                         </h3>
                     </a>
                     <div class="small m-b-xs">
