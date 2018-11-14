@@ -20,9 +20,7 @@
                     <a href="{{route('article',$article->id)}}" class="title-link">
                         <h3>
                             @if($article->is_top)
-                                <small class="text-danger">
-                                    <i class="fa fa-fire"></i><i class="fa fa-fire"></i><i class="fa fa-fire"></i> 置顶 &nbsp;&nbsp;
-                                </small>
+                                🔥🔥🔥&nbsp;&nbsp;
                             @endif
                             {{ $article->title }}
                         </h3>
