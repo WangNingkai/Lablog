@@ -48,6 +48,7 @@ class ArticleController extends Controller
             ->where($map)
             ->with('category')
             ->orderBy('created_at', 'desc')
+            ->orderByDesc('is_top')
             ->paginate(10);
         $categories = Tool::getSelect(Category::all()->toArray(), $category);
         return view('admin.article', compact('articles', 'categories'));

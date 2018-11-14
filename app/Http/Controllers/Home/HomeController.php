@@ -35,7 +35,8 @@ class HomeController extends Controller
 
         $articles = Article::query()->select('id', 'category_id', 'title', 'author', 'description', 'click')
             ->where('status', 1)
-            ->orderBy('created_at', 'desc')
+            ->orderByDesc('created_at')
+            ->orderByDesc('is_top')
             ->with(['category', 'tags'])
             ->simplePaginate(6);
         return view('home.index', compact('articles'));
@@ -51,7 +52,7 @@ class HomeController extends Controller
         $article = Cache::remember('cache:article' . $id, self::CACHE_EXPIRE, function () use ($id) {
             return Article::query()->with(['category', 'tags', 'comments' => function ($query) {
                 /* @var $query QueryBuilder */
-                $query->where('status', Comment::CHECKED)->orderBy('created_at','desc');
+                $query->where('status', Comment::CHECKED)->orderBy('created_at', 'desc');
             }])->where('id', $id)->first();
         });
         $article_comments = $article->comments;
