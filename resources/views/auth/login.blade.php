@@ -22,7 +22,7 @@
                 @endif
             </div>
             <div class="form-group">
-                <img src="{{captcha_src('flat')}}" style="cursor: pointer"
+                <img src="{{ captcha_src('inverse') }}" style="cursor: pointer"
                      onclick="this.src='{{captcha_src('flat')}}'+Math.random()">
             </div>
             <div class="form-group {{$errors->has('captcha')?'has-error':'has-feedback'}}">
