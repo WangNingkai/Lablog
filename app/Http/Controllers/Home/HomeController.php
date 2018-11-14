@@ -33,10 +33,10 @@ class HomeController extends Controller
     public function index()
     {
 
-        $articles = Article::query()->select('id', 'category_id', 'title', 'author', 'description', 'click')
+        $articles = Article::query()->select('id', 'category_id', 'title', 'author', 'description', 'is_top', 'click')
             ->where('status', 1)
-            ->orderByDesc('created_at')
             ->orderByDesc('is_top')
+            ->orderByDesc('created_at')
             ->with(['category', 'tags'])
             ->simplePaginate(6);
         return view('home.index', compact('articles'));

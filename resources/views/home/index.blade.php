@@ -19,7 +19,8 @@
                 <div class="box-body article-body">
                     <a href="{{route('article',$article->id)}}" class="title-link">
                         <h3>
-                            {{$article->title}}
+                            {{ $article->title }} @if($article->is_top)
+                                <small class="label bg-red"> 置顶</small> @endif
                         </h3>
                     </a>
                     <div class="small m-b-xs">
