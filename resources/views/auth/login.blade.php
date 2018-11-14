@@ -23,7 +23,7 @@
             </div>
             <div class="form-group">
                 <img src="{{ captcha_src('inverse') }}" style="cursor: pointer"
-                     onclick="this.src='{{captcha_src('flat')}}'+Math.random()">
+                     onclick="this.src='{{ captcha_src('inverse') }}'+Math.random()">
             </div>
             <div class="form-group {{$errors->has('captcha')?'has-error':'has-feedback'}}">
                 <input id="captcha" type="text" class="form-control" name="captcha" placeholder="验证码" required>
