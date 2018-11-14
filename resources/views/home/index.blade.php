@@ -20,7 +20,7 @@
                     <a href="{{route('article',$article->id)}}" class="title-link">
                         <h3>
                             @if($article->is_top)
-                                🔥🔥🔥&nbsp;&nbsp;
+                                <small>🔥🔥🔥&nbsp;&nbsp;</small>
                             @endif
                             {{ $article->title }}
                         </h3>
