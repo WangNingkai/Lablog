@@ -53,13 +53,17 @@ class ArticleController extends Controller
         return view('admin.article', compact('articles', 'categories'));
     }
 
-
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function top($id)
     {
         $article = $this->article->query()->find($id);
-        $status = (int)$article->get('is_top');
+        $status = (int)$article->is_top;
         $saved_status = abs(1 - $status);
-        $article->update(['is_top' => $saved_status]);
+        $article->is_top = $saved_status;
+        $article->save();
         // 更新缓存
         Cache::forget('cache:top_article_list');
         Cache::forget('feed:articles');

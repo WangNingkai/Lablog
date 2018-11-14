@@ -145,7 +145,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
         Route::get('trash', 'ArticleController@trash')->name('article_trash');
         Route::post('restore', 'ArticleController@restore')->name('article_restore');
         Route::post('destroy', 'ArticleController@destroy')->name('article_destroy');
-        Route::any('top/{id}', 'ArticleController@top')->name('article_top');
+        Route::get('top/{id}', 'ArticleController@top')->name('article_top');
         Route::post('upload-image', 'ArticleController@uploadImage')->name('article_image_upload');
 
     });
