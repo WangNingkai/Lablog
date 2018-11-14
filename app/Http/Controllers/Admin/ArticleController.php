@@ -44,7 +44,7 @@ class ArticleController extends Controller
         $category ? array_push($map, ['category_id', '=', $category]) : null;
         $articles = $this->article
             ->query()
-            ->select('id', 'category_id', 'title', 'status', 'click', 'created_at')
+            ->select('id', 'category_id', 'title', 'status', 'is_top', 'click', 'created_at')
             ->where($map)
             ->with('category')
             ->orderBy('created_at', 'desc')
