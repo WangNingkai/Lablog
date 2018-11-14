@@ -13,6 +13,8 @@ class Article extends Base
     const UNPUBLISHED = 0;
     const ALLOW_COMMENT = 1;
     const FORBID_COMMENT = 0;
+    const IS_TOP = 1;
+    const IS_NORMAL = 0;
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -81,6 +83,16 @@ class Article extends Base
     public function getStatusTagAttribute()
     {
         return $this->attributes['status'] === self::PUBLISHED ? '<a href="javascript:void(0)" class="btn btn-sm btn-success btn-flat">显示</a>' : '<a href="javascript:void(0)" class="btn btn-sm btn-danger btn-flat">隐藏</a>';
+    }
+
+    /**
+     * 获取置顶标签
+     * @return string
+     */
+    public function getTopTagAttribute()
+    {
+        $route = route('article_top', $this->attributes['id']);
+        return $this->attributes['is_top'] === self::IS_TOP ? '<a href="' . $route . '" class="btn btn-sm btn-info btn-flat">取消置顶</a>' : '<a href="' . $route . '" class="btn btn-sm btn-danger btn-flat">置顶</a>';
     }
 
     /**

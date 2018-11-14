@@ -131,6 +131,27 @@
                                                     class="fa fa-times-circle-o"></i>{{ $errors->first('status') }}</strong></span>
                                     @endif
                                 </div>
+                                <div class="form-group {{$errors->has('is_top')?'has-error':''}}">
+                                    <label>置顶：</label>
+                                    <div class="radio">
+                                        <label class="i-checks">
+                                            <input type="radio" name="is_top"
+                                                   value="{{ \App\Models\Article::IS_TOP }}"
+                                                   @if(old( 'is_top', \App\Models\Article::IS_TOP)==\App\Models\Article::IS_TOP ) checked="checked" @endif>
+                                            &nbsp;是
+                                        </label>
+                                        <label class="i-checks">
+                                            <input type="radio" name="is_top"
+                                                   value="{{ \App\Models\Article::IS_NORMAL }}"
+                                                   @if(old( 'is_top', \App\Models\Article::IS_NORMAL)==\App\Models\Article::IS_NORMAL ) checked="checked" @endif>
+                                            &nbsp;否
+                                        </label>
+                                    </div>
+                                    @if ($errors->has('is_top'))
+                                        <span class="help-block "><strong><i
+                                                    class="fa fa-times-circle-o"></i>{{ $errors->first('is_top') }}</strong></span>
+                                    @endif
+                                </div>
                                 <div class="form-group {{$errors->has('allow_comment')?'has-error':''}}">
                                     <label>是否允许评论：</label>
                                     <div class="radio">

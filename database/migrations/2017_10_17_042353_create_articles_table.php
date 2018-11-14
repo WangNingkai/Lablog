@@ -21,6 +21,7 @@ class CreateArticlesTable extends Migration
             $table->char('description')->comment('描述');
             $table->string('keywords')->comment('关键词');
             $table->boolean('status')->default(0)->comment('是否发布 1是 0否');
+            $table->boolean('is_top')->default(0)->comment('是否置顶 1是 0否');
             $table->unsignedInteger('click')->default(0)->comment('点击数');
             $table->string('rank')->nullable()->comment('热度');
             $table->boolean('allow_comment')->default(1)->comment('是否允许评论');

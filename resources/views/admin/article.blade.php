@@ -73,7 +73,7 @@
                                             <td>{{$article->category->name}}</td>
                                             <td>{{$article->click}}</td>
                                             <td>{{ \App\Helpers\Extensions\Tool::transformTime($article->created_at) }}</td>
-                                            <td>{!! $article->status_tag !!}</td>
+                                            <td>{!! $article->top_tag !!} {!! $article->status_tag !!}</td>
                                             <td>
                                                 <a href="{{ route('article_edit',$article->id) }}" class="text-green">
                                                     <i class="fa fa-pencil-square-o"></i>

@@ -38,19 +38,35 @@ class ArticleController extends Controller
     public function manage(Request $request)
     {
         $keyword = $request->get('keyword') ?? '';
-        $category = $request->get('category') ?? 0 ;
+        $category = $request->get('category') ?? 0;
         $map = [];
         $keyword ? array_push($map, ['title', 'like', '%' . $keyword . '%']) : null;
         $category ? array_push($map, ['category_id', '=', $category]) : null;
-        $articles =  $this->article
+        $articles = $this->article
             ->query()
-            ->select('id', 'category_id', 'title','status','click', 'created_at')
+            ->select('id', 'category_id', 'title', 'status', 'click', 'created_at')
             ->where($map)
             ->with('category')
             ->orderBy('created_at', 'desc')
             ->paginate(10);
-        $categories = Tool::getSelect(Category::all()->toArray(),$category);
-        return view('admin.article', compact('articles','categories'));
+        $categories = Tool::getSelect(Category::all()->toArray(), $category);
+        return view('admin.article', compact('articles', 'categories'));
+    }
+
+
+    public function top($id)
+    {
+        $article = $this->article->query()->find($id);
+        $status = (int)$article->get('is_top');
+        $saved_status = abs(1 - $status);
+        $article->update(['is_top' => $saved_status]);
+        // 更新缓存
+        Cache::forget('cache:top_article_list');
+        Cache::forget('feed:articles');
+        if (Cache::has('cache:article' . $id)) {
+            Cache::forget('cache:article' . $id);
+        }
+        return redirect()->route('article_manage');
     }
 
     /**
@@ -77,9 +93,9 @@ class ArticleController extends Controller
         if ($request->get('status') == $this->article::PUBLISHED) {
             // 推送订阅
             $title = $request->get('title');
-            Tool::pushSubscribe('Lablog 站点提醒','新文章发布：' . $title .'，快来瞧瞧吧',route('article',$id));
+            Tool::pushSubscribe('Lablog 站点提醒', '新文章发布：' . $title . '，快来瞧瞧吧', route('article', $id));
         }
-        Tool::recordOperation(auth()->user()->name,'添加文章');
+        Tool::recordOperation(auth()->user()->name, '添加文章');
         // 更新缓存
         Cache::forget('cache:top_article_list');
         Cache::forget('feed:articles');
@@ -109,20 +125,20 @@ class ArticleController extends Controller
      */
     public function update(Store $request, $id)
     {
-        $oldStatus = $this->article->query()->where('id',$id)->value('status');
+        $oldStatus = $this->article->query()->where('id', $id)->value('status');
         $data = $request->except('_token');
         $this->article->updateData($id, $data);
         if (($data['status'] - $oldStatus) > 0) {
             // 推送订阅 草稿状态文章发布
             $title = $request->get('title');
-            Tool::pushSubscribe('Lablog 站点提醒','新文章发布：' . $title .'，快来瞧瞧吧',route('article',$id));
+            Tool::pushSubscribe('Lablog 站点提醒', '新文章发布：' . $title . '，快来瞧瞧吧', route('article', $id));
         }
-        Tool::recordOperation(auth()->user()->name,'编辑文章');
+        Tool::recordOperation(auth()->user()->name, '编辑文章');
         // 更新缓存
         Cache::forget('cache:top_article_list');
         Cache::forget('feed:articles');
-        if (Cache::has('cache:article'.$id)) {
-            Cache::forget('cache:article'.$id);
+        if (Cache::has('cache:article' . $id)) {
+            Cache::forget('cache:article' . $id);
         }
         return redirect()->route('article_manage');
     }
@@ -141,7 +157,7 @@ class ArticleController extends Controller
             'id' => ['in', $arr]
         ];
         $this->article->destroyData($map);
-        Tool::recordOperation(auth()->user()->name,'软删除文章');
+        Tool::recordOperation(auth()->user()->name, '软删除文章');
         // 更新缓存
         Cache::forget('cache:top_article_list');
         Cache::forget('feed:articles');
@@ -156,10 +172,10 @@ class ArticleController extends Controller
     public function trash()
     {
         $articles = $this->article->query()
-        ->select('id', 'title', 'deleted_at')
-        ->orderBy('deleted_at', 'desc')
-        ->onlyTrashed()
-        ->paginate(10);
+            ->select('id', 'title', 'deleted_at')
+            ->orderBy('deleted_at', 'desc')
+            ->onlyTrashed()
+            ->paginate(10);
         return view('admin.article-trash', compact('articles'));
     }
 
@@ -178,7 +194,7 @@ class ArticleController extends Controller
             return redirect()->back();
         }
         Tool::showMessage('恢复成功');
-        Tool::recordOperation(auth()->user()->name,'恢复软删除文章');
+        Tool::recordOperation(auth()->user()->name, '恢复软删除文章');
         // 更新缓存
         Cache::forget('cache:top_article_list');
         Cache::forget('feed:articles');
@@ -208,13 +224,13 @@ class ArticleController extends Controller
                 ->whereIn('article_id', $arr)
                 ->delete();
             Feed::query()
-                ->where('target_type',Feed::TYPE_ARTICLE)
+                ->where('target_type', Feed::TYPE_ARTICLE)
                 ->whereIn('target_id', $arr)
                 ->delete();
         }
         Tool::showMessage('彻底删除成功');
-        Tool::recordOperation(auth()->user()->name,'完全删除文章');
-        Tool::bdPush($arr,'del');
+        Tool::recordOperation(auth()->user()->name, '完全删除文章');
+        Tool::bdPush($arr, 'del');
         // 更新缓存
         Cache::forget('cache:top_article_list');
         Cache::forget('cache:tag_list');
@@ -231,14 +247,14 @@ class ArticleController extends Controller
         $field = 'mde-image-file';
         $rule = [$field => 'required|max:2048|image|dimensions:max_width=1920,max_height=1080'];
         $uploadPath = 'uploads/content';
-        $result = Tool::uploadFile($field,$rule,$uploadPath,false,true);
+        $result = Tool::uploadFile($field, $rule, $uploadPath, false, true);
         if ($result['status_code'] == 200) {
             $file = $result['data'];
             if (Tool::config('water_mark_status')) // 加水印
-                Tool::addImgWater($file['absolutePath'],config('global.image_water_mark'));
+                Tool::addImgWater($file['absolutePath'], config('global.image_water_mark'));
             return response()->json(['code' => 200, 'filename' => $file['publicPath']]);
         } else {
-            return response()->json(['code' => $result['status_code'],'filename' => $result['message']]);
+            return response()->json(['code' => $result['status_code'], 'filename' => $result['message']]);
         }
 
     }

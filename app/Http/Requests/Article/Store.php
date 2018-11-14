@@ -31,6 +31,7 @@ class Store extends FormRequest
             'tag_ids' => 'required',
             'content' => 'required|string',
             'status' => 'required',
+            'is_top' => 'required',
             'allow_comment' => 'required'
         ];
     }
@@ -50,6 +51,7 @@ class Store extends FormRequest
             'keywords' => '关键词',
             'content' => '内容',
             'status' => '状态',
+            'is_top' => '置顶',
             'allow_comment' => '是否允许评论'
         ];
     }
