@@ -55,7 +55,7 @@ class HomeController extends Controller
                 $query->where('status', Comment::CHECKED)->orderBy('created_at', 'desc');
             }])->where('id', $id)->first();
         });
-        $article_comments = $article->comments;
+        $article_comments = $article->comments ?? [];
         $currentPage = LengthAwarePaginator::resolveCurrentPage();
         $collection = new Collection($article_comments);
         $perPage = 5;
