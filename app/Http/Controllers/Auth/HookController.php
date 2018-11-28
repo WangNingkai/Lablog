@@ -24,7 +24,7 @@ class HookController extends Controller
             $allow = $signature == $hash ?: false;
         } else if ($type == 'github') {
             $json    = file_get_contents('php://input');
-            $signature = $request->header('HTTP_X_HUB_SIGNATURE');
+            $signature = $request->header('X-Hub-Signature');
             list($algo, $hash) = explode('=', $signature, 2);
             $payloadHash = hash_hmac($algo, $json, config('global.github_hook_password'));
             $allow = (strcmp($payloadHash, $hash) === 0 && $signature);
