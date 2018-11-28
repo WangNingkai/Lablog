@@ -23,11 +23,10 @@ class HookController extends Controller
             $hash = hash_hmac('sha256', $data, config('global.gogs_hook_password'));
             $allow = $signature == $hash ?: false;
         } else if ($type == 'github') {
-            $json = file_get_contents('php://input');
             $signature = $request->header('X-Hub-Signature');
             if (!$signature) return response('', 404);
             list($algo, $hash) = explode('=', $signature, 2);
-            $payloadHash = hash_hmac($algo, $json, config('global.github_hook_password'));
+            $payloadHash = hash_hmac($algo, $data, config('global.github_hook_password'));
             $allow = (strcmp($payloadHash, $hash) === 0);
         }
         if ($allow) {
