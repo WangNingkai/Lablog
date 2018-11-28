@@ -419,35 +419,18 @@ class Tool
     }
 
     /**
-     * markdown 转 html
-     *
-     * @param string $markdown
-     * @return array
+     * markdown转html
+     * @param $markdown
+     * @param bool $line
+     * @return mixed|string
      */
-    public static function markdown2Html($markdown)
+    public static function markdown2Html($markdown, $line = false)
     {
-        preg_match_all('/&lt;iframe.*iframe&gt;/', $markdown, $iframe);
-        // 如果有 i_frame 则先替换为临时字符串
-        if (!empty($iframe[0])) {
-            $tmp = [];
-            // 组合临时字符串
-            foreach ($iframe[0] as $k => $v) {
-                $tmp[] = '【iframe' . $k . '】';
-            }
-            // 替换临时字符串
-            $markdown = str_replace($iframe[0], $tmp, $markdown);
-            // 转义 i_frame
-            $replace = array_map(function ($v) {
-                return htmlspecialchars_decode($v);
-            }, $iframe[0]);
-        }
-        // markdown转html
         $parser = new \Parsedown();
-        $html = $parser->text($markdown);
-        $html = str_replace('<code class="', '<code class="lang-', $html);
-        // 将临时字符串替换为 i_frame
-        if (!empty($iframe[0])) {
-            $html = str_replace($tmp, $replace, $html);
+        if (!$line) {
+            $html = $parser->text($markdown);
+        } else {
+            $html = $parser->line($markdown);
         }
         return $html;
     }
