@@ -18,7 +18,7 @@ Lablog
 ### 安装使用
 
 ```bash
-git clone -b release https://gitee.com/wangningkai/Lablog.git tmp 
+git clone https://gitee.com/wangningkai/Lablog.git tmp 
 mv tmp/.git . 
 rm -rf tmp 
 git reset --hard 
