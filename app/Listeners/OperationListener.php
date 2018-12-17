@@ -22,6 +22,7 @@ class OperationListener
      * Handle the event.
      *
      * @param  OperationEvent $event
+     *
      * @return void
      */
     public function handle(OperationEvent $event)
@@ -33,9 +34,9 @@ class OperationListener
         $timestamp = $event->getTimestamp();
 
         $basic_info = [
-            'operator' => $operator,
-            'operation' => $operation,
-            'ip' => $ip,
+            'operator'       => $operator,
+            'operation'      => $operation,
+            'ip'             => $ip,
             'operation_time' => $timestamp,
         ];
 

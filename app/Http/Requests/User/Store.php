@@ -25,10 +25,10 @@ class Store extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', new ValidateName],
-            'email' => 'required|string|email|max:255|unique:users',
+            'name'     => ['required', new ValidateName],
+            'email'    => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
-            'roles' => 'required'
+            'roles'    => 'required',
         ];
     }
 
@@ -40,10 +40,10 @@ class Store extends FormRequest
     public function attributes()
     {
         return [
-            'name' => '用户名',
-            'email' => '邮箱',
+            'name'     => '用户名',
+            'email'    => '邮箱',
             'password' => '密码',
-            'roles' => '角色'
+            'roles'    => '角色',
         ];
     }
 }

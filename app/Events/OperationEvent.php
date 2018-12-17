@@ -38,14 +38,19 @@ class OperationEvent
 
     /**
      * OperationEvent constructor.
+     *
      * @param $operator
      * @param $operation
      * @param $ip
      * @param $timestamp
      *
      */
-    public function __construct($operator, $operation, $ip = '', $timestamp = '')
-    {
+    public function __construct(
+        $operator,
+        $operation,
+        $ip = '',
+        $timestamp = ''
+    ) {
         $this->operator = $operator;
         $this->operation = $operation;
         $this->ip = $ip;
@@ -54,6 +59,7 @@ class OperationEvent
 
     /**
      * 获取操作者
+     *
      * @return User
      */
     public function getOperator()
@@ -63,6 +69,7 @@ class OperationEvent
 
     /**
      *  获取操作
+     *
      * @return string
      */
     public function getOperation()
@@ -73,6 +80,7 @@ class OperationEvent
 
     /**
      * 获取IP
+     *
      * @return string
      */
     public function getIp()
@@ -82,6 +90,7 @@ class OperationEvent
 
     /**
      * 获取操作时间
+     *
      * @return int|string
      */
     public function getTimestamp()

@@ -57,6 +57,7 @@ class SendEmail implements ShouldQueue
 
     /**
      * SendEmail constructor.
+     *
      * @param $param
      */
     public function __construct($param)
@@ -74,6 +75,7 @@ class SendEmail implements ShouldQueue
      */
     public function handle()
     {
-        Tool::sendEmail($this->email, $this->name, $this->subject, $this->data, 'emails.base');
+        Tool::sendEmail($this->email, $this->name, $this->subject, $this->data,
+            'emails.base');
     }
 }

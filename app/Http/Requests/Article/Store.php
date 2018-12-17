@@ -24,15 +24,15 @@ class Store extends FormRequest
     public function rules()
     {
         return [
-            'category_id' => 'required|string',
-            'title' => 'required|string',
-            'author' => 'required|string',
-            'keywords' => 'required|string',
-            'tag_ids' => 'required',
-            'content' => 'required|string',
-            'status' => 'required',
-            'is_top' => 'required',
-            'allow_comment' => 'required'
+            'category_id'   => 'required|string',
+            'title'         => 'required|string',
+            'author'        => 'required|string',
+            'keywords'      => 'required|string',
+            'tag_ids'       => 'required',
+            'content'       => 'required|string',
+            'status'        => 'required',
+            'is_top'        => 'required',
+            'allow_comment' => 'required',
         ];
     }
 
@@ -44,15 +44,15 @@ class Store extends FormRequest
     public function attributes()
     {
         return [
-            'category_id' => '分类',
-            'title' => '标题',
-            'author' => '作者',
-            'tag_ids' => '标签',
-            'keywords' => '关键词',
-            'content' => '内容',
-            'status' => '状态',
-            'is_top' => '置顶',
-            'allow_comment' => '是否允许评论'
+            'category_id'   => '分类',
+            'title'         => '标题',
+            'author'        => '作者',
+            'tag_ids'       => '标签',
+            'keywords'      => '关键词',
+            'content'       => '内容',
+            'status'        => '状态',
+            'is_top'        => '置顶',
+            'allow_comment' => '是否允许评论',
         ];
     }
 

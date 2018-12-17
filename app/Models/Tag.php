@@ -22,6 +22,7 @@ class Tag extends Base
      * 删除数据
      *
      * @param array $map
+     *
      * @return bool
      */
     public function destroyData($map)
@@ -33,12 +34,15 @@ class Tag extends Base
             ->pluck('id')
             ->toArray();
         // 获取分类下的文章数
-        $articleCount = ArticleTag::query()->whereIn('tag_id', $tagIdArray)->count();
+        $articleCount = ArticleTag::query()->whereIn('tag_id', $tagIdArray)
+            ->count();
         // 如果分类下存在文章；则需要下删除文章
         if (0 !== $articleCount) {
             Tool::showMessage('请先删除此标签下的文章', false);
+
             return false;
         }
+
         return parent::destroyData($map);
     }
 }

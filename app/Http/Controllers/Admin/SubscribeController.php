@@ -16,6 +16,7 @@ class SubscribeController extends Controller
 
     /**
      * SubscribeController constructor.
+     *
      * @param Subscribe $subscribe
      */
     public function __construct(Subscribe $subscribe)
@@ -25,21 +26,27 @@ class SubscribeController extends Controller
 
     /**
      *  订阅列表.
+     *
      * @param Request $request
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function manage(Request $request)
     {
         $keyword = $request->get('keyword') ?? '';
         $map = [];
-        $keyword ? array_push($map, ['email', 'like', '%' . $keyword . '%']) : null;
-        $subscribes = $this->subscribe->query()->where($map)->orderBy('id', 'desc')->paginate(10);
+        $keyword ? array_push($map, ['email', 'like', '%'.$keyword.'%']) : null;
+        $subscribes = $this->subscribe->query()->where($map)
+            ->orderBy('id', 'desc')->paginate(10);
+
         return view('admin.subscribe', compact('subscribes'));
     }
 
     /**
      * 订阅删除.
+     *
      * @param Request $request
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request)
@@ -47,10 +54,11 @@ class SubscribeController extends Controller
         $data = $request->only('sid');
         $arr = explode(',', $data['sid']);
         $map = [
-            'id' => ['in', $arr]
+            'id' => ['in', $arr],
         ];
         $this->subscribe->destroyData($map);
-        Tool::recordOperation(auth()->user()->name,'删除订阅');
+        Tool::recordOperation(auth()->user()->name, '删除订阅');
+
         return redirect()->back();
     }
 }

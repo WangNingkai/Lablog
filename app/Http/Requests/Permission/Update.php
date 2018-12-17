@@ -24,8 +24,10 @@ class Update extends FormRequest
     public function rules()
     {
         return [
-            'edit_name' => 'required|string|unique:permissions,name,' . $this->route()->id,
-            'edit_route' => 'required|string|unique:permissions,route,' . $this->route()->id,
+            'edit_name'  => 'required|string|unique:permissions,name,'
+                .$this->route()->id,
+            'edit_route' => 'required|string|unique:permissions,route,'
+                .$this->route()->id,
         ];
     }
 
@@ -37,7 +39,7 @@ class Update extends FormRequest
     public function attributes()
     {
         return [
-            'edit_name' => '权限名',
+            'edit_name'  => '权限名',
             'edit_route' => '路由名',
 
         ];

@@ -25,7 +25,7 @@ class Store extends FormRequest
     {
         return [
             'name' => 'required|string|unique:links',
-            'url' => 'required|url|unique:links',
+            'url'  => 'required|url|unique:links',
         ];
     }
 
@@ -38,7 +38,7 @@ class Store extends FormRequest
     {
         return [
             'name' => '友链名称',
-            'url' => '链接',
+            'url'  => '链接',
 
         ];
     }

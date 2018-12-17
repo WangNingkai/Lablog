@@ -24,12 +24,14 @@ class Update extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|unique:categories,name,' . $this->route()->id,
-            'flag' => 'required|string|unique:categories,flag,' . $this->route()->id,
-            'keywords' => 'required|string',
+            'name'        => 'required|string|unique:categories,name,'
+                .$this->route()->id,
+            'flag'        => 'required|string|unique:categories,flag,'
+                .$this->route()->id,
+            'keywords'    => 'required|string',
             'description' => 'required|string',
-            'parent_id' => 'required',
-            'sort' => 'required',
+            'parent_id'   => 'required',
+            'sort'        => 'required',
         ];
     }
 
@@ -41,12 +43,12 @@ class Update extends FormRequest
     public function attributes()
     {
         return [
-            'name' => '栏目名',
-            'flag' => '标识',
-            'keywords' => '关键字',
+            'name'        => '栏目名',
+            'flag'        => '标识',
+            'keywords'    => '关键字',
             'description' => '描述',
-            'parent_id' => '父级ID',
-            'sort' => '排序权重',
+            'parent_id'   => '父级ID',
+            'sort'        => '排序权重',
         ];
     }
 }

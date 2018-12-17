@@ -23,6 +23,7 @@ class ArticleController extends Controller
 
     /**
      * ArticleController constructor.
+     *
      * @param Article $article
      */
     public function __construct(Article $article)
@@ -32,7 +33,9 @@ class ArticleController extends Controller
 
     /**
      * 列举文章列表
+     *
      * @param Request $request
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function manage(Request $request)
@@ -40,22 +43,25 @@ class ArticleController extends Controller
         $keyword = $request->get('keyword') ?? '';
         $category = $request->get('category') ?? 0;
         $map = [];
-        $keyword ? array_push($map, ['title', 'like', '%' . $keyword . '%']) : null;
+        $keyword ? array_push($map, ['title', 'like', '%'.$keyword.'%']) : null;
         $category ? array_push($map, ['category_id', '=', $category]) : null;
         $articles = $this->article
             ->query()
-            ->select('id', 'category_id', 'title', 'status', 'is_top', 'click', 'created_at')
+            ->select('id', 'category_id', 'title', 'status', 'is_top', 'click',
+                'created_at')
             ->where($map)
             ->with('category')
             ->orderByDesc('is_top')
             ->orderByDesc('created_at')
             ->paginate(10);
         $categories = Tool::getSelect(Category::all()->toArray(), $category);
+
         return view('admin.article', compact('articles', 'categories'));
     }
 
     /**
      * @param $id
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function top($id)
@@ -68,9 +74,10 @@ class ArticleController extends Controller
         // 更新缓存
         Cache::forget('cache:top_article_list');
         Cache::forget('feed:articles');
-        if (Cache::has('cache:article' . $id)) {
-            Cache::forget('cache:article' . $id);
+        if (Cache::has('cache:article'.$id)) {
+            Cache::forget('cache:article'.$id);
         }
+
         return redirect()->route('article_manage');
     }
 
@@ -83,6 +90,7 @@ class ArticleController extends Controller
     {
         $category = Tool::getSelect(Category::all()->toArray());
         $tag = Tag::all();
+
         return view('admin.article-create', compact('category', 'tag'));
     }
 
@@ -90,6 +98,7 @@ class ArticleController extends Controller
      * 存储文章.
      *
      * @param  \App\Http\Requests\Article\Store $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Store $request)
@@ -98,12 +107,14 @@ class ArticleController extends Controller
         if ($request->get('status') == $this->article::PUBLISHED) {
             // 推送订阅
             $title = $request->get('title');
-            Tool::pushSubscribe('Lablog 站点提醒', '新文章发布：' . $title . '，快来瞧瞧吧', route('article', $id));
+            Tool::pushSubscribe('Lablog 站点提醒', '新文章发布：'.$title.'，快来瞧瞧吧',
+                route('article', $id));
         }
         Tool::recordOperation(auth()->user()->name, '添加文章');
         // 更新缓存
         Cache::forget('cache:top_article_list');
         Cache::forget('feed:articles');
+
         return redirect()->route('article_manage');
     }
 
@@ -111,21 +122,26 @@ class ArticleController extends Controller
      * 编辑文章.
      *
      * @param  int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
         $article = $this->article->query()->find($id);
-        $category = Tool::getSelect(Category::all()->toArray(), $article->getAttributeValue('category_id'));
+        $category = Tool::getSelect(Category::all()->toArray(),
+            $article->getAttributeValue('category_id'));
         $tag = Tag::all();
-        return view('admin.article-edit', compact('article', 'category', 'tag'));
+
+        return view('admin.article-edit',
+            compact('article', 'category', 'tag'));
     }
 
     /**
      * 更新文章.
      *
      * @param  \App\Http\Requests\Article\Store $request
-     * @param  int $id
+     * @param  int                              $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Store $request, $id)
@@ -136,15 +152,17 @@ class ArticleController extends Controller
         if (($data['status'] - $oldStatus) > 0) {
             // 推送订阅 草稿状态文章发布
             $title = $request->get('title');
-            Tool::pushSubscribe('Lablog 站点提醒', '新文章发布：' . $title . '，快来瞧瞧吧', route('article', $id));
+            Tool::pushSubscribe('Lablog 站点提醒', '新文章发布：'.$title.'，快来瞧瞧吧',
+                route('article', $id));
         }
         Tool::recordOperation(auth()->user()->name, '编辑文章');
         // 更新缓存
         Cache::forget('cache:top_article_list');
         Cache::forget('feed:articles');
-        if (Cache::has('cache:article' . $id)) {
-            Cache::forget('cache:article' . $id);
+        if (Cache::has('cache:article'.$id)) {
+            Cache::forget('cache:article'.$id);
         }
+
         return redirect()->route('article_manage');
     }
 
@@ -152,6 +170,7 @@ class ArticleController extends Controller
      * 软删除.
      *
      * @param  \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function delete(Request $request)
@@ -159,13 +178,14 @@ class ArticleController extends Controller
         $data = $request->only('aid');
         $arr = explode(',', $data['aid']);
         $map = [
-            'id' => ['in', $arr]
+            'id' => ['in', $arr],
         ];
         $this->article->destroyData($map);
         Tool::recordOperation(auth()->user()->name, '软删除文章');
         // 更新缓存
         Cache::forget('cache:top_article_list');
         Cache::forget('feed:articles');
+
         return redirect()->back();
     }
 
@@ -181,6 +201,7 @@ class ArticleController extends Controller
             ->orderBy('deleted_at', 'desc')
             ->onlyTrashed()
             ->paginate(10);
+
         return view('admin.article-trash', compact('articles'));
     }
 
@@ -188,6 +209,7 @@ class ArticleController extends Controller
      * 恢复删除
      *
      * @param  \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function restore(Request $request)
@@ -196,6 +218,7 @@ class ArticleController extends Controller
         $arr = explode(',', $data['aid']);
         if (!$this->article->query()->whereIn('id', $arr)->restore()) {
             Tool::showMessage('恢复失败', false);
+
             return redirect()->back();
         }
         Tool::showMessage('恢复成功');
@@ -203,12 +226,15 @@ class ArticleController extends Controller
         // 更新缓存
         Cache::forget('cache:top_article_list');
         Cache::forget('feed:articles');
+
         return redirect()->back();
     }
 
     /**
      * 彻底删除文章.
+     *
      * @param Request $request
+     *
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
@@ -216,10 +242,12 @@ class ArticleController extends Controller
     {
         $data = $request->only('aid');
         $arr = explode(',', $data['aid']);
-        $deleteOrFail = $this->article->query()->whereIn('id', $arr)->forceDelete();
+        $deleteOrFail = $this->article->query()->whereIn('id', $arr)
+            ->forceDelete();
         if (!$deleteOrFail) {
             // 删除对应标签记录与评论记录
             Tool::showMessage('彻底删除失败', false);
+
             return redirect()->back();
         } else {
             ArticleTag::query()
@@ -240,26 +268,39 @@ class ArticleController extends Controller
         Cache::forget('cache:top_article_list');
         Cache::forget('cache:tag_list');
         Cache::forget('feed:articles');
+
         return redirect()->back();
     }
 
     /**
      * 上传图片
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function uploadImage()
     {
         $field = 'mde-image-file';
-        $rule = [$field => 'required|max:2048|image|dimensions:max_width=1920,max_height=1080'];
+        $rule
+            = [$field => 'required|max:2048|image|dimensions:max_width=1920,max_height=1080'];
         $uploadPath = 'uploads/content';
         $result = Tool::uploadFile($field, $rule, $uploadPath, false, true);
         if ($result['status_code'] == 200) {
             $file = $result['data'];
             if (Tool::config('water_mark_status')) // 加水印
-                Tool::addImgWater($file['absolutePath'], config('global.image_water_mark'));
-            return response()->json(['code' => 200, 'filename' => $file['publicPath']]);
+            {
+                Tool::addImgWater($file['absolutePath'],
+                    config('global.image_water_mark'));
+            }
+
+            return response()->json([
+                'code'     => 200,
+                'filename' => $file['publicPath'],
+            ]);
         } else {
-            return response()->json(['code' => $result['status_code'], 'filename' => $result['message']]);
+            return response()->json([
+                'code'     => $result['status_code'],
+                'filename' => $result['message'],
+            ]);
         }
 
     }

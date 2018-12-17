@@ -19,6 +19,7 @@ class PageController extends Controller
 
     /**
      * PageController constructor.
+     *
      * @param Page $page
      */
     public function __construct(Page $page)
@@ -28,19 +29,21 @@ class PageController extends Controller
 
     /**
      * @param Request $request
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function manage(Request $request)
     {
         $keyword = $request->get('keyword') ?? '';
         $map = [];
-        $keyword ? array_push($map, ['title', 'like', '%' . $keyword . '%']) : null;
-        $pages =  $this->page
+        $keyword ? array_push($map, ['title', 'like', '%'.$keyword.'%']) : null;
+        $pages = $this->page
             ->query()
-            ->select('id', 'title','status','click', 'created_at')
+            ->select('id', 'title', 'status', 'click', 'created_at')
             ->where($map)
             ->orderBy('created_at', 'desc')
             ->paginate(10);
+
         return view('admin.page', compact('pages'));
 
     }
@@ -55,43 +58,50 @@ class PageController extends Controller
 
     /**
      * @param Store $request
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Store $request)
     {
         $this->page->storeData($request->all());
-        Tool::recordOperation(auth()->user()->name,'添加单页');
+        Tool::recordOperation(auth()->user()->name, '添加单页');
+
         return redirect()->route('page_manage');
     }
 
     /**
      * @param $id
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit($id)
     {
         $page = $this->page->query()->find($id);
+
         return view('admin.page-edit', compact('page'));
     }
 
     /**
      * @param Store $request
-     * @param $id
+     * @param       $id
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Store $request, $id)
     {
         $data = $request->except('_token');
         $this->page->updateData($id, $data);
-        Tool::recordOperation(auth()->user()->name,'编辑单页');
+        Tool::recordOperation(auth()->user()->name, '编辑单页');
         if (Cache::has('cache:page'.$id)) {
             Cache::forget('cache:page'.$id);
         }
+
         return redirect()->route('page_manage');
     }
 
     /**
      * @param Request $request
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function delete(Request $request)
@@ -99,10 +109,11 @@ class PageController extends Controller
         $data = $request->only('pid');
         $arr = explode(',', $data['pid']);
         $map = [
-            'id' => ['in', $arr]
+            'id' => ['in', $arr],
         ];
         $this->page->destroyData($map);
-        Tool::recordOperation(auth()->user()->name,'软删除单页');
+        Tool::recordOperation(auth()->user()->name, '软删除单页');
+
         return redirect()->back();
     }
 
@@ -116,11 +127,13 @@ class PageController extends Controller
             ->orderBy('deleted_at', 'desc')
             ->onlyTrashed()
             ->paginate(10);
+
         return view('admin.page-trash', compact('pages'));
     }
 
     /**
      * @param Request $request
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function restore(Request $request)
@@ -129,33 +142,39 @@ class PageController extends Controller
         $arr = explode(',', $data['pid']);
         if (!$this->page->query()->whereIn('id', $arr)->restore()) {
             Tool::showMessage('恢复失败', false);
+
             return redirect()->back();
         }
         Tool::showMessage('恢复成功');
-        Tool::recordOperation(auth()->user()->name,'恢复软删除单页');
+        Tool::recordOperation(auth()->user()->name, '恢复软删除单页');
+
         return redirect()->back();
     }
 
     /**
      * @param Request $request
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request)
     {
         $data = $request->only('pid');
         $arr = explode(',', $data['pid']);
-        $deleteOrFail = $this->page->query()->whereIn('id', $arr)->forceDelete();
+        $deleteOrFail = $this->page->query()->whereIn('id', $arr)
+            ->forceDelete();
         if (!$deleteOrFail) {
             Tool::showMessage('彻底删除失败', false);
+
             return redirect()->back();
         } else {
             Feed::query()
-                ->where('target_type',Feed::TYPE_PAGE)
+                ->where('target_type', Feed::TYPE_PAGE)
                 ->whereIn('target_id', $arr)
                 ->delete();
         }
         Tool::showMessage('彻底删除成功');
-        Tool::recordOperation(auth()->user()->name,'完全删除单页');
+        Tool::recordOperation(auth()->user()->name, '完全删除单页');
+
         return redirect()->back();
     }
 }

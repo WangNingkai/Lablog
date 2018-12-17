@@ -20,6 +20,6 @@ class UsersTableSeeder extends Seeder
         // 创建角色并赋予超级管理员角色
         Role::create(['name' => User::SUPERADMIN]);
         $user->assignRole(User::SUPERADMIN);
-        
+
     }
 }

@@ -211,8 +211,4 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
         Route::get('info/{id?}', 'PushController@info')->name('push_info');
     });
 });
-// 测试路由
-Route::post('t', function (){
-    return '测试页面';
-})->name('t');
 

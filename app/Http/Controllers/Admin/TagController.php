@@ -20,6 +20,7 @@ class TagController extends Controller
 
     /**
      * TagController constructor.
+     *
      * @param Tag $tag
      */
     public function __construct(Tag $tag)
@@ -36,9 +37,11 @@ class TagController extends Controller
     {
         $tags = $this->tag->query()->orderBy('id', 'desc')->paginate(10);
         foreach ($tags as $tag) {
-            $articleCount = ArticleTag::query()->where('tag_id', $tag->id)->count();
+            $articleCount = ArticleTag::query()->where('tag_id', $tag->id)
+                ->count();
             $tag->article_count = $articleCount;
         }
+
         return view('admin.tag', compact('tags'));
     }
 
@@ -46,20 +49,24 @@ class TagController extends Controller
      * 标签创建存储.
      *
      * @param  \App\Http\Requests\Tag\Store $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Store $request)
     {
         $this->tag->storeData($request->all());
-        Tool::recordOperation(auth()->user()->name,'添加标签');
+        Tool::recordOperation(auth()->user()->name, '添加标签');
         // 更新缓存
         Cache::forget('cache:tag_list');
+
         return redirect()->back();
     }
 
     /**
      * 标签编辑.
+     *
      * @param null $id
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function edit($id = null)
@@ -70,6 +77,7 @@ class TagController extends Controller
         if (!$response = $this->tag->query()->find($id)->toArray()) {
             return Tool::ajaxReturn(404, ['alert' => '未找到相关数据']);
         }
+
         return Tool::ajaxReturn(200, $response);
     }
 
@@ -77,23 +85,28 @@ class TagController extends Controller
      * 标签更新.
      *
      * @param  \App\Http\Requests\Tag\Update $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Update $request)
     {
         $id = $request->get('id');
-        $name=$request->get('edit_name');
-        $flag=$request->get('edit_name');
-        $this->tag->updateData(['id' => $id], ['name'=>$name,'flag'=>$flag]);
-        Tool::recordOperation(auth()->user()->name,'编辑标签');
+        $name = $request->get('edit_name');
+        $flag = $request->get('edit_name');
+        $this->tag->updateData(['id' => $id],
+            ['name' => $name, 'flag' => $flag]);
+        Tool::recordOperation(auth()->user()->name, '编辑标签');
         // 更新缓存
         Cache::forget('cache:tag_list');
+
         return redirect()->back();
     }
 
     /**
      * 标签删除.
+     *
      * @param Request $request
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request)
@@ -101,30 +114,35 @@ class TagController extends Controller
         $data = $request->only('tid');
         $arr = explode(',', $data['tid']);
         $map = [
-            'id' => ['in', $arr]
+            'id' => ['in', $arr],
         ];
         $this->tag->destroyData($map);
-        Tool::recordOperation(auth()->user()->name,'删除标签');
+        Tool::recordOperation(auth()->user()->name, '删除标签');
         // 更新缓存
         Cache::forget('cache:tag_list');
+
         return redirect()->back();
     }
 
     /**
      * @param Request $request
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function search(Request $request)
     {
         $keyword = $request->get('keyword');
         $map = [
-            ['name', 'like', '%' . $keyword . '%'],
+            ['name', 'like', '%'.$keyword.'%'],
         ];
-        $tags = $this->tag->query()->orderBy('id', 'desc')->where($map)->paginate(10);
+        $tags = $this->tag->query()->orderBy('id', 'desc')->where($map)
+            ->paginate(10);
         foreach ($tags as $tag) {
-            $articleCount = ArticleTag::query()->where('tag_id', $tag->id)->count();
+            $articleCount = ArticleTag::query()->where('tag_id', $tag->id)
+                ->count();
             $tag->article_count = $articleCount;
         }
+
         return view('admin.tag', compact('tags'));
     }
 }

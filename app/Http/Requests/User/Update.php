@@ -26,9 +26,10 @@ class Update extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', new ValidateName],
-            'email' => 'required|string|email|max:255|unique:users,email,' . $this->route()->id,
-            'roles' => 'required'
+            'name'  => ['required', new ValidateName],
+            'email' => 'required|string|email|max:255|unique:users,email,'
+                .$this->route()->id,
+            'roles' => 'required',
         ];
     }
 
@@ -40,9 +41,9 @@ class Update extends FormRequest
     public function attributes()
     {
         return [
-            'name' => '用户名',
+            'name'  => '用户名',
             'email' => '邮箱',
-            'roles' => '角色'
+            'roles' => '角色',
         ];
     }
 }

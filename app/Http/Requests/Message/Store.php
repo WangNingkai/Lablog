@@ -26,8 +26,8 @@ class Store extends FormRequest
     {
         return [
             'nickname' => 'required|string',
-            'email' => 'required|email',
-            'content' => ['required', new ValidateMessage],
+            'email'    => 'required|email',
+            'content'  => ['required', new ValidateMessage],
         ];
     }
 
@@ -40,8 +40,8 @@ class Store extends FormRequest
     {
         return [
             'nickname' => '昵称',
-            'email' => '邮箱',
-            'content' => '留言内容',
+            'email'    => '邮箱',
+            'content'  => '留言内容',
 
         ];
     }

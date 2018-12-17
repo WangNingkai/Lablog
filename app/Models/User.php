@@ -25,23 +25,33 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
-        'name', 'avatar', 'email', 'password', 'status', 'last_login_at', 'last_login_ip'
-    ];
+    protected $fillable
+        = [
+            'name',
+            'avatar',
+            'email',
+            'password',
+            'status',
+            'last_login_at',
+            'last_login_ip',
+        ];
 
     /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
      */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+    protected $hidden
+        = [
+            'password',
+            'remember_token',
+        ];
 
     /**
      * Send the password reset notification.
      *
      * @param  string $token
+     *
      * @return void
      */
     public function sendPasswordResetNotification($token)
@@ -59,7 +69,9 @@ class User extends Authenticatable
 
     public function getStatusTagAttribute()
     {
-        return $this->attributes['status'] === self::ACTIVE ? '<a href="javascript:void(0)" class="btn btn-sm btn-success btn-flat">正常</a>' : '<a href="javascript:void(0)" class="btn btn-sm btn-danger btn-flat">禁用</a>';
+        return $this->attributes['status'] === self::ACTIVE
+            ? '<a href="javascript:void(0)" class="btn btn-sm btn-success btn-flat">正常</a>'
+            : '<a href="javascript:void(0)" class="btn btn-sm btn-danger btn-flat">禁用</a>';
     }
 
     public function getAllRolesTagAttribute()
@@ -68,9 +80,11 @@ class User extends Authenticatable
         $roles = Role::all();
         foreach ($roles as $role) {
             if ($this->hasRole($role->name)) {
-                $role_tags .= '&nbsp;<a href="javascript:void(0)" class="btn btn-sm btn-success btn-flat">' . $role->name . '</a>';
+                $role_tags .= '&nbsp;<a href="javascript:void(0)" class="btn btn-sm btn-success btn-flat">'
+                    .$role->name.'</a>';
             }
         }
+
         return $role_tags;
     }
 }

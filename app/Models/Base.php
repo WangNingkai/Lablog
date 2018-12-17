@@ -20,21 +20,25 @@ class Base extends Model
      * 添加数据
      *
      * @param  array $data 需要添加的数据
+     *
      * @return bool        是否成功
      */
     public function storeData($data)
     {
         if (empty($data)) {
-            Tool::showMessage('数据为空，添加失败',false);
+            Tool::showMessage('数据为空，添加失败', false);
+
             return false;
         }
         //添加数据
         $result = $this->query()->create($data);
         if ($result) {
             Tool::showMessage('添加成功');
+
             return $result->id;
         } else {
-            Tool::showMessage('添加失败',false);
+            Tool::showMessage('添加失败', false);
+
             return false;
         }
     }
@@ -42,8 +46,9 @@ class Base extends Model
     /**
      * 修改数据
      *
-     * @param  array $map where条件
+     * @param  array $map  where条件
      * @param  array $data 需要修改的数据
+     *
      * @return bool        是否成功
      */
     public function updateData($map, $data)
@@ -55,6 +60,7 @@ class Base extends Model
         // 当数据为空的时候
         if ($model->isEmpty()) {
             Tool::showMessage('数据为空，修改失败', false);
+
             return false;
         }
         foreach ($model as $k => $v) {
@@ -62,9 +68,11 @@ class Base extends Model
         }
         if ($result) {
             Tool::showMessage('修改成功');
+
             return $result;
         } else {
-            Tool::showMessage('修改失败',false);
+            Tool::showMessage('修改失败', false);
+
             return false;
         }
     }
@@ -73,6 +81,7 @@ class Base extends Model
      * 删除数据
      *
      * @param  array $map where 条件数组形式
+     *
      * @return bool         是否成功
      */
     public function destroyData($map)
@@ -83,9 +92,11 @@ class Base extends Model
             ->delete();
         if ($result) {
             Tool::showMessage('删除成功');
+
             return $result;
         } else {
-            Tool::showMessage('删除失败',false);
+            Tool::showMessage('删除失败', false);
+
             return false;
         }
     }
@@ -106,9 +117,11 @@ class Base extends Model
             ->restore();
         if ($result) {
             Tool::showMessage('恢复成功');
+
             return $result;
         } else {
-            Tool::showMessage('恢复失败',false);
+            Tool::showMessage('恢复失败', false);
+
             return false;
         }
     }
@@ -123,18 +136,21 @@ class Base extends Model
     public function forceDeleteData($map)
     {
         // 彻底删除
-        $result=$this
+        $result = $this
             ->query()
             ->whereMap($map)
             ->forceDelete();
         if ($result) {
             Tool::showMessage('彻底删除成功');
+
             return $result;
-        }else{
-            Tool::showMessage('彻底删除失败',false);
+        } else {
+            Tool::showMessage('彻底删除失败', false);
+
             return false;
         }
     }
+
     /**
      * 使用作用域扩展 Builder 链式操作
      *
@@ -145,8 +161,9 @@ class Base extends Model
      *     'tag_id' => 10
      * ]
      *
-     * @param $query
+     * @param       $query
      * @param array $map
+     *
      * @return mixed
      */
     public function scopeWhereMap($query, array $map)
@@ -197,6 +214,7 @@ class Base extends Model
                 $query->$where($k, $v);
             }
         }
+
         return $query;
     }
 
@@ -215,38 +233,44 @@ class Base extends Model
      *   ]
      *
      * @param array $multipleData
+     *
      * @return bool|int
      */
-    function updateBatch($multipleData = []){
+    function updateBatch($multipleData = [])
+    {
         if (empty($multipleData)) {
             return false;
         }
         // 获取表名
-        $tableName = config('database.connections.mysql.prefix').$this->getTable();
+        $tableName = config('database.connections.mysql.prefix')
+            .$this->getTable();
         $updateColumn = array_keys($multipleData[0]);
         $referenceColumn = $updateColumn[0];
         unset($updateColumn[0]);
         $whereIn = "";
         // 组合sql语句
         $sql = "UPDATE ".$tableName." SET ";
-        foreach ( $updateColumn as $uColumn ) {
-            $sql .=  $uColumn." = CASE ";
-            foreach( $multipleData as $data ) {
-                $sql .= "WHEN ".$referenceColumn." = '".$data[$referenceColumn]."' THEN '".$data[$uColumn]."' ";
+        foreach ($updateColumn as $uColumn) {
+            $sql .= $uColumn." = CASE ";
+            foreach ($multipleData as $data) {
+                $sql .= "WHEN ".$referenceColumn." = '".$data[$referenceColumn]
+                    ."' THEN '".$data[$uColumn]."' ";
             }
             $sql .= "ELSE ".$uColumn." END, ";
         }
-        foreach( $multipleData as $data ) {
+        foreach ($multipleData as $data) {
             $whereIn .= "'".$data[$referenceColumn]."', ";
         }
-        $sql = rtrim($sql, ", ")." WHERE ".$referenceColumn." IN (".  rtrim($whereIn, ', ').")";
+        $sql = rtrim($sql, ", ")." WHERE ".$referenceColumn." IN ("
+            .rtrim($whereIn, ', ').")";
         // 更新
         $result = DB::update(DB::raw($sql));
         if ($result) {
             Tool::showMessage('操作成功');
         } else {
-            Tool::showMessage('操作失败',false);
+            Tool::showMessage('操作失败', false);
         }
+
         return $result;
     }
 }

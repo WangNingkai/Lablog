@@ -24,7 +24,7 @@ class Store extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|unique:permissions',
+            'name'  => 'required|string|unique:permissions',
             'route' => 'required|string|unique:permissions',
         ];
     }
@@ -37,7 +37,7 @@ class Store extends FormRequest
     public function attributes()
     {
         return [
-            'name' => '权限名',
+            'name'  => '权限名',
             'route' => '路由名',
 
         ];

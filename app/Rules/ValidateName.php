@@ -21,12 +21,14 @@ class ValidateName implements Rule
      * Determine if the validation rule passes.
      *
      * @param  string $attribute
-     * @param  mixed $value
+     * @param  mixed  $value
+     *
      * @return bool
      */
     public function passes($attribute, $value)
     {
         $pattern = '/^[a-zA-Z0-9_]{8,15}$/';
+
         return preg_match($pattern, $value);
     }
 

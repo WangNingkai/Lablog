@@ -26,8 +26,9 @@ class UpdateProfile extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required',new ValidateName],
-            'email' => 'required|string|email|max:255|unique:users,email,' . Auth::id(),
+            'name'  => ['required', new ValidateName],
+            'email' => 'required|string|email|max:255|unique:users,email,'
+                .Auth::id(),
         ];
     }
 
@@ -39,7 +40,7 @@ class UpdateProfile extends FormRequest
     public function attributes()
     {
         return [
-            'name' => '用户名',
+            'name'  => '用户名',
             'email' => '电子邮件',
         ];
     }

@@ -48,7 +48,7 @@ class Article extends Base
     {
         return Feed::query()->where([
             'target_type' => Feed::TYPE_ARTICLE,
-            'target_id' => $this->attributes['id'],
+            'target_id'   => $this->attributes['id'],
         ])->first();
     }
 
@@ -57,7 +57,8 @@ class Article extends Base
      */
     public function getTagIdsAttribute()
     {
-        return ArticleTag::query()->where('article_id', $this->attributes['id'])->pluck('tag_id')->toArray();
+        return ArticleTag::query()->where('article_id', $this->attributes['id'])
+            ->pluck('tag_id')->toArray();
     }
 
     /**
@@ -65,7 +66,10 @@ class Article extends Base
      */
     public function getCommentCountAttribute()
     {
-        return Comment::query()->where(['article_id' => $this->attributes['id'], 'status' => Comment::CHECKED])->count();
+        return Comment::query()->where([
+            'article_id' => $this->attributes['id'],
+            'status'     => Comment::CHECKED,
+        ])->count();
     }
 
     /**
@@ -73,32 +77,44 @@ class Article extends Base
      */
     public function getFeedUpdatedAtAttribute()
     {
-        return Feed::query()->where(['target_type' => Feed::TYPE_ARTICLE, 'target_id' => $this->attributes['id']])->value('updated_at');
+        return Feed::query()->where([
+            'target_type' => Feed::TYPE_ARTICLE,
+            'target_id'   => $this->attributes['id'],
+        ])->value('updated_at');
     }
 
     /**
      * 获取状态标签
+     *
      * @return string
      */
     public function getStatusTagAttribute()
     {
-        return $this->attributes['status'] === self::PUBLISHED ? '<a href="javascript:void(0)" class="btn btn-sm btn-success btn-flat">显示</a>' : '<a href="javascript:void(0)" class="btn btn-sm btn-danger btn-flat">隐藏</a>';
+        return $this->attributes['status'] === self::PUBLISHED
+            ? '<a href="javascript:void(0)" class="btn btn-sm btn-success btn-flat">显示</a>'
+            : '<a href="javascript:void(0)" class="btn btn-sm btn-danger btn-flat">隐藏</a>';
     }
 
     /**
      * 获取置顶标签
+     *
      * @return string
      */
     public function getTopTagAttribute()
     {
         $route = route('article_top', $this->attributes['id']);
-        return $this->attributes['is_top'] === self::IS_TOP ? '<a href="' . $route . '" class="btn btn-sm btn-info btn-flat">取消置顶</a>' : '<a href="' . $route . '" class="btn btn-sm btn-danger btn-flat">置顶</a>';
+
+        return $this->attributes['is_top'] === self::IS_TOP ? '<a href="'.$route
+            .'" class="btn btn-sm btn-info btn-flat">取消置顶</a>'
+            : '<a href="'.$route
+            .'" class="btn btn-sm btn-danger btn-flat">置顶</a>';
     }
 
     /**
      * 过滤描述中的换行。
      *
      * @param  string $value
+     *
      * @return string
      */
     public function getDescriptionAttribute($value)
@@ -110,6 +126,7 @@ class Article extends Base
      * 添加文章
      *
      * @param array $data
+     *
      * @return bool|mixed
      */
     public function storeData($data)
@@ -119,7 +136,11 @@ class Article extends Base
         $feed['html'] = Tool::markdown2Html($data['content']);
         // 如果没有描述;则截取文章内容的前200字作为描述
         if (empty($data['description'])) {
-            $description = preg_replace(array('/[~*>#-]*/', '/!?\[.*\]\(.*\)/', '/\[.*\]/'), '', $data['content']);
+            $description = preg_replace(array(
+                '/[~*>#-]*/',
+                '/!?\[.*\]\(.*\)/',
+                '/\[.*\]/',
+            ), '', $data['content']);
             $data['description'] = Tool::subStr($description, 0, 150, true);
         }
         unset($data['tag_ids']);
@@ -134,11 +155,12 @@ class Article extends Base
             // 保存feed
             Feed::query()->create([
                 'target_type' => Feed::TYPE_ARTICLE,
-                'target_id' => $result,
-                'content' => $feed['content'],
-                'html' => $feed['html'],
+                'target_id'   => $result,
+                'content'     => $feed['content'],
+                'html'        => $feed['html'],
             ]);
             Tool::syncRank($result);
+
             return $result;
         } else {
             return false;
@@ -148,6 +170,7 @@ class Article extends Base
     /**
      * @param int $id
      * @param array $data
+     *
      * @return bool
      */
     public function updateData($id, $data)
@@ -157,7 +180,11 @@ class Article extends Base
         $feed['html'] = Tool::markdown2Html($data['content']);
         // 如果没有描述;则截取文章内容的前150字作为描述
         if (empty($data['description'])) {
-            $description = preg_replace(array('/[~*>#-]*/', '/!?\[.*\]\(.*\)/', '/\[.*\]/'), '', $data['content']);
+            $description = preg_replace(array(
+                '/[~*>#-]*/',
+                '/!?\[.*\]\(.*\)/',
+                '/\[.*\]/',
+            ), '', $data['content']);
             $data['description'] = Tool::subStr($description, 0, 150, true);
         }
         unset($data['tag_ids']);
@@ -169,11 +196,12 @@ class Article extends Base
             // 保存feed
             Feed::query()->where([
                 ['target_type', '=', Feed::TYPE_ARTICLE],
-                ['target_id', '=', $id]
+                ['target_id', '=', $id],
             ])->update([
                 'content' => $feed['content'],
-                'html' => $feed['html'],
+                'html'    => $feed['html'],
             ]);
+
             return $result;
         } else {
             return false;

@@ -24,10 +24,10 @@ class Store extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|string',
-            'author' => 'required|string',
+            'title'   => 'required|string',
+            'author'  => 'required|string',
             'content' => 'required|string',
-            'status' => 'required'
+            'status'  => 'required',
         ];
     }
 
@@ -39,10 +39,10 @@ class Store extends FormRequest
     public function attributes()
     {
         return [
-            'title' => '标题',
-            'author' => '作者',
+            'title'   => '标题',
+            'author'  => '作者',
             'content' => '内容',
-            'status' => '状态'
+            'status'  => '状态',
         ];
     }
 }

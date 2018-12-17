@@ -40,9 +40,7 @@ chown -R www:www *
 
 ##### 可选扩展
 
-- `Beanstalkd`
-
-
+- `Beanstalkd` 队列
 
 ##### 博客加入push自动更新部署脚本，使用webhooks具体路由
 

@@ -24,8 +24,8 @@ class UpdatePassword extends FormRequest
     public function rules()
     {
         return [
-            'old_password' => 'required|string|min:8',
-            'password' => 'required|string|min:8|confirmed|different:old_password',
+            'old_password'          => 'required|string|min:8',
+            'password'              => 'required|string|min:8|confirmed|different:old_password',
             'password_confirmation' => 'required|string|min:8',
         ];
     }
@@ -38,8 +38,8 @@ class UpdatePassword extends FormRequest
     public function attributes()
     {
         return [
-            'old_password' => '原密码',
-            'password' => '新密码',
+            'old_password'          => '原密码',
+            'password'              => '新密码',
             'password_confirmation' => '确认密码',
         ];
     }

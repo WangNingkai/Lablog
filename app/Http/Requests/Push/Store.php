@@ -23,9 +23,9 @@ class Store extends FormRequest
     {
         return [
             'subject' => 'required|string',
-            'target' => 'required',
-            'method' => 'required',
-            'content' => 'required'
+            'target'  => 'required',
+            'method'  => 'required',
+            'content' => 'required',
         ];
     }
 
@@ -38,9 +38,9 @@ class Store extends FormRequest
     {
         return [
             'subject' => '主题',
-            'target' => '用户',
-            'method' => '状态',
-            'content' => '内容'
+            'target'  => '用户',
+            'method'  => '状态',
+            'content' => '内容',
         ];
     }
 }

@@ -20,7 +20,7 @@ class ArticleTag extends Base
         foreach ($tag_ids as $k => $v) {
             $data[] = [
                 'article_id' => $article_id,
-                'tag_id' => $v
+                'tag_id'     => $v,
             ];
         }
         $this->query()->insert($data);
@@ -30,6 +30,7 @@ class ArticleTag extends Base
      * 传递一个文章id数组;获取标签名
      *
      * @param $ids
+     *
      * @return array
      */
     public function getTagNameByArticleIds($ids)
@@ -37,7 +38,8 @@ class ArticleTag extends Base
         // 获取标签数据
         $tag = $this
             ->query()
-            ->select('article_tags.article_id as id', 't.id as tag_id', 't.name')
+            ->select('article_tags.article_id as id', 't.id as tag_id',
+                't.name')
             ->join('tags as t', 'article_tags.tag_id', 't.id')
             ->whereIn('article_tags.article_id', $ids)
             ->get();
@@ -46,6 +48,7 @@ class ArticleTag extends Base
         foreach ($tag as $k => $v) {
             $data[$v->id][] = $v;
         }
+
         return $data;
     }
 }

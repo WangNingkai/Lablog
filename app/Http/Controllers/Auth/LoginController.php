@@ -41,31 +41,35 @@ class LoginController extends Controller
     /**
      * DESC: 重写 AuthenticatesUsers 登录验证方法，并自定义提示信息;
      * 原验证方法 Illuminate\Foundation\Auth\AuthenticatesUsers
+     *
      * @param Request $request
+     *
      * @throws \Illuminate\Validation\ValidationException
      */
     protected function validateLogin(Request $request)
     {
         $this->validate($request, [
             $this->username() => 'required|string',
-            'password' => 'required|string',
-            'captcha' => 'required|captcha',
-        ],[
+            'password'        => 'required|string',
+            'captcha'         => 'required|captcha',
+        ], [
             'captcha.required' => '请填写验证码',
-            'captcha.captcha' => '验证码错误',
+            'captcha.captcha'  => '验证码错误',
         ]);
     }
 
     /**
      * 退出跳转回登录页
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function logout(Request $request)
     {
         $this->guard()->logout();
         $request->session()->invalidate();
+
         return $this->loggedOut($request) ?: redirect('/login');
     }
 }

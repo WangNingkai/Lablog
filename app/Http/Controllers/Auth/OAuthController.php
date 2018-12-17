@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
@@ -16,14 +17,16 @@ class OAuthController extends Controller
     /**
      * @var array 第三方登录类型
      */
-    public $type = [
-        'qq'     => 1,
-        'weibo'  => 2,
-        'github' => 3
-    ];
+    public $type
+        = [
+            'qq'     => 1,
+            'weibo'  => 2,
+            'github' => 3,
+        ];
 
     /**
      * OAuthController constructor.
+     *
      * @param Request $request
      */
     public function __construct(Request $request)
@@ -36,7 +39,9 @@ class OAuthController extends Controller
 
     /**
      * 将用户重定向到授权认证页面
+     *
      * @param $service
+     *
      * @return mixed
      */
     public function redirectToProvider($service)
@@ -45,27 +50,32 @@ class OAuthController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param Request   $request
      * @param OauthInfo $oauthInfo
-     * @param $service
+     * @param           $service
+     *
      * @return \Illuminate\Http\RedirectResponse
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function handleProviderCallback(Request $request, OauthInfo $oauthInfo, $service)
-    {
+    public function handleProviderCallback(
+        Request $request,
+        OauthInfo $oauthInfo,
+        $service
+    ) {
         // 获取第三方登录用户资料
         $oauth_user = Socialite::driver($service)->user();
 
         // 判断当前用户是否登录
-        if( !Auth::guest() ) {
+        if (!Auth::guest()) {
             $uid = Auth::id();
             // 判断是否绑定
             $checkBind = $oauthInfo->whereMap([
                 'type'   => $this->type[$service],
-                'openid' => $oauth_user->id
+                'openid' => $oauth_user->id,
             ])->first();
-            if( $checkBind ) {
-                Tool::showMessage('您已经绑定'.$service.'登录，无需再进行绑定',false);
+            if ($checkBind) {
+                Tool::showMessage('您已经绑定'.$service.'登录，无需再进行绑定', false);
+
                 return redirect()->route('dashboard_home');
             }
             // 如果是第一次绑定，替换默认管理员图片
@@ -76,7 +86,7 @@ class OAuthController extends Controller
                 // 下载最新的头像到本地
                 $client = new Client(['verify' => false]);
                 $client->request('GET', $oauth_user->avatar, [
-                    'sink' => $avatarSavePath
+                    'sink' => $avatarSavePath,
                 ]);
             } catch (ClientException $e) {
                 // 如果下载失败；则使用默认图片
@@ -84,36 +94,38 @@ class OAuthController extends Controller
             }
             $user = Auth::user();
             // 如果用户默认头像为空或者为default，则关联登录头像
-            if( empty($user->avatar) || strpos( $user->avatar,'default') ) {
+            if (empty($user->avatar) || strpos($user->avatar, 'default')) {
                 $user->avatar = $avatarPath;
                 $user->save();
             }
             $data = [
-                'user_id'  => $uid,
-                'type' => $this->type[$service],
-                'name' => $oauth_user->nickname,
-                'avatar' => $oauth_user->avatar,
-                'openid' => $oauth_user->id,
-                'access_token' => $oauth_user->token,
+                'user_id'       => $uid,
+                'type'          => $this->type[$service],
+                'name'          => $oauth_user->nickname,
+                'avatar'        => $oauth_user->avatar,
+                'openid'        => $oauth_user->id,
+                'access_token'  => $oauth_user->token,
                 'last_login_ip' => $request->getClientIp(),
-                'login_times' => 1,
+                'login_times'   => 1,
             ];
             // 保存绑定信息
             $oauthInfo->storeData($data);
-            Tool::recordOperation(auth()->user()->name,'关联'.$service.'登录');
+            Tool::recordOperation(auth()->user()->name, '关联'.$service.'登录');
             Tool::showMessage('绑定成功，下次可使用'.$service.'登录');
+
             return redirect()->route('dashboard_home');
         }
         // 查找用户是否存在绑定信息
         $user = $oauthInfo->whereMap([
             'type'   => $this->type[$service],
-            'openid' => $oauth_user->id
+            'openid' => $oauth_user->id,
         ])->first();
-        if ( !$user ) {
-            Tool::showMessage('后台未绑定关联登录，请绑定后再关联登陆',false);
+        if (!$user) {
+            Tool::showMessage('后台未绑定关联登录，请绑定后再关联登陆', false);
+
             return redirect()->route('login');
         }
-       // 登录并且「记住」给定的用户
+        // 登录并且「记住」给定的用户
         Auth::loginUsingId($user->user_id, true);
         // 更新第三方登录信息
         $user->update([
@@ -122,6 +134,7 @@ class OAuthController extends Controller
             'last_login_ip' => $request->getClientIp(),
             'login_times'   => $user->login_times + 1,
         ]);
+
 //        Tool::showMessage('登陆成功，欢迎使用'.$service.'登录');
         return redirect()->route('dashboard_home');
     }
@@ -134,6 +147,7 @@ class OAuthController extends Controller
     public function logout()
     {
         Auth::logout();
+
         return redirect()->back();
     }
 }

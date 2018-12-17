@@ -12,7 +12,8 @@ class CheckStatus
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  \Closure $next
+     * @param  \Closure                 $next
+     *
      * @return mixed
      */
     public function handle($request, Closure $next)
@@ -32,6 +33,7 @@ class CheckStatus
         if ($route == 'subscribe' && $allowSubscribe == 0) {
             return abort(404);
         }
+
         return $next($request);
     }
 }

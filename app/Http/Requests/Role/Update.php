@@ -24,7 +24,7 @@ class Update extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|unique:roles,name,' . $this->route()->id,
+            'name' => 'required|string|unique:roles,name,'.$this->route()->id,
         ];
     }
 

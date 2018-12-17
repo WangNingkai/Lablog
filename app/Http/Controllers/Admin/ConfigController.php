@@ -22,8 +22,10 @@ class ConfigController extends Controller
 
     /**
      * 更新配置.
+     *
      * @param Request $request
-     * @param Config $config
+     * @param Config  $config
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, Config $config)
@@ -33,7 +35,7 @@ class ConfigController extends Controller
         foreach ($data as $k => $v) {
             $editData[] = [
                 'name' => $k,
-                'value' => $v
+                'value' => $v,
             ];
         }
         $config->updateBatch($editData);
@@ -43,6 +45,7 @@ class ConfigController extends Controller
         Cache::forget('cache:config:site_status');
         Cache::forget('cache:config:site_allow_message');
         Cache::forget('cache:config:site_allow_subscribe');
+
         return redirect()->back();
     }
 
@@ -52,15 +55,19 @@ class ConfigController extends Controller
     public function uploadImage()
     {
         $field = 'water_mark';
-        $rule = [$field => 'required|max:1024|image|dimensions:max_width=200,max_height=200'];
+        $rule
+            = [$field => 'required|max:1024|image|dimensions:max_width=200,max_height=200'];
         $file = public_path('img/water_mark.png');
         if (file_exists($file)) {
             @unlink($file);
         } // TODO：水印问题
         $uploadPath = 'img';
         $fileName = 'water_mark';
-        $result = Tool::uploadFile($field, $rule, $uploadPath, $fileName, false);
-        $result['status_code'] == 200 ? Tool::showMessage('水印上传成功') : Tool::showMessage($result['message'], false);
+        $result = Tool::uploadFile($field, $rule, $uploadPath, $fileName,
+            false);
+        $result['status_code'] == 200 ? Tool::showMessage('水印上传成功')
+            : Tool::showMessage($result['message'], false);
+
         return redirect()->back();
     }
 }

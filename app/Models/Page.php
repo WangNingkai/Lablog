@@ -21,7 +21,7 @@ class Page extends Base
     {
         return Feed::query()->where([
             'target_type' => Feed::TYPE_PAGE,
-            'target_id' => $this->attributes['id'],
+            'target_id'   => $this->attributes['id'],
         ])->first();
     }
 
@@ -30,12 +30,15 @@ class Page extends Base
      */
     public function getStatusTagAttribute()
     {
-        return $this->attributes['status'] === self::STATUS_DISPLAY ? '<a href="javascript:void(0)" class="btn btn-sm btn-success btn-flat">显示</a>' : '<a href="javascript:void(0)" class="btn btn-sm btn-danger btn-flat">隐藏</a>';
+        return $this->attributes['status'] === self::STATUS_DISPLAY
+            ? '<a href="javascript:void(0)" class="btn btn-sm btn-success btn-flat">显示</a>'
+            : '<a href="javascript:void(0)" class="btn btn-sm btn-danger btn-flat">隐藏</a>';
     }
 
     /**
      *
      * @param array $data
+     *
      * @return bool|mixed
      */
     public function storeData($data)
@@ -47,10 +50,11 @@ class Page extends Base
         if ($result) {
             Feed::query()->create([
                 'target_type' => Feed::TYPE_PAGE,
-                'target_id' => $result,
-                'content' => $feed['content'],
-                'html' => $feed['html'],
+                'target_id'   => $result,
+                'content'     => $feed['content'],
+                'html'        => $feed['html'],
             ]);
+
             return $result;
         } else {
             return false;
@@ -60,6 +64,7 @@ class Page extends Base
     /**
      * @param array $id
      * @param array $data
+     *
      * @return bool
      */
     public function updateData($id, $data)
@@ -71,11 +76,12 @@ class Page extends Base
         if ($result) {
             Feed::query()->where([
                 ['target_type', '=', Feed::TYPE_PAGE],
-                ['target_id', '=', $id]
+                ['target_id', '=', $id],
             ])->update([
                 'content' => $feed['content'],
-                'html' => $feed['html'],
+                'html'    => $feed['html'],
             ]);
+
             return $result;
         } else {
             return false;

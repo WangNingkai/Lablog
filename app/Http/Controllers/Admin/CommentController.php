@@ -17,6 +17,7 @@ class CommentController extends Controller
 
     /**
      * CommentController constructor.
+     *
      * @param Comment $comment
      */
     public function __construct(Comment $comment)
@@ -31,13 +32,17 @@ class CommentController extends Controller
      */
     public function manage()
     {
-        $comments=$this->comment->with('article')->orderBy('created_at','DESC')->paginate(10);
-        return view('admin.comment',compact('comments'));
+        $comments = $this->comment->with('article')
+            ->orderBy('created_at', 'DESC')->paginate(10);
+
+        return view('admin.comment', compact('comments'));
     }
 
     /**
      * 查看评论信息
+     *
      * @param null $id
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function show($id = null)
@@ -48,11 +53,14 @@ class CommentController extends Controller
         if (!$response = $this->comment->query()->find($id)) {
             return Tool::ajaxReturn(404, ['alert' => '未找到相关数据']);
         }
+
         return Tool::ajaxReturn(200, $response);
     }
 
     /** 审核评论
+     *
      * @param Request $request
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function check(Request $request)
@@ -60,16 +68,18 @@ class CommentController extends Controller
         $data = $request->only('cid');
         $arr = explode(',', $data['cid']);
         $map = [
-            'id' => ['in', $arr]
+            'id' => ['in', $arr],
         ];
         $this->comment->checkData($map);
-        Tool::recordOperation(auth()->user()->name,'审核评论');
-        $article_ids=$this->comment->query()->whereIn('id',$arr)->pluck('article_id');
+        Tool::recordOperation(auth()->user()->name, '审核评论');
+        $article_ids = $this->comment->query()->whereIn('id', $arr)
+            ->pluck('article_id');
         foreach ($article_ids as $article_id) {
             if (Cache::has('cache:article'.$article_id)) {
                 Cache::forget('cache:article'.$article_id);
             }
         }
+
         return redirect()->route('comment_manage');
     }
 
@@ -77,20 +87,24 @@ class CommentController extends Controller
      * 回复评论.
      *
      * @param  Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function reply(Request $request)
     {
-        $id =  $request->get('id');
+        $id = $request->get('id');
         $reply = $request->get('reply');
-        $this->comment->replyData($id,$reply);
-        $emailTo=$this->comment->query()->where('id',$id)->value('email');
-        $article_id=$this->comment->query()->where('id',$id)->value('article_id');
-        Tool::recordOperation(auth()->user()->name,'回复评论');
-        Tool::pushMessage($emailTo,$emailTo,'您在我站的评论，站长已经回复，请注意查看',route('article',$article_id));
+        $this->comment->replyData($id, $reply);
+        $emailTo = $this->comment->query()->where('id', $id)->value('email');
+        $article_id = $this->comment->query()->where('id', $id)
+            ->value('article_id');
+        Tool::recordOperation(auth()->user()->name, '回复评论');
+        Tool::pushMessage($emailTo, $emailTo, '您在我站的评论，站长已经回复，请注意查看',
+            route('article', $article_id));
         if (Cache::has('cache:article'.$article_id)) {
             Cache::forget('cache:article'.$article_id);
         }
+
         return redirect()->route('comment_manage');
     }
 
@@ -98,6 +112,7 @@ class CommentController extends Controller
      * 删除评论.
      *
      * @param  Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request)
@@ -105,16 +120,18 @@ class CommentController extends Controller
         $data = $request->only('cid');
         $arr = explode(',', $data['cid']);
         $map = [
-            'id' => ['in', $arr]
+            'id' => ['in', $arr],
         ];
         $this->comment->destroyData($map);
-        Tool::recordOperation(auth()->user()->name,'删除评论');
-        $article_ids=$this->comment->query()->whereIn('id',$arr)->pluck('article_id');
+        Tool::recordOperation(auth()->user()->name, '删除评论');
+        $article_ids = $this->comment->query()->whereIn('id', $arr)
+            ->pluck('article_id');
         foreach ($article_ids as $article_id) {
             if (Cache::has('cache:article'.$article_id)) {
                 Cache::forget('cache:article'.$article_id);
             }
         }
+
         return redirect()->back();
     }
 
