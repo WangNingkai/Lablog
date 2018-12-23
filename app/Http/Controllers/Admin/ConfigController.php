@@ -35,7 +35,7 @@ class ConfigController extends Controller
         foreach ($data as $k => $v) {
             $editData[] = [
                 'name' => $k,
-                'value' => $v,
+                'value' => addslashes($v), // 临时处理转义配置单双引号
             ];
         }
         $config->updateBatch($editData);
