@@ -99,8 +99,12 @@ class CommentController extends Controller
         $article_id = $this->comment->query()->where('id', $id)
             ->value('article_id');
         Tool::recordOperation(auth()->user()->name, '回复评论');
-        Tool::pushMessage($emailTo, $emailTo, '您在我站的评论，站长已经回复，请注意查看',
-            route('article', $article_id));
+        Tool::pushMessage(
+            $emailTo,
+            $emailTo,
+            '您在我站的评论，站长已经回复，请注意查看',
+            route('article', $article_id)
+        );
         if (Cache::has('cache:article'.$article_id)) {
             Cache::forget('cache:article'.$article_id);
         }
@@ -131,8 +135,8 @@ class CommentController extends Controller
                 Cache::forget('cache:article'.$article_id);
             }
         }
+        Cache::forget('count:comment');
 
         return redirect()->back();
     }
-
 }

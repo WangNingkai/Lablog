@@ -107,6 +107,8 @@ class MessageController extends Controller
         ];
         $this->message->destroyData($map);
         Tool::recordOperation(auth()->user()->name, '删除留言');
+        Cache::forget('count:message');
+
 
         return redirect()->back();
     }

@@ -47,8 +47,15 @@ class ArticleController extends Controller
         $category ? array_push($map, ['category_id', '=', $category]) : null;
         $articles = $this->article
             ->query()
-            ->select('id', 'category_id', 'title', 'status', 'is_top', 'click',
-                'created_at')
+            ->select(
+                'id',
+                'category_id',
+                'title',
+                'status',
+                'is_top',
+                'click',
+                'created_at'
+            )
             ->where($map)
             ->with('category')
             ->orderByDesc('is_top')
@@ -107,12 +114,16 @@ class ArticleController extends Controller
         if ($request->get('status') == $this->article::PUBLISHED) {
             // 推送订阅
             $title = $request->get('title');
-            Tool::pushSubscribe('Lablog 站点提醒', '新文章发布：'.$title.'，快来瞧瞧吧',
-                route('article', $id));
+            Tool::pushSubscribe(
+                'Lablog 站点提醒',
+                '新文章发布：'.$title.'，快来瞧瞧吧',
+                route('article', $id)
+            );
         }
         Tool::recordOperation(auth()->user()->name, '添加文章');
         // 更新缓存
         Cache::forget('cache:top_article_list');
+        Cache::forget('count:article');
         Cache::forget('feed:articles');
 
         return redirect()->route('article_manage');
@@ -128,12 +139,16 @@ class ArticleController extends Controller
     public function edit($id)
     {
         $article = $this->article->query()->find($id);
-        $category = Tool::getSelect(Category::all()->toArray(),
-            $article->getAttributeValue('category_id'));
+        $category = Tool::getSelect(
+            Category::all()->toArray(),
+            $article->getAttributeValue('category_id')
+        );
         $tag = Tag::all();
 
-        return view('admin.article-edit',
-            compact('article', 'category', 'tag'));
+        return view(
+            'admin.article-edit',
+            compact('article', 'category', 'tag')
+        );
     }
 
     /**
@@ -152,8 +167,11 @@ class ArticleController extends Controller
         if (($data['status'] - $oldStatus) > 0) {
             // 推送订阅 草稿状态文章发布
             $title = $request->get('title');
-            Tool::pushSubscribe('Lablog 站点提醒', '新文章发布：'.$title.'，快来瞧瞧吧',
-                route('article', $id));
+            Tool::pushSubscribe(
+                'Lablog 站点提醒',
+                '新文章发布：'.$title.'，快来瞧瞧吧',
+                route('article', $id)
+            );
         }
         Tool::recordOperation(auth()->user()->name, '编辑文章');
         // 更新缓存
@@ -184,6 +202,7 @@ class ArticleController extends Controller
         Tool::recordOperation(auth()->user()->name, '软删除文章');
         // 更新缓存
         Cache::forget('cache:top_article_list');
+        Cache::forget('count:article');
         Cache::forget('feed:articles');
 
         return redirect()->back();
@@ -225,6 +244,8 @@ class ArticleController extends Controller
         Tool::recordOperation(auth()->user()->name, '恢复软删除文章');
         // 更新缓存
         Cache::forget('cache:top_article_list');
+        Cache::forget('count:article');
+
         Cache::forget('feed:articles');
 
         return redirect()->back();
@@ -267,6 +288,7 @@ class ArticleController extends Controller
         // 更新缓存
         Cache::forget('cache:top_article_list');
         Cache::forget('cache:tag_list');
+        Cache::forget('count:article');
         Cache::forget('feed:articles');
 
         return redirect()->back();
@@ -286,10 +308,11 @@ class ArticleController extends Controller
         $result = Tool::uploadFile($field, $rule, $uploadPath, false, true);
         if ($result['status_code'] == 200) {
             $file = $result['data'];
-            if (Tool::config('water_mark_status')) // 加水印
-            {
-                Tool::addImgWater($file['absolutePath'],
-                    config('global.image_water_mark'));
+            if (Tool::config('water_mark_status')) { // 加水印
+                Tool::addImgWater(
+                    $file['absolutePath'],
+                    config('global.image_water_mark')
+                );
             }
 
             return response()->json([
@@ -302,6 +325,5 @@ class ArticleController extends Controller
                 'filename' => $result['message'],
             ]);
         }
-
     }
 }

@@ -45,7 +45,6 @@ class PageController extends Controller
             ->paginate(10);
 
         return view('admin.page', compact('pages'));
-
     }
 
     /**
@@ -65,7 +64,7 @@ class PageController extends Controller
     {
         $this->page->storeData($request->all());
         Tool::recordOperation(auth()->user()->name, '添加单页');
-
+        Cache::forget('count:page');
         return redirect()->route('page_manage');
     }
 
@@ -113,6 +112,7 @@ class PageController extends Controller
         ];
         $this->page->destroyData($map);
         Tool::recordOperation(auth()->user()->name, '软删除单页');
+        Cache::forget('count:page');
 
         return redirect()->back();
     }
@@ -147,6 +147,7 @@ class PageController extends Controller
         }
         Tool::showMessage('恢复成功');
         Tool::recordOperation(auth()->user()->name, '恢复软删除单页');
+        Cache::forget('count:page');
 
         return redirect()->back();
     }
