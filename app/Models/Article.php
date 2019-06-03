@@ -48,7 +48,7 @@ class Article extends Base
     {
         return Feed::query()->where([
             'target_type' => Feed::TYPE_ARTICLE,
-            'target_id'   => $this->attributes['id'],
+            'target_id' => $this->attributes['id'],
         ])->first();
     }
 
@@ -68,7 +68,7 @@ class Article extends Base
     {
         return Comment::query()->where([
             'article_id' => $this->attributes['id'],
-            'status'     => Comment::CHECKED,
+            'status' => Comment::CHECKED,
         ])->count();
     }
 
@@ -79,7 +79,7 @@ class Article extends Base
     {
         return Feed::query()->where([
             'target_type' => Feed::TYPE_ARTICLE,
-            'target_id'   => $this->attributes['id'],
+            'target_id' => $this->attributes['id'],
         ])->value('updated_at');
     }
 
@@ -104,16 +104,16 @@ class Article extends Base
     {
         $route = route('article_top', $this->attributes['id']);
 
-        return $this->attributes['is_top'] === self::IS_TOP ? '<a href="'.$route
-            .'" class="btn btn-sm btn-info btn-flat">取消置顶</a>'
-            : '<a href="'.$route
-            .'" class="btn btn-sm btn-danger btn-flat">置顶</a>';
+        return $this->attributes['is_top'] === self::IS_TOP ? '<a href="' . $route
+            . '" class="btn btn-sm btn-info btn-flat">取消置顶</a>'
+            : '<a href="' . $route
+            . '" class="btn btn-sm btn-danger btn-flat">置顶</a>';
     }
 
     /**
      * 过滤描述中的换行。
      *
-     * @param  string $value
+     * @param string $value
      *
      * @return string
      */
@@ -155,16 +155,15 @@ class Article extends Base
             // 保存feed
             Feed::query()->create([
                 'target_type' => Feed::TYPE_ARTICLE,
-                'target_id'   => $result,
-                'content'     => $feed['content'],
-                'html'        => $feed['html'],
+                'target_id' => $result,
+                'content' => $feed['content'],
+                'html' => $feed['html'],
             ]);
             Tool::syncRank($result);
 
             return $result;
-        } else {
-            return false;
         }
+        return false;
     }
 
     /**
@@ -187,8 +186,7 @@ class Article extends Base
             ), '', $data['content']);
             $data['description'] = Tool::subStr($description, 0, 150, true);
         }
-        unset($data['tag_ids']);
-        unset($data['content']);
+        unset($data['tag_ids'], $data['content']);
         $result = parent::updateData(['id' => $id], $data);
         if ($result) {
             $articleTagModel = new ArticleTag;
@@ -199,13 +197,12 @@ class Article extends Base
                 ['target_id', '=', $id],
             ])->update([
                 'content' => $feed['content'],
-                'html'    => $feed['html'],
+                'html' => $feed['html'],
             ]);
 
             return $result;
-        } else {
-            return false;
         }
+        return false;
     }
 
 }

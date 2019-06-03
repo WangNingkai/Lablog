@@ -353,7 +353,7 @@ class HomeController extends Controller
         $links = Cache::remember('cache:link_list', 1440, function () {
             // 获取友链
             return Link::query()->select('id', 'name', 'url')
-                ->orderBy('sort', 'asc')
+                ->orderBy('sort')
                 ->get();
         });
 

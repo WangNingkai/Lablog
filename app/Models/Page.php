@@ -56,9 +56,8 @@ class Page extends Base
             ]);
 
             return $result;
-        } else {
-            return false;
         }
+        return false;
     }
 
     /**
@@ -83,8 +82,7 @@ class Page extends Base
             ]);
 
             return $result;
-        } else {
-            return false;
         }
+        return false;
     }
 }

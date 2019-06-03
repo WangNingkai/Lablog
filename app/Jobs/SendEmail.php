@@ -75,7 +75,6 @@ class SendEmail implements ShouldQueue
      */
     public function handle()
     {
-        Tool::sendEmail($this->email, $this->name, $this->subject, $this->data,
-            'emails.base');
+        Tool::sendEmail($this->email, $this->name, $this->subject, $this->data);
     }
 }

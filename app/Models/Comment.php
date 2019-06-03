@@ -41,11 +41,10 @@ class Comment extends Base
             Tool::showMessage('评论成功，等待审核');
 
             return $result->id;
-        } else {
-            Tool::showMessage('评论失败', false);
-
-            return false;
         }
+        Tool::showMessage('评论失败', false);
+
+        return false;
     }
 
     /**
@@ -77,11 +76,10 @@ class Comment extends Base
             Tool::showMessage('操作成功');
 
             return $result;
-        } else {
-            Tool::showMessage('操作失败', false);
-
-            return false;
         }
+        Tool::showMessage('操作失败', false);
+
+        return false;
     }
 
     /**
@@ -110,10 +108,9 @@ class Comment extends Base
             Tool::showMessage('回复成功');
 
             return $result;
-        } else {
-            Tool::showMessage('回复失败', false);
-
-            return false;
         }
+        Tool::showMessage('回复失败', false);
+
+        return false;
     }
 }

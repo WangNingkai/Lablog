@@ -19,7 +19,7 @@ class Base extends Model
     /**
      * 添加数据
      *
-     * @param  array $data 需要添加的数据
+     * @param array $data 需要添加的数据
      *
      * @return bool        是否成功
      */
@@ -36,18 +36,17 @@ class Base extends Model
             Tool::showMessage('添加成功');
 
             return $result->id;
-        } else {
-            Tool::showMessage('添加失败', false);
-
-            return false;
         }
+        Tool::showMessage('添加失败', false);
+
+        return false;
     }
 
     /**
      * 修改数据
      *
-     * @param  array $map  where条件
-     * @param  array $data 需要修改的数据
+     * @param array $map where条件
+     * @param array $data 需要修改的数据
      *
      * @return bool        是否成功
      */
@@ -70,17 +69,16 @@ class Base extends Model
             Tool::showMessage('修改成功');
 
             return $result;
-        } else {
-            Tool::showMessage('修改失败', false);
-
-            return false;
         }
+        Tool::showMessage('修改失败', false);
+
+        return false;
     }
 
     /**
      * 删除数据
      *
-     * @param  array $map where 条件数组形式
+     * @param array $map where 条件数组形式
      *
      * @return bool         是否成功
      */
@@ -94,11 +92,10 @@ class Base extends Model
             Tool::showMessage('删除成功');
 
             return $result;
-        } else {
-            Tool::showMessage('删除失败', false);
-
-            return false;
         }
+        Tool::showMessage('删除失败', false);
+
+        return false;
     }
 
     /**
@@ -119,11 +116,10 @@ class Base extends Model
             Tool::showMessage('恢复成功');
 
             return $result;
-        } else {
-            Tool::showMessage('恢复失败', false);
-
-            return false;
         }
+        Tool::showMessage('恢复失败', false);
+
+        return false;
     }
 
     /**
@@ -144,11 +140,10 @@ class Base extends Model
             Tool::showMessage('彻底删除成功');
 
             return $result;
-        } else {
-            Tool::showMessage('彻底删除失败', false);
-
-            return false;
         }
+        Tool::showMessage('彻底删除失败', false);
+
+        return false;
     }
 
     /**
@@ -185,22 +180,22 @@ class Base extends Model
                 $sign = strtolower($v[0]);
                 switch ($sign) {
                     case 'in':
-                        $query->{$where.'In'}($k, $v[1]);
+                        $query->{$where . 'In'}($k, $v[1]);
                         break;
                     case 'notin':
-                        $query->{$where.'NotIn'}($k, $v[1]);
+                        $query->{$where . 'NotIn'}($k, $v[1]);
                         break;
                     case 'between':
-                        $query->{$where.'Between'}($k, $v[1]);
+                        $query->{$where . 'Between'}($k, $v[1]);
                         break;
                     case 'notbetween':
-                        $query->{$where.'NotBetween'}($k, $v[1]);
+                        $query->{$where . 'NotBetween'}($k, $v[1]);
                         break;
                     case 'null':
-                        $query->{$where.'Null'}($k);
+                        $query->{$where . 'Null'}($k);
                         break;
                     case 'notnull':
-                        $query->{$where.'NotNull'}($k);
+                        $query->{$where . 'NotNull'}($k);
                         break;
                     case '=':
                     case '>':
@@ -243,26 +238,26 @@ class Base extends Model
         }
         // 获取表名
         $tableName = config('database.connections.mysql.prefix')
-            .$this->getTable();
+            . $this->getTable();
         $updateColumn = array_keys($multipleData[0]);
         $referenceColumn = $updateColumn[0];
         unset($updateColumn[0]);
         $whereIn = "";
         // 组合sql语句
-        $sql = "UPDATE ".$tableName." SET ";
+        $sql = "UPDATE " . $tableName . " SET ";
         foreach ($updateColumn as $uColumn) {
-            $sql .= $uColumn." = CASE ";
+            $sql .= $uColumn . " = CASE ";
             foreach ($multipleData as $data) {
-                $sql .= "WHEN ".$referenceColumn." = '".$data[$referenceColumn]
-                    ."' THEN '".$data[$uColumn]."' ";
+                $sql .= "WHEN " . $referenceColumn . " = '" . $data[$referenceColumn]
+                    . "' THEN '" . $data[$uColumn] . "' ";
             }
-            $sql .= "ELSE ".$uColumn." END, ";
+            $sql .= "ELSE " . $uColumn . " END, ";
         }
         foreach ($multipleData as $data) {
-            $whereIn .= "'".$data[$referenceColumn]."', ";
+            $whereIn .= "'" . $data[$referenceColumn] . "', ";
         }
-        $sql = rtrim($sql, ", ")." WHERE ".$referenceColumn." IN ("
-            .rtrim($whereIn, ', ').")";
+        $sql = rtrim($sql, ", ") . " WHERE " . $referenceColumn . " IN ("
+            . rtrim($whereIn, ', ') . ")";
         // 更新
         $result = DB::update(DB::raw($sql));
         if ($result) {

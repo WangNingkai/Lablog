@@ -32,7 +32,7 @@ class AppServiceProvider extends ServiceProvider
                 // 获取导航栏
                 $data = Nav::query()
                     ->where('status', Nav::STATUS_DISPLAY)
-                    ->orderBy('sort', 'asc')
+                    ->orderBy('sort')
                     ->get();
 
                 return Tool::getRecursiveData($data);
@@ -42,7 +42,7 @@ class AppServiceProvider extends ServiceProvider
                     // 获取分类导航
                     return Category::query()->select('id', 'name')
                         ->where('parent_id', 0)
-                        ->orderBy('sort', 'asc')
+                        ->orderBy('sort')
                         ->get();
                 });
 

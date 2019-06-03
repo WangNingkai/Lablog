@@ -37,20 +37,19 @@ class SyncRank extends Command
      */
     public function handle()
     {
-        $this->info('['.date('Y-m-d H:i:s', time()).']开始执行热度排序');
+        $this->info('[' . date('Y-m-d H:i:s') . ']开始执行热度排序');
         $articles = Article::query()->where('status', Article::PUBLISHED)
             ->get();
         foreach ($articles as $article) {
-            $score = pow(intval($article->getAttributeValue('comment_count')),
-                    2) + intval($article->getAttributeValue('click')) + 1;
-            $t = intval((time()
+            $score = (int)$article->getAttributeValue('comment_count') ** 2 + (int)$article->getAttributeValue('click') + 1;
+            $t = (int)((time()
                     - strtotime($article->getAttributeValue('feed_updated_at')))
                 / 3600);
-            $rank = $score - 1 / (pow(($t + 2), 1.8));
+            $rank = $score - 1 / (($t + 2) ** 1.8);
             $article->rank = $rank;
             $article->save();
-            $this->info($article->id.'_'.$rank);
+            $this->info($article->id . '_' . $rank);
         }
-        $this->info('['.date('Y-m-d H:i:s', time()).']热度排序执行完成');
+        $this->info('[' . date('Y-m-d H:i:s') . ']热度排序执行完成');
     }
 }

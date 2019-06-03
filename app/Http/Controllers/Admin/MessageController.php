@@ -6,6 +6,7 @@ use App\Helpers\Extensions\Tool;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Message;
+use Illuminate\Support\Facades\Cache;
 
 class MessageController extends Controller
 {

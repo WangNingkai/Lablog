@@ -47,19 +47,19 @@ class HookController extends Controller
             if ($status) {
                 return response()->json([
                     'code' => 500,
-                    'msg'  => 'Server Error',
+                    'msg' => 'Server Error',
                 ]);
             } else {
                 return response()->json([
                     'code' => 200,
-                    'msg'  => 'ok',
+                    'msg' => 'ok',
                     'data' => $log,
                 ]);
             }
         } else {
             return response()->json([
                 'code' => 403,
-                'msg'  => 'permission denied',
+                'msg' => 'permission denied',
             ]);
         }
     }

@@ -96,10 +96,9 @@ class Message extends Base
             Tool::showMessage('回复成功');
 
             return $result;
-        } else {
-            Tool::showMessage('回复失败', false);
-
-            return false;
         }
+        Tool::showMessage('回复失败', false);
+
+        return false;
     }
 }

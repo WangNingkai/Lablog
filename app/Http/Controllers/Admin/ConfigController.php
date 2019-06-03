@@ -63,9 +63,8 @@ class ConfigController extends Controller
         } // TODO：水印问题
         $uploadPath = 'img';
         $fileName = 'water_mark';
-        $result = Tool::uploadFile($field, $rule, $uploadPath, $fileName,
-            false);
-        $result['status_code'] == 200 ? Tool::showMessage('水印上传成功')
+        $result = Tool::uploadFile($field, $rule, $uploadPath, $fileName);
+        $result['status_code'] === 200 ? Tool::showMessage('水印上传成功')
             : Tool::showMessage($result['message'], false);
 
         return redirect()->back();

@@ -36,7 +36,7 @@ class ImageController extends Controller
     {
         $rule = ['smfile' => 'required|max:5096|image'];
         $result = Tool::uploadFile('smfile', $rule, 'uploads/tmp/');
-        $file = $result['status_code'] == 200 ? $result['data'] : null;
+        $file = $result['status_code'] === 200 ? $result['data'] : null;
         $filePath = $file['absolutePath'];
         if (Tool::config('water_mark_status')) // 加水印
         {
