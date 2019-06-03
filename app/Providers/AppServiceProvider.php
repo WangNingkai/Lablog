@@ -99,8 +99,7 @@ class AppServiceProvider extends ServiceProvider
                 // 统计单页总数
                 return Page::query()->count('id');
             });
-            $assign = compact('articlesCount', '', 'commentsCount',
-                'messagesCount', 'pagesCount');
+            $assign = compact('articlesCount', 'commentsCount', 'messagesCount', 'pagesCount');
             /* @var $view \Illuminate\View\View */
             $view->with($assign);
         });
